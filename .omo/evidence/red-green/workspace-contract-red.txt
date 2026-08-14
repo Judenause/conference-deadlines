@@ -1,0 +1,37 @@
+bun test v1.3.14 (0d9b296a)
+
+scripts/workspace-contract.test.ts:
+11 | 
+12 | const requiredScripts = ["dev", "typecheck", "lint", "test", "build", "doctor", "e2e"] as const
+13 | 
+14 | test("root manifest declares the complete Bun workspace", async () => {
+15 |   const manifestFile = Bun.file(new URL("../package.json", import.meta.url))
+16 |   expect(await manifestFile.exists()).toBe(true)
+                                           ^
+error: expect(received).toBe(expected)
+
+Expected: true
+Received: false
+
+      at <anonymous> (/local_data/conf_web/scripts/workspace-contract.test.ts:16:39)
+(fail) root manifest declares the complete Bun workspace [0.80ms]
+29 |     expect(await Bun.file(new URL(`../${path}/package.json`, import.meta.url)).exists()).toBe(true)
+30 |   }
+31 | })
+32 | 
+33 | test("TypeScript base config locks the safety flags", async () => {
+34 |   const config: unknown = await Bun.file(new URL("../tsconfig.base.json", import.meta.url)).json()
+                                                                                                 ^
+ENOENT: no such file or directory, open '/local_data/conf_web/tsconfig.base.json'
+    path: "/local_data/conf_web/tsconfig.base.json",
+ syscall: "open",
+   errno: -2,
+    code: "ENOENT"
+
+      at async <anonymous> (/local_data/conf_web/scripts/workspace-contract.test.ts:34:93)
+(fail) TypeScript base config locks the safety flags [0.64ms]
+
+ 0 pass
+ 2 fail
+ 1 expect() calls
+Ran 2 tests across 1 file. [17.00ms]

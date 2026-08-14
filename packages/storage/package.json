@@ -1,0 +1,10 @@
+{
+  "name": "@conf/storage",
+  "private": true,
+  "type": "module",
+  "exports": "./src/index.ts",
+  "dependencies": {
+    "@conf/domain": "workspace:*",
+    "zod": "4.0.17"
+  }
+}

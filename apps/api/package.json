@@ -1,0 +1,12 @@
+{
+  "name": "@conf/api",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@conf/contracts": "workspace:*",
+    "@conf/domain": "workspace:*",
+    "@conf/storage": "workspace:*",
+    "hono": "4.9.2",
+    "zod": "4.0.17"
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "name": "conference-deadline-platform",
+  "private": true,
+  "packageManager": "bun@1.3.14",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "bun --filter @conf/web dev",
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "lint": "biome check .",
+    "test": "bun test",
+    "build": "bun scripts/verify-design-contract.ts",
+    "doctor": "bun run typecheck && bun run lint && bun run test && bun run build",
+    "e2e": "bun --filter @conf/web e2e"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "2.2.0",
+    "@types/bun": "1.2.19",
+    "typescript": "5.9.2"
+  }
+}
