@@ -1,0 +1,18 @@
+{
+  "sourceId": "cui-2026-official",
+  "mode": "fixture",
+  "requestedUrl": "https://cui.acm.org/2026/submission/",
+  "finalUrl": "https://cui.acm.org/2026/submission/",
+  "checkedAt": "2026-08-14T01:00:00Z",
+  "sha256": "fd67fd2a2b1fb9e8382617b759559b5a8743c239b07ceed67a071d03f7bddb7a",
+  "observations": [
+    {
+      "kind": "paper_submission",
+      "rawValue": "2026-03-16 23:59 AoE",
+      "normalizedValue": "2026-03-17T11:59:59Z",
+      "locator": "#important-dates",
+      "confidence": 0.98,
+      "state": "accepted"
+    }
+  ]
+}

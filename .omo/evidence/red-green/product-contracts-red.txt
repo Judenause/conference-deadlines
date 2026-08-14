@@ -1,0 +1,46 @@
+bun test v1.3.14 (0d9b296a)
+
+apps/api/src/app.test.ts:
+
+# Unhandled error between tests
+-------------------------------
+error: Cannot find module './app' from '/local_data/conf_web/apps/api/src/app.test.ts'
+-------------------------------
+
+
+packages/crawler/src/source-registry.test.ts:
+
+# Unhandled error between tests
+-------------------------------
+error: Cannot find module './source-registry' from '/local_data/conf_web/packages/crawler/src/source-registry.test.ts'
+-------------------------------
+
+
+packages/crawler/src/parsers.test.ts:
+
+# Unhandled error between tests
+-------------------------------
+error: Cannot find module './parsers' from '/local_data/conf_web/packages/crawler/src/parsers.test.ts'
+-------------------------------
+
+
+packages/domain/src/diff.test.ts:
+
+# Unhandled error between tests
+-------------------------------
+error: Cannot find module './diff' from '/local_data/conf_web/packages/domain/src/diff.test.ts'
+-------------------------------
+
+
+packages/domain/src/deadline-time.test.ts:
+
+# Unhandled error between tests
+-------------------------------
+error: Cannot find module './deadline-time' from '/local_data/conf_web/packages/domain/src/deadline-time.test.ts'
+-------------------------------
+
+
+ 0 pass
+ 5 fail
+ 5 errors
+Ran 5 tests across 5 files. [23.00ms]

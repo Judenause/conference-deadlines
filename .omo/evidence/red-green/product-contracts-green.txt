@@ -1,0 +1,30 @@
+bun test v1.3.14 (0d9b296a)
+
+apps/api/src/app.test.ts:
+(pass) empty search is a successful empty collection [8.64ms]
+(pass) malformed limit is a typed problem response [1.55ms]
+(pass) edition exposes evidence and accepted history [2.19ms]
+
+packages/crawler/src/source-registry.test.ts:
+(pass) registered source resolves to its exact HTTPS host [0.13ms]
+(pass) arbitrary URL input is rejected [0.11ms]
+
+packages/crawler/src/parsers.test.ts:
+(pass) official parser extracts explicit AoE and its locator [9.05ms]
+(pass) missing timezone is routed to review [0.98ms]
+(pass) OpenReview uses duedate, not invitation expiration [0.14ms]
+
+packages/domain/src/diff.test.ts:
+(pass) stable hash ignores deadline ordering [3.73ms]
+(pass) semantic diff carries both observation IDs [0.37ms]
+
+packages/domain/src/deadline-time.test.ts:
+(pass) explicit AoE retains provenance and becomes an exact UTC instant [0.10ms]
+(pass) ambiguous deadline 2026-03-16 requires review [0.04ms]
+(pass) ambiguous deadline midnight requires review
+(pass) ambiguous deadline March 16, 23:59 requires review
+
+ 14 pass
+ 0 fail
+ 18 expect() calls
+Ran 14 tests across 5 files. [238.00ms]

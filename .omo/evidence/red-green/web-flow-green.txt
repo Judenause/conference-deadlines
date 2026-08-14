@@ -1,0 +1,12 @@
+@conf/web test:
+@conf/web test:  RUN  v3.2.4 /local_data/conf_web/apps/web
+@conf/web test:
+@conf/web test:  ✓ src/App.test.tsx (2 tests) 375ms
+@conf/web test:    ✓ researcher searches and opens deadline evidence and history  335ms
+@conf/web test:
+@conf/web test:  Test Files  1 passed (1)
+@conf/web test:       Tests  2 passed (2)
+@conf/web test:    Start at  12:32:15
+@conf/web test:    Duration  1.60s (transform 176ms, setup 0ms, collect 364ms, tests 375ms, environment 465ms, prepare 123ms)
+@conf/web test:
+@conf/web test: Exited with code 0

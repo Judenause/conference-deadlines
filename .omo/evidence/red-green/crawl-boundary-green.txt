@@ -1,0 +1,15 @@
+bun test v1.3.14 (0d9b296a)
+
+packages/crawler/src/crawl.test.ts:
+(pass) fixture crawl produces a provenanced accepted observation [15.28ms]
+(pass) private destination 127.0.0.1 is blocked [0.26ms]
+(pass) private destination 10.1.2.3 is blocked [0.02ms]
+(pass) private destination 192.168.1.2 is blocked [0.01ms]
+(pass) private destination 169.254.2.2 is blocked
+(pass) private destination ::1 is blocked
+(pass) private destination fd00::1 is blocked
+
+ 7 pass
+ 0 fail
+ 8 expect() calls
+Ran 7 tests across 1 file. [201.00ms]
