@@ -96,7 +96,7 @@ input:focus-visible {
   content: "";
   position: absolute;
   inset: auto 0 -1px;
-  height: 2px;
+  height: var(--active-rule);
   background: var(--ink);
 }
 .header-meta {
@@ -543,7 +543,7 @@ main {
 .history-list::before {
   content: "";
   position: absolute;
-  left: 5px;
+  left: var(--history-axis);
   top: var(--space-2);
   bottom: var(--space-2);
   border-left: 1px solid var(--border);
@@ -558,7 +558,7 @@ main {
 .history-node {
   width: var(--timeline-node);
   height: var(--timeline-node);
-  margin-top: 3px;
+  margin-top: var(--fine-space);
   border: 3px solid var(--surface);
   border-radius: 50%;
   background: var(--focus-ring);
@@ -567,7 +567,7 @@ main {
 .history-list li > div {
   display: grid;
   grid-template-columns: 1fr auto;
-  gap: 3px 8px;
+  gap: var(--fine-space) var(--space-2);
 }
 .history-list strong {
   font-size: var(--text-caption);
@@ -579,8 +579,8 @@ main {
 .history-list p {
   grid-column: 1 / -1;
   display: grid;
-  gap: 2px;
-  margin: 3px 0 0;
+  gap: var(--micro-space);
+  margin: var(--fine-space) 0 0;
   font-size: var(--text-caption);
 }
 .history-list del {
