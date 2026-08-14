@@ -1,0 +1,252 @@
+import type { Edition, Evidence, History } from "@conf/contracts"
+import { useEffect, useId, useMemo, useRef, useState } from "react"
+import { getEditionBundle, getEditions } from "./api"
+import { EditionResults } from "./components/EditionResults"
+import { EvidencePanel } from "./components/EvidencePanel"
+import { Icon } from "./components/Icons"
+import {
+  ErrorState,
+  Hero,
+  MethodSection,
+  SiteFooter,
+  SiteNavigation,
+} from "./components/PageChrome"
+import { PrimitiveShowcase, ViewTabs } from "./components/Primitives"
+
+export function App() {
+  const methodId = useId()
+  const mainId = useId()
+  const listPanelId = useId()
+  const calendarPanelId = useId()
+  const searchRef = useRef<HTMLInputElement>(null)
+  const triggerRef = useRef<HTMLElement | null>(null)
+  const [editions, setEditions] = useState<readonly Edition[]>([])
+  const [query, setQuery] = useState("")
+  const [category, setCategory] = useState("전체")
+  const [view, setView] = useState<"list" | "calendar">("list")
+  const [selected, setSelected] = useState<Edition>()
+  const [evidence, setEvidence] = useState<readonly Evidence[]>([])
+  const [history, setHistory] = useState<readonly History[]>([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState("")
+  const [compact, setCompact] = useState(false)
+
+  useEffect(() => {
+    getEditions()
+      .then(setEditions)
+      .catch((reason: unknown) =>
+        setError(reason instanceof Error ? reason.message : "알 수 없는 오류가 발생했습니다."),
+      )
+      .finally(() => setLoading(false))
+  }, [])
+
+  useEffect(() => {
+    const focusSearch = (event: KeyboardEvent) => {
+      if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "k") {
+        event.preventDefault()
+        searchRef.current?.focus()
+      }
+    }
+    document.addEventListener("keydown", focusSearch)
+    return () => document.removeEventListener("keydown", focusSearch)
+  }, [])
+
+  useEffect(() => {
+    if (typeof window.matchMedia !== "function") return
+    const media = window.matchMedia("(max-width: 1279px)")
+    const update = () => setCompact(media.matches)
+    update()
+    media.addEventListener("change", update)
+    return () => media.removeEventListener("change", update)
+  }, [])
+
+  useEffect(() => {
+    if (!compact || !selected) return
+    const previousOverflow = document.body.style.overflow
+    const previousFocus = triggerRef.current
+    const panel = document.querySelector<HTMLElement>(".evidence-panel")
+    const background = document.querySelectorAll<HTMLElement>(
+      ".desktop-nav, .site-header, .hero, .catalog-toolbar, .results-column, .method, footer",
+    )
+    const focusable = () =>
+      panel?.querySelectorAll<HTMLElement>(
+        'button:not([disabled]), a[href], input:not([disabled]), [tabindex]:not([tabindex="-1"])',
+      ) ?? []
+    const containFocus = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setSelected(undefined)
+        return
+      }
+      if (event.key !== "Tab") return
+      const items = focusable()
+      if (items.length === 0) return
+      const first = items[0]
+      const last = items[items.length - 1]
+      if (!first || !last) return
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault()
+        last.focus()
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault()
+        first.focus()
+      }
+    }
+    document.body.style.overflow = "hidden"
+    for (const element of background) element.inert = true
+    panel?.querySelector<HTMLButtonElement>(".panel-close")?.focus()
+    document.addEventListener("keydown", containFocus)
+    return () => {
+      document.body.style.overflow = previousOverflow
+      for (const element of background) element.inert = false
+      document.removeEventListener("keydown", containFocus)
+      previousFocus?.focus()
+    }
+  }, [compact, selected])
+
+  const categories = useMemo(
+    () => ["전체", ...new Set(editions.flatMap((edition) => edition.categories))],
+    [editions],
+  )
+  const filtered = useMemo(
+    () =>
+      editions.filter((edition) => {
+        const needle = query.trim().toLocaleLowerCase("ko")
+        const matchesText =
+          !needle || `${edition.acronym} ${edition.name}`.toLocaleLowerCase("ko").includes(needle)
+        return matchesText && (category === "전체" || edition.categories.includes(category))
+      }),
+    [category, editions, query],
+  )
+
+  async function selectEdition(editionId: string) {
+    triggerRef.current =
+      document.activeElement instanceof HTMLElement ? document.activeElement : null
+    setLoading(true)
+    try {
+      const bundle = await getEditionBundle(editionId)
+      setSelected(bundle.edition)
+      setEvidence(bundle.evidence)
+      setHistory(bundle.history)
+      setError("")
+    } catch (reason) {
+      setError(reason instanceof Error ? reason.message : "상세 정보를 불러오지 못했습니다.")
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  if (window.location.pathname === "/dev/primitives") return <PrimitiveShowcase />
+
+  return (
+    <div className="app-shell">
+      <a className="skip-link" href={`#${mainId}`}>
+        본문으로 건너뛰기
+      </a>
+      <SiteNavigation methodId={methodId} />
+      <main id={mainId}>
+        <Hero editions={editions} />
+        <section aria-label="학회 검색과 필터" className="catalog-toolbar">
+          <label className="search-field">
+            <Icon name="search" />
+            <input
+              aria-label="학회 검색"
+              onChange={(event) => setQuery(event.target.value)}
+              placeholder="학회명 또는 약어 검색"
+              ref={searchRef}
+              type="search"
+              value={query}
+            />
+            <kbd>⌘ K</kbd>
+          </label>
+          <div className="toolbar-bottom">
+            <fieldset className="filter-scroll">
+              <legend className="sr-only">분야 필터</legend>
+              {categories.map((item) => (
+                <button
+                  aria-pressed={category === item}
+                  key={item}
+                  onClick={() => setCategory(item)}
+                  type="button"
+                >
+                  {item}
+                </button>
+              ))}
+            </fieldset>
+            <details className="mobile-filters">
+              <summary>분야 필터 · {category}</summary>
+              <fieldset>
+                <legend className="sr-only">모바일 분야 필터</legend>
+                {categories.map((item) => (
+                  <button
+                    aria-pressed={category === item}
+                    key={item}
+                    onClick={() => setCategory(item)}
+                    type="button"
+                  >
+                    {item}
+                  </button>
+                ))}
+              </fieldset>
+            </details>
+            <ViewTabs
+              calendarPanelId={calendarPanelId}
+              listPanelId={listPanelId}
+              onChange={setView}
+              value={view}
+            />
+          </div>
+        </section>
+        {error ? (
+          <ErrorState message={error} />
+        ) : (
+          <div className="catalog-layout">
+            <section
+              aria-busy={loading}
+              aria-label="학회 일정 검색 결과"
+              aria-labelledby={`${view === "list" ? listPanelId : calendarPanelId}-tab`}
+              className="results-column"
+              id={view === "list" ? listPanelId : calendarPanelId}
+              role="tabpanel"
+            >
+              <div className="results-head">
+                <p>
+                  <strong>{filtered.length}</strong>개 일정
+                </p>
+                <span>최근 확인 2026.08.14</span>
+              </div>
+              {loading && editions.length === 0 ? (
+                <output className="skeleton-list">일정을 불러오는 중...</output>
+              ) : (
+                <EditionResults
+                  editions={filtered}
+                  onSelect={selectEdition}
+                  selectedId={selected?.id}
+                  view={view}
+                />
+              )}
+            </section>
+            {compact && selected ? (
+              <button
+                aria-label="상세 닫기"
+                className="evidence-scrim"
+                onClick={() => setSelected(undefined)}
+                tabIndex={-1}
+                type="button"
+              />
+            ) : null}
+            <EvidencePanel
+              compact={compact}
+              edition={selected}
+              evidence={evidence}
+              history={history}
+              loading={loading && Boolean(selected)}
+              onClose={() => setSelected(undefined)}
+            />
+          </div>
+        )}
+        <MethodSection methodId={methodId} />
+      </main>
+      <SiteFooter />
+    </div>
+  )
+}

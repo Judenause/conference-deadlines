@@ -1,0 +1,13 @@
+{
+  "parserVersion": "official-html@1",
+  "capturedAt": "2026-08-14T01:00:00Z",
+  "fixtures": [
+    {
+      "sourceId": "cui-2026-official",
+      "path": "raw/cui-2026-official.html",
+      "canonicalUrl": "https://cui.acm.org/2026/submission/",
+      "note": "Reduced project-owned test fixture containing only the relevant structure and date text",
+      "livePermitted": true
+    }
+  ]
+}

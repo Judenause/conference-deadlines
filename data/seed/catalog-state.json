@@ -1,0 +1,115 @@
+{
+  "editions": [
+    {
+      "id": "cui-2026",
+      "acronym": "CUI 2026",
+      "name": "ACM Conversational User Interfaces",
+      "year": 2026,
+      "location": "Bremen, Germany",
+      "dateRange": "2026. 7. 28 - 7. 30",
+      "categories": ["HCI", "AI"],
+      "status": "confirmed",
+      "description": "ACM CUI의 공식 일정과 출처를 함께 확인합니다.",
+      "deadlines": [
+        {
+          "id": "cui-paper",
+          "label": "논문 제출",
+          "kind": "paper_submission",
+          "dueAtUtc": "2026-03-17T11:59:59Z",
+          "displayDate": "2026. 3. 16 23:59",
+          "timezone": "AoE (UTC-12)",
+          "status": "extended",
+          "track": "Main conference"
+        },
+        {
+          "id": "cui-notification",
+          "label": "채택 결과 발표",
+          "kind": "notification",
+          "dueAtUtc": "2026-05-01T00:00:00Z",
+          "displayDate": "2026. 5. 1",
+          "timezone": "공식 페이지 표기",
+          "status": "confirmed",
+          "track": "Main conference"
+        },
+        {
+          "id": "cui-camera",
+          "label": "최종본 제출",
+          "kind": "camera_ready",
+          "dueAtUtc": "2026-05-22T00:00:00Z",
+          "displayDate": "2026. 5. 22",
+          "timezone": "공식 페이지 표기",
+          "status": "confirmed",
+          "track": "Main conference"
+        }
+      ]
+    },
+    {
+      "id": "cvpr-2027",
+      "acronym": "CVPR 2027",
+      "name": "Conference on Computer Vision and Pattern Recognition",
+      "year": 2027,
+      "location": "공식 발표 대기",
+      "dateRange": "일정 미공개",
+      "categories": ["Computer Vision", "AI"],
+      "status": "dates-pending",
+      "description": "공식 일정이 공개되면 등록된 출처를 통해 검증 후 게시됩니다.",
+      "deadlines": []
+    },
+    {
+      "id": "sample-cfp-2026",
+      "acronym": "Sample CFP 2026",
+      "name": "시간대 검수가 필요한 CFP 예시",
+      "year": 2026,
+      "location": "Online",
+      "dateRange": "검수 대기",
+      "categories": ["Systems"],
+      "status": "review-needed",
+      "description": "시간대가 없는 원문 날짜는 자동 게시하지 않는 안전 정책을 보여 줍니다.",
+      "deadlines": []
+    }
+  ],
+  "evidence": [
+    {
+      "id": "evidence-cui-paper",
+      "editionId": "cui-2026",
+      "deadlineId": "cui-paper",
+      "sourceTitle": "CUI 2026 Submission",
+      "sourceUrl": "https://cui.acm.org/2026/submission/",
+      "checkedAt": "2026-08-14T01:00:00Z",
+      "rawValue": "Paper submission: 2026-03-16 23:59 AoE",
+      "locator": "#important-dates",
+      "confidence": 0.98
+    },
+    {
+      "id": "evidence-cui-camera",
+      "editionId": "cui-2026",
+      "deadlineId": "cui-camera",
+      "sourceTitle": "CUI 2026 Submission",
+      "sourceUrl": "https://cui.acm.org/2026/submission/",
+      "checkedAt": "2026-08-14T01:00:00Z",
+      "rawValue": "Camera-ready deadline: May 22, 2026",
+      "locator": "#important-dates",
+      "confidence": 0.96
+    }
+  ],
+  "history": [
+    {
+      "id": "history-cui-extension",
+      "editionId": "cui-2026",
+      "changedAt": "2026-03-02T09:30:00Z",
+      "summary": "논문 제출 마감 연장",
+      "before": "2026. 3. 9 23:59 AoE",
+      "after": "2026. 3. 16 23:59 AoE",
+      "state": "accepted"
+    },
+    {
+      "id": "history-cui-initial",
+      "editionId": "cui-2026",
+      "changedAt": "2026-01-12T02:00:00Z",
+      "summary": "최초 일정 게시",
+      "before": "일정 미공개",
+      "after": "2026. 3. 9 23:59 AoE",
+      "state": "accepted"
+    }
+  ]
+}

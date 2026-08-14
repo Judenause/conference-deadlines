@@ -4,6 +4,7 @@
   "type": "module",
   "exports": "./src/index.ts",
   "dependencies": {
+    "@conf/contracts": "workspace:*",
     "@conf/domain": "workspace:*",
     "zod": "4.0.17"
   }

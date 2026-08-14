@@ -1,0 +1,27 @@
+import { expect, test } from "bun:test"
+import { createApp } from "./app"
+
+test("empty search is a successful empty collection", async () => {
+  const response = await createApp().request("/api/v1/editions?q=does-not-exist")
+  expect(response.status).toBe(200)
+  expect(await response.json()).toEqual({ items: [] })
+})
+
+test("malformed limit is a typed problem response", async () => {
+  const response = await createApp().request("/api/v1/editions?limit=nope")
+  expect(response.status).toBe(400)
+  expect(await response.json()).toMatchObject({
+    type: "https://conf.local/problems/invalid-query",
+    title: "잘못된 요청",
+    status: 400,
+  })
+})
+
+test("edition exposes evidence and accepted history", async () => {
+  const detail = await createApp().request("/api/v1/editions/cui-2026")
+  const evidence = await createApp().request("/api/v1/editions/cui-2026/evidence")
+  const history = await createApp().request("/api/v1/editions/cui-2026/history")
+  expect(detail.status).toBe(200)
+  expect((await evidence.json()).items.length).toBeGreaterThan(0)
+  expect((await history.json()).items.length).toBeGreaterThan(0)
+})

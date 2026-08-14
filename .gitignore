@@ -4,6 +4,7 @@ coverage/
 .local/
 playwright-report/
 test-results/
+.tmp/
 react-doctor-report.json
 .env
 .env.*

@@ -7,11 +7,11 @@
     "packages/*"
   ],
   "scripts": {
-    "dev": "bun --filter @conf/web dev",
+    "dev": "bun run --parallel --filter '*' dev",
     "typecheck": "tsc --noEmit -p tsconfig.json",
-    "lint": "biome check .",
-    "test": "bun test",
-    "build": "bun scripts/verify-design-contract.ts",
+    "lint": "biome check apps/api/src apps/web/src apps/web/e2e apps/web/index.html apps/web/playwright.config.ts apps/web/vite.config.ts packages scripts fixtures data package.json tsconfig.json tsconfig.base.json biome.json",
+    "test": "bun test scripts packages apps/api && bun --filter @conf/web test",
+    "build": "bun scripts/verify-design-contract.ts && bun --filter @conf/web build",
     "doctor": "bun run typecheck && bun run lint && bun run test && bun run build",
     "e2e": "bun --filter @conf/web e2e"
   },
