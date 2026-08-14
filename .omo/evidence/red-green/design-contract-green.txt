@@ -1,0 +1,9 @@
+bun test v1.3.14 (0d9b296a)
+
+scripts/verify-design-contract.test.ts:
+(pass) design contract contains the research, system, and accessibility gates [7.83ms]
+
+ 1 pass
+ 0 fail
+ 23 expect() calls
+Ran 1 test across 1 file. [24.00ms]

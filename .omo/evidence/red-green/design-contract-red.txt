@@ -1,0 +1,22 @@
+bun test v1.3.14 (0d9b296a)
+
+scripts/verify-design-contract.test.ts:
+28 | ] as const
+29 | 
+30 | test("design contract contains the research, system, and accessibility gates", async () => {
+31 |   const designFile = Bun.file(new URL("../DESIGN.md", import.meta.url))
+32 | 
+33 |   expect(await designFile.exists()).toBe(true)
+                                         ^
+error: expect(received).toBe(expected)
+
+Expected: true
+Received: false
+
+      at <anonymous> (/local_data/conf_web/scripts/verify-design-contract.test.ts:33:37)
+(fail) design contract contains the research, system, and accessibility gates [2.60ms]
+
+ 0 pass
+ 1 fail
+ 1 expect() calls
+Ran 1 test across 1 file. [28.00ms]
