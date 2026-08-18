@@ -7,10 +7,13 @@ import {
   historySchema,
 } from "@conf/contracts"
 import { z } from "zod"
+import { getStaticBundle, parseStaticCatalog } from "./static-catalog"
 
 const editionListSchema = z.object({ items: z.array(editionSchema) })
 const evidenceListSchema = z.object({ items: z.array(evidenceSchema) })
 const historyListSchema = z.object({ items: z.array(historySchema) })
+const staticDataEnabled = import.meta.env.VITE_STATIC_DATA === "true"
+let staticCatalogRequest: ReturnType<typeof loadStaticCatalog> | undefined
 
 async function getJson(path: string): Promise<unknown> {
   const response = await fetch(path)
@@ -18,7 +21,17 @@ async function getJson(path: string): Promise<unknown> {
   return response.json()
 }
 
+async function loadStaticCatalog() {
+  return parseStaticCatalog(await getJson(`${import.meta.env.BASE_URL}catalog-state.json`))
+}
+
+function getStaticCatalog() {
+  staticCatalogRequest ??= loadStaticCatalog()
+  return staticCatalogRequest
+}
+
 export async function getEditions(): Promise<readonly Edition[]> {
+  if (staticDataEnabled) return (await getStaticCatalog()).editions
   return editionListSchema.parse(await getJson("/api/v1/editions")).items
 }
 
@@ -27,6 +40,7 @@ export async function getEditionBundle(editionId: string): Promise<{
   readonly evidence: readonly Evidence[]
   readonly history: readonly History[]
 }> {
+  if (staticDataEnabled) return getStaticBundle(await getStaticCatalog(), editionId)
   const [edition, evidence, history] = await Promise.all([
     getJson(`/api/v1/editions/${editionId}`),
     getJson(`/api/v1/editions/${editionId}/evidence`),

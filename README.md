@@ -37,4 +37,14 @@ bun packages/crawler/src/cli.ts crawl --source cui-2026-official
 
 ## 배포 경계
 
-`apps/web/dist`는 정적 호스팅에 올릴 수 있고 `/api`는 `apps/api`의 Hono 서버로 연결해야 합니다. 수집 명령은 공개 웹 프로세스와 분리해 운영자 환경에서 실행합니다. 클라우드 자격 증명과 배포 대상은 저장소에 포함하지 않습니다.
+기본 웹 빌드의 `/api`는 `apps/api`의 Hono 서버로 연결합니다. Pages 전용 빌드는 아래와 같이 검수된 데이터를 정적 파일로 포함합니다. 수집 명령은 공개 웹 프로세스와 분리해 운영자 환경에서 실행합니다.
+
+## GitHub Pages
+
+Pages 배포에서는 읽기 전용 카탈로그를 정적 JSON으로 포함하므로 별도 API 서버가 필요하지 않습니다.
+
+```bash
+bun run build:pages
+```
+
+GitHub 저장소의 `Settings → Pages → Source`를 `GitHub Actions`로 선택하면 `main` 브랜치 갱신 시 `.github/workflows/pages.yml`이 사이트를 자동 배포합니다. 운영자가 검수한 `data/seed/catalog-state.json`이 공개 데이터가 되며, 라이브 크롤링 결과는 검수 없이 자동 게시하지 않습니다.
