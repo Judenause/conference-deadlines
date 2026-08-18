@@ -1,4 +1,4 @@
-export type DeadlineStatus = "confirmed" | "extended" | "review-needed"
+export type DeadlineStatus = "confirmed" | "extended" | "review-needed" | "timezone-review-needed"
 
 export interface Deadline {
   readonly id: string

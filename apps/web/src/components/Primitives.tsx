@@ -18,12 +18,18 @@ export function Button({
 export function StatusBadge({
   status,
 }: {
-  readonly status: "confirmed" | "extended" | "review-needed" | "dates-pending"
+  readonly status:
+    | "confirmed"
+    | "extended"
+    | "review-needed"
+    | "timezone-review-needed"
+    | "dates-pending"
 }) {
   const labels = {
     confirmed: "확인됨",
     extended: "연장됨",
     "review-needed": "검수 대기",
+    "timezone-review-needed": "시간대 검수 필요",
     "dates-pending": "발표 대기",
   }
   return (
@@ -104,6 +110,7 @@ export function PrimitiveShowcase() {
           <StatusBadge status="confirmed" />
           <StatusBadge status="extended" />
           <StatusBadge status="review-needed" />
+          <StatusBadge status="timezone-review-needed" />
         </div>
       </section>
       <section>

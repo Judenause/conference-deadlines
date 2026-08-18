@@ -68,8 +68,21 @@ export function EvidencePanel({
                 {edition.deadlines.map((deadline) => (
                   <li key={deadline.id}>
                     <div className="deadline-line">
-                      <span className="deadline-check">
-                        <Icon name="check" />
+                      <span
+                        className="deadline-check"
+                        data-review={
+                          deadline.status === "review-needed" ||
+                          deadline.status === "timezone-review-needed"
+                        }
+                      >
+                        <Icon
+                          name={
+                            deadline.status === "review-needed" ||
+                            deadline.status === "timezone-review-needed"
+                              ? "clock"
+                              : "check"
+                          }
+                        />
                       </span>
                       <div>
                         <strong>{deadline.label}</strong>

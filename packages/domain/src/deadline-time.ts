@@ -5,20 +5,19 @@ export type ParsedDeadline =
       readonly sourceDateText: string
       readonly sourceTimezone: string
     }
+  | {
+      readonly kind: "timezone-review-needed"
+      readonly dueAtUtc: string
+      readonly sourceDateText: string
+      readonly sourceTimezone: string
+      readonly reason: string
+    }
   | { readonly kind: "review-needed"; readonly sourceDateText: string; readonly reason: string }
 
 const explicitAoe = /^(\d{4})-(\d{2})-(\d{2})\s+(\d{2}):(\d{2})\s+AoE$/i
+const missingTimezone = /^(\d{4})-(\d{2})-(\d{2})\s+(\d{2}):(\d{2})$/
 
-export function parseSourceDeadline(sourceDateText: string): ParsedDeadline {
-  const match = explicitAoe.exec(sourceDateText.trim())
-  if (!match) {
-    return {
-      kind: "review-needed",
-      sourceDateText,
-      reason: "연도, 시간, 시간대가 모두 명시되어야 합니다.",
-    }
-  }
-
+function toAoeUtc(match: RegExpExecArray): string {
   const [, year, month, day, hour, minute] = match
   const localAsUtc = Date.UTC(
     Number(year),
@@ -28,11 +27,35 @@ export function parseSourceDeadline(sourceDateText: string): ParsedDeadline {
     Number(minute),
     59,
   )
-  const dueAtUtc = new Date(localAsUtc + 12 * 60 * 60 * 1000).toISOString().replace(".000Z", "Z")
+  return new Date(localAsUtc + 12 * 60 * 60 * 1000).toISOString().replace(".000Z", "Z")
+}
+
+export function parseSourceDeadline(sourceDateText: string): ParsedDeadline {
+  const trimmed = sourceDateText.trim()
+  const explicitMatch = explicitAoe.exec(trimmed)
+  if (explicitMatch) {
+    return {
+      kind: "normalized",
+      dueAtUtc: toAoeUtc(explicitMatch),
+      sourceDateText,
+      sourceTimezone: "AoE (-12:00)",
+    }
+  }
+
+  const assumedMatch = missingTimezone.exec(trimmed)
+  if (assumedMatch) {
+    return {
+      kind: "timezone-review-needed",
+      dueAtUtc: toAoeUtc(assumedMatch),
+      sourceDateText,
+      sourceTimezone: "AoE (-12:00, assumed)",
+      reason: "원문에 시간대가 없어 AoE로 임시 계산했습니다.",
+    }
+  }
+
   return {
-    kind: "normalized",
-    dueAtUtc,
+    kind: "review-needed",
     sourceDateText,
-    sourceTimezone: "AoE (-12:00)",
+    reason: "연도와 시간이 명시되어야 합니다.",
   }
 }

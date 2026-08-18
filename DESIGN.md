@@ -189,7 +189,7 @@ Content stress gates: empty result, 40-character conference name, long Korean tr
 
 ### Badge
 
-- Variants: verified, extended, review-needed, source kind.
+- Variants: verified, extended, review-needed, timezone-review-needed, source kind.
 - States: static and linked.
 - Accessibility: visible text always accompanies color; decorative dots are prohibited.
 

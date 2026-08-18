@@ -63,9 +63,20 @@
       "location": "Online",
       "dateRange": "검수 대기",
       "categories": ["Systems"],
-      "status": "review-needed",
-      "description": "시간대가 없는 원문 날짜는 자동 게시하지 않는 안전 정책을 보여 줍니다.",
-      "deadlines": []
+      "status": "timezone-review-needed",
+      "description": "원문에 시간대가 없어 AoE로 임시 계산했으며, 검수 전까지 확정값으로 취급하지 않습니다.",
+      "deadlines": [
+        {
+          "id": "sample-cfp-paper",
+          "label": "논문 제출",
+          "kind": "paper_submission",
+          "dueAtUtc": "2026-04-01T11:59:59Z",
+          "displayDate": "2026. 3. 31 23:59",
+          "timezone": "AoE (UTC-12) · 시간대 가정",
+          "status": "timezone-review-needed",
+          "track": "Main track"
+        }
+      ]
     }
   ],
   "evidence": [

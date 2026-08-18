@@ -7,7 +7,7 @@ export const deadlineSchema = z.object({
   dueAtUtc: z.string(),
   displayDate: z.string(),
   timezone: z.string(),
-  status: z.enum(["confirmed", "extended", "review-needed"]),
+  status: z.enum(["confirmed", "extended", "review-needed", "timezone-review-needed"]),
   track: z.string(),
 })
 
@@ -19,7 +19,7 @@ export const editionSchema = z.object({
   location: z.string(),
   dateRange: z.string(),
   categories: z.array(z.string()),
-  status: z.enum(["confirmed", "review-needed", "dates-pending"]),
+  status: z.enum(["confirmed", "review-needed", "timezone-review-needed", "dates-pending"]),
   description: z.string(),
   deadlines: z.array(deadlineSchema),
 })

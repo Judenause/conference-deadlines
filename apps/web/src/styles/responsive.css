@@ -35,6 +35,7 @@
     right: 0;
     bottom: 0;
     width: min(var(--layout-evidence), 100vw);
+    height: 100dvh;
     overflow: auto;
     box-shadow: var(--shadow-soft);
     transform: translateX(104%);

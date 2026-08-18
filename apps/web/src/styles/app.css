@@ -366,7 +366,8 @@ main {
   color: var(--success);
 }
 .status--extended,
-.status--review-needed {
+.status--review-needed,
+.status--timezone-review-needed {
   color: var(--warning);
 }
 .evidence-panel {
@@ -491,6 +492,10 @@ main {
 .source-icon .icon {
   width: var(--icon-source);
   height: var(--icon-source);
+}
+.deadline-check[data-review="true"] {
+  background: color-mix(in srgb, var(--warning) 10%, var(--canvas));
+  color: var(--warning);
 }
 .deadline-stack time {
   display: block;
