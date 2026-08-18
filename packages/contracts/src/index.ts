@@ -18,7 +18,7 @@ export const editionSchema = z.object({
   year: z.number().int(),
   location: z.string(),
   dateRange: z.string(),
-  officialUrl: z.string().url().optional(),
+  officialUrl: z.string().url(),
   tier: z.string().nullable(),
   categories: z.array(z.string()),
   status: z.enum(["confirmed", "review-needed", "timezone-review-needed", "dates-pending"]),

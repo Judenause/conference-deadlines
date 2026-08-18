@@ -159,15 +159,16 @@ Content stress gates: empty result, 40-character conference name, long Korean tr
 
 ### DeadlineTimeline and DeadlineRow
 
-- Structure: month heading, date marker, deadline button/link, time-zone pair, conference, track, evidence status.
+- Structure: month heading, date marker, deadline button, conference, track, evidence status, and an always-visible official-site link.
 - Variants: desktop time spine, tablet compact row, mobile agenda.
 - States: default, hover, selected, focus, extended, verified, unavailable.
 - Accessibility: chronological list semantics; each row has one descriptive accessible name; selected state uses `aria-current` or `aria-selected` as appropriate.
 - Layout: timeline is the primary document flow. Date spine is structural, not decorative.
+- Source address: every edition exposes its validated official URL without requiring the evidence drawer; long URLs wrap without truncation.
 
 ### CalendarGrid
 
-- Structure: month heading, weekday headers, dated cells containing deadline links.
+- Structure: month heading, weekday headers, dated cells containing deadline controls, followed by a full-width official-site URL list for that month.
 - Variants: semantic month grid at 768px+, chronological agenda at 375px.
 - States: empty day, today, focused day, selected deadline, multiple deadlines.
 - Accessibility: if interactive grid keys are implemented, follow ARIA grid; otherwise keep native table/list semantics. Mobile always uses lists.

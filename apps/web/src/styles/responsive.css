@@ -170,6 +170,10 @@
     grid-column: 3;
     grid-row: 1 / 3;
   }
+  .edition-official-link {
+    margin-inline-start: calc(var(--space-4) + var(--mobile-mark) + var(--space-3));
+    padding-right: var(--space-4);
+  }
   .edition-copy > span {
     font-size: var(--text-caption);
   }

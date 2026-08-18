@@ -311,12 +311,23 @@ main {
   color: var(--ink);
   font-size: var(--text-body-sm);
 }
+.edition-entry {
+  border-bottom: 1px solid var(--border);
+  background: var(--canvas);
+  transition: background var(--duration-micro) var(--ease-standard);
+}
+.edition-entry:hover,
+.edition-entry[data-selected="true"] {
+  background: var(--surface);
+}
+.edition-entry[data-selected="true"] {
+  box-shadow: inset 3px 0 0 var(--focus-ring);
+}
 .edition-row {
   width: 100%;
   min-height: var(--row-height);
   border: 0;
-  border-bottom: 1px solid var(--border);
-  background: var(--canvas);
+  background: transparent;
   color: var(--ink);
   display: grid;
   grid-template-columns: var(--mark-size) minmax(0, 1fr) auto var(--space-5);
@@ -326,13 +337,6 @@ main {
   text-align: left;
   cursor: pointer;
   transition: background var(--duration-micro) var(--ease-standard);
-}
-.edition-row:hover,
-.edition-row[data-selected="true"] {
-  background: var(--surface);
-}
-.edition-row[data-selected="true"] {
-  box-shadow: inset 3px 0 0 var(--focus-ring);
 }
 .edition-mark {
   width: var(--mark-size);
@@ -389,6 +393,23 @@ main {
 .edition-date strong {
   margin-top: var(--space-1);
   font-size: var(--text-body-sm);
+}
+.edition-official-link {
+  min-height: var(--control-target);
+  margin-inline-start: calc(var(--space-5) + var(--mark-size) + var(--space-4));
+  padding: 0 var(--space-5) var(--space-3) 0;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--interactive);
+  font-size: var(--text-caption);
+  line-height: 1.45;
+  overflow-wrap: anywhere;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.18em;
+}
+.edition-official-link .icon {
+  flex: none;
 }
 .status {
   display: inline-flex;
@@ -706,10 +727,11 @@ main {
 .agenda-month strong {
   font-size: var(--text-body-sm);
 }
-.agenda .edition-row {
+.agenda .edition-entry {
   border: 1px solid var(--border);
   border-radius: var(--radius-panel);
   margin-bottom: var(--space-2);
+  overflow: hidden;
 }
 .mobile-calendar-agenda {
   display: none;
@@ -999,6 +1021,38 @@ footer {
 }
 .month-grid td small {
   color: var(--ink-secondary);
+}
+.month-source-list {
+  margin: var(--space-3) 0 0;
+  padding: 0;
+  display: grid;
+  gap: var(--space-1);
+  list-style: none;
+}
+.month-source-list li {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: minmax(7rem, auto) minmax(0, 1fr);
+  align-items: center;
+  gap: var(--space-3);
+  border-bottom: 1px solid var(--rule);
+}
+.month-source-list strong {
+  font-size: var(--text-caption);
+}
+.month-source-list a {
+  min-height: var(--control-target);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--interactive);
+  font-size: var(--text-caption);
+  line-height: 1.45;
+  overflow-wrap: anywhere;
+  text-underline-offset: 0.16em;
+}
+.month-source-list .icon {
+  flex: none;
 }
 
 @media (min-width: 1280px) {

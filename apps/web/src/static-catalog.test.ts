@@ -39,4 +39,5 @@ test("Given the lab timeline catalog, when it is parsed, then curation metadata 
   )
   expect(catalog.editions.some((edition) => edition.categories.includes("HCI"))).toBe(false)
   expect(catalog.editions.some((edition) => edition.id === "cui-2026")).toBe(false)
+  expect(catalog.editions.every((edition) => edition.officialUrl.startsWith("https://"))).toBe(true)
 })

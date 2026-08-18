@@ -32,6 +32,11 @@ test("researcher searches and opens a remaining 2026 deadline with evidence", as
   expect(await screen.findByRole("heading", { name: "학회 마감 일정" })).toBeTruthy()
 
   fireEvent.change(screen.getByRole("searchbox"), { target: { value: "MICRO" } })
+  expect(
+    await screen.findByRole("link", {
+      name: "MICRO 2026 공식 사이트 열기: https://www.microarch.org/micro59/",
+    }),
+  ).toBeTruthy()
   fireEvent.click(await screen.findByRole("button", { name: /MICRO 2026 상세 보기/ }))
 
   expect(await screen.findByText("최종본 제출")).toBeTruthy()
@@ -87,6 +92,7 @@ test("timezone assumptions remain visibly reviewable outside the public catalog"
     year: 2027,
     location: "Online",
     dateRange: "검수 대기",
+    officialUrl: "https://example.com/timezone-review",
     tier: null,
     categories: ["System"],
     status: "timezone-review-needed",

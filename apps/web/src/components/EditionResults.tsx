@@ -90,32 +90,43 @@ function EditionCard({
 }) {
   const deadline = edition.deadlines[0]
   return (
-    <button
-      aria-pressed={selected}
-      aria-label={`${edition.acronym} 상세 보기`}
-      className="edition-row"
-      data-selected={selected}
-      onClick={onSelect}
-      type="button"
-    >
-      <span className="edition-mark">{edition.acronym.split(" ")[0]?.slice(0, 5)}</span>
-      <span className="edition-copy">
-        <strong>{edition.acronym}</strong>
-        <span>{edition.name}</span>
-        <small className="edition-taxonomy">
-          <span>
-            {edition.categories.join(" · ")} · {edition.location}
-          </span>
-          {edition.tier ? <span className="tier-badge">{edition.tier}</span> : null}
-        </small>
-      </span>
-      <span className="edition-date">
-        <StatusBadge status={edition.status} />
-        <strong>{deadline?.displayDate ?? "일정 미공개"}</strong>
-        <small>{deadline?.timezone ?? "공식 발표 대기"}</small>
-      </span>
-      <Icon name="arrow" />
-    </button>
+    <div className="edition-entry" data-selected={selected}>
+      <button
+        aria-pressed={selected}
+        aria-label={`${edition.acronym} 상세 보기`}
+        className="edition-row"
+        onClick={onSelect}
+        type="button"
+      >
+        <span className="edition-mark">{edition.acronym.split(" ")[0]?.slice(0, 5)}</span>
+        <span className="edition-copy">
+          <strong>{edition.acronym}</strong>
+          <span>{edition.name}</span>
+          <small className="edition-taxonomy">
+            <span>
+              {edition.categories.join(" · ")} · {edition.location}
+            </span>
+            {edition.tier ? <span className="tier-badge">{edition.tier}</span> : null}
+          </small>
+        </span>
+        <span className="edition-date">
+          <StatusBadge status={edition.status} />
+          <strong>{deadline?.displayDate ?? "일정 미공개"}</strong>
+          <small>{deadline?.timezone ?? "공식 발표 대기"}</small>
+        </span>
+        <Icon name="arrow" />
+      </button>
+      <a
+        aria-label={`${edition.acronym} 공식 사이트 열기: ${edition.officialUrl}`}
+        className="edition-official-link"
+        href={edition.officialUrl}
+        rel="noreferrer"
+        target="_blank"
+      >
+        <Icon name="source" />
+        <span>{edition.officialUrl}</span>
+      </a>
+    </div>
   )
 }
 
@@ -210,6 +221,22 @@ export function EditionResults({ editions, selectedId, view, onSelect }: Results
                     ))}
                   </tbody>
                 </table>
+                <ul aria-label={`${group.label} 공식 사이트`} className="month-source-list">
+                  {group.editions.map((edition) => (
+                    <li key={edition.id}>
+                      <strong>{edition.acronym}</strong>
+                      <a
+                        aria-label={`${edition.acronym} 공식 사이트 열기: ${edition.officialUrl}`}
+                        href={edition.officialUrl}
+                        rel="noreferrer"
+                        target="_blank"
+                      >
+                        <Icon name="source" />
+                        <span>{edition.officialUrl}</span>
+                      </a>
+                    </li>
+                  ))}
+                </ul>
               </section>
             )
           })}

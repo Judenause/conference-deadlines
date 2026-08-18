@@ -23,12 +23,22 @@ test("search, calendar, evidence, history, and empty states work without overflo
   await page.keyboard.press("ArrowRight")
   await expect(page.getByRole("tab", { name: "캘린더" })).toBeFocused()
   await expect(page.locator(".calendar-view")).toContainText("2026년 9월")
+  await expect(
+    page.getByRole("link", {
+      name: "MICRO 2026 공식 사이트 열기: https://www.microarch.org/micro59/",
+    }),
+  ).toBeVisible()
   await page.screenshot({
     fullPage: true,
     path: `../../.omo/evidence/browser/${testInfo.project.name}-calendar.png`,
   })
   await page.keyboard.press("ArrowLeft")
   await page.getByRole("searchbox").fill("MICRO")
+  await expect(
+    page.getByRole("link", {
+      name: "MICRO 2026 공식 사이트 열기: https://www.microarch.org/micro59/",
+    }),
+  ).toBeVisible()
   await page.getByRole("button", { name: "MICRO 2026 상세 보기" }).click()
   await expect(page.getByRole("heading", { name: "주요 마감" })).toBeVisible()
   await expect(page.getByRole("heading", { name: "근거 보기" })).toBeVisible()
