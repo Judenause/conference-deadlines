@@ -9,14 +9,6 @@ interface ResultsProps {
   readonly onSelect: (editionId: string) => void
 }
 
-const MARCH_2026_WEEKS = [
-  [1, 2, 3, 4, 5, 6, 7],
-  [8, 9, 10, 11, 12, 13, 14],
-  [15, 16, 17, 18, 19, 20, 21],
-  [22, 23, 24, 25, 26, 27, 28],
-  [29, 30, 31, 32, 33, 34, 35],
-] as const
-
 const MONTH_MARKERS = [
   "JAN",
   "FEB",
@@ -37,6 +29,25 @@ interface EditionGroup {
   readonly marker: string
   readonly label: string
   readonly editions: readonly Edition[]
+}
+
+function calendarWeeks(year: number, month: number): readonly (readonly (number | null)[])[] {
+  const firstWeekday = new Date(Date.UTC(year, month - 1, 1)).getUTCDay()
+  const dayCount = new Date(Date.UTC(year, month, 0)).getUTCDate()
+  const cells: (number | null)[] = [
+    ...Array.from({ length: firstWeekday }, () => null),
+    ...Array.from({ length: dayCount }, (_, index) => index + 1),
+  ]
+  while (cells.length % 7 !== 0) cells.push(null)
+
+  const weeks: (number | null)[][] = []
+  for (let index = 0; index < cells.length; index += 7) weeks.push(cells.slice(index, index + 7))
+  return weeks
+}
+
+function displayDay(edition: Edition): number | undefined {
+  const day = Number(edition.deadlines[0]?.displayDate.split(".")[2]?.trim().split(" ")[0])
+  return Number.isInteger(day) && day >= 1 && day <= 31 ? day : undefined
 }
 
 function groupEditions(editions: readonly Edition[]): readonly EditionGroup[] {
@@ -87,7 +98,7 @@ function EditionCard({
       onClick={onSelect}
       type="button"
     >
-      <span className="edition-mark">{edition.acronym.split(" ")[0]}</span>
+      <span className="edition-mark">{edition.acronym.split(" ")[0]?.slice(0, 5)}</span>
       <span className="edition-copy">
         <strong>{edition.acronym}</strong>
         <span>{edition.name}</span>
@@ -120,89 +131,105 @@ export function EditionResults({ editions, selectedId, view, onSelect }: Results
       </div>
     )
   if (view === "calendar") {
-    const marchEditions = editions.filter((edition) =>
-      edition.deadlines.some((deadline) => deadline.displayDate.startsWith("2026. 3.")),
-    )
-    const pendingEditions = editions.filter((edition) => edition.deadlines.length === 0)
+    const groups = groupEditions(editions)
+    const datedGroups = groups.filter((group) => !group.key.endsWith("-pending"))
+    const pendingGroups = groups.filter((group) => group.key.endsWith("-pending"))
     return (
       <div className="calendar-view">
-        <div className="agenda mobile-agenda">
-          <div className="agenda-month">
-            <span>MAR</span>
-            <strong>2026년 3월</strong>
-          </div>
-          {marchEditions.map((edition) => (
-            <EditionCard
-              edition={edition}
-              key={edition.id}
-              onSelect={() => onSelect(edition.id)}
-              selected={selectedId === edition.id}
-            />
+        <div className="mobile-calendar-agenda">
+          {groups.map((group) => (
+            <section aria-labelledby={`agenda-${group.key}`} className="agenda" key={group.key}>
+              <div className="agenda-month">
+                <span>{group.marker}</span>
+                <strong id={`agenda-${group.key}`}>{group.label}</strong>
+              </div>
+              {group.editions.map((edition) => (
+                <EditionCard
+                  edition={edition}
+                  key={edition.id}
+                  onSelect={() => onSelect(edition.id)}
+                  selected={selectedId === edition.id}
+                />
+              ))}
+            </section>
           ))}
         </div>
-        <div className="month-grid-wrap">
-          <div className="month-grid-head">
-            <p className="eyebrow">MARCH 2026</p>
-            <h2>2026년 3월</h2>
-          </div>
-          <table className="month-grid">
-            <caption className="sr-only">2026년 3월 학회 마감 일정</caption>
-            <thead>
-              <tr>
-                {["일", "월", "화", "수", "목", "금", "토"].map((day) => (
-                  <th key={day} scope="col">
-                    {day}
-                  </th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {MARCH_2026_WEEKS.map((week) => (
-                <tr key={`week-${week[0]}`}>
-                  {week.map((day) => {
-                    const due =
-                      day === 16 ? editions.find((edition) => edition.id === "cui-2026") : undefined
-                    return (
-                      <td data-empty={day > 31} key={`day-${day}`}>
-                        {day <= 31 ? (
-                          <>
-                            <span>{day}</span>
-                            {due ? (
-                              <button
-                                aria-pressed={selectedId === due.id}
-                                onClick={() => onSelect(due.id)}
-                                type="button"
-                              >
-                                <strong>{due.acronym}</strong>
-                                <small>23:59 AoE</small>
-                              </button>
-                            ) : null}
-                          </>
-                        ) : null}
-                      </td>
-                    )
-                  })}
-                </tr>
+        <div className="desktop-calendar-grid">
+          {datedGroups.map((group) => {
+            const [yearValue, monthValue] = group.key.split("-")
+            const year = Number(yearValue)
+            const month = Number(monthValue)
+            return (
+              <section className="month-grid-wrap" key={group.key}>
+                <div className="month-grid-head">
+                  <p className="eyebrow">{group.marker} DEADLINES</p>
+                  <h2>{group.label}</h2>
+                </div>
+                <table className="month-grid">
+                  <caption className="sr-only">{group.label} 학회 마감 일정</caption>
+                  <thead>
+                    <tr>
+                      {["일", "월", "화", "수", "목", "금", "토"].map((day) => (
+                        <th key={day} scope="col">
+                          {day}
+                        </th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {calendarWeeks(year, month).map((week, weekIndex) => (
+                      <tr key={`${group.key}-week-${weekIndex + 1}`}>
+                        {week.map((day, dayIndex) => {
+                          const dueEditions = day
+                            ? group.editions.filter((edition) => displayDay(edition) === day)
+                            : []
+                          return (
+                            <td
+                              data-empty={day === null}
+                              key={`${group.key}-day-${weekIndex * 7 + dayIndex + 1}`}
+                            >
+                              {day ? <span>{day}</span> : null}
+                              {dueEditions.map((edition) => (
+                                <button
+                                  aria-label={`${edition.acronym} 상세 보기`}
+                                  aria-pressed={selectedId === edition.id}
+                                  key={edition.id}
+                                  onClick={() => onSelect(edition.id)}
+                                  type="button"
+                                >
+                                  <strong>{edition.acronym}</strong>
+                                  <small>
+                                    {edition.deadlines[0]?.displayDate.split(" ").at(-1)}
+                                  </small>
+                                </button>
+                              ))}
+                            </td>
+                          )
+                        })}
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </section>
+            )
+          })}
+          {pendingGroups.map((group) => (
+            <section aria-labelledby={`pending-${group.key}`} className="agenda" key={group.key}>
+              <div className="agenda-month">
+                <span>{group.marker}</span>
+                <strong id={`pending-${group.key}`}>{group.label}</strong>
+              </div>
+              {group.editions.map((edition) => (
+                <EditionCard
+                  edition={edition}
+                  key={edition.id}
+                  onSelect={() => onSelect(edition.id)}
+                  selected={selectedId === edition.id}
+                />
               ))}
-            </tbody>
-          </table>
+            </section>
+          ))}
         </div>
-        {pendingEditions.length > 0 ? (
-          <div className="agenda calendar-pending">
-            <div className="agenda-month">
-              <span>PENDING</span>
-              <strong>마감 미공개</strong>
-            </div>
-            {pendingEditions.map((edition) => (
-              <EditionCard
-                edition={edition}
-                key={edition.id}
-                onSelect={() => onSelect(edition.id)}
-                selected={selectedId === edition.id}
-              />
-            ))}
-          </div>
-        ) : null}
       </div>
     )
   }

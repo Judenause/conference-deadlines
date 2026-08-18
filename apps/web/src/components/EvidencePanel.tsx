@@ -66,6 +66,17 @@ export function EvidencePanel({
               </div>
             ) : null}
           </dl>
+          {edition.officialUrl ? (
+            <a
+              className="official-source-link"
+              href={edition.officialUrl}
+              rel="noreferrer"
+              target="_blank"
+            >
+              <Icon name="source" />
+              <span>{edition.acronym} 공식 일정</span>
+            </a>
+          ) : null}
           <section className="panel-section">
             <div className="section-title">
               <h3>주요 마감</h3>

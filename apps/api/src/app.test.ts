@@ -17,11 +17,11 @@ test("malformed limit is a typed problem response", async () => {
   })
 })
 
-test("edition exposes evidence and accepted history", async () => {
-  const detail = await createApp().request("/api/v1/editions/cui-2026")
-  const evidence = await createApp().request("/api/v1/editions/cui-2026/evidence")
-  const history = await createApp().request("/api/v1/editions/cui-2026/history")
+test("edition exposes its evidence and history collection", async () => {
+  const detail = await createApp().request("/api/v1/editions/micro-2026")
+  const evidence = await createApp().request("/api/v1/editions/micro-2026/evidence")
+  const history = await createApp().request("/api/v1/editions/micro-2026/history")
   expect(detail.status).toBe(200)
   expect((await evidence.json()).items.length).toBeGreaterThan(0)
-  expect((await history.json()).items.length).toBeGreaterThan(0)
+  expect(await history.json()).toEqual({ items: [] })
 })

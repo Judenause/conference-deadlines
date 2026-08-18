@@ -12,7 +12,7 @@ afterEach(() => {
   vi.restoreAllMocks()
 })
 
-test("researcher searches and opens deadline evidence and history", async () => {
+test("researcher searches and opens a remaining 2026 deadline with evidence", async () => {
   vi.stubGlobal(
     "fetch",
     vi.fn(async (input: RequestInfo | URL) => {
@@ -22,7 +22,7 @@ test("researcher searches and opens deadline evidence and history", async () => 
         : url.includes("/history")
           ? { items: seed.history }
           : url.includes("/api/v1/editions/")
-            ? seed.editions[0]
+            ? seed.editions.find((edition) => url.includes(edition.id))
             : { items: seed.editions }
       return new Response(JSON.stringify(body), { status: 200 })
     }),
@@ -31,12 +31,12 @@ test("researcher searches and opens deadline evidence and history", async () => 
   render(<App />)
   expect(await screen.findByRole("heading", { name: "학회 마감 일정" })).toBeTruthy()
 
-  fireEvent.change(screen.getByRole("searchbox"), { target: { value: "CUI" } })
-  fireEvent.click(await screen.findByRole("button", { name: /CUI 2026 상세 보기/ }))
+  fireEvent.change(screen.getByRole("searchbox"), { target: { value: "MICRO" } })
+  fireEvent.click(await screen.findByRole("button", { name: /MICRO 2026 상세 보기/ }))
 
-  expect(await screen.findByText("논문 제출")).toBeTruthy()
-  expect((await screen.findAllByRole("link", { name: /CUI 2026 Submission/ })).length).toBe(2)
-  expect(await screen.findByText("논문 제출 마감 연장")).toBeTruthy()
+  expect(await screen.findByText("최종본 제출")).toBeTruthy()
+  expect((await screen.findAllByRole("link", { name: /MICRO 2026 공식 일정/ })).length).toBe(2)
+  expect((await screen.findAllByText("시간대 검수 필요")).length).toBeGreaterThan(0)
 })
 
 test("empty search explains the result", async () => {
@@ -58,16 +58,25 @@ test("lab timeline categories expose curated conferences and BK tiers", async ()
   render(<App />)
   expect(await screen.findByRole("link", { name: "연구실 Timeline 원본 열기" })).toBeTruthy()
   const filters = await screen.findByRole("group", { name: "분야 필터" })
+  expect(within(filters).queryByRole("button", { name: "HCI" })).toBeNull()
   fireEvent.click(within(filters).getByRole("button", { name: "Circuit" }))
 
+  expect(await screen.findByRole("button", { name: /ICECS 2026 상세 보기/ })).toBeTruthy()
   expect(await screen.findByRole("button", { name: /ISSCC 2027 상세 보기/ })).toBeTruthy()
   expect(screen.getAllByText("T1 (Non)").length).toBeGreaterThan(0)
   expect(screen.getByText("2027년 · 마감 미공개")).toBeTruthy()
   expect(screen.queryByRole("button", { name: /AAAI 2027 상세 보기/ })).toBeNull()
 
   fireEvent.click(within(filters).getByRole("button", { name: "전체" }))
+  fireEvent.click(screen.getByRole("tab", { name: "캘린더" }))
+  expect(await screen.findByRole("table", { name: "2026년 9월 학회 마감 일정" })).toBeTruthy()
+  expect(
+    (await screen.findAllByRole("button", { name: /MICRO 2026 상세 보기/ })).length,
+  ).toBeGreaterThan(0)
   fireEvent.change(screen.getByRole("searchbox"), { target: { value: "Utah" } })
-  expect(await screen.findByRole("button", { name: /HPCA 2027 상세 보기/ })).toBeTruthy()
+  expect(
+    (await screen.findAllByRole("button", { name: /HPCA 2027 상세 보기/ })).length,
+  ).toBeGreaterThan(0)
 })
 
 test("timezone assumptions remain visibly reviewable outside the public catalog", () => {

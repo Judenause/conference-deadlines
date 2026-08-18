@@ -475,6 +475,21 @@ main {
   font-size: var(--text-caption);
   font-weight: 700;
 }
+.official-source-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-top: var(--space-3);
+  color: var(--accent-strong);
+  font-size: var(--text-caption);
+  font-weight: 800;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+.official-source-link svg {
+  width: 1rem;
+  height: 1rem;
+}
 .panel-section {
   margin-top: var(--space-7);
 }
@@ -696,6 +711,12 @@ main {
   border-radius: var(--radius-panel);
   margin-bottom: var(--space-2);
 }
+.mobile-calendar-agenda {
+  display: none;
+}
+.desktop-calendar-grid .agenda + .agenda {
+  border-top: 1px solid var(--rule);
+}
 .skeleton-list,
 .panel-loading {
   min-height: var(--skeleton-min);
@@ -818,8 +839,7 @@ footer {
   transform: translateY(0);
 }
 .desktop-nav,
-.mobile-filters,
-.mobile-agenda {
+.mobile-filters {
   display: none;
 }
 .catalog-toolbar,
@@ -926,6 +946,7 @@ footer {
 /* Semantic month calendar */
 .month-grid-wrap {
   padding: var(--space-6);
+  border-bottom: 1px solid var(--rule);
 }
 .month-grid-head {
   margin-bottom: var(--space-5);

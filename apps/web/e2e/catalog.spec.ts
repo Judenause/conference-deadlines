@@ -22,17 +22,18 @@ test("search, calendar, evidence, history, and empty states work without overflo
   await page.getByRole("tab", { name: "목록" }).focus()
   await page.keyboard.press("ArrowRight")
   await expect(page.getByRole("tab", { name: "캘린더" })).toBeFocused()
-  await expect(page.locator(".calendar-view")).toContainText("2026년 3월")
+  await expect(page.locator(".calendar-view")).toContainText("2026년 9월")
   await page.screenshot({
     fullPage: true,
     path: `../../.omo/evidence/browser/${testInfo.project.name}-calendar.png`,
   })
   await page.keyboard.press("ArrowLeft")
-  await page.getByRole("searchbox").fill("CUI")
-  await page.getByRole("button", { name: "CUI 2026 상세 보기" }).click()
+  await page.getByRole("searchbox").fill("MICRO")
+  await page.getByRole("button", { name: "MICRO 2026 상세 보기" }).click()
   await expect(page.getByRole("heading", { name: "주요 마감" })).toBeVisible()
   await expect(page.getByRole("heading", { name: "근거 보기" })).toBeVisible()
-  await expect(page.getByText("논문 제출 마감 연장")).toBeVisible()
+  await expect(page.getByRole("link", { name: "MICRO 2026 공식 일정", exact: true })).toBeVisible()
+  await expect(page.getByText("시간대 검수 필요").first()).toBeVisible()
   if (testInfo.project.name !== "desktop-1280") {
     await expect(page.getByLabel("선택한 학회의 근거와 변경 이력")).toHaveCSS(
       "transform",
@@ -41,7 +42,7 @@ test("search, calendar, evidence, history, and empty states work without overflo
   }
 
   await page.screenshot({
-    fullPage: true,
+    fullPage: testInfo.project.name === "desktop-1280",
     path: `../../.omo/evidence/browser/${testInfo.project.name}.png`,
   })
 

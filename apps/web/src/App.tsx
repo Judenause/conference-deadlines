@@ -226,7 +226,7 @@ export function App() {
                 <p>
                   <strong>{filtered.length}</strong>개 일정
                 </p>
-                <span>최근 확인 2026.08.14</span>
+                <span>최근 확인 2026.08.18</span>
               </div>
               {loading && editions.length === 0 ? (
                 <output className="skeleton-list">일정을 불러오는 중...</output>

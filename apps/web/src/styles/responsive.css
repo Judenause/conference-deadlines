@@ -209,10 +209,10 @@
   .timeline-month::before {
     left: calc(-1 * var(--mobile-node-offset));
   }
-  .month-grid-wrap {
+  .desktop-calendar-grid {
     display: none;
   }
-  .mobile-agenda {
+  .mobile-calendar-agenda {
     display: block;
   }
   .method {
