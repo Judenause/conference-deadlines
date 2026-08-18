@@ -15,7 +15,7 @@ export function Hero({ editions }: { readonly editions: readonly Edition[] }) {
         </p>
         <p className="curation-note">
           <span>LAB TIMELINE SYNC</span>
-          Circuit · AI · System · Archi · CV 분류와 BK 티어를 반영했습니다.
+          Notion 108개 전 항목과 Circuit · AI · System · Archi · CV 분류를 반영했습니다.
           <a
             aria-label="연구실 Timeline 원본 열기"
             href="https://verbena-heat-9b5.notion.site/Timeline-f8bcc599203845ccbbbfcae6e6dd7fca?pvs=73"
@@ -32,8 +32,14 @@ export function Hero({ editions }: { readonly editions: readonly Edition[] }) {
           <span>등록 학회</span>
         </div>
         <div>
-          <strong>{editions.filter((item) => item.status === "confirmed").length}</strong>
-          <span>검증 완료</span>
+          <strong>
+            {
+              editions
+                .flatMap((item) => item.deadlines)
+                .filter((item) => item.status === "confirmed").length
+            }
+          </strong>
+          <span>검증 마감</span>
         </div>
         <div>
           <strong>24h</strong>
@@ -80,7 +86,7 @@ function SourceStatus({ className }: { readonly className: string }) {
   return (
     <div className={className}>
       <span className="live-dot" />
-      공식 출처 기반
+      공식 URL 병기
     </div>
   )
 }

@@ -7,6 +7,14 @@ test("empty search is a successful empty collection", async () => {
   expect(await response.json()).toEqual({ items: [] })
 })
 
+test("catalog request can return every imported Notion record", async () => {
+  const response = await createApp().request("/api/v1/editions?limit=250")
+  const body = await response.json()
+
+  expect(response.status).toBe(200)
+  expect(body.items.length).toBe(111)
+})
+
 test("malformed limit is a typed problem response", async () => {
   const response = await createApp().request("/api/v1/editions?limit=nope")
   expect(response.status).toBe(400)

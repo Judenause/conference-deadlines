@@ -165,6 +165,14 @@
     grid-column: 2 / 3;
     justify-items: start;
     text-align: left;
+    width: 100%;
+    min-width: 0;
+  }
+  .milestone-stack > span {
+    grid-template-columns: 4.5rem minmax(0, 1fr);
+  }
+  .milestone-stack strong {
+    text-align: left;
   }
   .edition-row > .icon {
     grid-column: 3;

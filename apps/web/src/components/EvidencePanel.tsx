@@ -77,12 +77,23 @@ export function EvidencePanel({
               <span>{edition.acronym} 공식 일정</span>
             </a>
           ) : null}
+          {edition.registrySource === "lab-notion" ? (
+            <a
+              className="registry-source-link"
+              href={edition.registrySourceUrl}
+              rel="noreferrer"
+              target="_blank"
+            >
+              <Icon name="source" />
+              <span>연구실 Timeline 등록 항목</span>
+            </a>
+          ) : null}
           <section className="panel-section">
             <div className="section-title">
-              <h3>주요 마감</h3>
-              <span>{edition.deadlines.length}</span>
+              <h3>주요 일정</h3>
+              <span>{edition.deadlines.length + (edition.conferenceStart ? 1 : 0)}</span>
             </div>
-            {edition.deadlines.length > 0 ? (
+            {edition.deadlines.length > 0 || edition.conferenceStart ? (
               <ol className="deadline-stack">
                 {edition.deadlines.map((deadline) => (
                   <li key={deadline.id}>
@@ -115,9 +126,25 @@ export function EvidencePanel({
                     </small>
                   </li>
                 ))}
+                {edition.conferenceStart ? (
+                  <li className="conference-milestone">
+                    <div className="deadline-line">
+                      <span className="deadline-check" data-review={edition.status !== "confirmed"}>
+                        <Icon name={edition.status === "confirmed" ? "check" : "clock"} />
+                      </span>
+                      <div>
+                        <strong>학회 개최</strong>
+                        <span>Main conference</span>
+                      </div>
+                      <StatusBadge status={edition.status} />
+                    </div>
+                    <time dateTime={edition.conferenceStart}>{edition.dateRange}</time>
+                    <small>{edition.location}</small>
+                  </li>
+                ) : null}
               </ol>
             ) : (
-              <p className="quiet-state">공식 일정이 아직 공개되지 않았습니다.</p>
+              <p className="quiet-state">제출 및 개최 일정이 아직 공개되지 않았습니다.</p>
             )}
           </section>
           <section className="panel-section">

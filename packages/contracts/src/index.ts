@@ -1,9 +1,20 @@
 import { z } from "zod"
 
+export const deadlineKindSchema = z.enum([
+  "abstract_registration",
+  "paper_submission",
+  "supplementary_submission",
+  "first_notification",
+  "rebuttal",
+  "final_notification",
+  "camera_ready",
+  "workshop_submission",
+])
+
 export const deadlineSchema = z.object({
   id: z.string(),
   label: z.string(),
-  kind: z.string(),
+  kind: deadlineKindSchema,
   dueAtUtc: z.string(),
   displayDate: z.string(),
   timezone: z.string(),
@@ -18,11 +29,16 @@ export const editionSchema = z.object({
   year: z.number().int(),
   location: z.string(),
   dateRange: z.string(),
+  conferenceStart: z.string().date().nullable(),
+  conferenceEnd: z.string().date().nullable(),
   officialUrl: z.string().url(),
   tier: z.string().nullable(),
   categories: z.array(z.string()),
   status: z.enum(["confirmed", "review-needed", "timezone-review-needed", "dates-pending"]),
   description: z.string(),
+  registrySource: z.enum(["lab-notion", "curated"]),
+  registrySourceUrl: z.string().url(),
+  registryRecordId: z.string().nullable(),
   deadlines: z.array(deadlineSchema),
 })
 
@@ -57,10 +73,11 @@ export const catalogSchema = z.object({
 export const editionQuerySchema = z.object({
   q: z.string().trim().max(80).optional(),
   category: z.string().trim().max(40).optional(),
-  limit: z.coerce.number().int().min(1).max(100).optional(),
+  limit: z.coerce.number().int().min(1).max(250).optional(),
 })
 
 export type Catalog = z.infer<typeof catalogSchema>
+export type Deadline = z.infer<typeof deadlineSchema>
 export type Edition = z.infer<typeof editionSchema>
 export type Evidence = z.infer<typeof evidenceSchema>
 export type History = z.infer<typeof historySchema>

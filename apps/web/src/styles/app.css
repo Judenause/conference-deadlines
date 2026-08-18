@@ -389,10 +389,35 @@ main {
 .edition-date {
   justify-items: end;
   text-align: right;
+  min-width: 17rem;
 }
-.edition-date strong {
-  margin-top: var(--space-1);
-  font-size: var(--text-body-sm);
+.milestone-stack {
+  width: 100%;
+  display: grid;
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-control);
+  background: var(--surface-muted);
+}
+.milestone-stack > span {
+  display: grid;
+  grid-template-columns: 4.75rem minmax(0, 1fr);
+  align-items: baseline;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+}
+.milestone-stack > span + span {
+  border-top: 1px solid var(--rule);
+}
+.milestone-stack small {
+  color: var(--ink-secondary);
+  font-weight: 700;
+  text-align: left;
+}
+.milestone-stack strong {
+  min-width: 0;
+  color: var(--ink);
+  font-size: var(--text-caption);
+  text-align: right;
 }
 .edition-official-link {
   min-height: var(--control-target);
@@ -507,6 +532,16 @@ main {
   text-decoration-thickness: 1px;
   text-underline-offset: 3px;
 }
+.registry-source-link {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  width: fit-content;
+  margin-top: var(--space-2);
+  color: var(--ink-secondary);
+  font-size: var(--text-caption);
+  text-underline-offset: 3px;
+}
 .official-source-link svg {
   width: 1rem;
   height: 1rem;
@@ -543,6 +578,10 @@ main {
   border-radius: var(--radius-panel);
   background: var(--canvas);
   padding: var(--space-3);
+}
+.deadline-stack li.conference-milestone {
+  border-style: dashed;
+  background: color-mix(in srgb, var(--verified-soft) 55%, var(--surface));
 }
 .deadline-line {
   display: grid;
@@ -724,7 +763,9 @@ main {
   color: var(--focus-ring);
   font: 800 var(--text-caption) var(--font-mono);
 }
-.agenda-month strong {
+.agenda-month strong,
+.agenda-month h2 {
+  margin: 0;
   font-size: var(--text-body-sm);
 }
 .agenda .edition-entry {
@@ -732,6 +773,54 @@ main {
   border-radius: var(--radius-panel);
   margin-bottom: var(--space-2);
   overflow: hidden;
+}
+.calendar-agenda-list {
+  display: grid;
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.calendar-agenda-list li {
+  display: grid;
+  grid-template-columns: 3.25rem minmax(0, 1fr);
+  align-items: stretch;
+  gap: var(--space-2);
+}
+.calendar-agenda-list time {
+  padding-top: var(--space-3);
+  color: var(--interactive);
+  font: 700 var(--text-caption) var(--font-mono);
+}
+.calendar-agenda-list button {
+  min-height: var(--control-target);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: var(--space-1) var(--space-3);
+  padding: var(--space-3);
+  border: 1px solid color-mix(in srgb, var(--interactive) 36%, var(--rule));
+  border-radius: var(--radius-control);
+  background: var(--interactive-soft);
+  color: var(--ink);
+  text-align: left;
+}
+.calendar-agenda-list button span,
+.calendar-agenda-list button small {
+  font-size: var(--text-caption);
+}
+.calendar-agenda-list button span {
+  color: var(--interactive);
+  font-weight: 700;
+}
+.calendar-agenda-list button small {
+  grid-column: 1 / -1;
+  color: var(--ink-secondary);
+}
+.calendar-agenda-list li[data-event-kind="conference"] button,
+.month-grid td button[data-event-kind="conference"] {
+  border-style: dashed;
+  border-color: color-mix(in srgb, var(--verified) 42%, var(--rule));
+  background: color-mix(in srgb, var(--verified-soft) 72%, var(--surface));
 }
 .mobile-calendar-agenda {
   display: none;

@@ -160,6 +160,8 @@ Content stress gates: empty result, 40-character conference name, long Korean tr
 ### DeadlineTimeline and DeadlineRow
 
 - Structure: month heading, date marker, deadline button, conference, track, evidence status, and an always-visible official-site link.
+- Dual-date scan contract: every edition row contains a compact `MilestoneStack` with a labelled `논문 제출` line and a labelled `학회 개최` line. Missing values say `공식 발표 대기`; a single unlabeled date is never allowed.
+- Milestone ordering: abstract registration, paper submission, supplementary submission, first notification, rebuttal, final notification, camera ready, then conference dates. The evidence drawer exposes every available milestone rather than selecting only the first deadline.
 - Variants: desktop time spine, tablet compact row, mobile agenda.
 - States: default, hover, selected, focus, extended, verified, unavailable.
 - Accessibility: chronological list semantics; each row has one descriptive accessible name; selected state uses `aria-current` or `aria-selected` as appropriate.
@@ -168,7 +170,8 @@ Content stress gates: empty result, 40-character conference name, long Korean tr
 
 ### CalendarGrid
 
-- Structure: month heading, weekday headers, dated cells containing deadline controls, followed by a full-width official-site URL list for that month.
+- Structure: month heading, weekday headers, dated cells containing both deadline and conference-event controls, followed by a full-width official-site URL list for that month.
+- Event semantics: deadline chips use the visible prefix `제출` or their milestone label; conference chips use `개최`. The distinction is encoded in text and shape as well as color.
 - Variants: semantic month grid at 768px+, chronological agenda at 375px.
 - States: empty day, today, focused day, selected deadline, multiple deadlines.
 - Accessibility: if interactive grid keys are implemented, follow ARIA grid; otherwise keep native table/list semantics. Mobile always uses lists.

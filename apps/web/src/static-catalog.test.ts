@@ -41,3 +41,30 @@ test("Given the lab timeline catalog, when it is parsed, then curation metadata 
   expect(catalog.editions.some((edition) => edition.id === "cui-2026")).toBe(false)
   expect(catalog.editions.every((edition) => edition.officialUrl.startsWith("https://"))).toBe(true)
 })
+
+test("Given the lab Notion registry, all 108 records and every official address remain auditable", () => {
+  const catalog = parseStaticCatalog(seed)
+  const notionEditions = catalog.editions.filter(
+    (edition) => edition.registrySource === "lab-notion",
+  )
+  const categoryCounts = Object.fromEntries(
+    ["Circuit", "AI", "System", "Archi", "CV"].map((category) => [
+      category,
+      notionEditions.filter((edition) => edition.categories.includes(category)).length,
+    ]),
+  )
+
+  expect(notionEditions).toHaveLength(108)
+  expect(categoryCounts).toEqual({ Circuit: 27, AI: 27, System: 30, Archi: 9, CV: 15 })
+  expect(notionEditions.every((edition) => edition.registryRecordId)).toBe(true)
+  expect(catalog.editions.every((edition) => edition.officialUrl.startsWith("https://"))).toBe(true)
+})
+
+test("Given a multi-stage conference, paper submission and conference dates stay separate", () => {
+  const catalog = parseStaticCatalog(seed)
+  const aaai = catalog.editions.find((edition) => edition.acronym === "AAAI 2027")
+
+  expect(aaai?.deadlines.some((deadline) => deadline.kind === "paper_submission")).toBe(true)
+  expect(aaai?.conferenceStart).toBe("2027-02-16")
+  expect(aaai?.conferenceEnd).toBe("2027-02-23")
+})

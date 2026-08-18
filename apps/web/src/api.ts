@@ -32,7 +32,7 @@ function getStaticCatalog() {
 
 export async function getEditions(): Promise<readonly Edition[]> {
   if (staticDataEnabled) return (await getStaticCatalog()).editions
-  return editionListSchema.parse(await getJson("/api/v1/editions")).items
+  return editionListSchema.parse(await getJson("/api/v1/editions?limit=250")).items
 }
 
 export async function getEditionBundle(editionId: string): Promise<{

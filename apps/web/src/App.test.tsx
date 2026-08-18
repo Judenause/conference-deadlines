@@ -69,18 +69,21 @@ test("lab timeline categories expose curated conferences and BK tiers", async ()
   expect(await screen.findByRole("button", { name: /ICECS 2026 상세 보기/ })).toBeTruthy()
   expect(await screen.findByRole("button", { name: /ISSCC 2027 상세 보기/ })).toBeTruthy()
   expect(screen.getAllByText("T1 (Non)").length).toBeGreaterThan(0)
-  expect(screen.getByText("2027년 · 마감 미공개")).toBeTruthy()
+  expect(screen.getAllByText("논문 제출").length).toBeGreaterThan(0)
+  expect(screen.getAllByText("학회 개최").length).toBeGreaterThan(0)
   expect(screen.queryByRole("button", { name: /AAAI 2027 상세 보기/ })).toBeNull()
 
   fireEvent.click(within(filters).getByRole("button", { name: "전체" }))
   fireEvent.click(screen.getByRole("tab", { name: "캘린더" }))
-  expect(await screen.findByRole("table", { name: "2026년 9월 학회 마감 일정" })).toBeTruthy()
   expect(
-    (await screen.findAllByRole("button", { name: /MICRO 2026 상세 보기/ })).length,
+    await screen.findByRole("table", { name: "2026년 9월 제출 및 학회 개최 일정" }),
+  ).toBeTruthy()
+  expect(
+    (await screen.findAllByRole("button", { name: /MICRO 2026 .*상세 보기/ })).length,
   ).toBeGreaterThan(0)
   fireEvent.change(screen.getByRole("searchbox"), { target: { value: "Utah" } })
   expect(
-    (await screen.findAllByRole("button", { name: /HPCA 2027 상세 보기/ })).length,
+    (await screen.findAllByRole("button", { name: /HPCA 2027 .*상세 보기/ })).length,
   ).toBeGreaterThan(0)
 })
 
@@ -92,11 +95,16 @@ test("timezone assumptions remain visibly reviewable outside the public catalog"
     year: 2027,
     location: "Online",
     dateRange: "검수 대기",
+    conferenceStart: null,
+    conferenceEnd: null,
     officialUrl: "https://example.com/timezone-review",
     tier: null,
     categories: ["System"],
     status: "timezone-review-needed",
     description: "원문에 시간대가 없어 AoE로 임시 계산한 테스트 fixture입니다.",
+    registrySource: "curated",
+    registrySourceUrl: "https://example.com/timezone-review",
+    registryRecordId: null,
     deadlines: [
       {
         id: "timezone-review-paper",
