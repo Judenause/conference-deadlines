@@ -1,0 +1,54 @@
+{
+  "build": "production-static",
+  "url": "http://127.0.0.1:4189/",
+  "cases": [
+    {
+      "case": "desktop-list",
+      "viewport": { "width": 1280, "height": 900 },
+      "horizontalOverflow": 0,
+      "consoleErrors": [],
+      "sampleCount": 0,
+      "filters": ["전체", "Circuit", "AI", "System", "Archi", "CV", "HCI"]
+    },
+    {
+      "case": "desktop-selected",
+      "viewport": { "width": 1280, "height": 900 },
+      "horizontalOverflow": 0,
+      "consoleErrors": [],
+      "sampleCount": 0,
+      "filters": ["전체", "Circuit", "AI", "System", "Archi", "CV", "HCI"]
+    },
+    {
+      "case": "desktop-calendar",
+      "viewport": { "width": 1280, "height": 900 },
+      "horizontalOverflow": 0,
+      "consoleErrors": [],
+      "sampleCount": 0,
+      "filters": ["전체", "Circuit", "AI", "System", "Archi", "CV", "HCI"]
+    },
+    {
+      "case": "tablet-selected",
+      "viewport": { "width": 768, "height": 900 },
+      "horizontalOverflow": 0,
+      "consoleErrors": [],
+      "sampleCount": 0,
+      "filters": ["전체", "Circuit", "AI", "System", "Archi", "CV", "HCI"]
+    },
+    {
+      "case": "mobile-filter",
+      "viewport": { "width": 375, "height": 812 },
+      "horizontalOverflow": 0,
+      "consoleErrors": [],
+      "sampleCount": 0,
+      "filters": ["전체", "Circuit", "AI", "System", "Archi", "CV", "HCI"]
+    },
+    {
+      "case": "mobile-selected",
+      "viewport": { "width": 375, "height": 812 },
+      "horizontalOverflow": 0,
+      "consoleErrors": [],
+      "sampleCount": 0,
+      "filters": ["전체", "Circuit", "AI", "System", "Archi", "CV", "HCI"]
+    }
+  ]
+}
