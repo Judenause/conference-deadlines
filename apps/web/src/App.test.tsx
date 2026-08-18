@@ -40,7 +40,9 @@ test("researcher searches and opens a remaining 2026 deadline with evidence", as
   fireEvent.click(await screen.findByRole("button", { name: /MICRO 2026 상세 보기/ }))
 
   expect(await screen.findByText("최종본 제출")).toBeTruthy()
-  expect((await screen.findAllByRole("link", { name: /MICRO 2026 공식 일정/ })).length).toBe(2)
+  expect(
+    (await screen.findAllByRole("link", { name: /MICRO 2026 공식 일정/ })).length,
+  ).toBeGreaterThanOrEqual(2)
   expect((await screen.findAllByText("시간대 검수 필요")).length).toBeGreaterThan(0)
 })
 

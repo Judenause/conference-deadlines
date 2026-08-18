@@ -31,5 +31,7 @@ test("edition exposes its evidence and history collection", async () => {
   const history = await createApp().request("/api/v1/editions/micro-2026/history")
   expect(detail.status).toBe(200)
   expect((await evidence.json()).items.length).toBeGreaterThan(0)
-  expect(await history.json()).toEqual({ items: [] })
+  expect(await history.json()).toMatchObject({
+    items: [{ editionId: "micro-2026", state: "accepted" }],
+  })
 })

@@ -87,9 +87,12 @@ test("search, calendar, evidence, history, and empty states work without overflo
       .toBe(true)
   }
   await page.getByRole("searchbox").fill("없는학회")
-  await expect(page.getByText("검색 결과가 없습니다")).toBeVisible()
+  const emptyResult = page.getByText("검색 결과가 없습니다")
+  await expect(emptyResult).toBeVisible()
+  await page.getByRole("tab", { name: "목록" }).focus()
+  await emptyResult.scrollIntoViewIfNeeded()
   await page.screenshot({
-    fullPage: true,
+    fullPage: false,
     path: `../../.omo/evidence/browser/${testInfo.project.name}-empty.png`,
   })
 
