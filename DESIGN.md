@@ -189,9 +189,16 @@ Content stress gates: empty result, 40-character conference name, long Korean tr
 
 ### Badge
 
-- Variants: verified, extended, review-needed, timezone-review-needed, source kind.
+- Variants: verified, extended, review-needed, timezone-review-needed, source kind, lab tier.
 - States: static and linked.
 - Accessibility: visible text always accompanies color; decorative dots are prohibited.
+
+### CurationNote
+
+- Structure: compact source label, imported taxonomy summary, and external source link.
+- Variants: lab timeline import only; never substitutes for deadline evidence.
+- States: static copy plus link hover and keyboard focus.
+- Accessibility: the source link has a descriptive label and opens safely in a new tab.
 
 ### Surface and StatePanel
 

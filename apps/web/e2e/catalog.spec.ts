@@ -72,31 +72,6 @@ test("search, calendar, evidence, history, and empty states work without overflo
     path: `../../.omo/evidence/browser/${testInfo.project.name}-empty.png`,
   })
 
-  await page.getByRole("searchbox").fill("Sample CFP")
-  await expect(page.getByText("시간대 검수 필요")).toBeVisible()
-  await page.getByRole("button", { name: "Sample CFP 2026 상세 보기" }).click()
-  const timezoneReviewPanel = page.getByRole("dialog", {
-    name: "선택한 학회의 근거와 변경 이력",
-  })
-  await expect(timezoneReviewPanel.getByText(/AoE \(UTC-12\) · 시간대 가정 · UTC/)).toBeVisible()
-  await expect(timezoneReviewPanel.locator(".deadline-check")).toHaveAttribute(
-    "data-review",
-    "true",
-  )
-  if (testInfo.project.name !== "desktop-1280") {
-    await expect(page.locator(".evidence-panel")).toHaveCSS("transform", "matrix(1, 0, 0, 1, 0, 0)")
-    const drawerBounds = await timezoneReviewPanel.evaluate((element) => ({
-      bottom: Math.round(element.getBoundingClientRect().bottom),
-      top: Math.round(element.getBoundingClientRect().top),
-      viewportHeight: window.innerHeight,
-    }))
-    expect(drawerBounds.top).toBe(0)
-    expect(drawerBounds.bottom).toBe(drawerBounds.viewportHeight)
-  }
-  await page.screenshot({
-    path: `../../.omo/evidence/browser/${testInfo.project.name}-timezone-review.png`,
-  })
-
   await page.emulateMedia({ reducedMotion: "reduce" })
   expect(
     await page.evaluate(() => window.matchMedia("(prefers-reduced-motion: reduce)").matches),

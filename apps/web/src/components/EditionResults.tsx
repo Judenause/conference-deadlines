@@ -17,6 +17,57 @@ const MARCH_2026_WEEKS = [
   [29, 30, 31, 32, 33, 34, 35],
 ] as const
 
+const MONTH_MARKERS = [
+  "JAN",
+  "FEB",
+  "MAR",
+  "APR",
+  "MAY",
+  "JUN",
+  "JUL",
+  "AUG",
+  "SEP",
+  "OCT",
+  "NOV",
+  "DEC",
+] as const
+
+interface EditionGroup {
+  readonly key: string
+  readonly marker: string
+  readonly label: string
+  readonly editions: readonly Edition[]
+}
+
+function groupEditions(editions: readonly Edition[]): readonly EditionGroup[] {
+  const groups = new Map<string, { marker: string; label: string; editions: Edition[] }>()
+  const ordered = [...editions].sort((left, right) => {
+    const leftDate = left.deadlines[0]?.dueAtUtc
+    const rightDate = right.deadlines[0]?.dueAtUtc
+    if (leftDate && rightDate) return leftDate.localeCompare(rightDate)
+    if (leftDate) return -1
+    if (rightDate) return 1
+    return left.year - right.year || left.acronym.localeCompare(right.acronym)
+  })
+
+  for (const edition of ordered) {
+    const deadline = edition.deadlines[0]
+    const dateParts = deadline?.displayDate.split(".")
+    const year = dateParts?.[0]?.trim()
+    const monthNumber = Number(dateParts?.[1]?.trim())
+    const hasMonth =
+      Boolean(year) && Number.isInteger(monthNumber) && monthNumber >= 1 && monthNumber <= 12
+    const key = hasMonth ? `${year}-${monthNumber}` : `${edition.year}-pending`
+    const marker = hasMonth ? (MONTH_MARKERS[monthNumber - 1] ?? "DATE") : String(edition.year)
+    const label = hasMonth ? `${year}년 ${monthNumber}월` : `${edition.year}년 · 마감 미공개`
+    const existing = groups.get(key)
+    if (existing) existing.editions.push(edition)
+    else groups.set(key, { marker, label, editions: [edition] })
+  }
+
+  return [...groups].map(([key, group]) => ({ key, ...group }))
+}
+
 function EditionCard({
   edition,
   selected,
@@ -40,8 +91,11 @@ function EditionCard({
       <span className="edition-copy">
         <strong>{edition.acronym}</strong>
         <span>{edition.name}</span>
-        <small>
-          {edition.categories.join(" · ")} · {edition.location}
+        <small className="edition-taxonomy">
+          <span>
+            {edition.categories.join(" · ")} · {edition.location}
+          </span>
+          {edition.tier ? <span className="tier-badge">{edition.tier}</span> : null}
         </small>
       </span>
       <span className="edition-date">
@@ -65,7 +119,11 @@ export function EditionResults({ editions, selectedId, view, onSelect }: Results
         <p>약어 또는 학회 이름을 바꿔 검색해 보세요.</p>
       </div>
     )
-  if (view === "calendar")
+  if (view === "calendar") {
+    const marchEditions = editions.filter((edition) =>
+      edition.deadlines.some((deadline) => deadline.displayDate.startsWith("2026. 3.")),
+    )
+    const pendingEditions = editions.filter((edition) => edition.deadlines.length === 0)
     return (
       <div className="calendar-view">
         <div className="agenda mobile-agenda">
@@ -73,7 +131,7 @@ export function EditionResults({ editions, selectedId, view, onSelect }: Results
             <span>MAR</span>
             <strong>2026년 3월</strong>
           </div>
-          {editions.map((edition) => (
+          {marchEditions.map((edition) => (
             <EditionCard
               edition={edition}
               key={edition.id}
@@ -129,21 +187,43 @@ export function EditionResults({ editions, selectedId, view, onSelect }: Results
             </tbody>
           </table>
         </div>
+        {pendingEditions.length > 0 ? (
+          <div className="agenda calendar-pending">
+            <div className="agenda-month">
+              <span>PENDING</span>
+              <strong>마감 미공개</strong>
+            </div>
+            {pendingEditions.map((edition) => (
+              <EditionCard
+                edition={edition}
+                key={edition.id}
+                onSelect={() => onSelect(edition.id)}
+                selected={selectedId === edition.id}
+              />
+            ))}
+          </div>
+        ) : null}
       </div>
     )
+  }
+  const groups = groupEditions(editions)
   return (
     <div className="edition-list deadline-timeline">
-      <div className="timeline-month">
-        <span>MAR</span>
-        <strong>2026년 3월</strong>
-      </div>
-      {editions.map((edition) => (
-        <EditionCard
-          edition={edition}
-          key={edition.id}
-          onSelect={() => onSelect(edition.id)}
-          selected={selectedId === edition.id}
-        />
+      {groups.map((group) => (
+        <section aria-labelledby={`group-${group.key}`} className="timeline-group" key={group.key}>
+          <div className="timeline-month">
+            <span>{group.marker}</span>
+            <strong id={`group-${group.key}`}>{group.label}</strong>
+          </div>
+          {group.editions.map((edition) => (
+            <EditionCard
+              edition={edition}
+              key={edition.id}
+              onSelect={() => onSelect(edition.id)}
+              selected={selectedId === edition.id}
+            />
+          ))}
+        </section>
       ))}
     </div>
   )

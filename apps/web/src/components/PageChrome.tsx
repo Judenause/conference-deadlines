@@ -10,7 +10,21 @@ export function Hero({ editions }: { readonly editions: readonly Edition[] }) {
       <div>
         <p className="eyebrow">EVIDENCE-FIRST CONFERENCE CATALOG</p>
         <h1>학회 마감 일정</h1>
-        <p>놓치면 안 되는 마감일, 바뀐 날짜와 공식 근거까지 한곳에서 확인하세요.</p>
+        <p className="hero-lead">
+          연구실 관심 학회를 먼저 모으고, 바뀐 마감일과 공식 근거까지 한곳에서 확인하세요.
+        </p>
+        <p className="curation-note">
+          <span>LAB TIMELINE SYNC</span>
+          Circuit · AI · System · Archi · CV 분류와 BK 티어를 반영했습니다.
+          <a
+            aria-label="연구실 Timeline 원본 열기"
+            href="https://verbena-heat-9b5.notion.site/Timeline-f8bcc599203845ccbbbfcae6e6dd7fca?pvs=73"
+            rel="noreferrer"
+            target="_blank"
+          >
+            원본 보기
+          </a>
+        </p>
       </div>
       <div className="hero-stats">
         <div>

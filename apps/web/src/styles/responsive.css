@@ -82,9 +82,12 @@
     font-size: var(--text-h1);
     max-width: 17.5rem;
   }
-  .hero > div > p:last-child {
+  .hero-lead {
     font-size: var(--text-body);
     margin-top: var(--space-5);
+  }
+  .curation-note {
+    align-items: flex-start;
   }
   .catalog-toolbar {
     border-radius: var(--radius-panel) var(--radius-panel) 0 0;
@@ -174,6 +177,17 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+  }
+  .edition-taxonomy {
+    flex-wrap: wrap;
+    white-space: normal;
+    overflow: visible;
+    text-overflow: clip;
+  }
+  .edition-taxonomy > span:first-child {
+    white-space: normal;
+    overflow: visible;
+    text-overflow: clip;
   }
   .evidence-panel {
     left: 0;

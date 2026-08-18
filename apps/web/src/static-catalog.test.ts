@@ -19,3 +19,11 @@ test("Given a generated catalog, when an unknown edition opens, then a typed err
 
   expect(openUnknownEdition).toThrow(StaticCatalogError)
 })
+
+test("Given the lab timeline catalog, when it is parsed, then curation metadata remains typed", () => {
+  const catalog = parseStaticCatalog(seed)
+  const isscc = catalog.editions.find((edition) => edition.id === "isscc-2027")
+
+  expect(isscc?.categories).toContain("Circuit")
+  expect(isscc?.tier).toBe("T1 (Non)")
+})

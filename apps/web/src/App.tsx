@@ -13,6 +13,8 @@ import {
 } from "./components/PageChrome"
 import { PrimitiveShowcase, ViewTabs } from "./components/Primitives"
 
+const LAB_CATEGORY_ORDER = ["Circuit", "AI", "System", "Archi", "CV"] as const
+
 export function App() {
   const methodId = useId()
   const mainId = useId()
@@ -103,16 +105,28 @@ export function App() {
     }
   }, [compact, selected])
 
-  const categories = useMemo(
-    () => ["전체", ...new Set(editions.flatMap((edition) => edition.categories))],
-    [editions],
-  )
+  const categories = useMemo(() => {
+    const available = new Set(editions.flatMap((edition) => edition.categories))
+    const labCategories = LAB_CATEGORY_ORDER.filter((item) => available.has(item))
+    const otherCategories = [...available]
+      .filter((item) => !LAB_CATEGORY_ORDER.some((labCategory) => labCategory === item))
+      .sort((left, right) => left.localeCompare(right, "ko"))
+    return ["전체", ...labCategories, ...otherCategories]
+  }, [editions])
   const filtered = useMemo(
     () =>
       editions.filter((edition) => {
         const needle = query.trim().toLocaleLowerCase("ko")
-        const matchesText =
-          !needle || `${edition.acronym} ${edition.name}`.toLocaleLowerCase("ko").includes(needle)
+        const haystack = [
+          edition.acronym,
+          edition.name,
+          edition.location,
+          edition.categories.join(" "),
+          edition.tier ?? "",
+        ]
+          .join(" ")
+          .toLocaleLowerCase("ko")
+        const matchesText = !needle || haystack.includes(needle)
         return matchesText && (category === "전체" || edition.categories.includes(category))
       }),
     [category, editions, query],
@@ -151,7 +165,7 @@ export function App() {
             <input
               aria-label="학회 검색"
               onChange={(event) => setQuery(event.target.value)}
-              placeholder="학회명 또는 약어 검색"
+              placeholder="학회명, 분야, 개최지 또는 티어 검색"
               ref={searchRef}
               type="search"
               value={query}

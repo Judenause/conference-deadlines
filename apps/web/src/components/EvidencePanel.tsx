@@ -57,6 +57,14 @@ export function EvidencePanel({
               <dt>장소</dt>
               <dd>{edition.location}</dd>
             </div>
+            {edition.tier ? (
+              <div>
+                <dt>연구실 분류</dt>
+                <dd>
+                  {edition.categories.join(" · ")} · {edition.tier}
+                </dd>
+              </div>
+            ) : null}
           </dl>
           <section className="panel-section">
             <div className="section-title">
