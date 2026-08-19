@@ -160,7 +160,8 @@ Content stress gates: empty result, 40-character conference name, long Korean tr
 ### DeadlineTimeline and DeadlineRow
 
 - Structure: month heading, date marker, deadline button, conference, track, evidence status, and an always-visible official-site link.
-- Dual-date scan contract: every edition row contains a compact `MilestoneStack` with a labelled `논문 제출` line and a labelled `학회 개최` line. Missing values say `공식 발표 대기`; a single unlabeled date is never allowed.
+- Current-schedule contract: the public catalog includes editions with a future deadline, an upcoming or ongoing conference, or a current/future edition whose dates are still unpublished. Fully elapsed editions stay in the source catalog but are omitted from the default results.
+- Milestone visibility: `MilestoneStack` shows the nearest open milestone plus `학회 개최` while the conference is upcoming or in progress. Elapsed dates remain available in `EvidenceDrawer` for auditability but never reappear in the list or calendar.
 - Milestone ordering: abstract registration, paper submission, supplementary submission, first notification, rebuttal, final notification, camera ready, then conference dates. The evidence drawer exposes every available milestone rather than selecting only the first deadline.
 - Variants: desktop time spine, tablet compact row, mobile agenda.
 - States: default, hover, selected, focus, extended, verified, unavailable.
@@ -172,6 +173,7 @@ Content stress gates: empty result, 40-character conference name, long Korean tr
 
 - Structure: month heading, weekday headers, dated cells containing both deadline and conference-event controls, followed by a full-width official-site URL list for that month.
 - Event semantics: deadline chips use the visible prefix `제출` or their milestone label; conference chips use `개최`. The distinction is encoded in text and shape as well as color.
+- In-progress semantics: after a conference starts and before it ends, list and calendar place it on today as `학회 진행 중 / 오늘 진행 중` instead of reviving the elapsed start date or misclassifying the edition as unpublished.
 - Variants: semantic month grid at 768px+, chronological agenda at 375px.
 - States: empty day, today, focused day, selected deadline, multiple deadlines.
 - Accessibility: if interactive grid keys are implemented, follow ARIA grid; otherwise keep native table/list semantics. Mobile always uses lists.

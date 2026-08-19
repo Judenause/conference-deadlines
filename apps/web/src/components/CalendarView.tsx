@@ -144,7 +144,12 @@ export function CalendarView({ editions, selectedId, onSelect }: CalendarViewPro
                                       {event.type === "conference" ? "개최" : "일정"} ·{" "}
                                       {event.edition.acronym}
                                     </strong>
-                                    <small>{event.label}</small>
+                                    <small data-ongoing={event.label === "학회 진행 중"}>
+                                      <span>{event.label}</span>
+                                      {event.label === "학회 진행 중" ? (
+                                        <span>{event.timeLabel}</span>
+                                      ) : null}
+                                    </small>
                                   </button>
                                 ))
                             : null}

@@ -38,36 +38,102 @@ function displayDateIso(deadline: Deadline): string | undefined {
   return `${year}-${month?.padStart(2, "0")}-${day?.padStart(2, "0")}`
 }
 
-export function paperSubmission(edition: Edition): Deadline | undefined {
-  return edition.deadlines.find((deadline) => deadline.kind === "paper_submission")
+export function localDateIso(date: Date): string {
+  const year = date.getFullYear()
+  const month = String(date.getMonth() + 1).padStart(2, "0")
+  const day = String(date.getDate()).padStart(2, "0")
+  return `${year}-${month}-${day}`
 }
 
-export function editionAnchorDate(edition: Edition, today: string): string | undefined {
-  const futureDeadlines = edition.deadlines
-    .map(displayDateIso)
-    .filter((date): date is string => date !== undefined && date >= today)
-    .sort()
-  if (futureDeadlines[0]) return futureDeadlines[0]
-  if (edition.conferenceStart && edition.conferenceStart >= today) return edition.conferenceStart
-  const fallbackDeadline = paperSubmission(edition) ?? edition.deadlines[0]
-  return (
-    (fallbackDeadline ? displayDateIso(fallbackDeadline) : undefined) ??
-    edition.conferenceStart ??
-    undefined
+export function isUpcomingDeadline(deadline: Deadline, now: Date): boolean {
+  return new Date(deadline.dueAtUtc).getTime() >= now.getTime()
+}
+
+export function nextUpcomingDeadline(edition: Edition, now: Date): Deadline | undefined {
+  return [...edition.deadlines]
+    .filter((deadline) => isUpcomingDeadline(deadline, now))
+    .sort((left, right) => left.dueAtUtc.localeCompare(right.dueAtUtc))[0]
+}
+
+export function isConferenceCurrentOrUpcoming(edition: Edition, now: Date): boolean {
+  const conferenceLastDay = edition.conferenceEnd ?? edition.conferenceStart
+  return conferenceLastDay ? conferenceLastDay >= localDateIso(now) : false
+}
+
+export function isConferenceInProgress(edition: Edition, now: Date): boolean {
+  const today = localDateIso(now)
+  return Boolean(
+    edition.conferenceStart &&
+      edition.conferenceStart <= today &&
+      (edition.conferenceEnd ?? edition.conferenceStart) >= today,
   )
 }
 
-export function groupEditions(editions: readonly Edition[]): readonly {
+export function hasUpcomingSchedule(edition: Edition, now: Date): boolean {
+  if (nextUpcomingDeadline(edition, now)) return true
+  if (isConferenceCurrentOrUpcoming(edition, now)) return true
+  if (edition.conferenceStart || edition.conferenceEnd || edition.deadlines.length > 0) return false
+  return edition.year >= now.getFullYear()
+}
+
+export function upcomingEditions(editions: readonly Edition[], now: Date): readonly Edition[] {
+  return editions.filter((edition) => hasUpcomingSchedule(edition, now))
+}
+
+export function filterEditions(
+  editions: readonly Edition[],
+  query: string,
+  category: string,
+): readonly Edition[] {
+  const needle = query.trim().toLocaleLowerCase("ko")
+  return editions.filter((edition) => {
+    const haystack = [
+      edition.acronym,
+      edition.name,
+      edition.location,
+      edition.categories.join(" "),
+      edition.tier ?? "",
+    ]
+      .join(" ")
+      .toLocaleLowerCase("ko")
+    const matchesText = !needle || haystack.includes(needle)
+    return matchesText && (category === "전체" || edition.categories.includes(category))
+  })
+}
+
+export function editionAnchorDate(edition: Edition, now: Date): string | undefined {
+  const today = localDateIso(now)
+  if (
+    edition.conferenceStart &&
+    edition.conferenceStart <= today &&
+    (edition.conferenceEnd ?? edition.conferenceStart) >= today
+  ) {
+    return today
+  }
+  const futureDeadlines = edition.deadlines
+    .filter((deadline) => isUpcomingDeadline(deadline, now))
+    .map(displayDateIso)
+    .filter((date): date is string => date !== undefined)
+    .map((date) => (date < today ? today : date))
+    .sort()
+  if (futureDeadlines[0]) return futureDeadlines[0]
+  if (edition.conferenceStart && edition.conferenceStart >= today) return edition.conferenceStart
+  return undefined
+}
+
+export function groupEditions(
+  editions: readonly Edition[],
+  now = new Date(),
+): readonly {
   key: string
   marker: string
   label: string
   editions: readonly Edition[]
 }[] {
-  const today = new Date().toISOString().slice(0, 10)
   const groups = new Map<string, { marker: string; label: string; editions: Edition[] }>()
   const ordered = [...editions].sort((left, right) => {
-    const leftDate = editionAnchorDate(left, today)
-    const rightDate = editionAnchorDate(right, today)
+    const leftDate = editionAnchorDate(left, now)
+    const rightDate = editionAnchorDate(right, now)
     if (leftDate && rightDate) return leftDate.localeCompare(rightDate)
     if (leftDate) return -1
     if (rightDate) return 1
@@ -75,7 +141,7 @@ export function groupEditions(editions: readonly Edition[]): readonly {
   })
 
   for (const edition of ordered) {
-    const anchor = editionAnchorDate(edition, today)
+    const anchor = editionAnchorDate(edition, now)
     const [year, monthValue] = anchor?.split("-") ?? []
     const month = Number(monthValue)
     const hasMonth = Boolean(year) && Number.isInteger(month) && month >= 1 && month <= 12
@@ -90,12 +156,16 @@ export function groupEditions(editions: readonly Edition[]): readonly {
   return [...groups].map(([key, group]) => ({ key, ...group }))
 }
 
-export function calendarEventGroups(editions: readonly Edition[]): readonly CalendarEventGroup[] {
-  const today = new Date().toISOString().slice(0, 10)
+export function calendarEventGroups(
+  editions: readonly Edition[],
+  now = new Date(),
+): readonly CalendarEventGroup[] {
+  const today = localDateIso(now)
   const events = editions.flatMap((edition): CalendarEvent[] => {
     const deadlines = edition.deadlines.flatMap((deadline): CalendarEvent[] => {
-      const date = displayDateIso(deadline)
-      if (!date || date < today) return []
+      const sourceDate = displayDateIso(deadline)
+      if (!sourceDate || !isUpcomingDeadline(deadline, now)) return []
+      const date = sourceDate < today ? today : sourceDate
       return [
         {
           id: `${edition.id}-${deadline.id}`,
@@ -107,19 +177,26 @@ export function calendarEventGroups(editions: readonly Edition[]): readonly Cale
         },
       ]
     })
-    const conference =
-      edition.conferenceStart && edition.conferenceStart >= today
-        ? [
-            {
-              id: `${edition.id}-conference`,
-              edition,
-              date: edition.conferenceStart,
-              label: "학회 개최",
-              timeLabel: edition.dateRange,
-              type: "conference" as const,
-            },
-          ]
-        : []
+    const conferenceDate = isConferenceCurrentOrUpcoming(edition, now)
+      ? edition.conferenceStart && edition.conferenceStart >= today
+        ? edition.conferenceStart
+        : today
+      : undefined
+    const conferenceInProgress = Boolean(
+      conferenceDate && edition.conferenceStart && edition.conferenceStart <= today,
+    )
+    const conference = conferenceDate
+      ? [
+          {
+            id: `${edition.id}-conference`,
+            edition,
+            date: conferenceDate,
+            label: conferenceInProgress ? "학회 진행 중" : "학회 개최",
+            timeLabel: conferenceInProgress ? "오늘 진행 중" : edition.dateRange,
+            type: "conference" as const,
+          },
+        ]
+      : []
     return [...deadlines, ...conference]
   })
   const grouped = new Map<string, CalendarEvent[]>()

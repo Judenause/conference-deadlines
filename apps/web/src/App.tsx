@@ -3,6 +3,7 @@ import { useEffect, useId, useMemo, useRef, useState } from "react"
 import { getEditionBundle, getEditions } from "./api"
 import { EditionResults } from "./components/EditionResults"
 import { EvidencePanel } from "./components/EvidencePanel"
+import { filterEditions, upcomingEditions } from "./components/edition-dates"
 import { Icon } from "./components/Icons"
 import {
   ErrorState,
@@ -105,31 +106,18 @@ export function App() {
     }
   }, [compact, selected])
 
+  const currentEditions = useMemo(() => upcomingEditions(editions, new Date()), [editions])
   const categories = useMemo(() => {
-    const available = new Set(editions.flatMap((edition) => edition.categories))
+    const available = new Set(currentEditions.flatMap((edition) => edition.categories))
     const labCategories = LAB_CATEGORY_ORDER.filter((item) => available.has(item))
     const otherCategories = [...available]
       .filter((item) => !LAB_CATEGORY_ORDER.some((labCategory) => labCategory === item))
       .sort((left, right) => left.localeCompare(right, "ko"))
     return ["전체", ...labCategories, ...otherCategories]
-  }, [editions])
+  }, [currentEditions])
   const filtered = useMemo(
-    () =>
-      editions.filter((edition) => {
-        const needle = query.trim().toLocaleLowerCase("ko")
-        const haystack = [
-          edition.acronym,
-          edition.name,
-          edition.location,
-          edition.categories.join(" "),
-          edition.tier ?? "",
-        ]
-          .join(" ")
-          .toLocaleLowerCase("ko")
-        const matchesText = !needle || haystack.includes(needle)
-        return matchesText && (category === "전체" || edition.categories.includes(category))
-      }),
-    [category, editions, query],
+    () => filterEditions(currentEditions, query, category),
+    [category, currentEditions, query],
   )
 
   async function selectEdition(editionId: string) {

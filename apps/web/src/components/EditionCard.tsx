@@ -1,5 +1,9 @@
 import type { Edition } from "@conf/contracts"
-import { paperSubmission } from "./edition-dates"
+import {
+  isConferenceCurrentOrUpcoming,
+  isConferenceInProgress,
+  nextUpcomingDeadline,
+} from "./edition-dates"
 import { Icon } from "./Icons"
 import { StatusBadge } from "./Primitives"
 
@@ -10,7 +14,10 @@ interface EditionCardProps {
 }
 
 export function EditionCard({ edition, selected, onSelect }: EditionCardProps) {
-  const submission = paperSubmission(edition)
+  const now = new Date()
+  const nextDeadline = nextUpcomingDeadline(edition, now)
+  const showConference = isConferenceCurrentOrUpcoming(edition, now)
+  const conferenceInProgress = isConferenceInProgress(edition, now)
   return (
     <div className="edition-entry" data-selected={selected}>
       <button
@@ -34,14 +41,18 @@ export function EditionCard({ edition, selected, onSelect }: EditionCardProps) {
         <span className="edition-date">
           <StatusBadge status={edition.status} />
           <span className="milestone-stack">
-            <span>
-              <small>논문 제출</small>
-              <strong>{submission?.displayDate ?? "공식 발표 대기"}</strong>
-            </span>
-            <span>
-              <small>학회 개최</small>
-              <strong>{edition.dateRange}</strong>
-            </span>
+            {nextDeadline ? (
+              <span>
+                <small>{nextDeadline.label}</small>
+                <strong>{nextDeadline.displayDate}</strong>
+              </span>
+            ) : null}
+            {showConference ? (
+              <span>
+                <small>{conferenceInProgress ? "학회 진행 중" : "학회 개최"}</small>
+                <strong>{conferenceInProgress ? "오늘 진행 중" : edition.dateRange}</strong>
+              </span>
+            ) : null}
           </span>
         </span>
         <Icon name="arrow" />

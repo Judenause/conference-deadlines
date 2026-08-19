@@ -19,7 +19,7 @@ export function EditionResults({ editions, selectedId, view, onSelect }: Results
           <Icon name="search" />
         </span>
         <h2>검색 결과가 없습니다</h2>
-        <p>약어 또는 학회 이름을 바꿔 검색해 보세요.</p>
+        <p>현재 이후 일정만 표시합니다. 검색어나 분야 필터를 바꿔 보세요.</p>
       </div>
     )
   }

@@ -71,7 +71,7 @@ test("lab timeline categories expose curated conferences and BK tiers", async ()
   expect(await screen.findByRole("button", { name: /ICECS 2026 상세 보기/ })).toBeTruthy()
   expect(await screen.findByRole("button", { name: /ISSCC 2027 상세 보기/ })).toBeTruthy()
   expect(screen.getAllByText("T1 (Non)").length).toBeGreaterThan(0)
-  expect(screen.getAllByText("논문 제출").length).toBeGreaterThan(0)
+  expect(screen.getAllByText("최종본 제출").length).toBeGreaterThan(0)
   expect(screen.getAllByText("학회 개최").length).toBeGreaterThan(0)
   expect(screen.queryByRole("button", { name: /AAAI 2027 상세 보기/ })).toBeNull()
 

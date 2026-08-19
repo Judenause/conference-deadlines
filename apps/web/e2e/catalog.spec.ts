@@ -19,6 +19,19 @@ test("search, calendar, evidence, history, and empty states work without overflo
   }))
   expect(width.scroll).toBeLessThanOrEqual(width.client)
 
+  await page.getByRole("searchbox").fill("ICASSP 2026")
+  await expect(page.getByText("검색 결과가 없습니다")).toBeVisible()
+  await page.getByRole("searchbox").fill("ICECS 2026")
+  await expect(page.getByRole("button", { name: "ICECS 2026 상세 보기" })).toBeVisible()
+  await expect(page.getByText("2026. 6. 15", { exact: true })).not.toBeVisible()
+  await expect(page.getByText("최종본 제출", { exact: true })).toBeVisible()
+  await expect(page.getByText("2026. 11. 8 - 11. 11")).toBeVisible()
+  await page.getByRole("searchbox").fill("ECAI 2026")
+  await expect(page.getByText("학회 진행 중", { exact: true })).toBeVisible()
+  await expect(page.getByText("오늘 진행 중", { exact: true })).toBeVisible()
+  await expect(page.getByText("2026. 8. 18 - 8. 21", { exact: true })).not.toBeVisible()
+  await page.getByRole("searchbox").fill("")
+
   await page.getByRole("tab", { name: "목록" }).focus()
   await page.keyboard.press("ArrowRight")
   await expect(page.getByRole("tab", { name: "캘린더" })).toBeFocused()
@@ -29,6 +42,20 @@ test("search, calendar, evidence, history, and empty states work without overflo
       page.getByRole("table", { name: "2026년 9월 제출 및 학회 개최 일정" }),
     ).toBeVisible()
   }
+  await page.getByRole("searchbox").fill("ECAI 2026")
+  const ongoingConference = page.getByRole("button", {
+    name: /ECAI 2026 학회 진행 중 상세 보기/,
+  })
+  await expect(ongoingConference).toBeVisible()
+  await expect(page.getByText("2026. 8. 18 - 8. 21", { exact: true })).not.toBeVisible()
+  await expect(ongoingConference.getByText("학회 진행 중", { exact: true })).toBeVisible()
+  await expect(ongoingConference.getByText("오늘 진행 중", { exact: true })).toBeVisible()
+  await ongoingConference.scrollIntoViewIfNeeded()
+  await page.screenshot({
+    fullPage: false,
+    path: `../../.omo/evidence/browser/${testInfo.project.name}-calendar.png`,
+  })
+  await page.getByRole("searchbox").fill("")
   await expect(
     page
       .getByRole("link", {
@@ -36,16 +63,14 @@ test("search, calendar, evidence, history, and empty states work without overflo
       })
       .first(),
   ).toBeVisible()
-  await page.screenshot({
-    fullPage: false,
-    path: `../../.omo/evidence/browser/${testInfo.project.name}-calendar.png`,
-  })
-  await page.keyboard.press("ArrowLeft")
+  await page.getByRole("tab", { name: "목록" }).click()
   await page.getByRole("searchbox").fill("MICRO")
   await expect(
-    page.getByRole("link", {
-      name: "MICRO 2026 공식 사이트 열기: https://www.microarch.org/micro59/",
-    }),
+    page
+      .getByRole("link", {
+        name: "MICRO 2026 공식 사이트 열기: https://www.microarch.org/micro59/",
+      })
+      .first(),
   ).toBeVisible()
   await page.getByRole("button", { name: "MICRO 2026 상세 보기" }).click()
   await expect(page.getByRole("heading", { name: "주요 일정" })).toBeVisible()

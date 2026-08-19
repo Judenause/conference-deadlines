@@ -1111,6 +1111,13 @@ footer {
 .month-grid td small {
   color: var(--ink-secondary);
 }
+.month-grid td small[data-ongoing="true"] {
+  display: grid;
+  gap: var(--space-1);
+}
+.month-grid td small[data-ongoing="true"] span {
+  white-space: nowrap;
+}
 .month-source-list {
   margin: var(--space-3) 0 0;
   padding: 0;
