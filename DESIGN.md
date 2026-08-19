@@ -31,7 +31,7 @@ The public name and tagline are defined once in `apps/web/src/brand.ts`:
 Primary decision path:
 
 1. Understand the product within five seconds.
-2. Search or choose a research field in the hero.
+2. Search in the hero or choose a research field beside the product view controls.
 3. Compare upcoming dates in Timeline, List, or Calendar.
 4. Open one conference and verify the official source, evidence, and change history.
 
