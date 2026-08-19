@@ -1,0 +1,3 @@
+$ bun scripts/verify-design-contract.ts && bun --filter @conf/web build
+Design contract complete: 9 sections, 3 personas, 3 responsive widths, 0 accepted debt
+@conf/web build: Exited with code 0
