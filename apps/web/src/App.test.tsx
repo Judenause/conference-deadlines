@@ -75,6 +75,9 @@ test("visitor lands on the monthly timeline and switches the saved color theme",
   expect(screen.queryByText("수집 원칙")).toBeNull()
   expect(screen.queryByRole("link", { name: "GitHub" })).toBeNull()
   expect(screen.getByRole("tab", { name: "타임라인" }).getAttribute("aria-selected")).toBe("true")
+  const categoryFilters = screen.getByRole("group", { name: "분야 필터" })
+  expect(categoryFilters.closest(".product-header")).not.toBeNull()
+  expect(categoryFilters.closest(".hero")).toBeNull()
 
   const themeButton = screen.getAllByRole("button", { name: "다크 모드로 전환" })[0]
   expect(themeButton).toBeTruthy()

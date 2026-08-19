@@ -167,12 +167,6 @@ export function App() {
       <main id={mainId}>
         <Hero editions={editions} id={exploreId}>
           <CatalogControls
-            categories={categories}
-            category={category}
-            onCategoryChange={(nextCategory) => {
-              setCategory(nextCategory)
-              setSelected(undefined)
-            }}
             onQueryChange={(nextQuery) => {
               setQuery(nextQuery)
               setSelected(undefined)
@@ -184,9 +178,15 @@ export function App() {
         <section aria-labelledby={productTitleId} className="product-shell" id={productId}>
           <ProductHeader
             calendarPanelId={calendarPanelId}
+            categories={categories}
+            category={category}
             count={filtered.length}
             headingId={productTitleId}
             listPanelId={listPanelId}
+            onCategoryChange={(nextCategory) => {
+              setCategory(nextCategory)
+              setSelected(undefined)
+            }}
             onViewChange={setView}
             timelinePanelId={timelinePanelId}
             view={view}

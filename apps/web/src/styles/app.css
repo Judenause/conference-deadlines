@@ -524,6 +524,18 @@ fieldset {
   margin-bottom: var(--space-8);
 }
 
+.product-header__actions {
+  display: grid;
+  max-width: 42rem;
+  min-width: 0;
+  justify-items: end;
+  gap: var(--space-3);
+}
+
+.product-header__actions .filter-scroll {
+  justify-content: flex-end;
+}
+
 .product-kicker,
 .eyebrow {
   margin-bottom: var(--space-2);

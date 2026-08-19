@@ -179,16 +179,17 @@ Stress gates: 200% zoom, reduced motion, dark mode, empty/error/loading, 40-char
 
 - Pill buttons remain native controls with `aria-pressed`.
 - Inactive chips show a small field-color dot on white/quiet-border/secondary text. Active field chips use their soft taxonomy surface and accent text; `All` remains primary blue.
+- Field filters live with the Timeline/List/Calendar view controls in the product header, not in the discovery hero.
 - Mobile uses a labelled horizontal scroller; filters never collapse behind an ambiguous disclosure.
 
 ### TrustStrip
 
-- One quiet line beneath filters: conference count, verified official sources, and operator-curated status.
+- One quiet line beneath search: conference count, verified official sources, and operator-curated status.
 - Internal Notion/lab sync moves to the footer/data-source note.
 
 ### ProductHeader and ViewSwitcher
 
-- Left: `Upcoming deadlines` plus short Korean guidance. Right: Timeline/List/Calendar semantic tabs.
+- Left: `Upcoming deadlines` plus short Korean guidance. Right: Timeline/List/Calendar semantic tabs with the field-filter row directly beneath.
 - Active state is a scoped blue-soft pill/indicator; keyboard arrow behavior and tab/panel relations remain intact.
 
 ### ConferenceCard and DeadlineBadge

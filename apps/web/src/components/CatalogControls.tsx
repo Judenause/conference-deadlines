@@ -4,34 +4,27 @@ import { Icon } from "./Icons"
 import { type CatalogView, ViewTabs } from "./Primitives"
 
 interface CatalogControlsProps {
-  readonly categories: readonly string[]
-  readonly category: string
   readonly query: string
   readonly searchRef: RefObject<HTMLInputElement | null>
-  readonly onCategoryChange: (category: string) => void
   readonly onQueryChange: (query: string) => void
 }
 
 interface ProductHeaderProps {
+  readonly categories: readonly string[]
+  readonly category: string
   readonly count: number
   readonly headingId: string
   readonly view: CatalogView
   readonly listPanelId: string
   readonly timelinePanelId: string
   readonly calendarPanelId: string
+  readonly onCategoryChange: (category: string) => void
   readonly onViewChange: (view: CatalogView) => void
 }
 
-export function CatalogControls({
-  categories,
-  category,
-  query,
-  searchRef,
-  onCategoryChange,
-  onQueryChange,
-}: CatalogControlsProps) {
+export function CatalogControls({ query, searchRef, onQueryChange }: CatalogControlsProps) {
   return (
-    <section aria-label="학회 검색과 필터" className="catalog-toolbar">
+    <section aria-label="학회 검색" className="catalog-toolbar">
       <label className="search-field">
         <span className="sr-only">학회 검색</span>
         <Icon name="search" />
@@ -45,32 +38,20 @@ export function CatalogControls({
         />
         <kbd>⌘ K</kbd>
       </label>
-      <fieldset className="filter-scroll">
-        <legend className="sr-only">분야 필터</legend>
-        {categories.map((item) => (
-          <button
-            aria-label={item}
-            aria-pressed={category === item}
-            data-category-tone={categoryTone(item)}
-            key={item}
-            onClick={() => onCategoryChange(item)}
-            type="button"
-          >
-            {item === "전체" ? "All" : item}
-          </button>
-        ))}
-      </fieldset>
     </section>
   )
 }
 
 export function ProductHeader({
+  categories,
+  category,
   count,
   headingId,
   view,
   listPanelId,
   timelinePanelId,
   calendarPanelId,
+  onCategoryChange,
   onViewChange,
 }: ProductHeaderProps) {
   return (
@@ -83,13 +64,30 @@ export function ProductHeader({
           {count}개 일정
         </span>
       </div>
-      <ViewTabs
-        calendarPanelId={calendarPanelId}
-        listPanelId={listPanelId}
-        timelinePanelId={timelinePanelId}
-        onChange={onViewChange}
-        value={view}
-      />
+      <div className="product-header__actions">
+        <ViewTabs
+          calendarPanelId={calendarPanelId}
+          listPanelId={listPanelId}
+          timelinePanelId={timelinePanelId}
+          onChange={onViewChange}
+          value={view}
+        />
+        <fieldset className="filter-scroll">
+          <legend className="sr-only">분야 필터</legend>
+          {categories.map((item) => (
+            <button
+              aria-label={item}
+              aria-pressed={category === item}
+              data-category-tone={categoryTone(item)}
+              key={item}
+              onClick={() => onCategoryChange(item)}
+              type="button"
+            >
+              {item === "전체" ? "All" : item}
+            </button>
+          ))}
+        </fieldset>
+      </div>
     </div>
   )
 }

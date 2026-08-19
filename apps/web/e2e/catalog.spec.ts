@@ -10,6 +10,8 @@ test("search, calendar, evidence, history, and empty states work without overflo
   await expect(page.getByText("수집 원칙")).toHaveCount(0)
   await expect(page.getByRole("tab", { name: "타임라인" })).toHaveAttribute("aria-selected", "true")
   await expect(page.getByRole("region", { name: "월별 학회 타임라인" })).toBeVisible()
+  await expect(page.locator(".product-header .filter-scroll")).toBeVisible()
+  await expect(page.locator(".hero .filter-scroll")).toHaveCount(0)
   for (const [label, tone, titleColor] of [
     ["Circuit", "circuit", "rgb(154, 90, 0)"],
     ["AI", "ai", "rgb(78, 93, 199)"],
@@ -31,6 +33,7 @@ test("search, calendar, evidence, history, and empty states work without overflo
         .locator(".timeline-board__identity button strong"),
     ).toHaveCSS("color", titleColor)
   }
+  await page.getByRole("button", { name: "전체", exact: true }).scrollIntoViewIfNeeded()
   await expect(page.getByRole("link", { name: "GitHub" })).toHaveCount(0)
   const timelineFieldColors = await page
     .locator(".timeline-board__row[data-category-tone]")
@@ -158,6 +161,9 @@ test("search, calendar, evidence, history, and empty states work without overflo
   await expect(ongoingConference.getByText("학회 진행 중", { exact: true })).toBeVisible()
   await expect(ongoingConference.getByText("오늘 진행 중", { exact: true })).toBeVisible()
   await ongoingConference.scrollIntoViewIfNeeded()
+  await page.locator(".filter-scroll").evaluate((element) => {
+    element.scrollLeft = 0
+  })
   await page.screenshot({
     fullPage: false,
     path: `../../.omo/evidence/browser/${testInfo.project.name}-calendar.png`,
