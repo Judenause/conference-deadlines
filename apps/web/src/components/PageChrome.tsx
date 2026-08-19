@@ -45,7 +45,7 @@ export function Hero({ editions, children, id }: HeroProps) {
             <Icon name="check" /> <strong>{verifiedCount}</strong> Verified deadlines
           </span>
           <span>
-            <Icon name="clock" /> Updated regularly
+            <Icon name="clock" /> Operator curated
           </span>
         </section>
       </div>
@@ -117,10 +117,6 @@ export function SiteNavigation({
           </a>
         </nav>
         <div className="header-tools">
-          <a className="github-link" href={BRAND.githubUrl} rel="noreferrer" target="_blank">
-            <Icon name="github" />
-            <span>GitHub</span>
-          </a>
           <ThemeToggle onToggleTheme={onToggleTheme} theme={theme} />
         </div>
       </div>

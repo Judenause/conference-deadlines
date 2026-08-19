@@ -67,7 +67,7 @@ export function CalendarView({ editions, selectedId, onSelect }: CalendarViewPro
               {[
                 ...new Map(group.events.map((event) => [event.edition.id, event.edition])).values(),
               ].map((edition) => (
-                <li key={edition.id}>
+                <li data-category-tone={editionCategoryTone(edition.categories)} key={edition.id}>
                   <strong>{edition.acronym}</strong>
                   <a
                     aria-label={`${edition.acronym} 공식 사이트 열기: ${edition.officialUrl}`}
@@ -173,7 +173,7 @@ export function CalendarView({ editions, selectedId, onSelect }: CalendarViewPro
               </table>
               <ul aria-label={`${group.label} 공식 사이트`} className="month-source-list">
                 {sourceEditions.map((edition) => (
-                  <li key={edition.id}>
+                  <li data-category-tone={editionCategoryTone(edition.categories)} key={edition.id}>
                     <strong>{edition.acronym}</strong>
                     <a
                       aria-label={`${edition.acronym} 공식 사이트 열기: ${edition.officialUrl}`}

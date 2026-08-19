@@ -202,8 +202,7 @@ fieldset {
   gap: var(--space-2);
 }
 
-.theme-toggle,
-.github-link {
+.theme-toggle {
   display: inline-flex;
   min-height: 2.75rem;
   align-items: center;
@@ -224,14 +223,12 @@ fieldset {
     transform var(--duration-press) var(--ease-out);
 }
 
-.theme-toggle:hover,
-.github-link:hover {
+.theme-toggle:hover {
   border-color: color-mix(in srgb, var(--primary) 28%, var(--border-default));
   color: var(--text-primary);
 }
 
-.theme-toggle:active,
-.github-link:active {
+.theme-toggle:active {
   transform: scale(0.98);
 }
 
@@ -779,7 +776,7 @@ fieldset {
 }
 
 .conference-card__heading strong {
-  color: var(--text-primary);
+  color: var(--category-accent);
   font-size: var(--text-conference);
   font-weight: 720;
   letter-spacing: -0.02em;
@@ -995,6 +992,7 @@ fieldset {
 }
 
 .panel-head h2 {
+  color: var(--category-accent);
   margin-bottom: var(--space-2);
   font-size: var(--text-section);
   font-weight: 720;
@@ -1483,6 +1481,7 @@ fieldset {
 }
 
 .timeline-board__identity button strong {
+  color: var(--category-accent);
   font-size: var(--text-body-sm);
   font-weight: 700;
 }
@@ -1729,6 +1728,7 @@ fieldset {
 }
 
 .month-source-list strong {
+  color: var(--category-accent);
   font-size: var(--text-label);
 }
 

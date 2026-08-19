@@ -63,12 +63,10 @@
     padding-inline: var(--space-3);
   }
 
-  .github-link span,
   .theme-toggle span {
     display: none;
   }
 
-  .github-link,
   .theme-toggle {
     width: 2.75rem;
     padding: 0;
@@ -121,7 +119,6 @@
     gap: var(--space-1);
   }
 
-  .github-link,
   .theme-toggle {
     width: 2.5rem;
     min-height: 2.5rem;

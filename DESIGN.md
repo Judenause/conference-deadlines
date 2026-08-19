@@ -164,7 +164,7 @@ Stress gates: 200% zoom, reduced motion, dark mode, empty/error/loading, 40-char
 
 ### TopNavbar
 
-- Sticky 68px surface, brand name/tagline at left, `Explore`, `Timeline`, `Calendar` navigation in the center, GitHub/source and theme actions at right.
+- Sticky 68px surface, brand name/tagline at left, `Explore`, `Timeline`, `Calendar` navigation in the center, and the theme action at right.
 - No desktop sidebar or duplicate active navigation.
 - Compact mobile layout keeps brand and actions; secondary nav remains horizontally reachable without a menu trap.
 
@@ -183,7 +183,7 @@ Stress gates: 200% zoom, reduced motion, dark mode, empty/error/loading, 40-char
 
 ### TrustStrip
 
-- One quiet line beneath filters: conference count, verified official sources, and regular update cadence.
+- One quiet line beneath filters: conference count, verified official sources, and operator-curated status.
 - Internal Notion/lab sync moves to the footer/data-source note.
 
 ### ProductHeader and ViewSwitcher
@@ -195,6 +195,7 @@ Stress gates: 200% zoom, reduced motion, dark mode, empty/error/loading, 40-char
 
 - Card anatomy: acronym/name, deadline countdown, next milestone/date, categories/tier/location, verification, hostname source link.
 - A slim primary-taxonomy rail and individually colored field labels distinguish mixed-category cards without recoloring deadline urgency or verification status.
+- Conference acronyms use their primary taxonomy accent in cards, timeline identities, calendar events/source lists, and evidence headings; surrounding names and metadata remain neutral.
 - Radius 20px, 22–26px padding, quiet border, near-invisible base shadow. Hover raises an interactive card by 2px with stronger blue-tinted elevation.
 - Countdown text: `D-n`, `TODAY`, `CLOSED`, or `TBD`. 30+ days blue, 8–30 neutral-blue, 4–7 warning, 0–3 danger, closed gray.
 - Full raw URLs are omitted from list cards but remain available in timeline identity, calendar source groups, and evidence detail.

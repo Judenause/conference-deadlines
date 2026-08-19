@@ -10,12 +10,12 @@ test("search, calendar, evidence, history, and empty states work without overflo
   await expect(page.getByText("수집 원칙")).toHaveCount(0)
   await expect(page.getByRole("tab", { name: "타임라인" })).toHaveAttribute("aria-selected", "true")
   await expect(page.getByRole("region", { name: "월별 학회 타임라인" })).toBeVisible()
-  for (const [label, tone] of [
-    ["Circuit", "circuit"],
-    ["AI", "ai"],
-    ["System", "system"],
-    ["Archi", "archi"],
-    ["CV", "cv"],
+  for (const [label, tone, titleColor] of [
+    ["Circuit", "circuit", "rgb(154, 90, 0)"],
+    ["AI", "ai", "rgb(78, 93, 199)"],
+    ["System", "system", "rgb(8, 122, 120)"],
+    ["Archi", "archi", "rgb(54, 108, 175)"],
+    ["CV", "cv", "rgb(177, 62, 104)"],
   ] as const) {
     await expect(page.getByRole("button", { name: label, exact: true })).toHaveAttribute(
       "data-category-tone",
@@ -24,7 +24,14 @@ test("search, calendar, evidence, history, and empty states work without overflo
     await expect(
       page.locator(`.timeline-board__row[data-category-tone="${tone}"]`).first(),
     ).toBeAttached()
+    await expect(
+      page
+        .locator(`.timeline-board__row[data-category-tone="${tone}"]`)
+        .first()
+        .locator(".timeline-board__identity button strong"),
+    ).toHaveCSS("color", titleColor)
   }
+  await expect(page.getByRole("link", { name: "GitHub" })).toHaveCount(0)
   const timelineFieldColors = await page
     .locator(".timeline-board__row[data-category-tone]")
     .evaluateAll((rows) => [

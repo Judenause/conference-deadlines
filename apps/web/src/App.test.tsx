@@ -73,6 +73,7 @@ test("visitor lands on the monthly timeline and switches the saved color theme",
     await screen.findByRole("heading", { name: "Find your next conference deadline." }),
   ).toBeTruthy()
   expect(screen.queryByText("수집 원칙")).toBeNull()
+  expect(screen.queryByRole("link", { name: "GitHub" })).toBeNull()
   expect(screen.getByRole("tab", { name: "타임라인" }).getAttribute("aria-selected")).toBe("true")
 
   const themeButton = screen.getAllByRole("button", { name: "다크 모드로 전환" })[0]

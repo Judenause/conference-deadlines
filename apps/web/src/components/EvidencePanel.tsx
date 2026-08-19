@@ -1,4 +1,5 @@
 import type { Edition, Evidence, History } from "@conf/contracts"
+import { editionCategoryTone } from "./category-tone"
 import { Icon } from "./Icons"
 import { StatusBadge } from "./Primitives"
 
@@ -25,6 +26,7 @@ export function EvidencePanel({
       aria-hidden={compact && !edition}
       aria-modal={compact && Boolean(edition)}
       className="evidence-panel"
+      data-category-tone={edition ? editionCategoryTone(edition.categories) : "neutral"}
       data-open={Boolean(edition)}
       inert={compact && !edition ? true : undefined}
       role="dialog"
