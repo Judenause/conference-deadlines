@@ -31,6 +31,13 @@ export interface CalendarEventGroup {
   readonly events: readonly CalendarEvent[]
 }
 
+export type DeadlineUrgency = "primary" | "neutral" | "warning" | "danger" | "closed"
+
+export interface DeadlineCountdown {
+  readonly label: string
+  readonly urgency: DeadlineUrgency
+}
+
 export function deadlineDateIso(deadline: Deadline): string | undefined {
   const match = deadline.displayDate.match(/^(\d{4})\.\s*(\d{1,2})\.\s*(\d{1,2})/)
   if (!match) return undefined
@@ -47,6 +54,17 @@ export function localDateIso(date: Date): string {
 
 export function isUpcomingDeadline(deadline: Deadline, now: Date): boolean {
   return new Date(deadline.dueAtUtc).getTime() >= now.getTime()
+}
+
+export function deadlineCountdown(deadline: Deadline, now: Date): DeadlineCountdown {
+  const remaining = new Date(deadline.dueAtUtc).getTime() - now.getTime()
+  if (remaining < 0) return { label: "CLOSED", urgency: "closed" }
+  const days = Math.ceil(remaining / 86_400_000)
+  if (days <= 1) return { label: "TODAY", urgency: "danger" }
+  if (days <= 3) return { label: `D-${days}`, urgency: "danger" }
+  if (days <= 7) return { label: `D-${days}`, urgency: "warning" }
+  if (days <= 30) return { label: `D-${days}`, urgency: "neutral" }
+  return { label: `D-${days}`, urgency: "primary" }
 }
 
 export function nextUpcomingDeadline(edition: Edition, now: Date): Deadline | undefined {

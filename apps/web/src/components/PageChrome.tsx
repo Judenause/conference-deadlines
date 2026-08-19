@@ -1,52 +1,53 @@
 import type { Edition } from "@conf/contracts"
+import type { ReactNode } from "react"
+import { BRAND } from "../brand"
 import { Icon } from "./Icons"
+import type { CatalogView } from "./Primitives"
 
 interface NavigationProps {
   readonly theme: "light" | "dark"
   readonly onToggleTheme: () => void
 }
 
-export function Hero({ editions }: { readonly editions: readonly Edition[] }) {
+interface SiteNavigationProps extends NavigationProps {
+  readonly exploreHref: string
+  readonly productHref: string
+  readonly onNavigateView: (view: CatalogView) => void
+}
+
+interface HeroProps {
+  readonly editions: readonly Edition[]
+  readonly children: ReactNode
+  readonly id: string
+}
+
+export function Hero({ editions, children, id }: HeroProps) {
+  const verifiedCount = editions
+    .flatMap((edition) => edition.deadlines)
+    .filter((deadline) => deadline.status === "confirmed").length
   return (
-    <section className="hero">
-      <div>
-        <p className="eyebrow">EVIDENCE-FIRST CONFERENCE CATALOG</p>
-        <h1>학회 마감 일정</h1>
+    <section className="hero" id={id}>
+      <div className="hero__inner">
+        <p className="hero__badge">
+          <Icon name="check" /> Trusted research deadline tracker
+        </p>
+        <h1>Find your next conference deadline.</h1>
         <p className="hero-lead">
-          연구실 관심 학회를 먼저 모으고, 바뀐 마감일과 공식 근거까지 한곳에서 확인하세요.
+          주요 학회의 마감 일정과 공식 출처를 한곳에서 확인하세요.
+          <span>변경된 날짜와 검증 근거까지 놓치지 않습니다.</span>
         </p>
-        <p className="curation-note">
-          <span>LAB TIMELINE SYNC</span>
-          Notion 108개 전 항목과 Circuit · AI · System · Archi · CV 분류를 반영했습니다.
-          <a
-            aria-label="연구실 Timeline 원본 열기"
-            href="https://verbena-heat-9b5.notion.site/Timeline-f8bcc599203845ccbbbfcae6e6dd7fca?pvs=73"
-            rel="noreferrer"
-            target="_blank"
-          >
-            원본 보기
-          </a>
-        </p>
-      </div>
-      <div className="hero-stats">
-        <div>
-          <strong>{editions.length}</strong>
-          <span>등록 학회</span>
-        </div>
-        <div>
-          <strong>
-            {
-              editions
-                .flatMap((item) => item.deadlines)
-                .filter((item) => item.status === "confirmed").length
-            }
-          </strong>
-          <span>검증 마감</span>
-        </div>
-        <div>
-          <strong>24h</strong>
-          <span>점검 주기</span>
-        </div>
+        {children}
+        <section aria-label="데이터 신뢰도 요약" className="trust-strip">
+          <span>
+            <strong>{editions.length}</strong> Conferences
+          </span>
+          <span>
+            <Icon name="check" /> <strong>{verifiedCount}</strong> Verified deadlines
+          </span>
+          <span>
+            <Icon name="clock" /> Updated regularly
+          </span>
+        </section>
       </div>
     </section>
   )
@@ -55,6 +56,9 @@ export function Hero({ editions }: { readonly editions: readonly Edition[] }) {
 export function ErrorState({ message }: { readonly message: string }) {
   return (
     <div className="error-state" role="alert">
+      <span className="error-state__icon">
+        <Icon name="clock" />
+      </span>
       <strong>데이터를 불러오지 못했습니다</strong>
       <span>{message}</span>
       <button onClick={() => window.location.reload()} type="button">
@@ -64,31 +68,15 @@ export function ErrorState({ message }: { readonly message: string }) {
   )
 }
 
-function Brand() {
+function Brand({ exploreHref }: { readonly exploreHref: string }) {
   return (
-    <a className="brand" href="/">
-      <span>D</span>
-      <strong>DEADLINE</strong>
+    <a aria-label={`${BRAND.name} 홈`} className="brand" href={exploreHref}>
+      <span className="brand-mark">D</span>
+      <span className="brand-copy">
+        <strong>{BRAND.name}</strong>
+        <small>{BRAND.tagline}</small>
+      </span>
     </a>
-  )
-}
-
-function NavigationLinks({ label }: { readonly label: string }) {
-  return (
-    <nav aria-label={label}>
-      <a aria-current="page" href="/">
-        일정 탐색
-      </a>
-    </nav>
-  )
-}
-
-function SourceStatus({ className }: { readonly className: string }) {
-  return (
-    <div className={className}>
-      <span className="live-dot" />
-      공식 URL 병기
-    </div>
   )
 }
 
@@ -103,39 +91,61 @@ function ThemeToggle({ theme, onToggleTheme }: NavigationProps) {
       type="button"
     >
       <Icon name={isDark ? "sun" : "moon"} />
-      <span>{isDark ? "라이트" : "다크"}</span>
+      <span>{isDark ? "Light" : "Dark"}</span>
     </button>
   )
 }
 
-export function SiteNavigation({ theme, onToggleTheme }: NavigationProps) {
+export function SiteNavigation({
+  theme,
+  onToggleTheme,
+  exploreHref,
+  productHref,
+  onNavigateView,
+}: SiteNavigationProps) {
   return (
-    <>
-      <aside className="desktop-nav">
-        <Brand />
-        <NavigationLinks label="데스크톱 주요 메뉴" />
-        <div className="desktop-nav__tools">
-          <ThemeToggle onToggleTheme={onToggleTheme} theme={theme} />
-          <SourceStatus className="desktop-nav__meta" />
-        </div>
-      </aside>
-      <header className="site-header">
-        <Brand />
-        <NavigationLinks label="주요 메뉴" />
+    <header className="site-header">
+      <div className="site-header__inner">
+        <Brand exploreHref={exploreHref} />
+        <nav aria-label="주요 메뉴" className="primary-nav">
+          <a href={exploreHref}>Explore</a>
+          <a href={productHref} onClick={() => onNavigateView("timeline")}>
+            Timeline
+          </a>
+          <a href={productHref} onClick={() => onNavigateView("calendar")}>
+            Calendar
+          </a>
+        </nav>
         <div className="header-tools">
+          <a className="github-link" href={BRAND.githubUrl} rel="noreferrer" target="_blank">
+            <Icon name="github" />
+            <span>GitHub</span>
+          </a>
           <ThemeToggle onToggleTheme={onToggleTheme} theme={theme} />
-          <SourceStatus className="header-meta" />
         </div>
-      </header>
-    </>
+      </div>
+    </header>
   )
 }
 
 export function SiteFooter() {
   return (
     <footer>
-      <span>Deadline Observatory</span>
-      <span>제출 마감 · 학회 기간 · 공식 사이트</span>
+      <div className="footer__identity">
+        <strong>{BRAND.tagline}</strong>
+        <span>Official sources · Verified deadlines · Change history</span>
+      </div>
+      <p className="curation-note">
+        연구실 Timeline 108개 항목의 분류를 반영했습니다.
+        <a
+          aria-label="연구실 Timeline 원본 열기"
+          href="https://verbena-heat-9b5.notion.site/Timeline-f8bcc599203845ccbbbfcae6e6dd7fca?pvs=73"
+          rel="noreferrer"
+          target="_blank"
+        >
+          Data source <Icon name="source" />
+        </a>
+      </p>
     </footer>
   )
 }

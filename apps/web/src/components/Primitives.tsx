@@ -28,8 +28,8 @@ export function StatusBadge({
     | "dates-pending"
 }) {
   const labels = {
-    confirmed: "확인됨",
-    extended: "연장됨",
+    confirmed: "공식 출처 확인",
+    extended: "마감 연장",
     "review-needed": "검수 대기",
     "timezone-review-needed": "시간대 검수 필요",
     "dates-pending": "발표 대기",

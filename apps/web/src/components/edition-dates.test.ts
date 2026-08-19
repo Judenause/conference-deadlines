@@ -2,6 +2,7 @@ import type { Edition } from "@conf/contracts"
 import { expect, test } from "vitest"
 import {
   calendarEventGroups,
+  deadlineCountdown,
   groupEditions,
   hasUpcomingSchedule,
   nextUpcomingDeadline,
@@ -119,4 +120,28 @@ test("a still-open UTC deadline cannot reappear on a viewer-local past calendar 
     .find((event) => event.type === "deadline")
 
   expect(deadline?.date).toBe("2026-08-19")
+})
+
+test("deadline countdown exposes readable urgency states", () => {
+  const now = new Date("2026-08-19T00:00:00Z")
+  const [deadline] = edition.deadlines
+  if (!deadline) throw new Error("countdown fixture requires a deadline")
+  const due = {
+    ...deadline,
+    dueAtUtc: "2026-08-22T00:00:00Z",
+  } satisfies Edition["deadlines"][number]
+
+  expect(deadlineCountdown(due, now)).toEqual({ label: "D-3", urgency: "danger" })
+  expect(deadlineCountdown({ ...due, dueAtUtc: "2026-08-19T18:00:00Z" }, now)).toEqual({
+    label: "TODAY",
+    urgency: "danger",
+  })
+  expect(deadlineCountdown({ ...due, dueAtUtc: "2026-10-01T00:00:00Z" }, now)).toEqual({
+    label: "D-43",
+    urgency: "primary",
+  })
+  expect(deadlineCountdown({ ...due, dueAtUtc: "2026-08-18T23:59:59Z" }, now)).toEqual({
+    label: "CLOSED",
+    urgency: "closed",
+  })
 })

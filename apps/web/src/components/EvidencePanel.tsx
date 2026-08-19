@@ -31,7 +31,7 @@ export function EvidencePanel({
     >
       <div className="panel-head">
         <div>
-          <p className="eyebrow">EVIDENCE RAIL</p>
+          <p className="eyebrow">VERIFIED DETAILS</p>
           <h2>{edition?.acronym ?? "일정을 선택하세요"}</h2>
         </div>
         <button
@@ -68,13 +68,20 @@ export function EvidencePanel({
           </dl>
           {edition.officialUrl ? (
             <a
+              aria-label={`${edition.acronym} 공식 일정`}
               className="official-source-link"
               href={edition.officialUrl}
               rel="noreferrer"
               target="_blank"
             >
-              <Icon name="source" />
-              <span>{edition.acronym} 공식 일정</span>
+              <span className="source-icon">
+                <Icon name="source" />
+              </span>
+              <span>
+                <strong>Official source</strong>
+                <small>{edition.officialUrl}</small>
+              </span>
+              <Icon name="arrow" />
             </a>
           ) : null}
           {edition.registrySource === "lab-notion" ? (
@@ -88,7 +95,7 @@ export function EvidencePanel({
               <span>연구실 Timeline 등록 항목</span>
             </a>
           ) : null}
-          <section className="panel-section">
+          <section className="panel-section evidence-card evidence-card--schedule">
             <div className="section-title">
               <h3>주요 일정</h3>
               <span>{edition.deadlines.length + (edition.conferenceStart ? 1 : 0)}</span>
@@ -147,7 +154,7 @@ export function EvidencePanel({
               <p className="quiet-state">제출 및 개최 일정이 아직 공개되지 않았습니다.</p>
             )}
           </section>
-          <section className="panel-section">
+          <section className="panel-section evidence-card evidence-card--source">
             <div className="section-title">
               <h3>근거 보기</h3>
               <span>{evidence.length}</span>
@@ -173,7 +180,7 @@ export function EvidencePanel({
               <p className="quiet-state">공개된 근거가 없습니다.</p>
             )}
           </section>
-          <section className="panel-section">
+          <section className="panel-section evidence-card evidence-card--history">
             <div className="section-title">
               <h3>변경 이력</h3>
               <span>{history.length}</span>

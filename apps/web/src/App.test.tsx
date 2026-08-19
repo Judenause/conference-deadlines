@@ -31,7 +31,10 @@ test("researcher searches and opens a remaining 2026 deadline with evidence", as
   )
 
   render(<App />)
-  expect(await screen.findByRole("heading", { name: "학회 마감 일정" })).toBeTruthy()
+  expect(
+    await screen.findByRole("heading", { name: "Find your next conference deadline." }),
+  ).toBeTruthy()
+  expect(screen.getByText("Deadline Atlas")).toBeTruthy()
   fireEvent.click(screen.getByRole("tab", { name: "목록" }))
 
   fireEvent.change(screen.getByRole("searchbox"), { target: { value: "MICRO" } })
@@ -66,7 +69,9 @@ test("visitor lands on the monthly timeline and switches the saved color theme",
   )
 
   render(<App />)
-  expect(await screen.findByRole("heading", { name: "학회 마감 일정" })).toBeTruthy()
+  expect(
+    await screen.findByRole("heading", { name: "Find your next conference deadline." }),
+  ).toBeTruthy()
   expect(screen.queryByText("수집 원칙")).toBeNull()
   expect(screen.getByRole("tab", { name: "타임라인" }).getAttribute("aria-selected")).toBe("true")
 

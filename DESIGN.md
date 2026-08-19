@@ -1,301 +1,270 @@
-# Conference Atlas Design System
+# Deadline Atlas Design System
 
 ## 0. Research Log
 
-- Embedded refs: shortlisted Cal.com, Airtable, and Linear -> picked `taste-skill` + Cal.com because a deadline product needs scheduling grammar, scan speed, and monochrome trust more than decorative branding.
-- Design read: public research schedule browser for researchers and lab managers, with a precise editorial-product language. Design variance: 5. Motion intensity: 3. Visual density: 6.
-- Lazyweb: 3 queries, 4 screens viewed (Acadex, Cal.com Bookings, Rise Calendar, Mixpanel Events) -> took fixed navigation, chronological scan lines, compact filters, selected-row detail, and local empty/filter states. No third-party screenshot ships with the product.
-- Imagen drafts: `.omo/evidence/design-research/concept-table-detail.png` and `.omo/evidence/design-research/concept-timeline-drawer.png` -> picked the timeline-drawer draft as the reference-fidelity contract. It makes time the visual spine and keeps official evidence in context.
-- UI-UX database: validated a data-dense product pattern, Korean-capable typography, keyboard reachability, explicit no-results recovery, and WCAG contrast. Rejected its generic blue-and-amber palette and serif pairing.
-- Interaction research: beui.dev `tabs`, `drawer`, and `button` sources -> adopted a shared active indicator, Escape-close/focus-return drawer behavior, body-scroll locking, clear async states, and reduced-motion fallbacks.
-- Content inventory and job order: navigation retains orientation; title/search hooks the task; filters narrow; timeline explains; evidence proves; history compares; calendar reframes; state panels recover.
-- Direction: a quiet deadline observatory. The memorable moment is the date spine selecting a deadline while its evidence rail opens beside it, so the user never loses temporal context.
+- Brief: transform the existing conference catalog into a trusted research deadline product while preserving search, field filters, list/timeline/calendar views, evidence, history, keyboard behavior, data fetching, and responsive behavior.
+- Existing-surface audit: the beige canvas, fixed 208px side rail, database-like row density, all-caps labels, and raw official URLs made the product feel like an internal registry. The strong parts to preserve are the evidence-first information model, timeline-default behavior, accessible drawer, source provenance, and restrained motion.
+- Layer A: `redesign-skill.md` supplied the audit-first approach, removal of the unnecessary sidebar, stronger display hierarchy, asymmetric whitespace, deliberate elevation, complete loading/empty/error states, and interaction feedback.
+- Layer B: `linear.app.md` supplied information hierarchy, compressed display tracking, precise active states, quiet borders, and sparse accent use. Its dark-first palette and brand violet were explicitly rejected because this product requires a bright research-tool surface and the brief supplies a blue system.
+- Interaction research: beui.dev `input`, `tabs`, `drawer`, and `button` sources were inspected. Adopted mechanisms are a 180–200ms input focus transition, a scoped active-tab indicator, transform/opacity drawer movement with an opacity-only reduced-motion fallback, and 0.98 press feedback.
+- Direction: a bright research deadline atlas. The signature moment is the large search command floating in a pale-blue horizon, followed immediately by a spacious temporal product surface where verified source evidence is always one deliberate action away.
+- Design variance: 5. Motion intensity: 3. Visual density: 6.
 
 ## 1. Atmosphere & Identity
 
-Conference Atlas feels calm, exact, and accountable. It resembles a well-kept research index rather than a marketing dashboard. Paper-toned space and charcoal typography make long sessions comfortable; cobalt appears only where an action or verified link needs attention. The signature is the evidence rail: selecting a deadline connects a point on the chronological spine to its official source, raw wording, and immutable changes without a route reset.
+`Deadline Atlas` is a calm, precise, and approachable research product. It must read as “A trusted research deadline tracker,” not a lab database or a marketing-only landing page.
 
-Primary tasks:
+Identity keywords: precise, reliable, calm, modern, academic, intelligent.
 
-1. Find the next relevant submission deadline in under 20 seconds.
-2. Confirm what the official page actually said and which timezone applies.
-3. Compare an extended date with the previously published value.
+The product combines:
 
-Anti-references: generic AI gradients, card mosaics, KPI dashboards, fake charts, decorative status dots, oversized centered heroes, and color without meaning.
+- bright, generous product surfaces and friendly control geometry;
+- Linear-like information hierarchy and typographic precision;
+- academic trust through visible verified-source, evidence, timezone, and history language;
+- a single restrained blue accent, with green reserved for verification.
+
+The public name and tagline are defined once in `apps/web/src/brand.ts`:
+
+- Name: `Deadline Atlas`
+- Tagline: `Verified conference timelines.`
+
+Primary decision path:
+
+1. Understand the product within five seconds.
+2. Search or choose a research field in the hero.
+3. Compare upcoming dates in Timeline, List, or Calendar.
+4. Open one conference and verify the official source, evidence, and change history.
+
+Anti-references: fixed sidebars for one-route navigation, beige database chrome, dense spreadsheet rows, raw URLs as primary list content, KPI card dashboards, strong gradients, heavy glass, neon, 3D decoration, and motion without meaning.
 
 ## 2. Color
 
-### Palette
+All raw color values live only here and in `apps/web/src/styles/tokens.css`.
 
 | Role | Token | Light | Dark | Usage |
 |---|---|---|---|---|
-| Canvas | `--canvas` | `#F7F7F3` | `#181916` | Page and scroll background |
-| Surface | `--surface` | `#FFFFFF` | `#22231F` | Drawers, fields, selected content |
-| Surface muted | `--surface-muted` | `#EFEFEB` | `#2B2D28` | Filters, secondary rows, skeletons |
-| Ink | `--ink` | `#20211F` | `#F4F5F0` | Headings and primary body |
-| Ink secondary | `--ink-secondary` | `#666B66` | `#B6BAB3` | Metadata and helper text |
-| Ink tertiary | `--ink-tertiary` | `#858A84` | `#92978F` | Disabled and low-priority text |
-| Rule | `--rule` | `#D9DBD6` | `#3C3F38` | Hairlines and grouped separators |
-| Ring | `--ring` | `#C8CBC5` | `#4D5148` | Neutral component containment |
-| Interactive | `--interactive` | `#3157D5` | `#8CA5FF` | Links, active navigation, selected spine |
-| Interactive soft | `--interactive-soft` | `#E9EEFF` | `#29355A` | Selected rows and active filters |
-| Focus ring | `--focus-ring` | `#2147C0` | `#A6B8FF` | Keyboard focus only |
-| Verified | `--verified` | `#237A3B` | `#6FC486` | Verified text plus icon label |
-| Verified soft | `--verified-soft` | `#E8F4EA` | `#233E2A` | Verified badge surface |
-| Warning | `--warning` | `#8A5A00` | `#F1C56A` | Changed or review-needed text |
-| Warning soft | `--warning-soft` | `#FFF3D6` | `#493813` | Extended-date surface |
-| Danger | `--danger` | `#B42318` | `#FF8B82` | Errors and destructive semantics |
-| Danger soft | `--danger-soft` | `#FDECEA` | `#4C2522` | Error-state surface |
-| Scrim | `--scrim` | `rgba(32, 33, 31, 0.48)` | `rgba(0, 0, 0, 0.64)` | Mobile drawer isolation |
+| Page | `--bg-page` | `#F7F9FC` | `#11151C` | Document background |
+| Surface | `--bg-surface` | `#FFFFFF` | `#191F28` | Cards, navbar, evidence |
+| Soft | `--bg-soft` | `#F2F6FC` | `#202733` | Quiet grouped regions |
+| Blue soft | `--bg-blue-soft` | `#EDF5FF` | `#172747` | Selected and branded soft surfaces |
+| Primary | `--primary` | `#3478F6` | `#6D9EFF` | Active tabs, important links, deadline marker |
+| Primary hover | `--primary-hover` | `#2468E5` | `#8AB0FF` | Hover/pressed emphasis |
+| Primary soft | `--primary-soft` | `#EAF2FF` | `#20355C` | Active filters and subtle selection |
+| Text primary | `--text-primary` | `#191F28` | `#F4F7FB` | Headings and primary content |
+| Text secondary | `--text-secondary` | `#4E5968` | `#C1C8D2` | Body and metadata |
+| Text tertiary | `--text-tertiary` | `#8B95A1` | `#8F9AA8` | Hints and low-priority labels |
+| Border | `--border-default` | `#E5E8EB` | `#343D4A` | Inputs and elevated surfaces |
+| Border soft | `--border-soft` | `#F0F2F5` | `#29323E` | Quiet division |
+| Success | `--success` | `#168A52` | `#5FD29A` | Verification only |
+| Success soft | `--success-soft` | `#EAFBF2` | `#173B2B` | Verified badge |
+| Warning | `--warning` | `#A66500` | `#FFBE55` | Review and near deadline |
+| Warning soft | `--warning-soft` | `#FFF7E6` | `#443315` | Review surface |
+| Danger | `--danger` | `#D93443` | `#FF818C` | Three-day countdown and errors |
+| Danger soft | `--danger-soft` | `#FFF0F1` | `#4A2229` | Urgent pill/error surface |
+| Purple | `--purple` | `#7950F2` | `#A58AFF` | Change-history accents only |
+| Purple soft | `--purple-soft` | `#F3F0FF` | `#312850` | Change-history surface |
+| Focus | `--focus-ring` | `#1D5FD3` | `#9AB8FF` | Keyboard focus |
+| Scrim | `--scrim` | `rgba(25,31,40,.42)` | `rgba(0,0,0,.66)` | Compact evidence isolation |
 
 Rules:
 
-- Accent is functional. It never appears as decoration.
-- Verified, warning, and danger always include text or an icon, never color alone.
-- Theme switches once at the application root. The visible `ThemeToggle` chooses light or dark, persists that choice locally, and falls back to `prefers-color-scheme` before a choice exists; sections never invert independently.
-- Raw color values live only in this file and `apps/web/src/styles/tokens.css`.
-- Body contrast target is WCAG 2.2 AA at 4.5:1 minimum; large text and UI graphics meet 3:1.
+- Blue is limited to selection, links, primary deadlines, and active controls.
+- Green is verification-only. Purple is history-only. Warning and danger always include text.
+- No component introduces a raw hex, rgb, or ad-hoc semantic color.
+- Body text meets WCAG 2.2 AA 4.5:1; large text and UI graphics meet 3:1.
 
 ## 3. Typography
 
-### Font Stack
+Primary stack: `Pretendard Variable, Pretendard, Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif`.
 
-- Primary: `Pretendard Variable, Pretendard, "Noto Sans KR", system-ui, -apple-system, sans-serif`.
-- Mono/data: `ui-monospace, "SFMono-Regular", Consolas, "Liberation Mono", monospace`.
-- Fonts are local/system only. No remote font request may block Korean text.
+Data stack: `ui-monospace, "SFMono-Regular", Consolas, monospace`.
 
-### Scale
-
-| Level | Token | Size | Weight | Line height | Usage |
-|---|---|---:|---:|---:|---|
-| Display | `--text-display` | `clamp(2rem, 4vw, 3.5rem)` | 700 | 1.08 | Page identity |
-| H1 | `--text-h1` | `clamp(1.75rem, 3vw, 2.5rem)` | 700 | 1.15 | Route title |
-| H2 | `--text-h2` | `1.5rem` | 650 | 1.25 | Panel title |
-| H3 | `--text-h3` | `1.125rem` | 650 | 1.35 | Group title |
-| Body large | `--text-body-lg` | `1.0625rem` | 400 | 1.6 | Lead guidance |
-| Body | `--text-body` | `1rem` | 400 | 1.55 | Default Korean/English text |
-| Body small | `--text-body-sm` | `0.875rem` | 400 | 1.5 | Metadata |
-| Caption | `--text-caption` | `0.75rem` | 550 | 1.45 | Compact labels |
-| Data | `--text-data` | `0.875rem` | 550 | 1.4 | UTC/AoE/date values |
+| Role | Token | Size | Weight | Line height | Tracking |
+|---|---|---:|---:|---:|---:|
+| Hero | `--text-hero` | `clamp(2.625rem, 6vw, 3.75rem)` | 720 | 1.04 | `-0.045em` |
+| Page H1 | `--text-h1` | `clamp(2rem, 4vw, 2.75rem)` | 700 | 1.12 | `-0.035em` |
+| Section | `--text-section` | `clamp(1.5rem, 2.4vw, 1.875rem)` | 700 | 1.2 | `-0.025em` |
+| Conference | `--text-conference` | `clamp(1.1875rem, 2vw, 1.375rem)` | 700 | 1.25 | `-0.018em` |
+| Body large | `--text-body-lg` | `1.0625rem` | 450 | 1.65 | `-0.01em` |
+| Body | `--text-body` | `1rem` | 450 | 1.55 | `-0.006em` |
+| Body small | `--text-body-sm` | `0.875rem` | 450 | 1.5 | `0` |
+| Label | `--text-label` | `0.8125rem` | 620 | 1.4 | `-0.005em` |
+| Caption | `--text-caption` | `0.75rem` | 550 | 1.4 | `0` |
+| Data | `--text-data` | `0.875rem` | 620 | 1.4 | `0` |
 
 Rules:
 
-- Korean semantic phrases must not be forced into narrow fixed boxes. Labels wrap as units; one-character orphan lines are defects.
-- Dates and numeric columns use tabular figures; raw source text uses the primary font for readability.
-- Body text never drops below 14px. Inputs render at 16px minimum on mobile to avoid browser zoom.
-- Line measures stay between 35-60 characters on mobile and 60-75 on wide reading panels.
+- Hero copy is centered but product headers are left-aligned.
+- Display text uses balanced wrapping. Korean body text uses pretty wrapping and never strands one-character particles or endings due to narrow containers.
+- Dates and D-Day values use tabular numbers.
+- Body text never drops below 14px; mobile inputs are 16px minimum.
 
 ## 4. Spacing & Layout
 
-### Spacing and shape
-
 Base unit: 4px.
 
-| Token | Value | Intent |
+| Token | Value | Usage |
 |---|---:|---|
-| `--space-1` | `4px` | Icon and inline detail |
-| `--space-2` | `8px` | Compact metadata |
-| `--space-3` | `12px` | Row inner gap |
-| `--space-4` | `16px` | Mobile gutter and control padding |
-| `--space-5` | `20px` | Dense panel padding |
-| `--space-6` | `24px` | Standard section gap |
-| `--space-8` | `32px` | Route-level grouping |
-| `--space-10` | `40px` | Major content separation |
-| `--space-12` | `48px` | Page vertical rhythm |
-| `--space-16` | `64px` | Wide route breathing room |
-| `--radius-control` | `8px` | Inputs, buttons, compact tabs |
-| `--radius-panel` | `12px` | Drawers and state panels |
-| `--radius-pill` | `999px` | Tags only |
-| `--timeline-identity` | `224px` | Sticky conference/source column in the timeline board |
-| `--timeline-identity-mobile` | `176px` | Compact sticky identity column at 375px |
-| `--timeline-month-width` | `136px` | One readable month track on the timeline axis |
-| `--timeline-board-row` | `92px` | Timeline identity and two-lane event row |
+| `--space-1` | `4px` | Micro gap |
+| `--space-2` | `8px` | Inline icon gap |
+| `--space-3` | `12px` | Compact grouping |
+| `--space-4` | `16px` | Mobile gutter/card gap |
+| `--space-5` | `20px` | Compact card padding |
+| `--space-6` | `24px` | Standard card padding |
+| `--space-8` | `32px` | Container gutter and section grouping |
+| `--space-10` | `40px` | Product grouping |
+| `--space-12` | `48px` | Section separation |
+| `--space-16` | `64px` | Hero and wide whitespace |
+| `--space-20` | `80px` | Desktop hero rhythm |
+| `--radius-control` | `14px` | Buttons and compact controls |
+| `--radius-input` | `20px` | Hero search |
+| `--radius-card` | `20px` | Conference and evidence cards |
+| `--radius-panel` | `24px` | Large product panels |
+| `--radius-pill` | `999px` | Chips and status only |
+| `--container` | `1220px` | Navbar, hero, and product alignment |
+| `--timeline-identity` | `240px` | Sticky timeline identity |
+| `--timeline-identity-mobile` | `176px` | Mobile identity |
+| `--timeline-month-width` | `144px` | Month axis |
+| `--timeline-board-row` | `104px` | Spacious timeline row |
 
-### Shell and scroll ownership
+Shell:
 
-- Maximum wide content frame: 1536px. Product content is fluid; readable detail copy stays under 65ch.
-- Desktop shell: fixed 208px navigation rail and a full-width timeline by default. The 430px evidence rail appears only after a schedule is selected; the route main owns vertical scrolling.
-- Tablet shell: compact top navigation, fluid timeline, evidence opens as a right drawer. The document remains the only vertical scroll owner.
-- Mobile shell: top app bar, single chronological feed, evidence opens as a full-width drawer/sheet. Calendar becomes a chronological agenda, never a squeezed seven-column grid.
-- Intrinsic rows use `minmax(min(16rem, 100%), 1fr)` or content-driven columns. Every flex/grid child that may shrink gets `min-inline-size: 0`.
-- App height uses `100dvh`, not `100vh`. Primary document content never requires horizontal scrolling. `TimelineBoard` is the sole bounded two-dimensional data viewport and advertises its horizontal pan behavior before the grid.
+- The fixed desktop sidebar is removed. One sticky top navbar spans the page and aligns to `--container`.
+- The navbar is 68px high, translucent only enough to retain context, with a subtle scrolled-style border.
+- Hero is 450–550px on desktop, uses a pale-blue radial atmosphere, and contains the primary search and field filters.
+- Product content begins immediately after the hero. Main width is `--container`, with 32px desktop, 24px tablet, and 16px mobile gutters.
+- Evidence is a 390–420px contextual side panel on desktop and an overlay drawer below 1280px.
+- Primary document content never scrolls horizontally. Timeline is the only bounded horizontal data viewport.
+- Use `100dvh`, never `100vh`.
 
-### Breakpoints
+Breakpoints:
 
 | Width | Contract |
 |---:|---|
-| 375px | One-column agenda; 16px gutters; 44px controls; evidence sheet; filters in a labelled disclosure |
-| 768px | Two-region layout; top navigation; timeline plus overlay drawer; calendar can show a compact month grid |
-| 1280px | Persistent navigation, full-width default timeline, and a contextual evidence rail after selection |
+| 375px | Compact top navbar, 32–44px hero title, horizontal filter chips, one-column cards, full-width evidence sheet |
+| 768px | Full top navbar, one-column cards, wrapped chips, timeline viewport, right evidence drawer |
+| 1280px | Wide product container, full-width timeline until selection, contextual evidence column after selection |
 
-Content stress gates: empty result, 40-character conference name, long Korean track label, unbroken official URL, 200% zoom, system dark mode, and reduced motion must all preserve task completion.
+Stress gates: 200% zoom, reduced motion, dark mode, empty/error/loading, 40-character name, long Korean track, long official URL, pending dates, and keyboard-only operation.
 
 ## 5. Components
 
-### AppShell
+### TopNavbar
 
-- Structure: skip link, navigation landmark, header toolbar, `main`, optional contextual rail.
-- Variants: wide rail, compact top bar, mobile top bar.
-- States: current route, collapsed filters, offline/problem indicator.
-- Accessibility: landmarks are named; route changes focus the main heading; navigation items have text labels.
-- Layout: fixed-sidenav shell at 1280px, document-scroll shell below it.
+- Sticky 68px surface, brand name/tagline at left, `Explore`, `Timeline`, `Calendar` navigation in the center, GitHub/source and theme actions at right.
+- No desktop sidebar or duplicate active navigation.
+- Compact mobile layout keeps brand and actions; secondary nav remains horizontally reachable without a menu trap.
 
-### SearchField
+### HeroSearch
 
-- Structure: visible label, search icon, native search input, clear control, helper/result live region.
-- States: default, hover, focus, filled, loading, disabled, error.
-- Accessibility: 44px minimum target, `type="search"`, labelled clear button, results announced politely.
-- Motion: opacity/color transition only; loading does not shift geometry.
+- Hero title: `Find your next conference deadline.`
+- Korean support copy explains official sources and evidence.
+- Search is the focal floating surface, 60–64px high, max 780px, with a left icon and visible shortcut hint.
+- States: idle, hover, focus, filled, loading, error. Focus uses primary border plus a soft blue halo without layout shift.
 
-### FilterRail
+### FilterChip
 
-- Structure: labelled group of discipline/year controls, reset action, active-filter summary.
-- Variants: persistent rail, horizontal wrapping cluster, mobile disclosure.
-- States: default, hover, active, focus, disabled, empty options.
-- Accessibility: native buttons/selects; no hover-only choices; active state includes text and `aria-pressed`.
+- Pill buttons remain native controls with `aria-pressed`.
+- Inactive is white/quiet-border/secondary text. Active is primary-soft/primary with no saturated fill.
+- Mobile uses a labelled horizontal scroller; filters never collapse behind an ambiguous disclosure.
 
-### ViewTabs
+### TrustStrip
 
-- Structure: `tablist`, Timeline, List, and Calendar tabs, linked panels. Timeline is first and selected on initial load.
-- States: default, hover, active, focus, disabled.
-- Accessibility: arrow-key support follows WAI-ARIA tabs; inactive content is hidden without losing URL state.
-- Motion: beui-inspired shared indicator. Spatial spring is `170 / 24 / 1.2`; reduced motion switches instantly.
+- One quiet line beneath filters: conference count, verified official sources, and regular update cadence.
+- Internal Notion/lab sync moves to the footer/data-source note.
 
-### ThemeToggle
+### ProductHeader and ViewSwitcher
 
-- Structure: one icon, one visible current-theme label, and a descriptive next-action accessible name.
-- States: light, dark, hover, focus, pressed.
-- Accessibility: native button with a 44px target; the label never relies on the sun/moon icon alone.
-- Persistence: `conference-atlas-theme` stores only `light` or `dark`; absent state follows the system preference.
-- Placement: always visible in the desktop rail and compact header without duplicating an active control in one viewport.
+- Left: `Upcoming deadlines` plus short Korean guidance. Right: Timeline/List/Calendar semantic tabs.
+- Active state is a scoped blue-soft pill/indicator; keyboard arrow behavior and tab/panel relations remain intact.
 
-### DeadlineTimeline and DeadlineRow
+### ConferenceCard and DeadlineBadge
 
-- Structure: month heading, date marker, deadline button, conference, track, evidence status, and an always-visible official-site link.
-- Current-schedule contract: the public catalog includes editions with a future deadline, an upcoming or ongoing conference, or a current/future edition whose dates are still unpublished. Fully elapsed editions stay in the source catalog but are omitted from the default results.
-- Milestone visibility: `MilestoneStack` shows the nearest open milestone plus `학회 개최` while the conference is upcoming or in progress. Elapsed dates remain available in `EvidenceDrawer` for auditability but never reappear in the list or calendar.
-- Milestone ordering: abstract registration, paper submission, supplementary submission, first notification, rebuttal, final notification, camera ready, then conference dates. The evidence drawer exposes every available milestone rather than selecting only the first deadline.
-- Variants: desktop time spine, tablet compact row, mobile agenda.
-- States: default, hover, selected, focus, extended, verified, unavailable.
-- Accessibility: chronological list semantics; each row has one descriptive accessible name; selected state uses `aria-current` or `aria-selected` as appropriate.
-- Layout: timeline is the primary document flow. Date spine is structural, not decorative.
-- Source address: every edition exposes its validated official URL without requiring the evidence drawer; long URLs wrap without truncation.
+- Card anatomy: acronym/name, deadline countdown, next milestone/date, categories/tier/location, verification, hostname source link.
+- Radius 20px, 22–26px padding, quiet border, near-invisible base shadow. Hover raises an interactive card by 2px with stronger blue-tinted elevation.
+- Countdown text: `D-n`, `TODAY`, `CLOSED`, or `TBD`. 30+ days blue, 8–30 neutral-blue, 4–7 warning, 0–3 danger, closed gray.
+- Full raw URLs are omitted from list cards but remain available in timeline identity, calendar source groups, and evidence detail.
 
-### TimelineBoard and TimelineRow
+### EvidencePanel and EvidenceCard
 
-- Structure: sticky conference identity column, continuous month axis, today rule, one next-submission marker, one conference-period bar, and an always-visible official-site link per row.
-- Time window: begins at the current local month and extends through the last visible deadline or conference end. Past portions of ongoing conferences are clipped at today rather than redrawn as future time.
-- Semantics: deadline markers read `제출`; interval bars read `학회`. Color, shape, and text all distinguish the two.
-- States: default, selected, ongoing, dates-pending, hover, focus.
-- Accessibility: the board is a labelled region with a short pan instruction; each row retains a full text summary and native selection button/link controls.
-- Responsive: the page never overflows. At 375px and 768px, only the board's labelled track viewport pans horizontally while the identity column remains sticky.
-- Source address: every row includes its official URL in the sticky identity area; URLs wrap without ellipsis.
-- Primary-layout state: before selection, the board occupies the complete catalog width and the empty evidence placeholder is omitted. Selecting a row restores the two-column board/evidence layout without losing the timeline position.
+- Evidence is product information, not debug output. Header emphasizes acronym and verification.
+- Separate soft sub-cards for primary schedule, official source, evidence observations, and change history.
+- Green appears only on verified labels; purple appears only on change history.
+- Compact drawer preserves Escape close, focus trap/return, scroll lock, and reduced-motion behavior.
+
+### TimelineBoard
+
+- Preserve sticky conference column and month-axis data logic.
+- Use spacious rows, subtle month bands, blue deadline markers, soft-blue conference bars, and one clear today rule with a `TODAY` label.
+- Hover/selection highlights a real selectable row. Official URL remains visible and may wrap.
 
 ### CalendarGrid
 
-- Structure: month heading, weekday headers, dated cells containing both deadline and conference-event controls, followed by a full-width official-site URL list for that month.
-- Event semantics: deadline chips use the visible prefix `제출` or their milestone label; conference chips use `개최`. The distinction is encoded in text and shape as well as color.
-- In-progress semantics: after a conference starts and before it ends, list and calendar place it on today as `학회 진행 중 / 오늘 진행 중` instead of reviving the elapsed start date or misclassifying the edition as unpublished.
-- Variants: semantic month grid at 768px+, chronological agenda at 375px.
-- States: empty day, today, focused day, selected deadline, multiple deadlines.
-- Accessibility: if interactive grid keys are implemented, follow ARIA grid; otherwise keep native table/list semantics. Mobile always uses lists.
+- Preserve native table semantics at 768px+ and agenda fallback at 375px.
+- Increase cell breathing room, render deadline/conference events as soft pills, and clearly label today.
+- Month source lists remain available below each month.
 
-### EvidenceDrawer
+### Shared primitives
 
-- Structure: dialog heading, close button, accepted deadline, official source, fetch metadata, raw/normalized value, version link.
-- Variants: persistent rail at 1280px, modal drawer below 1280px.
-- States: closed, opening, open, loading, partial error, no history.
-- Accessibility: Escape closes, focus moves inside on open and returns to trigger on close, body scroll locks only for modal variant, `aria-modal` only when overlaid.
-- Motion: transform and opacity only; standard duration 180ms or project spring. Reduced motion uses an opacity-only or instant swap.
-
-### Button
-
-- Variants: primary, secondary, ghost, icon with text.
-- States: default, hover, active, focus, disabled, loading, success, error.
-- Accessibility: one-line label, 44px target, status text announced, disabled semantics.
-- Motion: 120ms transform/opacity; active scale 0.98 without moving layout.
-
-### Badge
-
-- Variants: verified, extended, review-needed, timezone-review-needed, source kind, lab tier.
-- States: static and linked.
-- Accessibility: visible text always accompanies color; decorative dots are prohibited.
-
-### CurationNote
-
-- Structure: compact source label, imported taxonomy summary, and external source link.
-- Variants: lab timeline import only; never substitutes for deadline evidence.
-- States: static copy plus link hover and keyboard focus.
-- Accessibility: the source link has a descriptive label and opens safely in a new tab.
-
-### Surface and StatePanel
-
-- Structure: heading, message, optional supporting detail and recovery action.
-- Variants: loading skeleton, empty, partial error, full error, not found.
-- States: loading, empty, error, recovering, resolved.
-- Accessibility: errors use `role="alert"` only when newly introduced; empty copy is “검색 결과가 없습니다”; retry keeps query state.
-
-### Primitive showcase gate
-
-Before product routes are composed, `/__showcase` in development exercises every primitive at 375px, 768px, and 1280px with default, hover, active, focus, disabled, loading, empty, and error states; long Korean labels; unbroken source URLs; dark mode; keyboard traversal; and reduced motion. The showcase and dev tools never enter the production bundle.
+- `SearchField`, `FilterChip`, `DeadlineBadge`, `StatusBadge`, `SourceLink`, `ViewTabs`, `EvidenceCard`, `Button`, `StatePanel`, and `ThemeToggle` are reusable patterns.
+- Primitive showcase `/dev/primitives` exercises default, hover, focus, active, disabled, loading, error, long Korean, long URL, light/dark, and reduced-motion states at all three widths.
 
 ## 6. Motion & Interaction
 
 | Token | Value | Use |
 |---|---|---|
-| `--duration-micro` | `120ms` | Press, focus, color feedback |
-| `--duration-standard` | `180ms` | Tab content and drawer crossfade |
-| `--duration-exit` | `120ms` | Fast dismissal |
-| `--ease-out` | `cubic-bezier(0.16, 1, 0.3, 1)` | Enter and emphasis |
-| `--ease-standard` | `cubic-bezier(0.2, 0, 0, 1)` | State changes |
+| `--duration-press` | `120ms` | Button/card press |
+| `--duration-fast` | `160ms` | Color, border, focus |
+| `--duration-standard` | `190ms` | Tabs, cards, view swap |
+| `--duration-drawer` | `240ms` | Evidence overlay |
+| `--ease-out` | `cubic-bezier(0.16, 1, 0.3, 1)` | Enter and hover |
+| `--ease-standard` | `cubic-bezier(0.2, 0, 0, 1)` | State change |
 
-Rules:
+Mechanisms:
 
-- Every animation communicates selection, feedback, or spatial continuity. There is no decorative entrance sequence.
-- Only `transform`, `opacity`, and short color/filter changes animate. Layout properties never animate.
-- Search debounces requests by 200ms but updates immediately on submit; stale requests are aborted.
-- Evidence selection keeps the timeline position stable. Closing the drawer restores focus.
-- `prefers-reduced-motion: reduce` disables spatial transforms and springs; state remains immediate and perceivable.
-- Animations are interruptible and never block pointer, keyboard, or screen-reader interaction.
+- Search focus transitions border, shadow, and a maximum 1.005 scale using transform only.
+- Interactive cards move `translateY(-2px)` on hover and `scale(.995)` on press.
+- Tabs use a scoped active background/indicator and a 190ms content fade/4px translate.
+- Drawer uses transform/opacity only; the scrim fades independently.
+- `prefers-reduced-motion: reduce` removes spatial transforms and switches view/drawer state instantly or by opacity only.
+- Motion always communicates focus, selection, opening, or press. No entrance cascade, parallax, or decorative looping.
 
 ## 7. Depth & Surface
 
-Strategy: mixed ring-plus-soft elevation, adapted from Cal.com but quieter on dense timeline rows.
+The page uses one consistent light source and three restrained elevation levels.
 
 | Level | Token | Treatment | Usage |
 |---|---|---|---|
-| Flat | `--shadow-flat` | none | Canvas, timeline groups |
-| Ring | `--shadow-ring` | 0 0 0 1px semantic ring | Inputs, compact controls |
-| Surface | `--shadow-surface` | ring + contact + soft ambient layer | Evidence rail and state panel |
-| Overlay | `--shadow-overlay` | ring + deeper soft ambient layer | Modal drawer only |
+| Quiet | `--shadow-quiet` | `0 1px 2px` blue-gray at very low alpha | Navbar and static cards |
+| Card | `--shadow-card` | contact plus broad blue-gray ambient layer | Search and hoverable cards |
+| Floating | `--shadow-floating` | larger ambient plus semantic ring | Evidence drawer and overlays |
 
 Rules:
 
-- Timeline rows use whitespace and one bottom rule, not cards around every record.
-- Selected state uses `--interactive-soft` plus a stronger semantic ring. It does not lift or glow.
-- Shadow colors are tokenized in `tokens.css`; no pure-black heavy drop shadow is allowed.
-- Dark mode preserves hierarchy with tonal surfaces and restrained shadows.
+- The hero search is the only strongly floating element above the fold.
+- Conference cards use border plus quiet shadow; not every section is boxed.
+- Timeline rows use whitespace and soft separators, not individual floating cards.
+- Pale radial gradients appear only in the hero atmosphere and focus halo.
+- No glass beyond the sticky navbar’s subtle background blur; no neon or heavy shadow.
 
 ## 8. Accessibility Constraints & Accepted Debt
 
 ### Inclusive personas
 
-1. Korean graduate researcher: checks a deadline one-handed on a 375px phone under time pressure. Pass if search, filter, next deadline, timezone, and source are reachable without horizontal scroll or precision taps.
-2. lab manager: compares multiple tracks and changes on a 1280px desktop. Pass if scanning, list/calendar switching, and evidence comparison preserve filters and context.
-3. low-vision keyboard researcher: uses 200% zoom, keyboard-only navigation, dark preference, and reduced motion. Pass if all tasks complete with visible focus, correct reading order, reflow, no motion dependence, and no clipped CJK.
+1. Korean graduate researcher: finds a relevant deadline on a 375px phone under time pressure. Pass if search, chips, D-Day, timezone, and official source are reachable with one hand and no page-level horizontal scroll.
+2. lab manager: compares fields, timeline, calendar, evidence, and history at 1280px. Pass if view switching and selection preserve query/filter context.
+3. low-vision keyboard researcher: uses 200% zoom, keyboard-only navigation, dark mode, and reduced motion. Pass if focus stays visible, reading order is logical, drawers do not trap incorrectly, and CJK never clips.
 
 ### Constraints
 
-- WCAG target: 2.2 AA. Body contrast 4.5:1, large text and UI graphics 3:1, visible 2px+ focus treatment.
-- Touch targets are at least 44px by 44px with 8px separation where adjacent.
-- Keyboard path covers skip link, search, filters, view tabs, deadlines, evidence, close, and retry without traps.
-- Source links include descriptive names and safe external-link behavior. Icons never carry the full meaning alone.
-- Dates expose UTC and the source timezone label. Color never carries verified/extended/change meaning alone.
-- Search and error changes are announced through restrained live regions. Static error text is not repeatedly announced.
-- 200% zoom and 375px reflow to one readable column. No two-dimensional scrolling of primary content.
-- Korean/CJK text must not clip, produce tofu, or strand a particle/ending on its own line due to an unnecessarily narrow container.
-- Dark mode, reduced motion, high text scaling, slow network, empty catalog, malformed response, partial evidence failure, and long content are implementation test states.
+- WCAG 2.2 AA target; 4.5:1 body contrast, 3:1 large text/UI graphics, and a visible 2px+ `--focus-ring` treatment.
+- Touch targets are at least 44px where space permits and never below 40px.
+- Keyboard path covers skip link, navigation, search, filter chips, tabs, conference controls, source links, evidence close, and retry.
+- `aria-pressed`, `aria-selected`, native dialog/button/link semantics, screen-reader labels, live search status, Escape close, focus trap/return, and safe external links remain.
+- Status never depends on color; countdown, verified, review, and history states include visible text.
+- Primary content reflows at 200% zoom. Only the labelled timeline viewport may scroll horizontally.
+- Korean/CJK content must not strand particles/endings, clip descenders, show tofu, or split a compact semantic phrase because of avoidable width constraints.
+- Theme and reduced motion are honored without removing information.
 
 ### Accepted Debt
 

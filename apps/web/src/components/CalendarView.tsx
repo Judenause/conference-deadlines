@@ -1,7 +1,7 @@
 import type { Edition } from "@conf/contracts"
 import { useId } from "react"
 import { EditionCard } from "./EditionCard"
-import { calendarEventGroups, eventDay } from "./edition-dates"
+import { calendarEventGroups, eventDay, localDateIso } from "./edition-dates"
 import { Icon } from "./Icons"
 
 interface CalendarViewProps {
@@ -27,6 +27,7 @@ export function CalendarView({ editions, selectedId, onSelect }: CalendarViewPro
   const mobilePendingId = useId()
   const desktopPendingId = useId()
   const groups = calendarEventGroups(editions)
+  const today = localDateIso(new Date())
   const editionsWithEvents = new Set(
     groups.flatMap((group) => group.events.map((event) => event.edition.id)),
   )
@@ -125,6 +126,9 @@ export function CalendarView({ editions, selectedId, onSelect }: CalendarViewPro
                       {week.map((day, dayIndex) => (
                         <td
                           data-empty={day === null}
+                          data-today={
+                            group.key === today.slice(0, 7) && day === Number(today.slice(8, 10))
+                          }
                           key={`${group.key}-day-${weekIndex * 7 + dayIndex + 1}`}
                         >
                           {day ? <span>{day}</span> : null}

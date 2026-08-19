@@ -4,10 +4,21 @@ test("search, calendar, evidence, history, and empty states work without overflo
   page,
 }, testInfo) => {
   await page.goto("/")
-  await expect(page.getByRole("heading", { name: "학회 마감 일정" })).toBeVisible()
+  await expect(
+    page.getByRole("heading", { name: "Find your next conference deadline." }),
+  ).toBeVisible()
   await expect(page.getByText("수집 원칙")).toHaveCount(0)
   await expect(page.getByRole("tab", { name: "타임라인" })).toHaveAttribute("aria-selected", "true")
   await expect(page.getByRole("region", { name: "월별 학회 타임라인" })).toBeVisible()
+  if (testInfo.project.name !== "mobile-375") {
+    await page.getByRole("link", { name: "Calendar" }).click()
+    await expect(page.getByRole("tab", { name: "캘린더" })).toHaveAttribute("aria-selected", "true")
+    await page.getByRole("link", { name: "Timeline", exact: true }).click()
+    await expect(page.getByRole("tab", { name: "타임라인" })).toHaveAttribute(
+      "aria-selected",
+      "true",
+    )
+  }
   if (testInfo.project.name === "desktop-1280") {
     await expect(page.getByLabel("선택한 학회의 근거와 변경 이력")).not.toBeVisible()
   }

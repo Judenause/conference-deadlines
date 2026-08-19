@@ -81,8 +81,9 @@ export function TimelineView({ editions, selectedId, onSelect }: TimelineViewPro
     <section aria-label="월별 학회 타임라인" className="timeline-board">
       <div className="timeline-board__intro">
         <div>
-          <p className="eyebrow">TIMELINE</p>
+          <p className="eyebrow">AT A GLANCE</p>
           <h2>제출일 · 학회 기간 타임라인</h2>
+          <p>제출 마감과 학회 개최 기간을 하나의 시간축에서 비교합니다.</p>
         </div>
         <fieldset className="timeline-legend">
           <legend className="sr-only">타임라인 범례</legend>
@@ -187,7 +188,9 @@ export function TimelineView({ editions, selectedId, onSelect }: TimelineViewPro
                     <span
                       className="timeline-board__today"
                       style={{ left: `${percentAt(today, window)}%` }}
-                    />
+                    >
+                      <b>TODAY</b>
+                    </span>
                     {deadlineDate && deadline ? (
                       <button
                         aria-label={`${editionTitle} ${deadline.label} ${deadline.displayDate} 상세 보기`}

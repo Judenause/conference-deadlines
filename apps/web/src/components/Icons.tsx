@@ -5,6 +5,7 @@ interface IconProps {
     | "check"
     | "clock"
     | "close"
+    | "github"
     | "moon"
     | "search"
     | "source"
@@ -31,6 +32,9 @@ export function Icon({ name }: IconProps) {
       <>
         <path d="m7 7 10 10M17 7 7 17" />
       </>
+    ),
+    github: (
+      <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3.3-.4 6.8-1.6 6.8-7A5.4 5.4 0 0 0 19.4 4 5 5 0 0 0 19.2.5S18.1.1 15 1.8a13.4 13.4 0 0 0-7 0C4.9.1 3.8.5 3.8.5A5 5 0 0 0 3.6 4a5.4 5.4 0 0 0-1.4 3.7c0 5.4 3.5 6.6 6.8 7A4.8 4.8 0 0 0 8 18v4M8 19c-3 .9-3-1.5-4-2" />
     ),
     moon: <path d="M20 15.2A8.5 8.5 0 0 1 8.8 4 8.5 8.5 0 1 0 20 15.2Z" />,
     search: (

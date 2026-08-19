@@ -1,5 +1,6 @@
 import type { Edition } from "@conf/contracts"
 import {
+  deadlineCountdown,
   isConferenceCurrentOrUpcoming,
   isConferenceInProgress,
   nextUpcomingDeadline,
@@ -13,13 +14,20 @@ interface EditionCardProps {
   readonly onSelect: () => void
 }
 
+function officialHostname(url: string): string {
+  return new URL(url).hostname.replace(/^www\./, "")
+}
+
 export function EditionCard({ edition, selected, onSelect }: EditionCardProps) {
   const now = new Date()
   const nextDeadline = nextUpcomingDeadline(edition, now)
+  const countdown = nextDeadline
+    ? deadlineCountdown(nextDeadline, now)
+    : { label: "TBD", urgency: "closed" as const }
   const showConference = isConferenceCurrentOrUpcoming(edition, now)
   const conferenceInProgress = isConferenceInProgress(edition, now)
   return (
-    <div className="edition-entry" data-selected={selected}>
+    <article className="edition-entry conference-card" data-selected={selected}>
       <button
         aria-pressed={selected}
         aria-label={`${edition.acronym} 상세 보기`}
@@ -27,46 +35,53 @@ export function EditionCard({ edition, selected, onSelect }: EditionCardProps) {
         onClick={onSelect}
         type="button"
       >
-        <span className="edition-mark">{edition.acronym.split(" ")[0]?.slice(0, 5)}</span>
-        <span className="edition-copy">
-          <strong>{edition.acronym}</strong>
-          <span>{edition.name}</span>
-          <small className="edition-taxonomy">
-            <span>
-              {edition.categories.join(" · ")} · {edition.location}
-            </span>
-            {edition.tier ? <span className="tier-badge">{edition.tier}</span> : null}
-          </small>
-        </span>
-        <span className="edition-date">
-          <StatusBadge status={edition.status} />
-          <span className="milestone-stack">
-            {nextDeadline ? (
-              <span>
-                <small>{nextDeadline.label}</small>
-                <strong>{nextDeadline.displayDate}</strong>
-              </span>
-            ) : null}
-            {showConference ? (
-              <span>
-                <small>{conferenceInProgress ? "학회 진행 중" : "학회 개최"}</small>
-                <strong>{conferenceInProgress ? "오늘 진행 중" : edition.dateRange}</strong>
-              </span>
-            ) : null}
+        <span className="conference-card__heading">
+          <span>
+            <strong>{edition.acronym}</strong>
+            <small>{edition.name}</small>
+          </span>
+          <span className="deadline-badge" data-urgency={countdown.urgency}>
+            {countdown.label}
           </span>
         </span>
-        <Icon name="arrow" />
+        <span className="conference-card__schedule">
+          {nextDeadline ? (
+            <span>
+              <small>{nextDeadline.label}</small>
+              <strong>{nextDeadline.displayDate}</strong>
+            </span>
+          ) : (
+            <span>
+              <small>Paper deadline</small>
+              <strong>공식 발표 대기</strong>
+            </span>
+          )}
+          {showConference ? (
+            <span>
+              <small>{conferenceInProgress ? "학회 진행 중" : "학회 개최"}</small>
+              <strong>{conferenceInProgress ? "오늘 진행 중" : edition.dateRange}</strong>
+            </span>
+          ) : null}
+        </span>
+        <span className="edition-taxonomy">
+          <span>{edition.categories.join(" · ")}</span>
+          {edition.tier ? <span className="tier-badge">{edition.tier}</span> : null}
+          <span>{edition.location}</span>
+        </span>
       </button>
-      <a
-        aria-label={`${edition.acronym} 공식 사이트 열기: ${edition.officialUrl}`}
-        className="edition-official-link"
-        href={edition.officialUrl}
-        rel="noreferrer"
-        target="_blank"
-      >
-        <Icon name="source" />
-        <span>{edition.officialUrl}</span>
-      </a>
-    </div>
+      <div className="conference-card__footer">
+        <StatusBadge status={edition.status} />
+        <a
+          aria-label={`${edition.acronym} 공식 사이트 열기: ${edition.officialUrl}`}
+          className="edition-official-link"
+          href={edition.officialUrl}
+          rel="noreferrer"
+          target="_blank"
+        >
+          <span>Official source · {officialHostname(edition.officialUrl)}</span>
+          <Icon name="source" />
+        </a>
+      </div>
+    </article>
   )
 }

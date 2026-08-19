@@ -1,12 +1,12 @@
 import type { Edition, Evidence, History } from "@conf/contracts"
 import { useEffect, useId, useMemo, useRef, useState } from "react"
 import { getEditionBundle, getEditions } from "./api"
+import { CatalogControls, ProductHeader } from "./components/CatalogControls"
 import { EditionResults } from "./components/EditionResults"
 import { EvidencePanel } from "./components/EvidencePanel"
 import { filterEditions, upcomingEditions } from "./components/edition-dates"
-import { Icon } from "./components/Icons"
 import { ErrorState, Hero, SiteFooter, SiteNavigation } from "./components/PageChrome"
-import { type CatalogView, PrimitiveShowcase, ViewTabs } from "./components/Primitives"
+import { type CatalogView, PrimitiveShowcase } from "./components/Primitives"
 
 const LAB_CATEGORY_ORDER = ["Circuit", "AI", "System", "Archi", "CV"] as const
 const THEME_STORAGE_KEY = "conference-atlas-theme"
@@ -22,6 +22,9 @@ function initialTheme(): "light" | "dark" {
 
 export function App() {
   const mainId = useId()
+  const exploreId = useId()
+  const productId = useId()
+  const productTitleId = useId()
   const listPanelId = useId()
   const timelinePanelId = useId()
   const calendarPanelId = useId()
@@ -79,7 +82,7 @@ export function App() {
     const previousFocus = triggerRef.current
     const panel = document.querySelector<HTMLElement>(".evidence-panel")
     const background = document.querySelectorAll<HTMLElement>(
-      ".desktop-nav, .site-header, .hero, .catalog-toolbar, .results-column, footer",
+      ".site-header, .hero, .product-header, .results-column, footer",
     )
     const focusable = () =>
       panel?.querySelectorAll<HTMLElement>(
@@ -155,117 +158,94 @@ export function App() {
         본문으로 건너뛰기
       </a>
       <SiteNavigation
+        exploreHref={`#${exploreId}`}
+        onNavigateView={setView}
         onToggleTheme={() => setTheme((current) => (current === "light" ? "dark" : "light"))}
+        productHref={`#${productId}`}
         theme={theme}
       />
       <main id={mainId}>
-        <Hero editions={editions} />
-        <section aria-label="학회 검색과 필터" className="catalog-toolbar">
-          <label className="search-field">
-            <Icon name="search" />
-            <input
-              aria-label="학회 검색"
-              onChange={(event) => setQuery(event.target.value)}
-              placeholder="학회명, 분야, 개최지 또는 티어 검색"
-              ref={searchRef}
-              type="search"
-              value={query}
-            />
-            <kbd>⌘ K</kbd>
-          </label>
-          <div className="toolbar-bottom">
-            <fieldset className="filter-scroll">
-              <legend className="sr-only">분야 필터</legend>
-              {categories.map((item) => (
+        <Hero editions={editions} id={exploreId}>
+          <CatalogControls
+            categories={categories}
+            category={category}
+            onCategoryChange={(nextCategory) => {
+              setCategory(nextCategory)
+              setSelected(undefined)
+            }}
+            onQueryChange={(nextQuery) => {
+              setQuery(nextQuery)
+              setSelected(undefined)
+            }}
+            query={query}
+            searchRef={searchRef}
+          />
+        </Hero>
+        <section aria-labelledby={productTitleId} className="product-shell" id={productId}>
+          <ProductHeader
+            calendarPanelId={calendarPanelId}
+            count={filtered.length}
+            headingId={productTitleId}
+            listPanelId={listPanelId}
+            onViewChange={setView}
+            timelinePanelId={timelinePanelId}
+            view={view}
+          />
+          {error ? (
+            <ErrorState message={error} />
+          ) : (
+            <div className="catalog-layout" data-has-selection={Boolean(selected)} data-view={view}>
+              <section
+                aria-busy={loading}
+                aria-label="학회 일정 검색 결과"
+                aria-labelledby={`${view === "list" ? listPanelId : view === "timeline" ? timelinePanelId : calendarPanelId}-tab`}
+                className="results-column"
+                id={
+                  view === "list"
+                    ? listPanelId
+                    : view === "timeline"
+                      ? timelinePanelId
+                      : calendarPanelId
+                }
+                role="tabpanel"
+              >
+                <div className="results-head">
+                  <p>
+                    <strong>{filtered.length}</strong> curated schedules
+                  </p>
+                  <span>최근 확인 2026.08.18</span>
+                </div>
+                {loading && editions.length === 0 ? (
+                  <output className="skeleton-list">일정을 불러오는 중...</output>
+                ) : (
+                  <EditionResults
+                    editions={filtered}
+                    onSelect={selectEdition}
+                    selectedId={selected?.id}
+                    view={view}
+                  />
+                )}
+              </section>
+              {compact && selected ? (
                 <button
-                  aria-pressed={category === item}
-                  key={item}
-                  onClick={() => setCategory(item)}
+                  aria-label="상세 닫기"
+                  className="evidence-scrim"
+                  onClick={() => setSelected(undefined)}
+                  tabIndex={-1}
                   type="button"
-                >
-                  {item}
-                </button>
-              ))}
-            </fieldset>
-            <details className="mobile-filters">
-              <summary>분야 필터 · {category}</summary>
-              <fieldset>
-                <legend className="sr-only">모바일 분야 필터</legend>
-                {categories.map((item) => (
-                  <button
-                    aria-pressed={category === item}
-                    key={item}
-                    onClick={() => setCategory(item)}
-                    type="button"
-                  >
-                    {item}
-                  </button>
-                ))}
-              </fieldset>
-            </details>
-            <ViewTabs
-              calendarPanelId={calendarPanelId}
-              listPanelId={listPanelId}
-              timelinePanelId={timelinePanelId}
-              onChange={setView}
-              value={view}
-            />
-          </div>
-        </section>
-        {error ? (
-          <ErrorState message={error} />
-        ) : (
-          <div className="catalog-layout" data-has-selection={Boolean(selected)} data-view={view}>
-            <section
-              aria-busy={loading}
-              aria-label="학회 일정 검색 결과"
-              aria-labelledby={`${view === "list" ? listPanelId : view === "timeline" ? timelinePanelId : calendarPanelId}-tab`}
-              className="results-column"
-              id={
-                view === "list"
-                  ? listPanelId
-                  : view === "timeline"
-                    ? timelinePanelId
-                    : calendarPanelId
-              }
-              role="tabpanel"
-            >
-              <div className="results-head">
-                <p>
-                  <strong>{filtered.length}</strong>개 일정
-                </p>
-                <span>최근 확인 2026.08.18</span>
-              </div>
-              {loading && editions.length === 0 ? (
-                <output className="skeleton-list">일정을 불러오는 중...</output>
-              ) : (
-                <EditionResults
-                  editions={filtered}
-                  onSelect={selectEdition}
-                  selectedId={selected?.id}
-                  view={view}
                 />
-              )}
-            </section>
-            {compact && selected ? (
-              <button
-                aria-label="상세 닫기"
-                className="evidence-scrim"
-                onClick={() => setSelected(undefined)}
-                tabIndex={-1}
-                type="button"
+              ) : null}
+              <EvidencePanel
+                compact={compact}
+                edition={selected}
+                evidence={evidence}
+                history={history}
+                loading={loading && Boolean(selected)}
+                onClose={() => setSelected(undefined)}
               />
-            ) : null}
-            <EvidencePanel
-              compact={compact}
-              edition={selected}
-              evidence={evidence}
-              history={history}
-              loading={loading && Boolean(selected)}
-              onClose={() => setSelected(undefined)}
-            />
-          </div>
-        )}
+            </div>
+          )}
+        </section>
       </main>
       <SiteFooter />
     </div>
