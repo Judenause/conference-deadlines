@@ -1,4 +1,5 @@
 import type { Edition } from "@conf/contracts"
+import { categoryTone, editionCategoryTone } from "./category-tone"
 import {
   deadlineCountdown,
   isConferenceCurrentOrUpcoming,
@@ -26,8 +27,13 @@ export function EditionCard({ edition, selected, onSelect }: EditionCardProps) {
     : { label: "TBD", urgency: "closed" as const }
   const showConference = isConferenceCurrentOrUpcoming(edition, now)
   const conferenceInProgress = isConferenceInProgress(edition, now)
+  const primaryCategoryTone = editionCategoryTone(edition.categories)
   return (
-    <article className="edition-entry conference-card" data-selected={selected}>
+    <article
+      className="edition-entry conference-card"
+      data-category-tone={primaryCategoryTone}
+      data-selected={selected}
+    >
       <button
         aria-pressed={selected}
         aria-label={`${edition.acronym} 상세 보기`}
@@ -64,7 +70,17 @@ export function EditionCard({ edition, selected, onSelect }: EditionCardProps) {
           ) : null}
         </span>
         <span className="edition-taxonomy">
-          <span>{edition.categories.join(" · ")}</span>
+          <span className="category-labels">
+            {edition.categories.map((category) => (
+              <span
+                className="category-label"
+                data-category-tone={categoryTone(category)}
+                key={category}
+              >
+                {category}
+              </span>
+            ))}
+          </span>
           {edition.tier ? <span className="tier-badge">{edition.tier}</span> : null}
           <span>{edition.location}</span>
         </span>

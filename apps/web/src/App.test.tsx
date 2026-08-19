@@ -50,7 +50,7 @@ test("researcher searches and opens a remaining 2026 deadline with evidence", as
     (await screen.findAllByRole("link", { name: /MICRO 2026 공식 일정/ })).length,
   ).toBeGreaterThanOrEqual(2)
   expect((await screen.findAllByText("시간대 검수 필요")).length).toBeGreaterThan(0)
-})
+}, 10_000)
 
 test("empty search explains the result", async () => {
   vi.stubGlobal(

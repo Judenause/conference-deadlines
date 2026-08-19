@@ -10,6 +10,37 @@ test("search, calendar, evidence, history, and empty states work without overflo
   await expect(page.getByText("수집 원칙")).toHaveCount(0)
   await expect(page.getByRole("tab", { name: "타임라인" })).toHaveAttribute("aria-selected", "true")
   await expect(page.getByRole("region", { name: "월별 학회 타임라인" })).toBeVisible()
+  for (const [label, tone] of [
+    ["Circuit", "circuit"],
+    ["AI", "ai"],
+    ["System", "system"],
+    ["Archi", "archi"],
+    ["CV", "cv"],
+  ] as const) {
+    await expect(page.getByRole("button", { name: label, exact: true })).toHaveAttribute(
+      "data-category-tone",
+      tone,
+    )
+    await expect(
+      page.locator(`.timeline-board__row[data-category-tone="${tone}"]`).first(),
+    ).toBeAttached()
+  }
+  const timelineFieldColors = await page
+    .locator(".timeline-board__row[data-category-tone]")
+    .evaluateAll((rows) => [
+      ...new Set(rows.map((row) => getComputedStyle(row).getPropertyValue("--category-accent"))),
+    ])
+  expect(timelineFieldColors).toHaveLength(5)
+  for (const tone of ["circuit", "ai", "system", "archi", "cv"] as const) {
+    const categoryRow = page
+      .locator(`.timeline-board__row[data-category-tone="${tone}"]`)
+      .filter({ has: page.locator(".timeline-board__deadline, .timeline-board__conference") })
+      .first()
+    await expect(categoryRow).toBeAttached()
+    await categoryRow.screenshot({
+      path: `../../.omo/evidence/browser/${testInfo.project.name}-category-${tone}.png`,
+    })
+  }
   if (testInfo.project.name !== "mobile-375") {
     await page.getByRole("link", { name: "Calendar" }).click()
     await expect(page.getByRole("tab", { name: "캘린더" })).toHaveAttribute("aria-selected", "true")
@@ -50,6 +81,11 @@ test("search, calendar, evidence, history, and empty states work without overflo
     scroll: document.documentElement.scrollWidth,
   }))
   expect(width.scroll).toBeLessThanOrEqual(width.client)
+  await page.locator(".conference-card").first().scrollIntoViewIfNeeded()
+  await page.screenshot({
+    fullPage: false,
+    path: `../../.omo/evidence/browser/${testInfo.project.name}-list.png`,
+  })
 
   await page.getByRole("searchbox").fill("ICASSP 2026")
   await expect(page.getByText("검색 결과가 없습니다")).toBeVisible()

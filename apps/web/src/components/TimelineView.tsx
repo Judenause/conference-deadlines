@@ -1,4 +1,5 @@
 import type { Edition } from "@conf/contracts"
+import { editionCategoryTone } from "./category-tone"
 import { deadlineDateIso, localDateIso, nextUpcomingDeadline } from "./edition-dates"
 import { Icon } from "./Icons"
 
@@ -95,6 +96,16 @@ export function TimelineView({ editions, selectedId, onSelect }: TimelineViewPro
             <i data-kind="conference" />
             학회
           </span>
+          <span>
+            <b aria-hidden="true" className="timeline-legend__palette">
+              <i data-category-tone="circuit" />
+              <i data-category-tone="ai" />
+              <i data-category-tone="system" />
+              <i data-category-tone="archi" />
+              <i data-category-tone="cv" />
+            </b>
+            분야
+          </span>
         </fieldset>
       </div>
       <p className="timeline-board__hint">표 안을 가로로 이동해 월별 일정을 확인하세요.</p>
@@ -152,6 +163,7 @@ export function TimelineView({ editions, selectedId, onSelect }: TimelineViewPro
                 <article
                   aria-label={timelineSummary}
                   className="timeline-board__row"
+                  data-category-tone={editionCategoryTone(edition.categories)}
                   data-selected={selectedId === edition.id}
                   key={edition.id}
                 >

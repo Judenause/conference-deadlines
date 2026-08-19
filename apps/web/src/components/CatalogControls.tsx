@@ -1,4 +1,5 @@
 import type { RefObject } from "react"
+import { categoryTone } from "./category-tone"
 import { Icon } from "./Icons"
 import { type CatalogView, ViewTabs } from "./Primitives"
 
@@ -50,6 +51,7 @@ export function CatalogControls({
           <button
             aria-label={item}
             aria-pressed={category === item}
+            data-category-tone={categoryTone(item)}
             key={item}
             onClick={() => onCategoryChange(item)}
             type="button"

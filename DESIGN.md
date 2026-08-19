@@ -21,7 +21,7 @@ The product combines:
 - bright, generous product surfaces and friendly control geometry;
 - Linear-like information hierarchy and typographic precision;
 - academic trust through visible verified-source, evidence, timezone, and history language;
-- a single restrained blue accent, with green reserved for verification.
+- a restrained blue interaction accent, with a muted five-color taxonomy palette for research fields and green reserved for verification.
 
 The public name and tagline are defined once in `apps/web/src/brand.ts`:
 
@@ -63,13 +63,26 @@ All raw color values live only here and in `apps/web/src/styles/tokens.css`.
 | Danger soft | `--danger-soft` | `#FFF0F1` | `#4A2229` | Urgent pill/error surface |
 | Purple | `--purple` | `#7950F2` | `#A58AFF` | Change-history accents only |
 | Purple soft | `--purple-soft` | `#F3F0FF` | `#312850` | Change-history surface |
+| Circuit | `--field-circuit` | `#9A5A00` | `#FFB65E` | Circuit taxonomy accent |
+| Circuit soft | `--field-circuit-soft` | `#FFF3E3` | `#402B17` | Circuit taxonomy surface |
+| AI | `--field-ai` | `#4E5DC7` | `#A8B3FF` | AI taxonomy accent |
+| AI soft | `--field-ai-soft` | `#EEF0FF` | `#292E52` | AI taxonomy surface |
+| System | `--field-system` | `#087A78` | `#62D2CC` | System taxonomy accent |
+| System soft | `--field-system-soft` | `#E7F8F6` | `#173B3A` | System taxonomy surface |
+| Architecture | `--field-archi` | `#366CAF` | `#8DB8F2` | Architecture taxonomy accent |
+| Architecture soft | `--field-archi-soft` | `#EAF3FF` | `#203550` | Architecture taxonomy surface |
+| Computer vision | `--field-cv` | `#B13E68` | `#FF94B9` | CV taxonomy accent |
+| Computer vision soft | `--field-cv-soft` | `#FDECF3` | `#472432` | CV taxonomy surface |
 | Focus | `--focus-ring` | `#1D5FD3` | `#9AB8FF` | Keyboard focus |
 | Scrim | `--scrim` | `rgba(25,31,40,.42)` | `rgba(0,0,0,.66)` | Compact evidence isolation |
 
 Rules:
 
-- Blue is limited to selection, links, primary deadlines, and active controls.
+- Blue is limited to selection, links, primary deadlines, and active controls; the taxonomy palette is limited to field identification.
 - Green is verification-only. Purple is history-only. Warning and danger always include text.
+- Circuit, AI, System, Archi, and CV use amber, indigo, teal, steel-blue, and rose respectively. Unknown categories fall back to neutral tokens.
+- Multi-field cards render one label per field. Single-accent spatial surfaces use the first listed field as the edition's primary taxonomy.
+- Taxonomy color is always paired with a visible category label, acronym, or filter name; it never carries meaning alone.
 - No component introduces a raw hex, rgb, or ad-hoc semantic color.
 - Body text meets WCAG 2.2 AA 4.5:1; large text and UI graphics meet 3:1.
 
@@ -165,7 +178,7 @@ Stress gates: 200% zoom, reduced motion, dark mode, empty/error/loading, 40-char
 ### FilterChip
 
 - Pill buttons remain native controls with `aria-pressed`.
-- Inactive is white/quiet-border/secondary text. Active is primary-soft/primary with no saturated fill.
+- Inactive chips show a small field-color dot on white/quiet-border/secondary text. Active field chips use their soft taxonomy surface and accent text; `All` remains primary blue.
 - Mobile uses a labelled horizontal scroller; filters never collapse behind an ambiguous disclosure.
 
 ### TrustStrip
@@ -181,6 +194,7 @@ Stress gates: 200% zoom, reduced motion, dark mode, empty/error/loading, 40-char
 ### ConferenceCard and DeadlineBadge
 
 - Card anatomy: acronym/name, deadline countdown, next milestone/date, categories/tier/location, verification, hostname source link.
+- A slim primary-taxonomy rail and individually colored field labels distinguish mixed-category cards without recoloring deadline urgency or verification status.
 - Radius 20px, 22–26px padding, quiet border, near-invisible base shadow. Hover raises an interactive card by 2px with stronger blue-tinted elevation.
 - Countdown text: `D-n`, `TODAY`, `CLOSED`, or `TBD`. 30+ days blue, 8–30 neutral-blue, 4–7 warning, 0–3 danger, closed gray.
 - Full raw URLs are omitted from list cards but remain available in timeline identity, calendar source groups, and evidence detail.
@@ -195,13 +209,13 @@ Stress gates: 200% zoom, reduced motion, dark mode, empty/error/loading, 40-char
 ### TimelineBoard
 
 - Preserve sticky conference column and month-axis data logic.
-- Use spacious rows, subtle month bands, blue deadline markers, soft-blue conference bars, and one clear today rule with a `TODAY` label.
+- Use spacious rows, subtle month bands, field-colored deadline markers and conference bars, and one clear today rule with a `TODAY` label. Shape and text continue to distinguish submission from conference duration.
 - Hover/selection highlights a real selectable row. Official URL remains visible and may wrap.
 
 ### CalendarGrid
 
 - Preserve native table semantics at 768px+ and agenda fallback at 375px.
-- Increase cell breathing room, render deadline/conference events as soft pills, and clearly label today.
+- Increase cell breathing room, render events with field-colored soft pills, retain explicit `일정`/`개최` text, and clearly label today.
 - Month source lists remain available below each month.
 
 ### Shared primitives

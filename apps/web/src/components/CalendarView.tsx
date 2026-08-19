@@ -1,5 +1,6 @@
 import type { Edition } from "@conf/contracts"
 import { useId } from "react"
+import { editionCategoryTone } from "./category-tone"
 import { EditionCard } from "./EditionCard"
 import { calendarEventGroups, eventDay, localDateIso } from "./edition-dates"
 import { Icon } from "./Icons"
@@ -43,7 +44,11 @@ export function CalendarView({ editions, selectedId, onSelect }: CalendarViewPro
             </div>
             <ol className="calendar-agenda-list">
               {group.events.map((event) => (
-                <li data-event-kind={event.type} key={event.id}>
+                <li
+                  data-category-tone={editionCategoryTone(event.edition.categories)}
+                  data-event-kind={event.type}
+                  key={event.id}
+                >
                   <time dateTime={event.date}>{event.date.slice(5).replace("-", ".")}</time>
                   <button
                     aria-label={`${event.edition.acronym} ${event.label} 상세 보기`}
@@ -139,6 +144,9 @@ export function CalendarView({ editions, selectedId, onSelect }: CalendarViewPro
                                   <button
                                     aria-label={`${event.edition.acronym} ${event.label} 상세 보기`}
                                     aria-pressed={selectedId === event.edition.id}
+                                    data-category-tone={editionCategoryTone(
+                                      event.edition.categories,
+                                    )}
                                     data-event-kind={event.type}
                                     key={event.id}
                                     onClick={() => onSelect(event.edition.id)}
