@@ -144,7 +144,7 @@ Shell:
 
 - The fixed desktop sidebar is removed. One sticky top navbar spans the page and aligns to `--container`.
 - The navbar is 68px high, translucent only enough to retain context, with a subtle scrolled-style border.
-- Hero is 450–550px on desktop, uses a pale-blue radial atmosphere, and contains the primary search and field filters.
+- Hero is 450–550px on desktop, uses a pale-blue radial atmosphere, and contains the primary search; field filters live with the product view controls below.
 - Product content begins immediately after the hero. Main width is `--container`, with 32px desktop, 24px tablet, and 16px mobile gutters.
 - Evidence is a 390–420px contextual side panel on desktop and an overlay drawer below 1280px.
 - Primary document content never scrolls horizontally. Timeline is the only bounded horizontal data viewport.
