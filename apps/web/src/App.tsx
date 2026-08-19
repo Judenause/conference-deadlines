@@ -30,7 +30,7 @@ export function App() {
   const [editions, setEditions] = useState<readonly Edition[]>([])
   const [query, setQuery] = useState("")
   const [category, setCategory] = useState("전체")
-  const [view, setView] = useState<CatalogView>("list")
+  const [view, setView] = useState<CatalogView>("timeline")
   const [theme, setTheme] = useState<"light" | "dark">(initialTheme)
   const [selected, setSelected] = useState<Edition>()
   const [evidence, setEvidence] = useState<readonly Evidence[]>([])
@@ -215,7 +215,7 @@ export function App() {
         {error ? (
           <ErrorState message={error} />
         ) : (
-          <div className="catalog-layout">
+          <div className="catalog-layout" data-has-selection={Boolean(selected)} data-view={view}>
             <section
               aria-busy={loading}
               aria-label="학회 일정 검색 결과"

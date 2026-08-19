@@ -58,7 +58,7 @@ export function ViewTabs({
   function move(event: KeyboardEvent<HTMLButtonElement>, current: CatalogView) {
     if (event.key !== "ArrowLeft" && event.key !== "ArrowRight") return
     event.preventDefault()
-    const views: readonly CatalogView[] = ["list", "timeline", "calendar"]
+    const views: readonly CatalogView[] = ["timeline", "list", "calendar"]
     const currentIndex = views.indexOf(current)
     const offset = event.key === "ArrowLeft" ? views.length - 1 : 1
     const next = views[(currentIndex + offset) % views.length]
@@ -72,19 +72,6 @@ export function ViewTabs({
   return (
     <div aria-label="보기 방식" className="view-tabs" role="tablist">
       <button
-        aria-controls={listPanelId}
-        aria-selected={value === "list"}
-        data-view="list"
-        id={`${listPanelId}-tab`}
-        onKeyDown={(event) => move(event, "list")}
-        onClick={() => onChange("list")}
-        role="tab"
-        tabIndex={value === "list" ? 0 : -1}
-        type="button"
-      >
-        목록
-      </button>
-      <button
         aria-controls={timelinePanelId}
         aria-selected={value === "timeline"}
         data-view="timeline"
@@ -96,6 +83,19 @@ export function ViewTabs({
         type="button"
       >
         타임라인
+      </button>
+      <button
+        aria-controls={listPanelId}
+        aria-selected={value === "list"}
+        data-view="list"
+        id={`${listPanelId}-tab`}
+        onKeyDown={(event) => move(event, "list")}
+        onClick={() => onChange("list")}
+        role="tab"
+        tabIndex={value === "list" ? 0 : -1}
+        type="button"
+      >
+        목록
       </button>
       <button
         aria-controls={calendarPanelId}
@@ -115,7 +115,7 @@ export function ViewTabs({
 }
 
 export function PrimitiveShowcase() {
-  const [view, setView] = useState<CatalogView>("list")
+  const [view, setView] = useState<CatalogView>("timeline")
   return (
     <main className="showcase">
       <p className="eyebrow">DEVELOPMENT ONLY</p>

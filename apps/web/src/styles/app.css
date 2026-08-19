@@ -1462,4 +1462,13 @@ footer {
   .catalog-layout {
     grid-template-columns: minmax(0, 1fr) var(--layout-evidence);
   }
+  .catalog-layout[data-view="timeline"][data-has-selection="false"] {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .catalog-layout[data-view="timeline"][data-has-selection="false"] .results-column {
+    border-right: 0;
+  }
+  .catalog-layout[data-view="timeline"][data-has-selection="false"] .evidence-panel {
+    display: none;
+  }
 }

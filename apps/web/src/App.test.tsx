@@ -32,6 +32,7 @@ test("researcher searches and opens a remaining 2026 deadline with evidence", as
 
   render(<App />)
   expect(await screen.findByRole("heading", { name: "학회 마감 일정" })).toBeTruthy()
+  fireEvent.click(screen.getByRole("tab", { name: "목록" }))
 
   fireEvent.change(screen.getByRole("searchbox"), { target: { value: "MICRO" } })
   expect(
@@ -58,7 +59,7 @@ test("empty search explains the result", async () => {
   expect(await screen.findByText("검색 결과가 없습니다")).toBeTruthy()
 })
 
-test("visitor switches the saved color theme and opens the monthly timeline", async () => {
+test("visitor lands on the monthly timeline and switches the saved color theme", async () => {
   vi.stubGlobal(
     "fetch",
     vi.fn(async () => new Response(JSON.stringify({ items: seed.editions }), { status: 200 })),
@@ -67,6 +68,7 @@ test("visitor switches the saved color theme and opens the monthly timeline", as
   render(<App />)
   expect(await screen.findByRole("heading", { name: "학회 마감 일정" })).toBeTruthy()
   expect(screen.queryByText("수집 원칙")).toBeNull()
+  expect(screen.getByRole("tab", { name: "타임라인" }).getAttribute("aria-selected")).toBe("true")
 
   const themeButton = screen.getAllByRole("button", { name: "다크 모드로 전환" })[0]
   expect(themeButton).toBeTruthy()
@@ -74,7 +76,6 @@ test("visitor switches the saved color theme and opens the monthly timeline", as
   expect(document.documentElement.dataset.theme).toBe("dark")
   expect(window.localStorage.getItem("conference-atlas-theme")).toBe("dark")
 
-  fireEvent.click(screen.getByRole("tab", { name: "타임라인" }))
   expect(await screen.findByRole("region", { name: "월별 학회 타임라인" })).toBeTruthy()
   expect(screen.getByText("제출일 · 학회 기간 타임라인")).toBeTruthy()
   expect(screen.getAllByRole("link", { name: /공식 사이트 열기/ }).length).toBeGreaterThan(0)
@@ -88,6 +89,7 @@ test("lab timeline categories expose curated conferences and BK tiers", async ()
 
   render(<App />)
   expect(await screen.findByRole("link", { name: "연구실 Timeline 원본 열기" })).toBeTruthy()
+  fireEvent.click(screen.getByRole("tab", { name: "목록" }))
   const filters = await screen.findByRole("group", { name: "분야 필터" })
   expect(within(filters).queryByRole("button", { name: "HCI" })).toBeNull()
   fireEvent.click(within(filters).getByRole("button", { name: "Circuit" }))

@@ -6,6 +6,11 @@ test("search, calendar, evidence, history, and empty states work without overflo
   await page.goto("/")
   await expect(page.getByRole("heading", { name: "학회 마감 일정" })).toBeVisible()
   await expect(page.getByText("수집 원칙")).toHaveCount(0)
+  await expect(page.getByRole("tab", { name: "타임라인" })).toHaveAttribute("aria-selected", "true")
+  await expect(page.getByRole("region", { name: "월별 학회 타임라인" })).toBeVisible()
+  if (testInfo.project.name === "desktop-1280") {
+    await expect(page.getByLabel("선택한 학회의 근거와 변경 이력")).not.toBeVisible()
+  }
 
   const themeToggle = page.locator(".theme-toggle:visible")
   await expect(themeToggle).toHaveAccessibleName("다크 모드로 전환")
@@ -20,6 +25,7 @@ test("search, calendar, evidence, history, and empty states work without overflo
   })
   await themeToggle.click()
   await expect(page.locator("html")).toHaveAttribute("data-theme", "light")
+  await page.getByRole("tab", { name: "목록" }).click()
 
   await page.keyboard.press("ControlOrMeta+K")
   await expect(page.getByRole("searchbox")).toBeFocused()
@@ -48,7 +54,7 @@ test("search, calendar, evidence, history, and empty states work without overflo
   await page.getByRole("searchbox").fill("")
 
   await page.getByRole("tab", { name: "목록" }).focus()
-  await page.keyboard.press("ArrowRight")
+  await page.keyboard.press("ArrowLeft")
   await expect(page.getByRole("tab", { name: "타임라인" })).toBeFocused()
   await expect(page.getByRole("region", { name: "월별 학회 타임라인" })).toBeVisible()
   await expect(page.getByText("제출일 · 학회 기간 타임라인")).toBeVisible()
@@ -80,7 +86,7 @@ test("search, calendar, evidence, history, and empty states work without overflo
   })
   await page.getByRole("searchbox").fill("")
   await page.getByRole("tab", { name: "타임라인" }).focus()
-  await page.keyboard.press("ArrowRight")
+  await page.keyboard.press("ArrowLeft")
   await expect(page.getByRole("tab", { name: "캘린더" })).toBeFocused()
   if (testInfo.project.name === "mobile-375") {
     await expect(page.getByRole("heading", { name: "2026년 9월" })).toBeVisible()

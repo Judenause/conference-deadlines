@@ -114,7 +114,7 @@ Base unit: 4px.
 ### Shell and scroll ownership
 
 - Maximum wide content frame: 1536px. Product content is fluid; readable detail copy stays under 65ch.
-- Desktop shell: fixed 208px navigation rail, fluid timeline, 430px evidence rail. The route main owns vertical scrolling; side rails remain sticky inside that document scroll.
+- Desktop shell: fixed 208px navigation rail and a full-width timeline by default. The 430px evidence rail appears only after a schedule is selected; the route main owns vertical scrolling.
 - Tablet shell: compact top navigation, fluid timeline, evidence opens as a right drawer. The document remains the only vertical scroll owner.
 - Mobile shell: top app bar, single chronological feed, evidence opens as a full-width drawer/sheet. Calendar becomes a chronological agenda, never a squeezed seven-column grid.
 - Intrinsic rows use `minmax(min(16rem, 100%), 1fr)` or content-driven columns. Every flex/grid child that may shrink gets `min-inline-size: 0`.
@@ -126,7 +126,7 @@ Base unit: 4px.
 |---:|---|
 | 375px | One-column agenda; 16px gutters; 44px controls; evidence sheet; filters in a labelled disclosure |
 | 768px | Two-region layout; top navigation; timeline plus overlay drawer; calendar can show a compact month grid |
-| 1280px | Persistent navigation and evidence rails; full timeline labels and month grid |
+| 1280px | Persistent navigation, full-width default timeline, and a contextual evidence rail after selection |
 
 Content stress gates: empty result, 40-character conference name, long Korean track label, unbroken official URL, 200% zoom, system dark mode, and reduced motion must all preserve task completion.
 
@@ -156,7 +156,7 @@ Content stress gates: empty result, 40-character conference name, long Korean tr
 
 ### ViewTabs
 
-- Structure: `tablist`, List, Timeline, and Calendar tabs, linked panels.
+- Structure: `tablist`, Timeline, List, and Calendar tabs, linked panels. Timeline is first and selected on initial load.
 - States: default, hover, active, focus, disabled.
 - Accessibility: arrow-key support follows WAI-ARIA tabs; inactive content is hidden without losing URL state.
 - Motion: beui-inspired shared indicator. Spatial spring is `170 / 24 / 1.2`; reduced motion switches instantly.
@@ -190,6 +190,7 @@ Content stress gates: empty result, 40-character conference name, long Korean tr
 - Accessibility: the board is a labelled region with a short pan instruction; each row retains a full text summary and native selection button/link controls.
 - Responsive: the page never overflows. At 375px and 768px, only the board's labelled track viewport pans horizontally while the identity column remains sticky.
 - Source address: every row includes its official URL in the sticky identity area; URLs wrap without ellipsis.
+- Primary-layout state: before selection, the board occupies the complete catalog width and the empty evidence placeholder is omitted. Selecting a row restores the two-column board/evidence layout without losing the timeline position.
 
 ### CalendarGrid
 
