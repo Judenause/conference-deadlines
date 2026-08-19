@@ -5,6 +5,21 @@ test("search, calendar, evidence, history, and empty states work without overflo
 }, testInfo) => {
   await page.goto("/")
   await expect(page.getByRole("heading", { name: "학회 마감 일정" })).toBeVisible()
+  await expect(page.getByText("수집 원칙")).toHaveCount(0)
+
+  const themeToggle = page.locator(".theme-toggle:visible")
+  await expect(themeToggle).toHaveAccessibleName("다크 모드로 전환")
+  await themeToggle.click()
+  await expect(page.locator("html")).toHaveAttribute("data-theme", "dark")
+  await expect
+    .poll(() => page.evaluate(() => localStorage.getItem("conference-atlas-theme")))
+    .toBe("dark")
+  await page.screenshot({
+    fullPage: false,
+    path: `../../.omo/evidence/browser/${testInfo.project.name}-dark.png`,
+  })
+  await themeToggle.click()
+  await expect(page.locator("html")).toHaveAttribute("data-theme", "light")
 
   await page.keyboard.press("ControlOrMeta+K")
   await expect(page.getByRole("searchbox")).toBeFocused()
@@ -33,6 +48,38 @@ test("search, calendar, evidence, history, and empty states work without overflo
   await page.getByRole("searchbox").fill("")
 
   await page.getByRole("tab", { name: "목록" }).focus()
+  await page.keyboard.press("ArrowRight")
+  await expect(page.getByRole("tab", { name: "타임라인" })).toBeFocused()
+  await expect(page.getByRole("region", { name: "월별 학회 타임라인" })).toBeVisible()
+  await expect(page.getByText("제출일 · 학회 기간 타임라인")).toBeVisible()
+  await expect(page.getByRole("link", { name: /공식 사이트 열기/ }).first()).toBeVisible()
+  await page.locator(".timeline-board__axis").scrollIntoViewIfNeeded()
+  await page.locator(".timeline-board__row").first().scrollIntoViewIfNeeded()
+  await page.screenshot({
+    fullPage: false,
+    path: `../../.omo/evidence/browser/${testInfo.project.name}-timeline.png`,
+  })
+  await page.getByRole("searchbox").fill("MICRO 2026")
+  await expect(page.locator(".timeline-board__deadline")).toBeVisible()
+  await expect(page.locator(".timeline-board__conference")).toBeVisible()
+  await page.locator(".timeline-board__row").scrollIntoViewIfNeeded()
+  await page.evaluate(() => {
+    const viewport = document.querySelector(".timeline-board__viewport")
+    const marker = document.querySelector(".timeline-board__deadline")
+    const identity = document.querySelector(".timeline-board__identity")
+    if (!(viewport instanceof HTMLElement)) return
+    if (!(marker instanceof HTMLElement)) return
+    if (!(identity instanceof HTMLElement)) return
+    viewport.scrollLeft = marker.offsetLeft - (viewport.clientWidth - identity.offsetWidth) / 2
+  })
+  await page.locator(".timeline-board__deadline").focus()
+  await expect(page.locator(".timeline-board__deadline")).toBeFocused()
+  await page.screenshot({
+    fullPage: false,
+    path: `../../.omo/evidence/browser/${testInfo.project.name}-timeline-focused.png`,
+  })
+  await page.getByRole("searchbox").fill("")
+  await page.getByRole("tab", { name: "타임라인" }).focus()
   await page.keyboard.press("ArrowRight")
   await expect(page.getByRole("tab", { name: "캘린더" })).toBeFocused()
   if (testInfo.project.name === "mobile-375") {

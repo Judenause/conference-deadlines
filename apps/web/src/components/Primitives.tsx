@@ -1,6 +1,8 @@
 import { type KeyboardEvent, type ReactNode, useState } from "react"
 import { Icon } from "./Icons"
 
+export type CatalogView = "list" | "timeline" | "calendar"
+
 export function Button({
   children,
   onClick,
@@ -44,16 +46,23 @@ export function ViewTabs({
   value,
   onChange,
   listPanelId,
+  timelinePanelId,
   calendarPanelId,
 }: {
-  readonly value: "list" | "calendar"
-  readonly onChange: (value: "list" | "calendar") => void
+  readonly value: CatalogView
+  readonly onChange: (value: CatalogView) => void
   readonly listPanelId: string
+  readonly timelinePanelId: string
   readonly calendarPanelId: string
 }) {
-  function move(event: KeyboardEvent<HTMLButtonElement>, next: "list" | "calendar") {
+  function move(event: KeyboardEvent<HTMLButtonElement>, current: CatalogView) {
     if (event.key !== "ArrowLeft" && event.key !== "ArrowRight") return
     event.preventDefault()
+    const views: readonly CatalogView[] = ["list", "timeline", "calendar"]
+    const currentIndex = views.indexOf(current)
+    const offset = event.key === "ArrowLeft" ? views.length - 1 : 1
+    const next = views[(currentIndex + offset) % views.length]
+    if (!next) return
     onChange(next)
     const sibling = event.currentTarget.parentElement?.querySelector<HTMLButtonElement>(
       `[data-view="${next}"]`,
@@ -67,7 +76,7 @@ export function ViewTabs({
         aria-selected={value === "list"}
         data-view="list"
         id={`${listPanelId}-tab`}
-        onKeyDown={(event) => move(event, "calendar")}
+        onKeyDown={(event) => move(event, "list")}
         onClick={() => onChange("list")}
         role="tab"
         tabIndex={value === "list" ? 0 : -1}
@@ -76,11 +85,24 @@ export function ViewTabs({
         목록
       </button>
       <button
+        aria-controls={timelinePanelId}
+        aria-selected={value === "timeline"}
+        data-view="timeline"
+        id={`${timelinePanelId}-tab`}
+        onKeyDown={(event) => move(event, "timeline")}
+        onClick={() => onChange("timeline")}
+        role="tab"
+        tabIndex={value === "timeline" ? 0 : -1}
+        type="button"
+      >
+        타임라인
+      </button>
+      <button
         aria-controls={calendarPanelId}
         aria-selected={value === "calendar"}
         data-view="calendar"
         id={`${calendarPanelId}-tab`}
-        onKeyDown={(event) => move(event, "list")}
+        onKeyDown={(event) => move(event, "calendar")}
         onClick={() => onChange("calendar")}
         role="tab"
         tabIndex={value === "calendar" ? 0 : -1}
@@ -93,7 +115,7 @@ export function ViewTabs({
 }
 
 export function PrimitiveShowcase() {
-  const [view, setView] = useState<"list" | "calendar">("list")
+  const [view, setView] = useState<CatalogView>("list")
   return (
     <main className="showcase">
       <p className="eyebrow">DEVELOPMENT ONLY</p>
@@ -118,6 +140,7 @@ export function PrimitiveShowcase() {
         <ViewTabs
           calendarPanelId="showcase-calendar"
           listPanelId="showcase-list"
+          timelinePanelId="showcase-timeline"
           value={view}
           onChange={setView}
         />

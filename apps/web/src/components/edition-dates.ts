@@ -31,7 +31,7 @@ export interface CalendarEventGroup {
   readonly events: readonly CalendarEvent[]
 }
 
-function displayDateIso(deadline: Deadline): string | undefined {
+export function deadlineDateIso(deadline: Deadline): string | undefined {
   const match = deadline.displayDate.match(/^(\d{4})\.\s*(\d{1,2})\.\s*(\d{1,2})/)
   if (!match) return undefined
   const [, year, month, day] = match
@@ -112,7 +112,7 @@ export function editionAnchorDate(edition: Edition, now: Date): string | undefin
   }
   const futureDeadlines = edition.deadlines
     .filter((deadline) => isUpcomingDeadline(deadline, now))
-    .map(displayDateIso)
+    .map(deadlineDateIso)
     .filter((date): date is string => date !== undefined)
     .map((date) => (date < today ? today : date))
     .sort()
@@ -163,7 +163,7 @@ export function calendarEventGroups(
   const today = localDateIso(now)
   const events = editions.flatMap((edition): CalendarEvent[] => {
     const deadlines = edition.deadlines.flatMap((deadline): CalendarEvent[] => {
-      const sourceDate = displayDateIso(deadline)
+      const sourceDate = deadlineDateIso(deadline)
       if (!sourceDate || !isUpcomingDeadline(deadline, now)) return []
       const date = sourceDate < today ? today : sourceDate
       return [

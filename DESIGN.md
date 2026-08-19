@@ -52,7 +52,7 @@ Rules:
 
 - Accent is functional. It never appears as decoration.
 - Verified, warning, and danger always include text or an icon, never color alone.
-- Theme switches once at the application root through `prefers-color-scheme`; sections never invert independently.
+- Theme switches once at the application root. The visible `ThemeToggle` chooses light or dark, persists that choice locally, and falls back to `prefers-color-scheme` before a choice exists; sections never invert independently.
 - Raw color values live only in this file and `apps/web/src/styles/tokens.css`.
 - Body contrast target is WCAG 2.2 AA at 4.5:1 minimum; large text and UI graphics meet 3:1.
 
@@ -106,6 +106,10 @@ Base unit: 4px.
 | `--radius-control` | `8px` | Inputs, buttons, compact tabs |
 | `--radius-panel` | `12px` | Drawers and state panels |
 | `--radius-pill` | `999px` | Tags only |
+| `--timeline-identity` | `224px` | Sticky conference/source column in the timeline board |
+| `--timeline-identity-mobile` | `176px` | Compact sticky identity column at 375px |
+| `--timeline-month-width` | `136px` | One readable month track on the timeline axis |
+| `--timeline-board-row` | `92px` | Timeline identity and two-lane event row |
 
 ### Shell and scroll ownership
 
@@ -114,7 +118,7 @@ Base unit: 4px.
 - Tablet shell: compact top navigation, fluid timeline, evidence opens as a right drawer. The document remains the only vertical scroll owner.
 - Mobile shell: top app bar, single chronological feed, evidence opens as a full-width drawer/sheet. Calendar becomes a chronological agenda, never a squeezed seven-column grid.
 - Intrinsic rows use `minmax(min(16rem, 100%), 1fr)` or content-driven columns. Every flex/grid child that may shrink gets `min-inline-size: 0`.
-- App height uses `100dvh`, not `100vh`. Primary content never requires horizontal scrolling.
+- App height uses `100dvh`, not `100vh`. Primary document content never requires horizontal scrolling. `TimelineBoard` is the sole bounded two-dimensional data viewport and advertises its horizontal pan behavior before the grid.
 
 ### Breakpoints
 
@@ -152,10 +156,18 @@ Content stress gates: empty result, 40-character conference name, long Korean tr
 
 ### ViewTabs
 
-- Structure: `tablist`, List and Calendar tabs, linked panels.
+- Structure: `tablist`, List, Timeline, and Calendar tabs, linked panels.
 - States: default, hover, active, focus, disabled.
 - Accessibility: arrow-key support follows WAI-ARIA tabs; inactive content is hidden without losing URL state.
 - Motion: beui-inspired shared indicator. Spatial spring is `170 / 24 / 1.2`; reduced motion switches instantly.
+
+### ThemeToggle
+
+- Structure: one icon, one visible current-theme label, and a descriptive next-action accessible name.
+- States: light, dark, hover, focus, pressed.
+- Accessibility: native button with a 44px target; the label never relies on the sun/moon icon alone.
+- Persistence: `conference-atlas-theme` stores only `light` or `dark`; absent state follows the system preference.
+- Placement: always visible in the desktop rail and compact header without duplicating an active control in one viewport.
 
 ### DeadlineTimeline and DeadlineRow
 
@@ -168,6 +180,16 @@ Content stress gates: empty result, 40-character conference name, long Korean tr
 - Accessibility: chronological list semantics; each row has one descriptive accessible name; selected state uses `aria-current` or `aria-selected` as appropriate.
 - Layout: timeline is the primary document flow. Date spine is structural, not decorative.
 - Source address: every edition exposes its validated official URL without requiring the evidence drawer; long URLs wrap without truncation.
+
+### TimelineBoard and TimelineRow
+
+- Structure: sticky conference identity column, continuous month axis, today rule, one next-submission marker, one conference-period bar, and an always-visible official-site link per row.
+- Time window: begins at the current local month and extends through the last visible deadline or conference end. Past portions of ongoing conferences are clipped at today rather than redrawn as future time.
+- Semantics: deadline markers read `제출`; interval bars read `학회`. Color, shape, and text all distinguish the two.
+- States: default, selected, ongoing, dates-pending, hover, focus.
+- Accessibility: the board is a labelled region with a short pan instruction; each row retains a full text summary and native selection button/link controls.
+- Responsive: the page never overflows. At 375px and 768px, only the board's labelled track viewport pans horizontally while the identity column remains sticky.
+- Source address: every row includes its official URL in the sticky identity area; URLs wrap without ellipsis.
 
 ### CalendarGrid
 

@@ -3,11 +3,13 @@ import { CalendarView } from "./CalendarView"
 import { EditionCard } from "./EditionCard"
 import { groupEditions } from "./edition-dates"
 import { Icon } from "./Icons"
+import type { CatalogView } from "./Primitives"
+import { TimelineView } from "./TimelineView"
 
 interface ResultsProps {
   readonly editions: readonly Edition[]
   readonly selectedId: string | undefined
-  readonly view: "list" | "calendar"
+  readonly view: CatalogView
   readonly onSelect: (editionId: string) => void
 }
 
@@ -25,6 +27,9 @@ export function EditionResults({ editions, selectedId, view, onSelect }: Results
   }
   if (view === "calendar") {
     return <CalendarView editions={editions} onSelect={onSelect} selectedId={selectedId} />
+  }
+  if (view === "timeline") {
+    return <TimelineView editions={editions} onSelect={onSelect} selectedId={selectedId} />
   }
   return (
     <div className="edition-list deadline-timeline">

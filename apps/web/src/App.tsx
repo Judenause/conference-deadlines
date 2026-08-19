@@ -5,34 +5,44 @@ import { EditionResults } from "./components/EditionResults"
 import { EvidencePanel } from "./components/EvidencePanel"
 import { filterEditions, upcomingEditions } from "./components/edition-dates"
 import { Icon } from "./components/Icons"
-import {
-  ErrorState,
-  Hero,
-  MethodSection,
-  SiteFooter,
-  SiteNavigation,
-} from "./components/PageChrome"
-import { PrimitiveShowcase, ViewTabs } from "./components/Primitives"
+import { ErrorState, Hero, SiteFooter, SiteNavigation } from "./components/PageChrome"
+import { type CatalogView, PrimitiveShowcase, ViewTabs } from "./components/Primitives"
 
 const LAB_CATEGORY_ORDER = ["Circuit", "AI", "System", "Archi", "CV"] as const
+const THEME_STORAGE_KEY = "conference-atlas-theme"
+
+function initialTheme(): "light" | "dark" {
+  const stored = window.localStorage.getItem(THEME_STORAGE_KEY)
+  if (stored === "light" || stored === "dark") return stored
+  return typeof window.matchMedia === "function" &&
+    window.matchMedia("(prefers-color-scheme: dark)").matches
+    ? "dark"
+    : "light"
+}
 
 export function App() {
-  const methodId = useId()
   const mainId = useId()
   const listPanelId = useId()
+  const timelinePanelId = useId()
   const calendarPanelId = useId()
   const searchRef = useRef<HTMLInputElement>(null)
   const triggerRef = useRef<HTMLElement | null>(null)
   const [editions, setEditions] = useState<readonly Edition[]>([])
   const [query, setQuery] = useState("")
   const [category, setCategory] = useState("전체")
-  const [view, setView] = useState<"list" | "calendar">("list")
+  const [view, setView] = useState<CatalogView>("list")
+  const [theme, setTheme] = useState<"light" | "dark">(initialTheme)
   const [selected, setSelected] = useState<Edition>()
   const [evidence, setEvidence] = useState<readonly Evidence[]>([])
   const [history, setHistory] = useState<readonly History[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState("")
   const [compact, setCompact] = useState(false)
+
+  useEffect(() => {
+    document.documentElement.dataset.theme = theme
+    window.localStorage.setItem(THEME_STORAGE_KEY, theme)
+  }, [theme])
 
   useEffect(() => {
     getEditions()
@@ -69,7 +79,7 @@ export function App() {
     const previousFocus = triggerRef.current
     const panel = document.querySelector<HTMLElement>(".evidence-panel")
     const background = document.querySelectorAll<HTMLElement>(
-      ".desktop-nav, .site-header, .hero, .catalog-toolbar, .results-column, .method, footer",
+      ".desktop-nav, .site-header, .hero, .catalog-toolbar, .results-column, footer",
     )
     const focusable = () =>
       panel?.querySelectorAll<HTMLElement>(
@@ -144,7 +154,10 @@ export function App() {
       <a className="skip-link" href={`#${mainId}`}>
         본문으로 건너뛰기
       </a>
-      <SiteNavigation methodId={methodId} />
+      <SiteNavigation
+        onToggleTheme={() => setTheme((current) => (current === "light" ? "dark" : "light"))}
+        theme={theme}
+      />
       <main id={mainId}>
         <Hero editions={editions} />
         <section aria-label="학회 검색과 필터" className="catalog-toolbar">
@@ -193,6 +206,7 @@ export function App() {
             <ViewTabs
               calendarPanelId={calendarPanelId}
               listPanelId={listPanelId}
+              timelinePanelId={timelinePanelId}
               onChange={setView}
               value={view}
             />
@@ -205,9 +219,15 @@ export function App() {
             <section
               aria-busy={loading}
               aria-label="학회 일정 검색 결과"
-              aria-labelledby={`${view === "list" ? listPanelId : calendarPanelId}-tab`}
+              aria-labelledby={`${view === "list" ? listPanelId : view === "timeline" ? timelinePanelId : calendarPanelId}-tab`}
               className="results-column"
-              id={view === "list" ? listPanelId : calendarPanelId}
+              id={
+                view === "list"
+                  ? listPanelId
+                  : view === "timeline"
+                    ? timelinePanelId
+                    : calendarPanelId
+              }
               role="tabpanel"
             >
               <div className="results-head">
@@ -246,7 +266,6 @@ export function App() {
             />
           </div>
         )}
-        <MethodSection methodId={methodId} />
       </main>
       <SiteFooter />
     </div>

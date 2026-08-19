@@ -10,6 +10,8 @@ import { EvidencePanel } from "./components/EvidencePanel"
 afterEach(() => {
   cleanup()
   vi.restoreAllMocks()
+  window.localStorage.clear()
+  delete document.documentElement.dataset.theme
 })
 
 test("researcher searches and opens a remaining 2026 deadline with evidence", async () => {
@@ -54,6 +56,28 @@ test("empty search explains the result", async () => {
   render(<App />)
   fireEvent.change(await screen.findByRole("searchbox"), { target: { value: "없는학회" } })
   expect(await screen.findByText("검색 결과가 없습니다")).toBeTruthy()
+})
+
+test("visitor switches the saved color theme and opens the monthly timeline", async () => {
+  vi.stubGlobal(
+    "fetch",
+    vi.fn(async () => new Response(JSON.stringify({ items: seed.editions }), { status: 200 })),
+  )
+
+  render(<App />)
+  expect(await screen.findByRole("heading", { name: "학회 마감 일정" })).toBeTruthy()
+  expect(screen.queryByText("수집 원칙")).toBeNull()
+
+  const themeButton = screen.getAllByRole("button", { name: "다크 모드로 전환" })[0]
+  expect(themeButton).toBeTruthy()
+  if (themeButton) fireEvent.click(themeButton)
+  expect(document.documentElement.dataset.theme).toBe("dark")
+  expect(window.localStorage.getItem("conference-atlas-theme")).toBe("dark")
+
+  fireEvent.click(screen.getByRole("tab", { name: "타임라인" }))
+  expect(await screen.findByRole("region", { name: "월별 학회 타임라인" })).toBeTruthy()
+  expect(screen.getByText("제출일 · 학회 기간 타임라인")).toBeTruthy()
+  expect(screen.getAllByRole("link", { name: /공식 사이트 열기/ }).length).toBeGreaterThan(0)
 })
 
 test("lab timeline categories expose curated conferences and BK tiers", async () => {

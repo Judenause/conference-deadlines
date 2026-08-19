@@ -1,7 +1,9 @@
 import type { Edition } from "@conf/contracts"
+import { Icon } from "./Icons"
 
 interface NavigationProps {
-  readonly methodId: string
+  readonly theme: "light" | "dark"
+  readonly onToggleTheme: () => void
 }
 
 export function Hero({ editions }: { readonly editions: readonly Edition[] }) {
@@ -71,13 +73,12 @@ function Brand() {
   )
 }
 
-function NavigationLinks({ methodId, label }: NavigationProps & { readonly label: string }) {
+function NavigationLinks({ label }: { readonly label: string }) {
   return (
     <nav aria-label={label}>
       <a aria-current="page" href="/">
         일정 탐색
       </a>
-      <a href={`#${methodId}`}>수집 원칙</a>
     </nav>
   )
 }
@@ -91,43 +92,42 @@ function SourceStatus({ className }: { readonly className: string }) {
   )
 }
 
-export function SiteNavigation({ methodId }: NavigationProps) {
+function ThemeToggle({ theme, onToggleTheme }: NavigationProps) {
+  const isDark = theme === "dark"
+  return (
+    <button
+      aria-label={isDark ? "라이트 모드로 전환" : "다크 모드로 전환"}
+      aria-pressed={isDark}
+      className="theme-toggle"
+      onClick={onToggleTheme}
+      type="button"
+    >
+      <Icon name={isDark ? "sun" : "moon"} />
+      <span>{isDark ? "라이트" : "다크"}</span>
+    </button>
+  )
+}
+
+export function SiteNavigation({ theme, onToggleTheme }: NavigationProps) {
   return (
     <>
       <aside className="desktop-nav">
         <Brand />
-        <NavigationLinks label="데스크톱 주요 메뉴" methodId={methodId} />
-        <SourceStatus className="desktop-nav__meta" />
+        <NavigationLinks label="데스크톱 주요 메뉴" />
+        <div className="desktop-nav__tools">
+          <ThemeToggle onToggleTheme={onToggleTheme} theme={theme} />
+          <SourceStatus className="desktop-nav__meta" />
+        </div>
       </aside>
       <header className="site-header">
         <Brand />
-        <NavigationLinks label="주요 메뉴" methodId={methodId} />
-        <SourceStatus className="header-meta" />
+        <NavigationLinks label="주요 메뉴" />
+        <div className="header-tools">
+          <ThemeToggle onToggleTheme={onToggleTheme} theme={theme} />
+          <SourceStatus className="header-meta" />
+        </div>
       </header>
     </>
-  )
-}
-
-export function MethodSection({ methodId }: NavigationProps) {
-  const principles = [
-    ["등록된 공식 출처", "임의 URL이 아니라 허용 목록의 학회 페이지와 제출 시스템만 확인합니다."],
-    ["원문과 시간대 보존", "정규화된 UTC와 함께 원문 표기, 시간대, 확인 시점을 남깁니다."],
-    ["변경은 검수 후 반영", "기존 일정이 달라지면 자동 덮어쓰기 없이 변경 이력으로 검토합니다."],
-  ] as const
-  return (
-    <section className="method" id={methodId}>
-      <p className="eyebrow">HOW IT WORKS</p>
-      <h2>날짜보다 먼저 근거를 확인합니다</h2>
-      <div>
-        {principles.map(([title, description], index) => (
-          <article key={title}>
-            <span>{String(index + 1).padStart(2, "0")}</span>
-            <h3>{title}</h3>
-            <p>{description}</p>
-          </article>
-        ))}
-      </div>
-    </section>
   )
 }
 
@@ -135,7 +135,7 @@ export function SiteFooter() {
   return (
     <footer>
       <span>Deadline Observatory</span>
-      <span>공식 출처 · 변경 감지 · 검수 가능한 기록</span>
+      <span>제출 마감 · 학회 기간 · 공식 사이트</span>
     </footer>
   )
 }

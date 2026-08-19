@@ -2,7 +2,6 @@
   .hero,
   .catalog-toolbar,
   .catalog-layout,
-  .method,
   footer {
     margin-left: var(--space-6);
     margin-right: var(--space-6);
@@ -62,7 +61,7 @@
     height: var(--mobile-header);
   }
   .header-meta {
-    font-size: 0;
+    display: none;
   }
   .brand strong {
     font-size: var(--text-body-sm);
@@ -70,7 +69,6 @@
   .hero,
   .catalog-toolbar,
   .catalog-layout,
-  .method,
   footer {
     margin-left: var(--space-4);
     margin-right: var(--space-4);
@@ -142,6 +140,7 @@
   .view-tabs button {
     flex: 1;
     min-height: var(--control-target);
+    padding-inline: var(--space-2);
   }
   .catalog-layout {
     margin-bottom: var(--space-16);
@@ -227,26 +226,27 @@
   .mobile-calendar-agenda {
     display: block;
   }
-  .method {
-    padding-top: 0;
+  .timeline-board__intro {
+    align-items: flex-start;
+    flex-direction: column;
+    padding: var(--space-5) var(--space-4);
   }
-  .method h2 {
-    font-size: var(--text-h2);
+  .timeline-board__hint {
+    padding-inline: var(--space-4);
   }
-  .method > div {
-    grid-template-columns: 1fr;
+  .timeline-board__axis,
+  .timeline-board__row {
+    grid-template-columns: var(--timeline-identity-mobile) minmax(0, 1fr);
   }
-  .method article,
-  .method article + article {
-    border-left: 0;
-    border-top: 1px solid var(--border);
-    padding: var(--space-6) 0;
+  .timeline-board__identity {
+    padding-inline: var(--space-3);
   }
-  .method article:first-child {
-    border-top: 0;
-  }
-  .method h3 {
-    margin-top: var(--space-5);
+  .timeline-board__identity a span {
+    white-space: normal;
+    overflow-wrap: anywhere;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
   }
   footer {
     flex-direction: column;
