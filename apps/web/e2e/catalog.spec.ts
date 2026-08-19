@@ -10,7 +10,9 @@ test("search, calendar, evidence, history, and empty states work without overflo
   await expect(page.getByText("수집 원칙")).toHaveCount(0)
   await expect(page.getByRole("tab", { name: "타임라인" })).toHaveAttribute("aria-selected", "true")
   await expect(page.getByRole("region", { name: "월별 학회 타임라인" })).toBeVisible()
-  await expect(page.locator(".product-header .filter-scroll")).toBeVisible()
+  const productActions = page.locator(".product-header__actions")
+  await expect(productActions.getByRole("tablist", { name: "보기 방식" })).toBeVisible()
+  await expect(productActions.getByRole("group", { name: "분야 필터" })).toBeVisible()
   await expect(page.locator(".hero .filter-scroll")).toHaveCount(0)
   for (const [label, tone, titleColor] of [
     ["Circuit", "circuit", "rgb(154, 90, 0)"],
