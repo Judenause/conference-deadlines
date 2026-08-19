@@ -50,3 +50,9 @@ bun run build:pages
 ```
 
 GitHub 저장소의 `Settings → Pages → Source`를 `GitHub Actions`로 선택하면 `main` 브랜치 갱신 시 `.github/workflows/pages.yml`이 사이트를 자동 배포합니다. 운영자가 검수한 `data/seed/catalog-state.json`이 공개 데이터가 되며, 라이브 크롤링 결과는 검수 없이 자동 게시하지 않습니다.
+
+## 월간 공식 URL 점검
+
+`.github/workflows/monthly-source-monitor.yml`은 매월 1일 09:00 KST에 현재 카탈로그의 모든 학회 `officialUrl`을 한 번씩 확인합니다. 같은 도메인 안의 URL 이동, 콘텐츠 변경, 접근 불가 상태가 있으면 `data/monitor` 변경을 포함한 검수 PR만 생성합니다. 일정 날짜를 자동으로 바꾸지 않으므로, 운영자는 PR의 `monthly-review.md`와 공식 URL을 확인한 뒤에만 병합해야 합니다.
+
+첫 수동 실행은 GitHub의 `Actions → monthly-source-monitor → Run workflow`에서 시작합니다. 초기 실행은 모든 공식 URL의 기준 fingerprint를 기록하는 검수 PR을 하나 만듭니다.

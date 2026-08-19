@@ -1,0 +1,43 @@
+name: monthly-source-monitor
+
+on:
+  schedule:
+    - cron: "0 0 1 * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: monthly-source-monitor
+  cancel-in-progress: false
+
+jobs:
+  monitor:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: 1.3.14
+      - run: bun install --frozen-lockfile
+      - run: bun packages/crawler/src/cli.ts monitor
+      - id: change
+        run: |
+          if git diff --quiet -- data/monitor; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+      - if: steps.change.outputs.changed == 'true'
+        uses: peter-evans/create-pull-request@v7
+        with:
+          branch: automation/monthly-source-monitor
+          delete-branch: true
+          commit-message: "chore(crawler): record monthly source review"
+          title: "Monthly official-source review"
+          body: |
+            This automated review records only source health, redirects, and content fingerprints.
+            It does not change public conference dates. Review the official URLs and evidence before merging.

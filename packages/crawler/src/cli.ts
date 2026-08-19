@@ -1,8 +1,26 @@
 import { crawlFixture, crawlLive } from "./crawl"
+import { runSourceMonitor, writeMonitorReview } from "./source-monitor"
 
 async function main(): Promise<void> {
   const args = process.argv.slice(2)
-  if (args[0] !== "crawl") throw new Error("사용법: crawl --source <registered-id> [--live]")
+  if (args[0] === "monitor") {
+    const run = await runSourceMonitor(
+      "data/seed/catalog-state.json",
+      "data/monitor/source-state.json",
+    )
+    if (run.changes.length > 0)
+      await writeMonitorReview(
+        "data/monitor/source-state.json",
+        "data/monitor/monthly-review.md",
+        run,
+      )
+    console.log(
+      JSON.stringify({ sourceCount: run.sources.length, changeCount: run.changes.length }, null, 2),
+    )
+    return
+  }
+  if (args[0] !== "crawl")
+    throw new Error("사용법: crawl --source <registered-id> [--live] | monitor")
   const sourceIndex = args.indexOf("--source")
   const sourceId = sourceIndex >= 0 ? args[sourceIndex + 1] : undefined
   if (!sourceId) throw new Error("--source에는 등록된 소스 ID가 필요합니다.")
