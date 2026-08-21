@@ -72,6 +72,7 @@
   --timeline-identity-mobile: 11rem;
   --timeline-month-width: 9rem;
   --timeline-board-row: 6.5rem;
+  --timeline-conference-min-width: 3.25rem;
   --duration-press: 120ms;
   --duration-fast: 160ms;
   --duration-standard: 190ms;

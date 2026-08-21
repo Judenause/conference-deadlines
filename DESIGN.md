@@ -139,6 +139,7 @@ Base unit: 4px.
 | `--timeline-identity-mobile` | `176px` | Mobile identity |
 | `--timeline-month-width` | `144px` | Month axis |
 | `--timeline-board-row` | `104px` | Spacious timeline row |
+| `--timeline-conference-min-width` | `52px` | Complete short conference marker label |
 
 Shell:
 
@@ -191,6 +192,7 @@ Stress gates: 200% zoom, reduced motion, dark mode, empty/error/loading, 40-char
 
 - Left: `Upcoming deadlines` plus short Korean guidance. Right: Timeline/List/Calendar semantic tabs with the field-filter row directly beneath.
 - Active state is a scoped blue-soft pill/indicator; keyboard arrow behavior and tab/panel relations remain intact.
+- With `All` selected, Timeline and List group conferences by Circuit, AI, System, Archi, and CV. Each field is ordered by its nearest next deadline or conference date; a multi-field conference appears once under its primary field. Calendar stays globally chronological.
 
 ### ConferenceCard and DeadlineBadge
 
@@ -211,8 +213,9 @@ Stress gates: 200% zoom, reduced motion, dark mode, empty/error/loading, 40-char
 ### TimelineBoard
 
 - Preserve sticky conference column and month-axis data logic.
-- Use spacious rows, subtle month bands, field-colored deadline markers and conference bars, and one clear today rule with a `TODAY` label. Shape and text continue to distinguish submission from conference duration.
+- Use spacious rows, subtle month bands, field-colored deadline markers and conference bars, and one clear today rule with a `TODAY` label. Shape and text continue to distinguish submission from conference duration. Short conference markers use the minimum label width; markers ending at the time-axis boundary align inward so their complete label stays visible.
 - Hover/selection highlights a real selectable row. Official URL remains visible and may wrap.
+- In the `All` view, restrained field headers separate the row groups while the shared horizontal date axis remains unchanged.
 
 ### CalendarGrid
 

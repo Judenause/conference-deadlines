@@ -1,19 +1,27 @@
 import type { Edition } from "@conf/contracts"
 import { CalendarView } from "./CalendarView"
+import { categoryTone } from "./category-tone"
 import { EditionCard } from "./EditionCard"
-import { groupEditions } from "./edition-dates"
+import { groupEditions, groupEditionsByCategory } from "./edition-dates"
 import { Icon } from "./Icons"
 import type { CatalogView } from "./Primitives"
 import { TimelineView } from "./TimelineView"
 
 interface ResultsProps {
   readonly editions: readonly Edition[]
+  readonly groupByCategory: boolean
   readonly selectedId: string | undefined
   readonly view: CatalogView
   readonly onSelect: (editionId: string) => void
 }
 
-export function EditionResults({ editions, selectedId, view, onSelect }: ResultsProps) {
+export function EditionResults({
+  editions,
+  groupByCategory,
+  selectedId,
+  view,
+  onSelect,
+}: ResultsProps) {
   if (editions.length === 0) {
     return (
       <div className="empty-state">
@@ -29,7 +37,40 @@ export function EditionResults({ editions, selectedId, view, onSelect }: Results
     return <CalendarView editions={editions} onSelect={onSelect} selectedId={selectedId} />
   }
   if (view === "timeline") {
-    return <TimelineView editions={editions} onSelect={onSelect} selectedId={selectedId} />
+    return (
+      <TimelineView
+        editions={editions}
+        groupByCategory={groupByCategory}
+        onSelect={onSelect}
+        selectedId={selectedId}
+      />
+    )
+  }
+  if (groupByCategory) {
+    return (
+      <div className="edition-list deadline-timeline">
+        {groupEditionsByCategory(editions).map((group) => (
+          <section
+            aria-labelledby={`group-${group.key}`}
+            className="timeline-group"
+            key={group.key}
+          >
+            <div className="timeline-month" data-category-tone={categoryTone(group.category)}>
+              <span>{group.category}</span>
+              <strong id={`group-${group.key}`}>{group.editions.length}개 학회</strong>
+            </div>
+            {group.editions.map((edition) => (
+              <EditionCard
+                edition={edition}
+                key={edition.id}
+                onSelect={() => onSelect(edition.id)}
+                selected={selectedId === edition.id}
+              />
+            ))}
+          </section>
+        ))}
+      </div>
+    )
   }
   return (
     <div className="edition-list deadline-timeline">

@@ -4,6 +4,7 @@ import {
   calendarEventGroups,
   deadlineCountdown,
   groupEditions,
+  groupEditionsByCategory,
   hasUpcomingSchedule,
   nextUpcomingDeadline,
 } from "./edition-dates"
@@ -95,6 +96,56 @@ test("an expired same-day deadline cannot anchor a future conference to today", 
   const now = new Date("2026-08-18T15:00:00Z")
 
   expect(groupEditions([edition], now)[0]?.key).toBe("2026-11")
+})
+
+test("all-field groups keep the field order and sort each field by its next schedule", () => {
+  const now = new Date("2026-08-19T00:00:00Z")
+  const [sourceDeadline] = edition.deadlines
+  if (!sourceDeadline) throw new Error("field-group fixture requires one deadline")
+  const circuitLater = {
+    ...edition,
+    id: "circuit-later",
+    acronym: "CIRCUIT LATER",
+    categories: ["Circuit"],
+    deadlines: [
+      {
+        ...sourceDeadline,
+        dueAtUtc: "2026-10-01T00:00:00Z",
+        displayDate: "2026. 10. 1 09:00",
+      },
+    ],
+  } satisfies Edition
+  const circuitSooner = {
+    ...circuitLater,
+    id: "circuit-sooner",
+    acronym: "CIRCUIT SOONER",
+    deadlines: [
+      {
+        ...sourceDeadline,
+        dueAtUtc: "2026-09-01T00:00:00Z",
+        displayDate: "2026. 9. 1 09:00",
+      },
+    ],
+  } satisfies Edition
+  const systemSooner = {
+    ...edition,
+    id: "system-sooner",
+    acronym: "SYSTEM SOONER",
+    categories: ["System"],
+    deadlines: [
+      {
+        ...sourceDeadline,
+        dueAtUtc: "2026-08-25T00:00:00Z",
+        displayDate: "2026. 8. 25 09:00",
+      },
+    ],
+  } satisfies Edition
+
+  const groups = groupEditionsByCategory([systemSooner, circuitLater, circuitSooner], now)
+
+  expect(groups.map((group) => group.category)).toEqual(["Circuit", "System"])
+  expect(groups[0]?.editions.map((item) => item.id)).toEqual(["circuit-sooner", "circuit-later"])
+  expect(groups[1]?.editions.map((item) => item.id)).toEqual(["system-sooner"])
 })
 
 test("a still-open UTC deadline cannot reappear on a viewer-local past calendar day", () => {

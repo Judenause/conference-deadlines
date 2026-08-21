@@ -709,6 +709,10 @@ fieldset {
   font-weight: 620;
 }
 
+.timeline-month[data-category-tone] > span {
+  color: var(--category-accent);
+}
+
 .edition-list {
   min-width: 0;
 }
@@ -1403,6 +1407,46 @@ fieldset {
   min-width: calc(var(--timeline-identity) + var(--timeline-month-width) * 6);
 }
 
+.timeline-category {
+  min-width: calc(var(--timeline-identity) + var(--timeline-month-width) * 6);
+}
+
+.timeline-category + .timeline-category {
+  margin-top: var(--space-4);
+}
+
+.timeline-category h3 {
+  display: flex;
+  min-height: 2.75rem;
+  align-items: center;
+  gap: var(--space-2);
+  margin: 0;
+  padding-inline: var(--space-4);
+  border-block: 1px solid var(--border-soft);
+  background: color-mix(in srgb, var(--category-soft) 62%, var(--bg-surface));
+}
+
+.timeline-category h3::before {
+  width: 0.5rem;
+  height: 0.5rem;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  background: var(--category-accent);
+  content: "";
+}
+
+.timeline-category h3 span {
+  color: var(--category-accent);
+  font-size: var(--text-label);
+  font-weight: 720;
+}
+
+.timeline-category h3 small {
+  color: var(--text-tertiary);
+  font-size: var(--text-caption);
+  font-weight: 620;
+}
+
 .timeline-board__corner,
 .timeline-board__identity {
   position: sticky;
@@ -1573,16 +1617,19 @@ fieldset {
 
 .timeline-board__conference {
   bottom: 1.25rem;
-  min-width: 2.5rem;
+  min-width: var(--timeline-conference-min-width);
   min-height: 1.75rem;
-  overflow: hidden;
+  overflow: visible;
   padding-inline: var(--space-2);
   border: 1px solid color-mix(in srgb, var(--category-accent) 42%, var(--border-default));
   border-radius: var(--radius-pill);
   background: var(--category-soft);
   color: var(--category-accent);
-  text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+.timeline-board__conference[data-align="end"] {
+  transform: translateX(-100%);
 }
 
 .timeline-board__deadline:hover,
@@ -1596,6 +1643,10 @@ fieldset {
 
 .timeline-board__conference:active {
   transform: scale(0.98);
+}
+
+.timeline-board__conference[data-align="end"]:active {
+  transform: translateX(-100%) scale(0.98);
 }
 
 .timeline-board__pending {

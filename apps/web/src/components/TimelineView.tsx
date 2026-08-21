@@ -1,12 +1,27 @@
 import type { Edition } from "@conf/contracts"
-import { editionCategoryTone } from "./category-tone"
-import { deadlineDateIso, localDateIso, nextUpcomingDeadline } from "./edition-dates"
+import { categoryTone, editionCategoryTone } from "./category-tone"
+import {
+  deadlineDateIso,
+  groupEditionsByCategory,
+  localDateIso,
+  nextUpcomingDeadline,
+} from "./edition-dates"
 import { Icon } from "./Icons"
 
 interface TimelineViewProps {
   readonly editions: readonly Edition[]
+  readonly groupByCategory: boolean
   readonly selectedId: string | undefined
   readonly onSelect: (editionId: string) => void
+}
+
+interface TimelineRowProps {
+  readonly edition: Edition
+  readonly now: Date
+  readonly onSelect: (editionId: string) => void
+  readonly selectedId: string | undefined
+  readonly today: string
+  readonly window: TimelineWindow
 }
 
 interface TimelineWindow {
@@ -65,18 +80,134 @@ function timelineAnchor(edition: Edition, now: Date): string | undefined {
   return (deadline ? deadlineDateIso(deadline) : undefined) ?? edition.conferenceStart ?? undefined
 }
 
-export function TimelineView({ editions, selectedId, onSelect }: TimelineViewProps) {
+function compareTimelineAnchors(left: Edition, right: Edition, now: Date): number {
+  const leftDate = timelineAnchor(left, now)
+  const rightDate = timelineAnchor(right, now)
+  if (leftDate && rightDate) return leftDate.localeCompare(rightDate)
+  if (leftDate) return -1
+  if (rightDate) return 1
+  return left.year - right.year || left.acronym.localeCompare(right.acronym)
+}
+
+function TimelineRow({ edition, now, onSelect, selectedId, today, window }: TimelineRowProps) {
+  const deadline = nextUpcomingDeadline(edition, now)
+  const deadlineDate = deadline ? deadlineDateIso(deadline) : undefined
+  const conferenceStart = edition.conferenceStart
+    ? edition.conferenceStart < today
+      ? today
+      : edition.conferenceStart
+    : undefined
+  const conferenceEnd = edition.conferenceEnd ?? edition.conferenceStart
+  const conferenceLeft = conferenceStart ? percentAt(conferenceStart, window) : undefined
+  const conferenceRight = conferenceEnd ? percentAt(conferenceEnd, window) : conferenceLeft
+  const conferenceWidth =
+    conferenceLeft !== undefined && conferenceRight !== undefined
+      ? Math.max(
+          0.8,
+          conferenceRight - conferenceLeft + (DAY_MS / (window.end - window.start)) * 100,
+        )
+      : undefined
+  const alignConferenceEnd = conferenceRight !== undefined && conferenceRight >= 98.5
+  const editionTitle = edition.acronym.includes(String(edition.year))
+    ? edition.acronym
+    : `${edition.acronym} ${edition.year}`
+  const timelineSummary = [
+    editionTitle,
+    deadline ? `${deadline.label} ${deadline.displayDate}` : undefined,
+    conferenceStart ? `학회 기간 ${edition.dateRange}` : undefined,
+  ]
+    .filter((value): value is string => value !== undefined)
+    .join(" · ")
+
+  return (
+    <article
+      aria-label={timelineSummary}
+      className="timeline-board__row"
+      data-category-tone={editionCategoryTone(edition.categories)}
+      data-selected={selectedId === edition.id}
+    >
+      <div className="timeline-board__identity">
+        <button
+          aria-label={`${edition.acronym} ${edition.year} 상세 보기`}
+          onClick={() => onSelect(edition.id)}
+          type="button"
+        >
+          <strong>{editionTitle}</strong>
+          <span>{edition.location}</span>
+        </button>
+        <a
+          aria-label={`${edition.acronym} ${edition.year} 공식 사이트 열기`}
+          href={edition.officialUrl}
+          rel="noreferrer"
+          target="_blank"
+        >
+          <Icon name="source" />
+          <span>{edition.officialUrl}</span>
+        </a>
+      </div>
+      <div className="timeline-board__track">
+        <div
+          className="timeline-board__grid"
+          style={{
+            gridTemplateColumns: `repeat(${window.months.length}, var(--timeline-month-width))`,
+          }}
+        >
+          {window.months.map((month) => (
+            <span key={month.key} />
+          ))}
+        </div>
+        <span className="timeline-board__today" style={{ left: `${percentAt(today, window)}%` }}>
+          <b>TODAY</b>
+        </span>
+        {deadlineDate && deadline ? (
+          <button
+            aria-label={`${editionTitle} ${deadline.label} ${deadline.displayDate} 상세 보기`}
+            className="timeline-board__deadline"
+            onClick={() => onSelect(edition.id)}
+            style={{ left: `${percentAt(deadlineDate, window)}%` }}
+            title={`${deadline.label} · ${deadline.displayDate}`}
+            type="button"
+          >
+            제출
+          </button>
+        ) : null}
+        {conferenceLeft !== undefined && conferenceWidth !== undefined ? (
+          <button
+            aria-label={`${editionTitle} 학회 기간 ${edition.dateRange} 상세 보기`}
+            className="timeline-board__conference"
+            data-align={alignConferenceEnd ? "end" : undefined}
+            onClick={() => onSelect(edition.id)}
+            style={{
+              left: `${alignConferenceEnd ? conferenceRight : conferenceLeft}%`,
+              width: `${conferenceWidth}%`,
+            }}
+            title={`학회 기간 · ${edition.dateRange}`}
+            type="button"
+          >
+            학회
+          </button>
+        ) : null}
+        {!deadlineDate && conferenceLeft === undefined ? (
+          <span className="timeline-board__pending">일정 미공개</span>
+        ) : null}
+      </div>
+    </article>
+  )
+}
+
+export function TimelineView({
+  editions,
+  groupByCategory,
+  selectedId,
+  onSelect,
+}: TimelineViewProps) {
   const now = new Date()
   const today = localDateIso(now)
   const window = timelineWindow(editions, now)
-  const orderedEditions = [...editions].sort((left, right) => {
-    const leftDate = timelineAnchor(left, now)
-    const rightDate = timelineAnchor(right, now)
-    if (leftDate && rightDate) return leftDate.localeCompare(rightDate)
-    if (leftDate) return -1
-    if (rightDate) return 1
-    return left.year - right.year || left.acronym.localeCompare(right.acronym)
-  })
+  const orderedEditions = [...editions].sort((left, right) =>
+    compareTimelineAnchors(left, right, now),
+  )
+  const categoryGroups = groupByCategory ? groupEditionsByCategory(editions, now) : []
 
   return (
     <section aria-label="월별 학회 타임라인" className="timeline-board">
@@ -125,115 +256,37 @@ export function TimelineView({ editions, selectedId, onSelect }: TimelineViewPro
             </div>
           </div>
           <div className="timeline-board__rows">
-            {orderedEditions.map((edition) => {
-              const deadline = nextUpcomingDeadline(edition, now)
-              const deadlineDate = deadline ? deadlineDateIso(deadline) : undefined
-              const conferenceStart = edition.conferenceStart
-                ? edition.conferenceStart < today
-                  ? today
-                  : edition.conferenceStart
-                : undefined
-              const conferenceEnd = edition.conferenceEnd ?? edition.conferenceStart
-              const conferenceLeft = conferenceStart
-                ? percentAt(conferenceStart, window)
-                : undefined
-              const conferenceRight = conferenceEnd
-                ? percentAt(conferenceEnd, window)
-                : conferenceLeft
-              const conferenceWidth =
-                conferenceLeft !== undefined && conferenceRight !== undefined
-                  ? Math.max(
-                      0.8,
-                      conferenceRight -
-                        conferenceLeft +
-                        (DAY_MS / (window.end - window.start)) * 100,
-                    )
-                  : undefined
-              const editionTitle = edition.acronym.includes(String(edition.year))
-                ? edition.acronym
-                : `${edition.acronym} ${edition.year}`
-              const timelineSummary = [
-                editionTitle,
-                deadline ? `${deadline.label} ${deadline.displayDate}` : undefined,
-                conferenceStart ? `학회 기간 ${edition.dateRange}` : undefined,
-              ]
-                .filter((value): value is string => value !== undefined)
-                .join(" · ")
-              return (
-                <article
-                  aria-label={timelineSummary}
-                  className="timeline-board__row"
-                  data-category-tone={editionCategoryTone(edition.categories)}
-                  data-selected={selectedId === edition.id}
-                  key={edition.id}
-                >
-                  <div className="timeline-board__identity">
-                    <button
-                      aria-label={`${edition.acronym} ${edition.year} 상세 보기`}
-                      onClick={() => onSelect(edition.id)}
-                      type="button"
-                    >
-                      <strong>{editionTitle}</strong>
-                      <span>{edition.location}</span>
-                    </button>
-                    <a
-                      aria-label={`${edition.acronym} ${edition.year} 공식 사이트 열기`}
-                      href={edition.officialUrl}
-                      rel="noreferrer"
-                      target="_blank"
-                    >
-                      <Icon name="source" />
-                      <span>{edition.officialUrl}</span>
-                    </a>
-                  </div>
-                  <div className="timeline-board__track">
-                    <div
-                      className="timeline-board__grid"
-                      style={{
-                        gridTemplateColumns: `repeat(${window.months.length}, var(--timeline-month-width))`,
-                      }}
-                    >
-                      {window.months.map((month) => (
-                        <span key={month.key} />
-                      ))}
-                    </div>
-                    <span
-                      className="timeline-board__today"
-                      style={{ left: `${percentAt(today, window)}%` }}
-                    >
-                      <b>TODAY</b>
-                    </span>
-                    {deadlineDate && deadline ? (
-                      <button
-                        aria-label={`${editionTitle} ${deadline.label} ${deadline.displayDate} 상세 보기`}
-                        className="timeline-board__deadline"
-                        onClick={() => onSelect(edition.id)}
-                        style={{ left: `${percentAt(deadlineDate, window)}%` }}
-                        title={`${deadline.label} · ${deadline.displayDate}`}
-                        type="button"
-                      >
-                        제출
-                      </button>
-                    ) : null}
-                    {conferenceLeft !== undefined && conferenceWidth !== undefined ? (
-                      <button
-                        aria-label={`${editionTitle} 학회 기간 ${edition.dateRange} 상세 보기`}
-                        className="timeline-board__conference"
-                        onClick={() => onSelect(edition.id)}
-                        style={{ left: `${conferenceLeft}%`, width: `${conferenceWidth}%` }}
-                        title={`학회 기간 · ${edition.dateRange}`}
-                        type="button"
-                      >
-                        학회
-                      </button>
-                    ) : null}
-                    {!deadlineDate && conferenceLeft === undefined ? (
-                      <span className="timeline-board__pending">일정 미공개</span>
-                    ) : null}
-                  </div>
-                </article>
-              )
-            })}
+            {groupByCategory
+              ? categoryGroups.map((group) => (
+                  <section className="timeline-category" key={group.key}>
+                    <h3 data-category-tone={categoryTone(group.category)}>
+                      <span>{group.category}</span>
+                      <small>{group.editions.length}개 학회</small>
+                    </h3>
+                    {group.editions.map((edition) => (
+                      <TimelineRow
+                        edition={edition}
+                        key={edition.id}
+                        now={now}
+                        onSelect={onSelect}
+                        selectedId={selectedId}
+                        today={today}
+                        window={window}
+                      />
+                    ))}
+                  </section>
+                ))
+              : orderedEditions.map((edition) => (
+                  <TimelineRow
+                    edition={edition}
+                    key={edition.id}
+                    now={now}
+                    onSelect={onSelect}
+                    selectedId={selectedId}
+                    today={today}
+                    window={window}
+                  />
+                ))}
           </div>
         </div>
       </div>

@@ -304,12 +304,23 @@
     min-width: calc(var(--timeline-identity-mobile) + var(--timeline-month-width) * 6);
   }
 
+  .timeline-category {
+    min-width: calc(var(--timeline-identity-mobile) + var(--timeline-month-width) * 6);
+  }
+
   .timeline-board__track {
     min-width: calc(var(--timeline-month-width) * 6);
   }
 
   .timeline-board__identity {
     padding-inline: var(--space-3);
+  }
+
+  .timeline-board__identity button span {
+    overflow: visible;
+    overflow-wrap: anywhere;
+    text-overflow: clip;
+    white-space: normal;
   }
 
   .timeline-board__identity a span {

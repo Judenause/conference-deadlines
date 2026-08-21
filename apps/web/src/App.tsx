@@ -2,13 +2,13 @@ import type { Edition, Evidence, History } from "@conf/contracts"
 import { useEffect, useId, useMemo, useRef, useState } from "react"
 import { getEditionBundle, getEditions } from "./api"
 import { CatalogControls, ProductHeader } from "./components/CatalogControls"
+import { FIELD_CATEGORY_ORDER } from "./components/category-tone"
 import { EditionResults } from "./components/EditionResults"
 import { EvidencePanel } from "./components/EvidencePanel"
 import { filterEditions, upcomingEditions } from "./components/edition-dates"
 import { ErrorState, Hero, SiteFooter, SiteNavigation } from "./components/PageChrome"
 import { type CatalogView, PrimitiveShowcase } from "./components/Primitives"
 
-const LAB_CATEGORY_ORDER = ["Circuit", "AI", "System", "Archi", "CV"] as const
 const THEME_STORAGE_KEY = "conference-atlas-theme"
 
 function initialTheme(): "light" | "dark" {
@@ -122,9 +122,9 @@ export function App() {
   const currentEditions = useMemo(() => upcomingEditions(editions, new Date()), [editions])
   const categories = useMemo(() => {
     const available = new Set(currentEditions.flatMap((edition) => edition.categories))
-    const labCategories = LAB_CATEGORY_ORDER.filter((item) => available.has(item))
+    const labCategories = FIELD_CATEGORY_ORDER.filter((item) => available.has(item))
     const otherCategories = [...available]
-      .filter((item) => !LAB_CATEGORY_ORDER.some((labCategory) => labCategory === item))
+      .filter((item) => !FIELD_CATEGORY_ORDER.some((labCategory) => labCategory === item))
       .sort((left, right) => left.localeCompare(right, "ko"))
     return ["전체", ...labCategories, ...otherCategories]
   }, [currentEditions])
@@ -220,6 +220,7 @@ export function App() {
                 ) : (
                   <EditionResults
                     editions={filtered}
+                    groupByCategory={category === "전체"}
                     onSelect={selectEdition}
                     selectedId={selected?.id}
                     view={view}

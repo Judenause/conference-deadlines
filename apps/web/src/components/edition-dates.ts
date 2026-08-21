@@ -1,4 +1,5 @@
 import type { Deadline, Edition } from "@conf/contracts"
+import { FIELD_CATEGORY_ORDER } from "./category-tone"
 
 export const MONTH_MARKERS = [
   "JAN",
@@ -139,6 +140,55 @@ export function editionAnchorDate(edition: Edition, now: Date): string | undefin
   return undefined
 }
 
+function compareByAnchorDate(left: Edition, right: Edition, now: Date): number {
+  const leftDate = editionAnchorDate(left, now)
+  const rightDate = editionAnchorDate(right, now)
+  if (leftDate && rightDate) return leftDate.localeCompare(rightDate)
+  if (leftDate) return -1
+  if (rightDate) return 1
+  return left.year - right.year || left.acronym.localeCompare(right.acronym)
+}
+
+function primaryFieldCategory(edition: Edition): string {
+  return (
+    edition.categories.find((category) =>
+      FIELD_CATEGORY_ORDER.some((field) => field === category),
+    ) ??
+    edition.categories[0] ??
+    "Other"
+  )
+}
+
+export function groupEditionsByCategory(
+  editions: readonly Edition[],
+  now = new Date(),
+): readonly {
+  readonly key: string
+  readonly category: string
+  readonly editions: readonly Edition[]
+}[] {
+  const grouped = new Map<string, Edition[]>()
+  for (const edition of editions) {
+    const category = primaryFieldCategory(edition)
+    const current = grouped.get(category)
+    if (current) current.push(edition)
+    else grouped.set(category, [edition])
+  }
+  const categories = [
+    ...FIELD_CATEGORY_ORDER.filter((category) => grouped.has(category)),
+    ...[...grouped.keys()]
+      .filter((category) => !FIELD_CATEGORY_ORDER.some((field) => field === category))
+      .sort((left, right) => left.localeCompare(right, "ko")),
+  ]
+  return categories.map((category) => ({
+    key: `field-${category.toLocaleLowerCase("en")}`,
+    category,
+    editions: [...(grouped.get(category) ?? [])].sort((left, right) =>
+      compareByAnchorDate(left, right, now),
+    ),
+  }))
+}
+
 export function groupEditions(
   editions: readonly Edition[],
   now = new Date(),
@@ -149,14 +199,7 @@ export function groupEditions(
   editions: readonly Edition[]
 }[] {
   const groups = new Map<string, { marker: string; label: string; editions: Edition[] }>()
-  const ordered = [...editions].sort((left, right) => {
-    const leftDate = editionAnchorDate(left, now)
-    const rightDate = editionAnchorDate(right, now)
-    if (leftDate && rightDate) return leftDate.localeCompare(rightDate)
-    if (leftDate) return -1
-    if (rightDate) return 1
-    return left.year - right.year || left.acronym.localeCompare(right.acronym)
-  })
+  const ordered = [...editions].sort((left, right) => compareByAnchorDate(left, right, now))
 
   for (const edition of ordered) {
     const anchor = editionAnchorDate(edition, now)

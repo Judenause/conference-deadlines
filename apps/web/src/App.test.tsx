@@ -88,7 +88,11 @@ test("visitor lands on the monthly timeline and switches the saved color theme",
   expect(document.documentElement.dataset.theme).toBe("dark")
   expect(window.localStorage.getItem("conference-atlas-theme")).toBe("dark")
 
-  expect(await screen.findByRole("region", { name: "월별 학회 타임라인" })).toBeTruthy()
+  const timeline = await screen.findByRole("region", { name: "월별 학회 타임라인" })
+  expect(within(timeline).getByRole("heading", { name: /^Circuit/ })).toBeTruthy()
+  expect(within(timeline).getByRole("heading", { name: /^System/ })).toBeTruthy()
+  fireEvent.click(screen.getByRole("button", { name: "System" }))
+  expect(within(timeline).queryByRole("heading", { name: /^Circuit/ })).toBeNull()
   expect(screen.getByText("제출일 · 학회 기간 타임라인")).toBeTruthy()
   expect(screen.getAllByRole("link", { name: /공식 사이트 열기/ }).length).toBeGreaterThan(0)
 })
