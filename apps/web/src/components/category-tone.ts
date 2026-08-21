@@ -1,6 +1,6 @@
 export type CategoryTone = "circuit" | "ai" | "system" | "archi" | "cv" | "neutral"
 
-export const FIELD_CATEGORY_ORDER = ["Circuit", "AI", "System", "Archi", "CV"] as const
+export const FIELD_CATEGORY_ORDER = ["AI", "System", "CV", "Circuit", "Archi"] as const
 
 export function categoryTone(category: string): CategoryTone {
   switch (category) {

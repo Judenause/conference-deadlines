@@ -258,11 +258,16 @@ export function TimelineView({
           <div className="timeline-board__rows">
             {groupByCategory
               ? categoryGroups.map((group) => (
-                  <section className="timeline-category" key={group.key}>
-                    <h3 data-category-tone={categoryTone(group.category)}>
-                      <span>{group.category}</span>
-                      <small>{group.editions.length}개 학회</small>
-                    </h3>
+                  <details className="timeline-category" key={group.key} open>
+                    <summary>
+                      <h3 data-category-tone={categoryTone(group.category)}>
+                        <span>{group.category}</span>
+                        <small>{group.editions.length}개 학회</small>
+                        <span aria-hidden="true" className="timeline-category__toggle">
+                          <Icon name="arrow" />
+                        </span>
+                      </h3>
+                    </summary>
                     {group.editions.map((edition) => (
                       <TimelineRow
                         edition={edition}
@@ -274,7 +279,7 @@ export function TimelineView({
                         window={window}
                       />
                     ))}
-                  </section>
+                  </details>
                 ))
               : orderedEditions.map((edition) => (
                   <TimelineRow

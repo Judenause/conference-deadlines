@@ -143,9 +143,9 @@ test("all-field groups keep the field order and sort each field by its next sche
 
   const groups = groupEditionsByCategory([systemSooner, circuitLater, circuitSooner], now)
 
-  expect(groups.map((group) => group.category)).toEqual(["Circuit", "System"])
-  expect(groups[0]?.editions.map((item) => item.id)).toEqual(["circuit-sooner", "circuit-later"])
-  expect(groups[1]?.editions.map((item) => item.id)).toEqual(["system-sooner"])
+  expect(groups.map((group) => group.category)).toEqual(["System", "Circuit"])
+  expect(groups[0]?.editions.map((item) => item.id)).toEqual(["system-sooner"])
+  expect(groups[1]?.editions.map((item) => item.id)).toEqual(["circuit-sooner", "circuit-later"])
 })
 
 test("a still-open UTC deadline cannot reappear on a viewer-local past calendar day", () => {

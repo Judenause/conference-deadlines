@@ -1,4 +1,4 @@
-# IRISConference Deadline Design System
+# IRIS Conference Deadline Design System
 
 ## 0. Research Log
 
@@ -12,7 +12,7 @@
 
 ## 1. Atmosphere & Identity
 
-`IRISConference Deadline` is a calm, precise, and approachable research product. It must read as “A trusted research deadline tracker,” not a lab database or a marketing-only landing page.
+`IRIS Conference Deadline` is a calm, precise, and approachable research product. It must read as “A trusted research deadline tracker,” not a lab database or a marketing-only landing page.
 
 Identity keywords: precise, reliable, calm, modern, academic, intelligent.
 
@@ -25,7 +25,7 @@ The product combines:
 
 The public name and tagline are defined once in `apps/web/src/brand.ts`:
 
-- Name: `IRISConference Deadline`
+- Name: `IRIS Conference Deadline`
 - Tagline: `Verified conference timelines.`
 
 Primary decision path:
@@ -192,7 +192,7 @@ Stress gates: 200% zoom, reduced motion, dark mode, empty/error/loading, 40-char
 
 - Left: `Upcoming deadlines` plus short Korean guidance. Right: Timeline/List/Calendar semantic tabs with the field-filter row directly beneath.
 - Active state is a scoped blue-soft pill/indicator; keyboard arrow behavior and tab/panel relations remain intact.
-- With `All` selected, Timeline and List group conferences by Circuit, AI, System, Archi, and CV. Each field is ordered by its nearest next deadline or conference date; a multi-field conference appears once under its primary field. Calendar stays globally chronological.
+- With `All` selected, Timeline and List group conferences by AI, System, CV, Circuit, and Archi. Each field is ordered by its nearest next deadline or conference date; a multi-field conference appears once under its primary field. Each field header is a native disclosure, open by default, so researchers can collapse completed comparisons without losing the shared timeline axis. Calendar stays globally chronological.
 
 ### ConferenceCard and DeadlineBadge
 

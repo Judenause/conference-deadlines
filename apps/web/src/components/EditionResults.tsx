@@ -50,15 +50,14 @@ export function EditionResults({
     return (
       <div className="edition-list deadline-timeline">
         {groupEditionsByCategory(editions).map((group) => (
-          <section
-            aria-labelledby={`group-${group.key}`}
-            className="timeline-group"
-            key={group.key}
-          >
-            <div className="timeline-month" data-category-tone={categoryTone(group.category)}>
+          <details className="timeline-group" key={group.key} open>
+            <summary className="timeline-month" data-category-tone={categoryTone(group.category)}>
               <span>{group.category}</span>
-              <strong id={`group-${group.key}`}>{group.editions.length}개 학회</strong>
-            </div>
+              <strong>{group.editions.length}개 학회</strong>
+              <span aria-hidden="true" className="timeline-group__toggle">
+                <Icon name="arrow" />
+              </span>
+            </summary>
             {group.editions.map((edition) => (
               <EditionCard
                 edition={edition}
@@ -67,7 +66,7 @@ export function EditionResults({
                 selected={selectedId === edition.id}
               />
             ))}
-          </section>
+          </details>
         ))}
       </div>
     )

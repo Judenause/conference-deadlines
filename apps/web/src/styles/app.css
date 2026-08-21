@@ -685,6 +685,17 @@ fieldset {
   gap: var(--space-3);
 }
 
+.timeline-group > summary,
+.timeline-category > summary {
+  cursor: pointer;
+  list-style: none;
+}
+
+.timeline-group > summary::-webkit-details-marker,
+.timeline-category > summary::-webkit-details-marker {
+  display: none;
+}
+
 .timeline-month,
 .agenda-month {
   display: flex;
@@ -711,6 +722,25 @@ fieldset {
 
 .timeline-month[data-category-tone] > span {
   color: var(--category-accent);
+}
+
+.timeline-group__toggle,
+.timeline-category__toggle {
+  display: inline-flex;
+  margin-left: auto;
+  color: var(--text-tertiary);
+  transition: transform var(--duration-fast) var(--ease-standard);
+}
+
+.timeline-group__toggle .icon,
+.timeline-category__toggle .icon {
+  width: 1rem;
+  height: 1rem;
+}
+
+.timeline-group[open] > summary .timeline-group__toggle,
+.timeline-category[open] > summary .timeline-category__toggle {
+  transform: rotate(90deg);
 }
 
 .edition-list {
@@ -1416,6 +1446,7 @@ fieldset {
 }
 
 .timeline-category h3 {
+  position: relative;
   display: flex;
   min-height: 2.75rem;
   align-items: center;
@@ -1424,6 +1455,11 @@ fieldset {
   padding-inline: var(--space-4);
   border-block: 1px solid var(--border-soft);
   background: color-mix(in srgb, var(--category-soft) 62%, var(--bg-surface));
+}
+
+.timeline-category__toggle {
+  position: absolute;
+  left: calc(var(--timeline-identity) - var(--space-6));
 }
 
 .timeline-category h3::before {

@@ -34,7 +34,7 @@ test("researcher searches and opens a remaining 2026 deadline with evidence", as
   expect(
     await screen.findByRole("heading", { name: "Find your next conference deadline." }),
   ).toBeTruthy()
-  expect(screen.getByText("IRISConference Deadline")).toBeTruthy()
+  expect(screen.getByText("IRIS Conference Deadline")).toBeTruthy()
   fireEvent.click(screen.getByRole("tab", { name: "목록" }))
 
   fireEvent.change(screen.getByRole("searchbox"), { target: { value: "MICRO" } })
@@ -91,6 +91,16 @@ test("visitor lands on the monthly timeline and switches the saved color theme",
   const timeline = await screen.findByRole("region", { name: "월별 학회 타임라인" })
   expect(within(timeline).getByRole("heading", { name: /^Circuit/ })).toBeTruthy()
   expect(within(timeline).getByRole("heading", { name: /^System/ })).toBeTruthy()
+  const circuitGroup = within(timeline)
+    .getByRole("heading", { name: /^Circuit/ })
+    .closest("details")
+  if (!(circuitGroup instanceof HTMLDetailsElement)) {
+    throw new Error("Circuit group disclosure is missing")
+  }
+  const circuitDisclosure = circuitGroup.querySelector("summary")
+  if (!circuitDisclosure) throw new Error("Circuit group summary is missing")
+  fireEvent.click(circuitDisclosure)
+  expect(circuitGroup.open).toBe(false)
   fireEvent.click(screen.getByRole("button", { name: "System" }))
   expect(within(timeline).queryByRole("heading", { name: /^Circuit/ })).toBeNull()
   expect(screen.getByText("제출일 · 학회 기간 타임라인")).toBeTruthy()

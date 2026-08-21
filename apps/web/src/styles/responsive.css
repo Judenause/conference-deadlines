@@ -308,6 +308,10 @@
     min-width: calc(var(--timeline-identity-mobile) + var(--timeline-month-width) * 6);
   }
 
+  .timeline-category__toggle {
+    left: calc(var(--timeline-identity-mobile) - var(--space-6));
+  }
+
   .timeline-board__track {
     min-width: calc(var(--timeline-month-width) * 6);
   }

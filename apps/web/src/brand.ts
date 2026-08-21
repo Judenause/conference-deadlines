@@ -1,4 +1,4 @@
 export const BRAND = {
-  name: "IRISConference Deadline",
+  name: "IRIS Conference Deadline",
   tagline: "Verified conference timelines.",
 } as const
