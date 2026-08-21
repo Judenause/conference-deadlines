@@ -1,4 +1,4 @@
-# Deadline Atlas Design System
+# IRISConference Deadline Design System
 
 ## 0. Research Log
 
@@ -12,7 +12,7 @@
 
 ## 1. Atmosphere & Identity
 
-`Deadline Atlas` is a calm, precise, and approachable research product. It must read as “A trusted research deadline tracker,” not a lab database or a marketing-only landing page.
+`IRISConference Deadline` is a calm, precise, and approachable research product. It must read as “A trusted research deadline tracker,” not a lab database or a marketing-only landing page.
 
 Identity keywords: precise, reliable, calm, modern, academic, intelligent.
 
@@ -25,7 +25,7 @@ The product combines:
 
 The public name and tagline are defined once in `apps/web/src/brand.ts`:
 
-- Name: `Deadline Atlas`
+- Name: `IRISConference Deadline`
 - Tagline: `Verified conference timelines.`
 
 Primary decision path:

@@ -34,7 +34,7 @@ test("researcher searches and opens a remaining 2026 deadline with evidence", as
   expect(
     await screen.findByRole("heading", { name: "Find your next conference deadline." }),
   ).toBeTruthy()
-  expect(screen.getByText("Deadline Atlas")).toBeTruthy()
+  expect(screen.getByText("IRISConference Deadline")).toBeTruthy()
   fireEvent.click(screen.getByRole("tab", { name: "목록" }))
 
   fireEvent.change(screen.getByRole("searchbox"), { target: { value: "MICRO" } })

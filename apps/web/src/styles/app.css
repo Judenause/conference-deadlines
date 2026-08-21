@@ -292,21 +292,6 @@ fieldset {
   text-wrap: balance;
 }
 
-.hero-lead {
-  max-width: 40rem;
-  margin: var(--space-5) auto var(--space-8);
-  color: var(--text-secondary);
-  font-size: var(--text-body-lg);
-  letter-spacing: -0.01em;
-  line-height: 1.7;
-  text-wrap: pretty;
-  word-break: keep-all;
-}
-
-.hero-lead span {
-  display: block;
-}
-
 .catalog-toolbar {
   display: grid;
   gap: var(--space-5);

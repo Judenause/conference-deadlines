@@ -32,10 +32,6 @@ export function Hero({ editions, children, id }: HeroProps) {
           <Icon name="check" /> Trusted research deadline tracker
         </p>
         <h1>Find your next conference deadline.</h1>
-        <p className="hero-lead">
-          주요 학회의 마감 일정과 공식 출처를 한곳에서 확인하세요.
-          <span>변경된 날짜와 검증 근거까지 놓치지 않습니다.</span>
-        </p>
         {children}
         <section aria-label="데이터 신뢰도 요약" className="trust-strip">
           <span>
@@ -71,7 +67,7 @@ export function ErrorState({ message }: { readonly message: string }) {
 function Brand({ exploreHref }: { readonly exploreHref: string }) {
   return (
     <a aria-label={`${BRAND.name} 홈`} className="brand" href={exploreHref}>
-      <span className="brand-mark">D</span>
+      <span className="brand-mark">I</span>
       <span className="brand-copy">
         <strong>{BRAND.name}</strong>
         <small>{BRAND.tagline}</small>

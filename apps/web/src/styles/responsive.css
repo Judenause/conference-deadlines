@@ -168,16 +168,6 @@
     font-size: clamp(2.5rem, 12vw, 3.25rem);
   }
 
-  .hero-lead {
-    margin-block: var(--space-4) var(--space-6);
-    font-size: var(--text-body);
-    line-height: 1.65;
-  }
-
-  .hero-lead span {
-    display: inline;
-  }
-
   .catalog-toolbar {
     gap: var(--space-4);
   }

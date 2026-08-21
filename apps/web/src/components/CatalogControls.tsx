@@ -59,7 +59,6 @@ export function ProductHeader({
       <div>
         <p className="product-kicker">DISCOVER</p>
         <h2 id={headingId}>Upcoming deadlines</h2>
-        <p>관심 분야의 제출 일정과 공식 근거를 빠르게 비교하세요.</p>
         <span className="results-count" aria-live="polite">
           {count}개 일정
         </span>
