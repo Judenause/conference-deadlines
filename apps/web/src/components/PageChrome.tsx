@@ -11,6 +11,7 @@ interface NavigationProps {
 
 interface SiteNavigationProps extends NavigationProps {
   readonly exploreHref: string
+  readonly manageHref: string
   readonly productHref: string
   readonly onNavigateView: (view: CatalogView) => void
 }
@@ -97,6 +98,7 @@ export function SiteNavigation({
   onToggleTheme,
   exploreHref,
   productHref,
+  manageHref,
   onNavigateView,
 }: SiteNavigationProps) {
   return (
@@ -111,6 +113,7 @@ export function SiteNavigation({
           <a href={productHref} onClick={() => onNavigateView("calendar")}>
             Calendar
           </a>
+          <a href={manageHref}>Manage</a>
         </nav>
         <div className="header-tools">
           <ThemeToggle onToggleTheme={onToggleTheme} theme={theme} />

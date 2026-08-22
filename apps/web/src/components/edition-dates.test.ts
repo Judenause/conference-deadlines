@@ -7,6 +7,7 @@ import {
   groupEditionsByCategory,
   hasUpcomingSchedule,
   nextUpcomingDeadline,
+  timelineDeadlineLabel,
 } from "./edition-dates"
 
 const edition = {
@@ -45,6 +46,28 @@ test("an upcoming conference remains visible without its elapsed paper deadline"
 
   expect(hasUpcomingSchedule(edition, now)).toBe(true)
   expect(nextUpcomingDeadline(edition, now)).toBeUndefined()
+})
+
+test("timeline markers identify the kind of each upcoming milestone", () => {
+  const labels = [
+    { kind: "abstract_registration", expected: "초록 등록" },
+    { kind: "paper_submission", expected: "논문 제출" },
+    { kind: "supplementary_submission", expected: "보충자료" },
+    { kind: "first_notification", expected: "1차 결과" },
+    { kind: "rebuttal", expected: "리뷰 답변" },
+    { kind: "final_notification", expected: "최종 결과" },
+    { kind: "camera_ready", expected: "최종본" },
+    { kind: "workshop_submission", expected: "워크숍 제출" },
+  ] satisfies readonly {
+    readonly kind: Edition["deadlines"][number]["kind"]
+    readonly expected: string
+  }[]
+
+  for (const { kind, expected } of labels) {
+    const deadline = edition.deadlines[0]
+    if (!deadline) throw new Error("deadline label fixture requires a deadline")
+    expect(timelineDeadlineLabel({ ...deadline, kind })).toBe(expected)
+  }
 })
 
 test("an edition disappears after its conference and every deadline have elapsed", () => {

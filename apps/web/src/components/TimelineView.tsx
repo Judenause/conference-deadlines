@@ -5,6 +5,7 @@ import {
   groupEditionsByCategory,
   localDateIso,
   nextUpcomingDeadline,
+  timelineDeadlineLabel,
 } from "./edition-dates"
 import { Icon } from "./Icons"
 
@@ -168,7 +169,7 @@ function TimelineRow({ edition, now, onSelect, selectedId, today, window }: Time
             title={`${deadline.label} · ${deadline.displayDate}`}
             type="button"
           >
-            제출
+            {timelineDeadlineLabel(deadline)}
           </button>
         ) : null}
         {conferenceLeft !== undefined && conferenceWidth !== undefined ? (
@@ -221,7 +222,7 @@ export function TimelineView({
           <legend className="sr-only">타임라인 범례</legend>
           <span>
             <i data-kind="deadline" />
-            제출
+            다음 일정
           </span>
           <span>
             <i data-kind="conference" />

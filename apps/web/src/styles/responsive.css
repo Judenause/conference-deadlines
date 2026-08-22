@@ -108,6 +108,16 @@
   .view-tabs button {
     padding-inline: var(--space-2);
   }
+
+  .management-panel {
+    grid-template-columns: 1fr;
+    margin-bottom: var(--space-12);
+  }
+
+  .management-panel__controls {
+    justify-content: flex-start;
+    grid-column: 1;
+  }
 }
 
 @media (max-width: 47.9375rem) {
@@ -216,6 +226,41 @@
 
   .product-shell {
     padding: var(--space-12) var(--space-4) var(--space-16);
+  }
+
+  .management-panel {
+    gap: var(--space-5);
+    margin-bottom: var(--space-12);
+    padding: var(--space-5) var(--space-4);
+    border-radius: var(--radius-card);
+  }
+
+  .management-panel__controls {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .management-tabs {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .management-sign-in {
+    width: 100%;
+  }
+
+  .management-form {
+    grid-template-columns: 1fr;
+  }
+
+  .management-form input,
+  .management-form select,
+  .management-form textarea {
+    font-size: var(--text-body);
+  }
+
+  .management-form__wide {
+    grid-column: auto;
   }
 
   .results-head {

@@ -81,3 +81,5 @@ export type Deadline = z.infer<typeof deadlineSchema>
 export type Edition = z.infer<typeof editionSchema>
 export type Evidence = z.infer<typeof evidenceSchema>
 export type History = z.infer<typeof historySchema>
+
+export * from "./management"

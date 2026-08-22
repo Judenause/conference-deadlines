@@ -39,6 +39,21 @@ export interface DeadlineCountdown {
   readonly urgency: DeadlineUrgency
 }
 
+const TIMELINE_DEADLINE_LABELS = {
+  abstract_registration: "초록 등록",
+  paper_submission: "논문 제출",
+  supplementary_submission: "보충자료",
+  first_notification: "1차 결과",
+  rebuttal: "리뷰 답변",
+  final_notification: "최종 결과",
+  camera_ready: "최종본",
+  workshop_submission: "워크숍 제출",
+} as const satisfies Record<Deadline["kind"], string>
+
+export function timelineDeadlineLabel(deadline: Deadline): string {
+  return TIMELINE_DEADLINE_LABELS[deadline.kind]
+}
+
 export function deadlineDateIso(deadline: Deadline): string | undefined {
   const match = deadline.displayDate.match(/^(\d{4})\.\s*(\d{1,2})\.\s*(\d{1,2})/)
   if (!match) return undefined

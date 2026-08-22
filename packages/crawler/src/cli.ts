@@ -1,21 +1,37 @@
+import { catalogSchema } from "@conf/contracts"
 import { crawlFixture, crawlLive } from "./crawl"
+import { auditFutureEditionSchedules, formatScheduleAuditReport } from "./schedule-audit"
 import { runSourceMonitor, writeMonitorReview } from "./source-monitor"
 
 async function main(): Promise<void> {
   const args = process.argv.slice(2)
   if (args[0] === "monitor") {
+    const catalog = catalogSchema.parse(await Bun.file("data/seed/catalog-state.json").json())
     const run = await runSourceMonitor(
       "data/seed/catalog-state.json",
       "data/monitor/source-state.json",
     )
-    if (run.changes.length > 0)
+    const findings = auditFutureEditionSchedules(catalog)
+    if (run.changes.length > 0 || findings.length > 0) {
       await writeMonitorReview(
         "data/monitor/source-state.json",
         "data/monitor/monthly-review.md",
         run,
       )
+      await Bun.write(
+        "data/monitor/future-edition-safety-review.md",
+        `${formatScheduleAuditReport(findings)}\n`,
+      )
+    }
     console.log(
-      JSON.stringify({ sourceCount: run.sources.length, changeCount: run.changes.length }, null, 2),
+      JSON.stringify(
+        {
+          sourceCount: run.sources.length,
+          changeCount: run.changes.length,
+          staleFutureScheduleCount: findings.length,
+        },
+        null,
+      ),
     )
     return
   }

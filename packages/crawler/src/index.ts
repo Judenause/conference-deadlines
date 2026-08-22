@@ -1,5 +1,6 @@
 export * from "./crawl"
 export * from "./parsers"
 export * from "./safe-fetch"
+export * from "./schedule-audit"
 export * from "./source-monitor"
 export * from "./source-registry"

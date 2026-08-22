@@ -39,5 +39,5 @@ jobs:
           commit-message: "chore(crawler): record monthly source review"
           title: "Monthly official-source review"
           body: |
-            This automated review records only source health, redirects, and content fingerprints.
-            It does not change public conference dates. Review the official URLs and evidence before merging.
+            This automated review records source health, redirects, content fingerprints, and stale future-edition schedule findings.
+            It never changes public conference dates. Review the official URLs and evidence before merging.

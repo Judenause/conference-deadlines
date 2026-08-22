@@ -1,6 +1,6 @@
 # 학회 마감 일정
 
-공식 출처와 변경 이력을 함께 보여 주는 학회 일정 브라우저입니다. 공개 API와 웹은 읽기 전용이며, 수집과 검수는 로컬 운영자 명령으로만 수행합니다.
+공식 출처와 변경 이력을 함께 보여 주는 학회 일정 브라우저입니다. 공개 일정은 읽기 전용이며, 수집과 검수는 운영자 흐름으로만 수행합니다.
 
 현재 정적 카탈로그에는 연구실 Notion Timeline의 108개 레코드(Circuit 27, AI 27, System 30, Archi 9, CV 15)가 모두 포함됩니다. 각 학회는 `논문 제출`과 `학회 개최`를 분리해 보여 주며 공식 사이트 주소를 항상 함께 표시합니다. Notion에 시간대가 없는 날짜는 AoE로 임시 계산하고 `시간대 검수 필요` 상태로 공개합니다.
 
@@ -26,6 +26,8 @@ bun --filter @conf/web build && bun --filter @conf/web preview
 - 공개 API: 검색, 상세, 근거, 변경 이력 조회만 허용
 - 운영자 명령: 등록된 소스 수집과 검수 처리
 - 임의 URL, 브라우저 스크래핑, 로그인 우회는 지원하지 않음
+
+Firebase를 연결하면 웹의 **Manage** 화면에서 Google 관리자 인증 후 학회 추가와 수기 일정 수정 요청을 저장할 수 있습니다. 이 요청은 검수 전까지 공개 카탈로그를 바꾸지 않습니다. [Firebase 운영 연결](docs/firebase-operations.md)을 따라 설정합니다.
 
 ## 수집 명령
 
@@ -53,6 +55,6 @@ GitHub 저장소의 `Settings → Pages → Source`를 `GitHub Actions`로 선�
 
 ## 월간 공식 URL 점검
 
-`.github/workflows/monthly-source-monitor.yml`은 매월 1일 09:00 KST에 현재 카탈로그의 모든 학회 `officialUrl`을 한 번씩 확인합니다. 같은 도메인 안의 URL 이동, 콘텐츠 변경, 접근 불가 상태가 있으면 `data/monitor` 변경을 포함한 검수 PR만 생성합니다. 일정 날짜를 자동으로 바꾸지 않으므로, 운영자는 PR의 `monthly-review.md`와 공식 URL을 확인한 뒤에만 병합해야 합니다.
+`.github/workflows/monthly-source-monitor.yml`은 매월 1일 09:00 KST에 현재 카탈로그의 모든 학회 `officialUrl`을 한 번씩 확인합니다. 같은 도메인 안의 URL 이동, 콘텐츠 변경, 접근 불가 상태와 미래 에디션에 과거 일정만 남은 상태를 `data/monitor` 검수 PR에 기록합니다. 일정 날짜를 자동으로 바꾸지 않으므로, 운영자는 보고서와 공식 URL을 확인한 뒤에만 병합해야 합니다.
 
 첫 수동 실행은 GitHub의 `Actions → monthly-source-monitor → Run workflow`에서 시작합니다. 초기 실행은 모든 공식 URL의 기준 fingerprint를 기록하는 검수 PR을 하나 만듭니다.

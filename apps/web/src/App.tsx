@@ -1,6 +1,7 @@
 import type { Edition, Evidence, History } from "@conf/contracts"
 import { useEffect, useId, useMemo, useRef, useState } from "react"
 import { getEditionBundle, getEditions } from "./api"
+import { AdminPanel } from "./components/AdminPanel"
 import { CatalogControls, ProductHeader } from "./components/CatalogControls"
 import { FIELD_CATEGORY_ORDER } from "./components/category-tone"
 import { EditionResults } from "./components/EditionResults"
@@ -28,6 +29,7 @@ export function App() {
   const listPanelId = useId()
   const timelinePanelId = useId()
   const calendarPanelId = useId()
+  const managementId = useId()
   const searchRef = useRef<HTMLInputElement>(null)
   const triggerRef = useRef<HTMLElement | null>(null)
   const [editions, setEditions] = useState<readonly Edition[]>([])
@@ -159,6 +161,7 @@ export function App() {
       </a>
       <SiteNavigation
         exploreHref={`#${exploreId}`}
+        manageHref={`#${managementId}`}
         onNavigateView={setView}
         onToggleTheme={() => setTheme((current) => (current === "light" ? "dark" : "light"))}
         productHref={`#${productId}`}
@@ -247,6 +250,7 @@ export function App() {
             </div>
           )}
         </section>
+        <AdminPanel editions={editions} id={managementId} />
       </main>
       <SiteFooter />
     </div>

@@ -10,6 +10,7 @@ import { EvidencePanel } from "./components/EvidencePanel"
 afterEach(() => {
   cleanup()
   vi.restoreAllMocks()
+  vi.useRealTimers()
   window.localStorage.clear()
   delete document.documentElement.dataset.theme
 })
@@ -62,6 +63,22 @@ test("empty search explains the result", async () => {
   expect(await screen.findByText("검색 결과가 없습니다")).toBeTruthy()
 })
 
+test("management requests remain disabled until Firebase administrator configuration exists", async () => {
+  vi.stubGlobal(
+    "fetch",
+    vi.fn(async () => new Response(JSON.stringify({ items: seed.editions }), { status: 200 })),
+  )
+
+  render(<App />)
+  fireEvent.click(await screen.findByRole("link", { name: "Manage" }))
+
+  expect(await screen.findByRole("heading", { name: "학회 관리" })).toBeTruthy()
+  expect(screen.getByText("Firebase 연결 후 활성화됩니다.")).toBeTruthy()
+  expect(screen.getByRole("button", { name: "추가 요청 저장" })).toHaveProperty("disabled", true)
+  fireEvent.click(screen.getByRole("button", { name: "일정 수정" }))
+  expect(screen.getByRole("button", { name: "수정 요청 저장" })).toHaveProperty("disabled", true)
+})
+
 test("visitor lands on the monthly timeline and switches the saved color theme", async () => {
   vi.stubGlobal(
     "fetch",
@@ -105,6 +122,22 @@ test("visitor lands on the monthly timeline and switches the saved color theme",
   expect(within(timeline).queryByRole("heading", { name: /^Circuit/ })).toBeNull()
   expect(screen.getByText("제출일 · 학회 기간 타임라인")).toBeTruthy()
   expect(screen.getAllByRole("link", { name: /공식 사이트 열기/ }).length).toBeGreaterThan(0)
+})
+
+test("timeline uses the next event's actual kind instead of a generic submission label", async () => {
+  vi.useFakeTimers({ shouldAdvanceTime: true })
+  vi.setSystemTime(new Date("2026-08-22T00:00:00Z"))
+  vi.stubGlobal(
+    "fetch",
+    vi.fn(async () => new Response(JSON.stringify({ items: seed.editions }), { status: 200 })),
+  )
+
+  render(<App />)
+
+  const marker = await screen.findByRole("button", {
+    name: "NeurIPS 2026 워크숍 기여 권장 제출일 2026. 8. 29 23:59 상세 보기",
+  })
+  expect(marker.textContent).toBe("워크숍 제출")
 })
 
 test("lab timeline categories expose curated conferences and BK tiers", async () => {

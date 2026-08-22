@@ -4469,29 +4469,18 @@
       "name": "International Symposium on Computer Architecture",
       "year": 2027,
       "location": "공식 발표 대기",
-      "dateRange": "일정 미공개",
-      "conferenceStart": "2026-06-09",
-      "conferenceEnd": "2026-06-09",
+      "dateRange": "일정 발표 대기",
+      "conferenceStart": null,
+      "conferenceEnd": null,
       "officialUrl": "https://iscaconf.org/",
       "tier": "T1 (BK)",
       "categories": ["Archi"],
-      "status": "timezone-review-needed",
-      "description": "연구실 Timeline에서 관리 중인 Archi 분야 관심 학회입니다. 공식 마감과 장소는 검증 전까지 확정하지 않습니다.",
+      "status": "dates-pending",
+      "description": "2026년의 과거 일정은 제거했습니다. 2027 공식 마감·개최·장소 발표를 확인한 뒤에만 게시합니다.",
       "registrySource": "lab-notion",
       "registrySourceUrl": "https://verbena-heat-9b5.notion.site/Timeline-f8bcc599203845ccbbbfcae6e6dd7fca?pvs=73",
       "registryRecordId": "37448c23-0f73-8033-b98d-c53151235638",
-      "deadlines": [
-        {
-          "id": "isca-2027-abstract_registration",
-          "label": "초록 등록",
-          "kind": "abstract_registration",
-          "dueAtUtc": "2026-05-14T11:59:59Z",
-          "displayDate": "2026. 5. 13",
-          "timezone": "AoE (UTC-12) · 시간대 가정",
-          "status": "timezone-review-needed",
-          "track": "Main conference"
-        }
-      ]
+      "deadlines": []
     },
     {
       "id": "hpca-2027",

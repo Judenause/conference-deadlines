@@ -31,6 +31,9 @@ jobs:
       - run: bun run build:pages
         env:
           VITE_BASE_PATH: ${{ steps.pages.outputs.base_path }}
+          VITE_FIREBASE_API_KEY: ${{ vars.VITE_FIREBASE_API_KEY }}
+          VITE_FIREBASE_PROJECT_ID: ${{ vars.VITE_FIREBASE_PROJECT_ID }}
+          VITE_GOOGLE_CLIENT_ID: ${{ vars.VITE_GOOGLE_CLIENT_ID }}
       - uses: actions/upload-pages-artifact@v4
         with:
           path: apps/web/dist
