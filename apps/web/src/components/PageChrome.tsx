@@ -32,7 +32,7 @@ export function Hero({ editions, children, id }: HeroProps) {
         <p className="hero__badge">
           <Icon name="check" /> Trusted research deadline tracker
         </p>
-        <h1>Find your next conference deadline.</h1>
+        <h1 className="sr-only">IRIS Conference Deadline 학회 일정</h1>
         {children}
         <section aria-label="데이터 신뢰도 요약" className="trust-strip">
           <span>

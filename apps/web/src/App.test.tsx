@@ -32,9 +32,9 @@ test("researcher searches and opens a remaining 2026 deadline with evidence", as
   )
 
   render(<App />)
-  expect(
-    await screen.findByRole("heading", { name: "Find your next conference deadline." }),
-  ).toBeTruthy()
+  expect(await screen.findByRole("searchbox")).toBeTruthy()
+  expect(screen.queryByText("Find your next conference deadline.")).toBeNull()
+  expect(screen.getByRole("heading", { name: "IRIS Conference Deadline 학회 일정" })).toBeTruthy()
   expect(screen.getByText("IRIS Conference Deadline")).toBeTruthy()
   fireEvent.click(screen.getByRole("tab", { name: "목록" }))
 
@@ -86,9 +86,9 @@ test("visitor lands on the monthly timeline and switches the saved color theme",
   )
 
   render(<App />)
-  expect(
-    await screen.findByRole("heading", { name: "Find your next conference deadline." }),
-  ).toBeTruthy()
+  expect(await screen.findByRole("searchbox")).toBeTruthy()
+  expect(screen.queryByText("Find your next conference deadline.")).toBeNull()
+  expect(screen.getByRole("heading", { name: "IRIS Conference Deadline 학회 일정" })).toBeTruthy()
   expect(screen.queryByText("수집 원칙")).toBeNull()
   expect(screen.queryByRole("link", { name: "GitHub" })).toBeNull()
   expect(screen.getByRole("tab", { name: "타임라인" }).getAttribute("aria-selected")).toBe("true")

@@ -171,7 +171,7 @@ Stress gates: 200% zoom, reduced motion, dark mode, empty/error/loading, 40-char
 
 ### HeroSearch
 
-- Hero title: `Find your next conference deadline.`
+- Visible hero title is omitted; a screen-reader-only H1 identifies `IRIS Conference Deadline 학회 일정`.
 - Korean support copy explains official sources and evidence.
 - Search is the focal floating surface, 60–64px high, max 780px, with a left icon and visible shortcut hint.
 - States: idle, hover, focus, filled, loading, error. Focus uses primary border plus a soft blue halo without layout shift.
