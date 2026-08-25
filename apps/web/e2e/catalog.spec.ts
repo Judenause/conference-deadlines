@@ -3,10 +3,9 @@ import { expect, test } from "@playwright/test"
 test("search, calendar, evidence, history, and empty states work without overflow", async ({
   page,
 }, testInfo) => {
+  await page.clock.install({ time: new Date("2026-08-19T12:00:00Z") })
   await page.goto("/")
-  await expect(
-    page.getByRole("heading", { name: "Find your next conference deadline." }),
-  ).toBeVisible()
+  await expect(page.getByRole("searchbox")).toBeVisible()
   await expect(page.getByText("수집 원칙")).toHaveCount(0)
   await expect(page.getByRole("tab", { name: "타임라인" })).toHaveAttribute("aria-selected", "true")
   await expect(page.getByRole("region", { name: "월별 학회 타임라인" })).toBeVisible()
