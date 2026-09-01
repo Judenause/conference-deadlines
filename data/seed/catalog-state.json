@@ -4882,6 +4882,7 @@
       "conferenceStart": "2026-06-27",
       "conferenceEnd": "2026-07-01",
       "officialUrl": "https://iscaconf.org/isca2026/",
+      "additionalSourceUrls": ["https://iscaconf.org/isca2026/submit/callforpapers.php"],
       "tier": "T1 (BK)",
       "categories": ["Archi"],
       "status": "timezone-review-needed",

@@ -11,10 +11,16 @@ test("source monitor registers every catalog edition as an official URL check", 
   // When: the monthly monitor derives its registered sources.
   const sources = monitorSources(catalog)
 
-  // Then: every edition has exactly one HTTPS official URL check.
-  expect(sources).toHaveLength(catalog.editions.length)
-  expect(new Set(sources.map((source) => source.id)).size).toBe(catalog.editions.length)
+  // Then: every edition has a primary check, and ISCA also has its CFP source check.
+  expect(sources).toHaveLength(catalog.editions.length + 1)
+  expect(new Set(sources.map((source) => source.id)).size).toBe(catalog.editions.length + 1)
   expect(sources.every((source) => new URL(source.canonicalUrl).protocol === "https:")).toBe(true)
+  expect(sources).toContainEqual({
+    id: "isca-2026:additional-1",
+    editionId: "isca-2026",
+    name: "ISCA 2026",
+    canonicalUrl: "https://iscaconf.org/isca2026/submit/callforpapers.php",
+  })
 })
 
 test("source monitor reports a changed official URL fingerprint", () => {

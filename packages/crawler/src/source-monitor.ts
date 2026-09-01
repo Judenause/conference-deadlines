@@ -45,6 +45,7 @@ export interface SourceState {
 
 export interface MonitorSource {
   readonly id: string
+  readonly editionId: string
   readonly name: string
   readonly canonicalUrl: string
 }
@@ -91,11 +92,20 @@ async function sha256(value: string): Promise<string> {
 
 export function monitorSources(catalog: Catalog): readonly MonitorSource[] {
   return catalog.editions
-    .map((edition) => ({
-      id: edition.id,
-      name: edition.acronym,
-      canonicalUrl: edition.officialUrl,
-    }))
+    .flatMap((edition) => [
+      {
+        id: edition.id,
+        editionId: edition.id,
+        name: edition.acronym,
+        canonicalUrl: edition.officialUrl,
+      },
+      ...(edition.additionalSourceUrls ?? []).map((canonicalUrl, index) => ({
+        id: `${edition.id}:additional-${index + 1}`,
+        editionId: edition.id,
+        name: edition.acronym,
+        canonicalUrl,
+      })),
+    ])
     .sort((left, right) => left.id.localeCompare(right.id))
 }
 
@@ -192,7 +202,7 @@ async function checkSource(source: MonitorSource): Promise<SourceCheckResult> {
         sha256: await sha256(fetched.body),
       },
       page: {
-        editionId: source.id,
+        editionId: source.editionId,
         sourceUrl: source.canonicalUrl,
         finalUrl: fetched.finalUrl,
         checkedAt,
