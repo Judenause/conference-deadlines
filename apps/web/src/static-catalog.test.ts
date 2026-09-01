@@ -131,3 +131,23 @@ test("Given official schedules with explicit clock conventions, their deadlines 
     expect(edition?.deadlines.every((deadline) => deadline.status === "confirmed")).toBe(true)
   }
 })
+
+test("Given ISCA's official CFP, the main milestones are confirmed while missing supplementary detail remains reviewable", () => {
+  const catalog = parseStaticCatalog(seed)
+  const isca = catalog.editions.find((edition) => edition.id === "isca-2026")
+  const officialEvidence = catalog.evidence.filter(
+    (item) => item.editionId === "isca-2026" && item.sourceUrl.includes("callforpapers.php"),
+  )
+
+  expect(isca?.status).toBe("confirmed")
+  expect(officialEvidence).toHaveLength(5)
+  expect(
+    isca?.deadlines
+      .filter((deadline) => deadline.id !== "isca-2026-supplementary_submission")
+      .every((deadline) => deadline.status === "confirmed"),
+  ).toBe(true)
+  expect(
+    isca?.deadlines.find((deadline) => deadline.id === "isca-2026-supplementary_submission")
+      ?.status,
+  ).toBe("timezone-review-needed")
+})

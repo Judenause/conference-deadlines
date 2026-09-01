@@ -15,6 +15,14 @@ export function createApp(): Hono {
   const app = new Hono()
   app.get("/api/v1/health", (context) => context.json({ status: "ok" }))
 
+  app.get("/api/v1/catalog/meta", (context) => {
+    const lastCheckedAt = getCatalog().evidence.reduce<string | null>(
+      (latest, item) => (!latest || item.checkedAt > latest ? item.checkedAt : latest),
+      null,
+    )
+    return context.json({ lastCheckedAt })
+  })
+
   app.get("/api/v1/editions", (context) => {
     const parsed = editionQuerySchema.safeParse(context.req.query())
     if (!parsed.success) {

@@ -20,13 +20,15 @@ test("researcher searches and opens a remaining 2026 deadline with evidence", as
     "fetch",
     vi.fn(async (input: RequestInfo | URL) => {
       const url = String(input)
-      const body = url.includes("/evidence")
-        ? { items: seed.evidence }
-        : url.includes("/history")
-          ? { items: seed.history }
-          : url.includes("/api/v1/editions/")
-            ? seed.editions.find((edition) => url.includes(edition.id))
-            : { items: seed.editions }
+      const body = url.includes("/catalog/meta")
+        ? { lastCheckedAt: "2026-09-01T00:00:00Z" }
+        : url.includes("/evidence")
+          ? { items: seed.evidence }
+          : url.includes("/history")
+            ? { items: seed.history }
+            : url.includes("/api/v1/editions/")
+              ? seed.editions.find((edition) => url.includes(edition.id))
+              : { items: seed.editions }
       return new Response(JSON.stringify(body), { status: 200 })
     }),
   )
@@ -50,13 +52,19 @@ test("researcher searches and opens a remaining 2026 deadline with evidence", as
   expect(
     (await screen.findAllByRole("link", { name: /MICRO 2026 공식 일정/ })).length,
   ).toBeGreaterThanOrEqual(2)
+  expect(screen.getByText("Last checked")).toBeTruthy()
   expect((await screen.findAllByText("시간대 검수 필요")).length).toBeGreaterThan(0)
 }, 10_000)
 
 test("empty search explains the result", async () => {
   vi.stubGlobal(
     "fetch",
-    vi.fn(async () => new Response(JSON.stringify({ items: seed.editions }), { status: 200 })),
+    vi.fn(async (input: RequestInfo | URL) => {
+      const body = String(input).includes("/catalog/meta")
+        ? { lastCheckedAt: "2026-09-01T00:00:00Z" }
+        : { items: seed.editions }
+      return new Response(JSON.stringify(body), { status: 200 })
+    }),
   )
   render(<App />)
   fireEvent.change(await screen.findByRole("searchbox"), { target: { value: "없는학회" } })
@@ -66,7 +74,12 @@ test("empty search explains the result", async () => {
 test("management requests remain disabled until Firebase administrator configuration exists", async () => {
   vi.stubGlobal(
     "fetch",
-    vi.fn(async () => new Response(JSON.stringify({ items: seed.editions }), { status: 200 })),
+    vi.fn(async (input: RequestInfo | URL) => {
+      const body = String(input).includes("/catalog/meta")
+        ? { lastCheckedAt: "2026-09-01T00:00:00Z" }
+        : { items: seed.editions }
+      return new Response(JSON.stringify(body), { status: 200 })
+    }),
   )
 
   render(<App />)
@@ -82,7 +95,12 @@ test("management requests remain disabled until Firebase administrator configura
 test("visitor lands on the monthly timeline and switches the saved color theme", async () => {
   vi.stubGlobal(
     "fetch",
-    vi.fn(async () => new Response(JSON.stringify({ items: seed.editions }), { status: 200 })),
+    vi.fn(async (input: RequestInfo | URL) => {
+      const body = String(input).includes("/catalog/meta")
+        ? { lastCheckedAt: "2026-09-01T00:00:00Z" }
+        : { items: seed.editions }
+      return new Response(JSON.stringify(body), { status: 200 })
+    }),
   )
 
   render(<App />)
@@ -91,7 +109,9 @@ test("visitor lands on the monthly timeline and switches the saved color theme",
   expect(screen.getByRole("heading", { name: "IRIS Conference Deadline 학회 일정" })).toBeTruthy()
   const trustSummary = screen.getByRole("region", { name: "데이터 신뢰도 요약" })
   expect(within(trustSummary).getByText("Last updated")).toBeTruthy()
-  expect(within(trustSummary).getByText("2026.08.18").getAttribute("dateTime")).toBe("2026-08-18")
+  expect(within(trustSummary).getByText("2026.09.01").getAttribute("dateTime")).toBe(
+    "2026-09-01T00:00:00Z",
+  )
   expect(screen.queryByText("Operator curated")).toBeNull()
   expect(screen.queryByText("수집 원칙")).toBeNull()
   expect(screen.queryByRole("link", { name: "GitHub" })).toBeNull()
@@ -133,7 +153,12 @@ test("timeline uses the next event's actual kind instead of a generic submission
   vi.setSystemTime(new Date("2026-08-22T00:00:00Z"))
   vi.stubGlobal(
     "fetch",
-    vi.fn(async () => new Response(JSON.stringify({ items: seed.editions }), { status: 200 })),
+    vi.fn(async (input: RequestInfo | URL) => {
+      const body = String(input).includes("/catalog/meta")
+        ? { lastCheckedAt: "2026-09-01T00:00:00Z" }
+        : { items: seed.editions }
+      return new Response(JSON.stringify(body), { status: 200 })
+    }),
   )
 
   render(<App />)
@@ -147,7 +172,12 @@ test("timeline uses the next event's actual kind instead of a generic submission
 test("lab timeline categories expose curated conferences and BK tiers", async () => {
   vi.stubGlobal(
     "fetch",
-    vi.fn(async () => new Response(JSON.stringify({ items: seed.editions }), { status: 200 })),
+    vi.fn(async (input: RequestInfo | URL) => {
+      const body = String(input).includes("/catalog/meta")
+        ? { lastCheckedAt: "2026-09-01T00:00:00Z" }
+        : { items: seed.editions }
+      return new Response(JSON.stringify(body), { status: 200 })
+    }),
   )
 
   render(<App />)
@@ -230,4 +260,53 @@ test("timezone assumptions remain visibly reviewable outside the public catalog"
       ?.querySelector(".deadline-check")
       ?.getAttribute("data-review"),
   ).toBe("true")
+})
+
+test("official CFP links and verification date stay visible in the detail panel", () => {
+  const isca: Edition = {
+    id: "isca-2026",
+    acronym: "ISCA 2026",
+    name: "ISCA",
+    year: 2026,
+    location: "Raleigh, USA",
+    dateRange: "2026. 6. 27 - 7. 1",
+    conferenceStart: "2026-06-27",
+    conferenceEnd: "2026-07-01",
+    officialUrl: "https://iscaconf.org/isca2026/",
+    additionalSourceUrls: ["https://iscaconf.org/isca2026/submit/callforpapers.php"],
+    tier: "T1 (BK)",
+    categories: ["Archi"],
+    status: "confirmed",
+    description: "fixture",
+    registrySource: "curated",
+    registrySourceUrl: "https://iscaconf.org/isca2026/",
+    registryRecordId: null,
+    deadlines: [],
+  }
+
+  render(
+    <EvidencePanel
+      compact={false}
+      edition={isca}
+      evidence={[
+        {
+          id: "isca-cfp",
+          editionId: "isca-2026",
+          deadlineId: "isca-2026-paper_submission",
+          sourceTitle: "ISCA 2026 Call for Papers",
+          sourceUrl: "https://iscaconf.org/isca2026/submit/callforpapers.php",
+          checkedAt: "2026-09-01T00:00:00Z",
+          rawValue: "Full paper submission: November 17, 2025, 11:59 PM AoE",
+          locator: "Main Track · Important Dates",
+          confidence: 0.99,
+        },
+      ]}
+      history={[]}
+      loading={false}
+      onClose={() => undefined}
+    />,
+  )
+
+  expect(screen.getByRole("link", { name: "ISCA 2026 CFP / important dates" })).toBeTruthy()
+  expect(screen.getByText("Last checked")).toBeTruthy()
 })

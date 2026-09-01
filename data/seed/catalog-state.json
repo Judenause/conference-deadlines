@@ -2048,6 +2048,7 @@
       "conferenceStart": "2026-04-23",
       "conferenceEnd": "2026-04-27",
       "officialUrl": "https://iclr.cc/",
+      "additionalSourceUrls": ["https://iclr.cc/Conferences/2026/CallForPapers"],
       "tier": "T1 (BK)",
       "categories": ["AI"],
       "status": "timezone-review-needed",
@@ -2188,6 +2189,7 @@
       "conferenceStart": "2026-12-06",
       "conferenceEnd": "2026-12-12",
       "officialUrl": "https://neurips.cc/Conferences/2026/Dates",
+      "additionalSourceUrls": ["https://neurips.cc/Conferences/2026/CallForPapers"],
       "tier": "T1 (BK)",
       "categories": ["AI"],
       "status": "confirmed",
@@ -2508,6 +2510,7 @@
       "conferenceStart": "2026-07-07",
       "conferenceEnd": "2026-07-09",
       "officialUrl": "https://icml.cc/Conferences/2026/Dates",
+      "additionalSourceUrls": ["https://icml.cc/Conferences/2026/CallForPapers"],
       "tier": "T1 (BK)",
       "categories": ["AI"],
       "status": "timezone-review-needed",
@@ -4722,6 +4725,7 @@
       "conferenceStart": "2026-01-31",
       "conferenceEnd": "2026-02-04",
       "officialUrl": "https://hpca-conf.org/2026/",
+      "additionalSourceUrls": ["https://2026.hpca-conf.org/dates"],
       "tier": "T1 (BK)",
       "categories": ["Archi"],
       "status": "timezone-review-needed",
@@ -4802,6 +4806,7 @@
       "conferenceStart": "2026-03-22",
       "conferenceEnd": "2026-03-26",
       "officialUrl": "https://www.asplos-conference.org/asplos2026/",
+      "additionalSourceUrls": ["https://www.asplos-conference.org/asplos2026/cfp/index.html"],
       "tier": "T1 (BK)",
       "categories": ["Archi"],
       "status": "timezone-review-needed",
@@ -4885,8 +4890,8 @@
       "additionalSourceUrls": ["https://iscaconf.org/isca2026/submit/callforpapers.php"],
       "tier": "T1 (BK)",
       "categories": ["Archi"],
-      "status": "timezone-review-needed",
-      "description": "연구실 Notion Timeline에서 가져온 일정입니다. 공식 사이트와 시간대 교차검수가 필요합니다.",
+      "status": "confirmed",
+      "description": "ISCA 2026 공식 Call for Papers의 AoE 제출·검토·결과 일정을 반영했습니다. 보충자료 일정은 공식 CFP에 별도 표기가 없어 검수가 필요합니다.",
       "registrySource": "lab-notion",
       "registrySourceUrl": "https://verbena-heat-9b5.notion.site/Timeline-f8bcc599203845ccbbbfcae6e6dd7fca?pvs=73",
       "registryRecordId": "33448c23-0f73-80f5-a8f3-f77519610851",
@@ -4897,8 +4902,8 @@
           "kind": "abstract_registration",
           "dueAtUtc": "2025-11-11T11:59:59Z",
           "displayDate": "2025. 11. 10",
-          "timezone": "AoE (UTC-12) · 시간대 가정",
-          "status": "timezone-review-needed",
+          "timezone": "AoE (-12:00)",
+          "status": "confirmed",
           "track": "Main conference"
         },
         {
@@ -4907,8 +4912,8 @@
           "kind": "paper_submission",
           "dueAtUtc": "2025-11-18T11:59:59Z",
           "displayDate": "2025. 11. 17",
-          "timezone": "AoE (UTC-12) · 시간대 가정",
-          "status": "timezone-review-needed",
+          "timezone": "AoE (-12:00)",
+          "status": "confirmed",
           "track": "Main conference"
         },
         {
@@ -4927,8 +4932,8 @@
           "kind": "first_notification",
           "dueAtUtc": "2026-01-09T11:59:59Z",
           "displayDate": "2026. 1. 8",
-          "timezone": "AoE (UTC-12) · 시간대 가정",
-          "status": "timezone-review-needed",
+          "timezone": "AoE (-12:00)",
+          "status": "confirmed",
           "track": "Main conference"
         },
         {
@@ -4937,8 +4942,8 @@
           "kind": "rebuttal",
           "dueAtUtc": "2026-03-07T11:59:59Z",
           "displayDate": "2026. 3. 6",
-          "timezone": "AoE (UTC-12) · 시간대 가정",
-          "status": "timezone-review-needed",
+          "timezone": "AoE (-12:00)",
+          "status": "confirmed",
           "track": "Main conference"
         },
         {
@@ -4947,8 +4952,8 @@
           "kind": "final_notification",
           "dueAtUtc": "2026-03-28T11:59:59Z",
           "displayDate": "2026. 3. 27",
-          "timezone": "AoE (UTC-12) · 시간대 가정",
-          "status": "timezone-review-needed",
+          "timezone": "AoE (-12:00)",
+          "status": "confirmed",
           "track": "Main conference"
         }
       ]
@@ -5033,6 +5038,7 @@
       "conferenceStart": "2026-03-22",
       "conferenceEnd": "2026-03-26",
       "officialUrl": "https://www.asplos-conference.org/asplos2026/",
+      "additionalSourceUrls": ["https://www.asplos-conference.org/asplos2026/cfp/index.html"],
       "tier": "T1 (BK)",
       "categories": ["Archi"],
       "status": "timezone-review-needed",
@@ -5480,6 +5486,7 @@
       "conferenceStart": "2026-09-08",
       "conferenceEnd": "2026-09-13",
       "officialUrl": "https://eccv.ecva.net/Conferences/2026",
+      "additionalSourceUrls": ["https://eccv.ecva.net/Conferences/2026/CallForPapers"],
       "tier": "T1(BK)",
       "categories": ["CV"],
       "status": "timezone-review-needed",
@@ -5630,6 +5637,7 @@
       "conferenceStart": "2026-06-03",
       "conferenceEnd": "2026-06-03",
       "officialUrl": "https://cvpr.thecvf.com/",
+      "additionalSourceUrls": ["https://cvpr.thecvf.com/Conferences/2026/CallForPapers"],
       "tier": "T1(BK)",
       "categories": ["CV"],
       "status": "timezone-review-needed",
@@ -10103,6 +10111,61 @@
       "rawValue": "Camera-ready deadline: October 4, 2026, 23:59 GMT",
       "locator": "Important Dates",
       "confidence": 0.98
+    },
+    {
+      "id": "official-isca-2026-cfp-abstract",
+      "editionId": "isca-2026",
+      "deadlineId": "isca-2026-abstract_registration",
+      "sourceTitle": "ISCA 2026 Call for Papers",
+      "sourceUrl": "https://iscaconf.org/isca2026/submit/callforpapers.php",
+      "checkedAt": "2026-09-01T00:00:00Z",
+      "rawValue": "Abstract submission: November 10, 2025, 11:59 PM AoE",
+      "locator": "Main Track · Important Dates",
+      "confidence": 0.99
+    },
+    {
+      "id": "official-isca-2026-cfp-paper",
+      "editionId": "isca-2026",
+      "deadlineId": "isca-2026-paper_submission",
+      "sourceTitle": "ISCA 2026 Call for Papers",
+      "sourceUrl": "https://iscaconf.org/isca2026/submit/callforpapers.php",
+      "checkedAt": "2026-09-01T00:00:00Z",
+      "rawValue": "Full paper submission: November 17, 2025, 11:59 PM AoE",
+      "locator": "Main Track · Important Dates",
+      "confidence": 0.99
+    },
+    {
+      "id": "official-isca-2026-cfp-first-notification",
+      "editionId": "isca-2026",
+      "deadlineId": "isca-2026-first_notification",
+      "sourceTitle": "ISCA 2026 Call for Papers",
+      "sourceUrl": "https://iscaconf.org/isca2026/submit/callforpapers.php",
+      "checkedAt": "2026-09-01T00:00:00Z",
+      "rawValue": "Round 1 Reviews: January 8, 2026, 11:59 PM AoE",
+      "locator": "Main Track · Important Dates",
+      "confidence": 0.99
+    },
+    {
+      "id": "official-isca-2026-cfp-rebuttal",
+      "editionId": "isca-2026",
+      "deadlineId": "isca-2026-rebuttal",
+      "sourceTitle": "ISCA 2026 Call for Papers",
+      "sourceUrl": "https://iscaconf.org/isca2026/submit/callforpapers.php",
+      "checkedAt": "2026-09-01T00:00:00Z",
+      "rawValue": "Rebuttal and paper revision: March 6, 2026, 11:59 PM AoE",
+      "locator": "Main Track · Important Dates",
+      "confidence": 0.99
+    },
+    {
+      "id": "official-isca-2026-cfp-final-notification",
+      "editionId": "isca-2026",
+      "deadlineId": "isca-2026-final_notification",
+      "sourceTitle": "ISCA 2026 Call for Papers",
+      "sourceUrl": "https://iscaconf.org/isca2026/submit/callforpapers.php",
+      "checkedAt": "2026-09-01T00:00:00Z",
+      "rawValue": "Decisions: March 27, 2026, 11:59 PM AoE",
+      "locator": "Main Track · Important Dates",
+      "confidence": 0.99
     }
   ],
   "history": [
@@ -10230,6 +10293,15 @@
       "summary": "ACCV 공식 23:59 GMT 일정으로 전 마일스톤 검증",
       "before": "연구실 Notion Timeline 기반 잠정 일정",
       "after": "2026-08-18 공식 학회 페이지 대조 일정",
+      "state": "accepted"
+    },
+    {
+      "id": "official-verification-isca-2026-2026-09-01",
+      "editionId": "isca-2026",
+      "changedAt": "2026-09-01T00:00:00Z",
+      "summary": "ISCA 공식 CFP의 AoE 제출·검토·결과 일정을 반영",
+      "before": "연구실 Notion Timeline 기반 잠정 일정",
+      "after": "2026-09-01 공식 CFP 페이지 대조 일정",
       "state": "accepted"
     }
   ]

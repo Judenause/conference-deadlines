@@ -1015,6 +1015,12 @@ fieldset {
   letter-spacing: -0.03em;
 }
 
+.panel-last-checked {
+  color: var(--text-tertiary);
+  font-size: var(--text-caption);
+  font-variant-numeric: tabular-nums;
+}
+
 .icon-button {
   display: grid;
   width: 2.75rem;

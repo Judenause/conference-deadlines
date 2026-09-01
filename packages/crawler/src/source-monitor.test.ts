@@ -11,9 +11,15 @@ test("source monitor registers every catalog edition as an official URL check", 
   // When: the monthly monitor derives its registered sources.
   const sources = monitorSources(catalog)
 
-  // Then: every edition has a primary check, and ISCA also has its CFP source check.
-  expect(sources).toHaveLength(catalog.editions.length + 1)
-  expect(new Set(sources.map((source) => source.id)).size).toBe(catalog.editions.length + 1)
+  // Then: every edition has a primary check, plus every registered official auxiliary source.
+  const additionalSourceCount = catalog.editions.reduce(
+    (count, edition) => count + (edition.additionalSourceUrls?.length ?? 0),
+    0,
+  )
+  expect(sources).toHaveLength(catalog.editions.length + additionalSourceCount)
+  expect(new Set(sources.map((source) => source.id)).size).toBe(
+    catalog.editions.length + additionalSourceCount,
+  )
   expect(sources.every((source) => new URL(source.canonicalUrl).protocol === "https:")).toBe(true)
   expect(sources).toContainEqual({
     id: "isca-2026:additional-1",

@@ -102,6 +102,49 @@ test("schedule sync does not guess when a milestone has multiple tracks", () => 
   expect(proposals).toHaveLength(0)
 })
 
+test("schedule sync withholds a deadline when official sources conflict", () => {
+  const proposals = buildScheduleProposals(catalog, [
+    {
+      editionId: "example-2027",
+      sourceUrl: "https://example.org/2027/dates",
+      finalUrl: "https://example.org/2027/dates",
+      checkedAt: "2026-09-01T00:00:00Z",
+      observations: [
+        {
+          kind: "paper_submission",
+          rawValue: "2027-01-15 23:59 AoE",
+          normalizedValue: "2027-01-16T11:59:59Z",
+          displayDate: "2027. 1. 15",
+          sourceTimezone: "AoE (-12:00)",
+          locator: "#important-dates",
+          confidence: 0.98,
+          state: "accepted",
+        },
+      ],
+    },
+    {
+      editionId: "example-2027",
+      sourceUrl: "https://example.org/2027/cfp",
+      finalUrl: "https://example.org/2027/cfp",
+      checkedAt: "2026-09-01T00:00:00Z",
+      observations: [
+        {
+          kind: "paper_submission",
+          rawValue: "2027-01-16 23:59 AoE",
+          normalizedValue: "2027-01-17T11:59:59Z",
+          displayDate: "2027. 1. 16",
+          sourceTimezone: "AoE (-12:00)",
+          locator: "#call-for-papers",
+          confidence: 0.99,
+          state: "accepted",
+        },
+      ],
+    },
+  ])
+
+  expect(proposals).toHaveLength(0)
+})
+
 test("schedule sync ignores dates that are already past at check time", () => {
   const proposals = buildScheduleProposals(catalog, [
     {

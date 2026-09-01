@@ -1,5 +1,6 @@
 import type { Edition, Evidence, History } from "@conf/contracts"
 import { editionCategoryTone } from "./category-tone"
+import { editionSourceLinks } from "./edition-sources"
 import { Icon } from "./Icons"
 import { StatusBadge } from "./Primitives"
 
@@ -20,6 +21,11 @@ export function EvidencePanel({
   loading,
   onClose,
 }: EvidencePanelProps) {
+  const latestCheckedAt = evidence.reduce<string | undefined>(
+    (latest, item) => (!latest || item.checkedAt > latest ? item.checkedAt : latest),
+    undefined,
+  )
+
   return (
     <div
       aria-label="선택한 학회의 근거와 변경 이력"
@@ -35,6 +41,11 @@ export function EvidencePanel({
         <div>
           <p className="eyebrow">VERIFIED DETAILS</p>
           <h2>{edition?.acronym ?? "일정을 선택하세요"}</h2>
+          {latestCheckedAt ? (
+            <p className="panel-last-checked">
+              Last checked <time dateTime={latestCheckedAt}>{latestCheckedAt.slice(0, 10)}</time>
+            </p>
+          ) : null}
         </div>
         <button
           aria-label="상세 닫기"
@@ -68,11 +79,12 @@ export function EvidencePanel({
               </div>
             ) : null}
           </dl>
-          {edition.officialUrl ? (
+          {editionSourceLinks(edition).map((source, index) => (
             <a
-              aria-label={`${edition.acronym} 공식 일정`}
+              aria-label={`${edition.acronym} ${index === 0 ? "공식 일정" : source.label}`}
               className="official-source-link"
-              href={edition.officialUrl}
+              href={source.url}
+              key={source.url}
               rel="noreferrer"
               target="_blank"
             >
@@ -80,12 +92,12 @@ export function EvidencePanel({
                 <Icon name="source" />
               </span>
               <span>
-                <strong>Official source</strong>
-                <small>{edition.officialUrl}</small>
+                <strong>{source.label}</strong>
+                <small>{source.url}</small>
               </span>
               <Icon name="arrow" />
             </a>
-          ) : null}
+          ))}
           {edition.registrySource === "lab-notion" ? (
             <a
               className="registry-source-link"

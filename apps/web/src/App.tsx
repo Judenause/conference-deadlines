@@ -1,6 +1,6 @@
 import type { Edition, Evidence, History } from "@conf/contracts"
 import { useEffect, useId, useMemo, useRef, useState } from "react"
-import { getEditionBundle, getEditions } from "./api"
+import { getCatalogLastUpdated, getEditionBundle, getEditions } from "./api"
 import { AdminPanel } from "./components/AdminPanel"
 import { CatalogControls, ProductHeader } from "./components/CatalogControls"
 import { FIELD_CATEGORY_ORDER } from "./components/category-tone"
@@ -40,6 +40,7 @@ export function App() {
   const [selected, setSelected] = useState<Edition>()
   const [evidence, setEvidence] = useState<readonly Evidence[]>([])
   const [history, setHistory] = useState<readonly History[]>([])
+  const [lastUpdated, setLastUpdated] = useState<string>()
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState("")
   const [compact, setCompact] = useState(false)
@@ -50,8 +51,11 @@ export function App() {
   }, [theme])
 
   useEffect(() => {
-    getEditions()
-      .then(setEditions)
+    Promise.all([getEditions(), getCatalogLastUpdated().catch(() => undefined)])
+      .then(([nextEditions, nextLastUpdated]) => {
+        setEditions(nextEditions)
+        setLastUpdated(nextLastUpdated)
+      })
       .catch((reason: unknown) =>
         setError(reason instanceof Error ? reason.message : "알 수 없는 오류가 발생했습니다."),
       )
@@ -168,7 +172,7 @@ export function App() {
         theme={theme}
       />
       <main id={mainId}>
-        <Hero id={exploreId}>
+        <Hero id={exploreId} lastUpdated={lastUpdated}>
           <CatalogControls
             onQueryChange={(nextQuery) => {
               setQuery(nextQuery)

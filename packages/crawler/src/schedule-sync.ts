@@ -110,9 +110,34 @@ export function buildScheduleProposals(
       })
     }
   }
-  return proposals.sort((left, right) =>
-    `${left.editionId}:${left.deadlineId}`.localeCompare(`${right.editionId}:${right.deadlineId}`),
-  )
+  const byDeadline = new Map<string, ScheduleProposal[]>()
+  for (const proposal of proposals) {
+    const key = `${proposal.editionId}:${proposal.deadlineId}`
+    const candidates = byDeadline.get(key) ?? []
+    candidates.push(proposal)
+    byDeadline.set(key, candidates)
+  }
+
+  const unambiguous = [...byDeadline.values()].flatMap((candidates) => {
+    const observedDueDates = new Set(candidates.map((candidate) => candidate.afterDueAtUtc))
+    if (observedDueDates.size !== 1) return []
+    return [
+      [...candidates].sort(
+        (left, right) =>
+          right.confidence - left.confidence ||
+          right.checkedAt.localeCompare(left.checkedAt) ||
+          left.sourceUrl.localeCompare(right.sourceUrl),
+      )[0],
+    ]
+  })
+
+  return unambiguous
+    .filter((proposal): proposal is ScheduleProposal => proposal !== undefined)
+    .sort((left, right) =>
+      `${left.editionId}:${left.deadlineId}`.localeCompare(
+        `${right.editionId}:${right.deadlineId}`,
+      ),
+    )
 }
 
 function updateDeadline(deadline: Deadline, proposal: ScheduleProposal): Deadline {

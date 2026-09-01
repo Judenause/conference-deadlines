@@ -12,6 +12,7 @@ import { getStaticBundle, parseStaticCatalog } from "./static-catalog"
 const editionListSchema = z.object({ items: z.array(editionSchema) })
 const evidenceListSchema = z.object({ items: z.array(evidenceSchema) })
 const historyListSchema = z.object({ items: z.array(historySchema) })
+const catalogMetaSchema = z.object({ lastCheckedAt: z.string().nullable() })
 const staticDataEnabled = import.meta.env.VITE_STATIC_DATA === "true"
 let staticCatalogRequest: ReturnType<typeof loadStaticCatalog> | undefined
 
@@ -33,6 +34,18 @@ function getStaticCatalog() {
 export async function getEditions(): Promise<readonly Edition[]> {
   if (staticDataEnabled) return (await getStaticCatalog()).editions
   return editionListSchema.parse(await getJson("/api/v1/editions?limit=250")).items
+}
+
+export async function getCatalogLastUpdated(): Promise<string | undefined> {
+  if (staticDataEnabled) {
+    const evidence = (await getStaticCatalog()).evidence
+    return evidence.reduce<string | undefined>(
+      (latest, item) => (!latest || item.checkedAt > latest ? item.checkedAt : latest),
+      undefined,
+    )
+  }
+  const meta = catalogMetaSchema.parse(await getJson("/api/v1/catalog/meta"))
+  return meta.lastCheckedAt ?? undefined
 }
 
 export async function getEditionBundle(editionId: string): Promise<{

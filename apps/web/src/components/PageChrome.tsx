@@ -18,9 +18,10 @@ interface SiteNavigationProps extends NavigationProps {
 interface HeroProps {
   readonly children: ReactNode
   readonly id: string
+  readonly lastUpdated: string | undefined
 }
 
-export function Hero({ children, id }: HeroProps) {
+export function Hero({ children, id, lastUpdated }: HeroProps) {
   return (
     <section className="hero" id={id}>
       <div className="hero__inner">
@@ -31,7 +32,12 @@ export function Hero({ children, id }: HeroProps) {
         {children}
         <section aria-label="데이터 신뢰도 요약" className="trust-strip">
           <span>
-            <Icon name="clock" /> Last updated <time dateTime="2026-08-18">2026.08.18</time>
+            <Icon name="clock" /> Last updated{" "}
+            {lastUpdated ? (
+              <time dateTime={lastUpdated}>{lastUpdated.slice(0, 10).replaceAll("-", ".")}</time>
+            ) : (
+              <span>—</span>
+            )}
           </span>
         </section>
       </div>
