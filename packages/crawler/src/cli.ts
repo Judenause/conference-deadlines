@@ -1,7 +1,7 @@
 import { catalogSchema } from "@conf/contracts"
 import { crawlFixture, crawlLive } from "./crawl"
 import { auditFutureEditionSchedules, formatScheduleAuditReport } from "./schedule-audit"
-import { runSourceMonitor, writeMonitorReview } from "./source-monitor"
+import { runSourceMonitor, writeMonitorReview, writeScheduleUpdates } from "./source-monitor"
 
 async function main(): Promise<void> {
   const args = process.argv.slice(2)
@@ -12,12 +12,13 @@ async function main(): Promise<void> {
       "data/monitor/source-state.json",
     )
     const findings = auditFutureEditionSchedules(catalog)
-    if (run.changes.length > 0 || findings.length > 0) {
+    if (run.changes.length > 0 || findings.length > 0 || run.scheduleProposals.length > 0) {
       await writeMonitorReview(
         "data/monitor/source-state.json",
         "data/monitor/monthly-review.md",
         run,
       )
+      await writeScheduleUpdates("data/seed/catalog-state.json", catalog, run)
       await Bun.write(
         "data/monitor/future-edition-safety-review.md",
         `${formatScheduleAuditReport(findings)}\n`,
@@ -28,6 +29,7 @@ async function main(): Promise<void> {
         {
           sourceCount: run.sources.length,
           changeCount: run.changes.length,
+          scheduleProposalCount: run.scheduleProposals.length,
           staleFutureScheduleCount: findings.length,
         },
         null,

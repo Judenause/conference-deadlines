@@ -20,6 +20,6 @@ GitHub Pages는 읽기 전용 정적 사이트이므로, 관리자 입력은 Fir
 
 `conferenceRequests`는 이름·공식 URL·분야를 담는 신규 학회 후보이다. `scheduleOverrides`는 기존 학회 일정의 수기 수정 제안과 근거 URL을 담는다. 둘 다 처음에는 `submitted`이고, 운영자가 공식 URL을 확인해 승인하기 전에는 공개 카탈로그를 바꾸지 않는다.
 
-월간 GitHub Actions는 현재 카탈로그의 모든 공식 URL을 점검하고, 리디렉션·본문 변경·접근 불가와 “미래 에디션에 과거 일정만 남은 상태”를 검수 PR로 기록한다. URL 변경이나 날짜 변경은 자동 반영하지 않는다. Firestore 관리자 요청은 이 검수 흐름의 입력이며, 승인 결과만 `data/seed/catalog-state.json`에 반영해 Pages를 다시 배포한다.
+월간 GitHub Actions는 현재 카탈로그의 모든 공식 URL을 점검하고, 리디렉션·본문 변경·접근 불가와 “미래 에디션에 과거 일정만 남은 상태”를 검수 PR로 기록한다. 공식 HTML에서 날짜를 명확히 추출할 수 있는 경우에는 기존 트랙과 일치하는 일정 변경을 근거와 함께 같은 PR에 자동 제안한다. Firestore 관리자 요청은 이 검수 흐름의 입력이며, 운영자가 공식 URL을 확인해 PR을 병합한 결과만 `data/seed/catalog-state.json`에 반영되어 Pages에 배포된다.
 
 이 경계 덕분에 수기 값은 자동 관측값과 별도로 남고, 크롤러가 수기 수정을 되돌리지 않는다. Firestore 보안 규칙은 공개 쓰기를 허용하지 않으며 `adminUsers/{UID}`가 있는 로그인 사용자만 요청을 읽거나 쓸 수 있다.

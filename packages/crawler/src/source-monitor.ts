@@ -2,7 +2,15 @@ import { mkdir } from "node:fs/promises"
 import { dirname } from "node:path"
 import { type Catalog, catalogSchema } from "@conf/contracts"
 import { z } from "zod"
+import { parseOfficialHtml } from "./parsers"
 import { fetchRegisteredHtml } from "./safe-fetch"
+import {
+  applyScheduleProposals,
+  buildScheduleProposals,
+  formatScheduleProposalReport,
+  type ScheduleProposal,
+  type SourcePageObservations,
+} from "./schedule-sync"
 import type { RegisteredSource } from "./source-registry"
 
 const availableCheckSchema = z.object({
@@ -62,6 +70,7 @@ export interface MonitorRun {
   readonly sources: readonly MonitorSource[]
   readonly state: SourceState
   readonly changes: readonly SourceChange[]
+  readonly scheduleProposals: readonly ScheduleProposal[]
 }
 
 function registeredSource(source: MonitorSource): RegisteredSource | undefined {
@@ -154,31 +163,52 @@ export function compareSourceStates(
   return changes
 }
 
-async function checkSource(source: MonitorSource): Promise<SourceCheck> {
+interface SourceCheckResult {
+  readonly check: SourceCheck
+  readonly page: SourcePageObservations | undefined
+}
+
+async function checkSource(source: MonitorSource): Promise<SourceCheckResult> {
   const registered = registeredSource(source)
   if (!registered)
     return {
-      id: source.id,
-      canonicalUrl: source.canonicalUrl,
-      kind: "unavailable",
-      reason: "non-https-source",
+      check: {
+        id: source.id,
+        canonicalUrl: source.canonicalUrl,
+        kind: "unavailable",
+        reason: "non-https-source",
+      },
+      page: undefined,
     }
   try {
     const fetched = await fetchRegisteredHtml(registered)
+    const checkedAt = new Date().toISOString()
     return {
-      id: source.id,
-      canonicalUrl: source.canonicalUrl,
-      finalUrl: fetched.finalUrl,
-      kind: "available",
-      sha256: await sha256(fetched.body),
+      check: {
+        id: source.id,
+        canonicalUrl: source.canonicalUrl,
+        finalUrl: fetched.finalUrl,
+        kind: "available",
+        sha256: await sha256(fetched.body),
+      },
+      page: {
+        editionId: source.id,
+        sourceUrl: source.canonicalUrl,
+        finalUrl: fetched.finalUrl,
+        checkedAt,
+        observations: parseOfficialHtml(fetched.body),
+      },
     }
   } catch (error: unknown) {
     if (error instanceof Error)
       return {
-        id: source.id,
-        canonicalUrl: source.canonicalUrl,
-        kind: "unavailable",
-        reason: error.name,
+        check: {
+          id: source.id,
+          canonicalUrl: source.canonicalUrl,
+          kind: "unavailable",
+          reason: error.name,
+        },
+        page: undefined,
       }
     throw error
   }
@@ -198,28 +228,40 @@ export async function runSourceMonitor(
   const sources = monitorSources(catalog)
   const previous = await readSourceState(statePath)
   const checks: SourceCheck[] = []
-  for (const source of sources) checks.push(await checkSource(source))
+  const pages: SourcePageObservations[] = []
+  for (const source of sources) {
+    const result = await checkSource(source)
+    checks.push(result.check)
+    if (result.page) pages.push(result.page)
+  }
   const state = createSourceState(checks)
-  return { sources, state, changes: compareSourceStates(previous, state) }
+  return {
+    sources,
+    state,
+    changes: compareSourceStates(previous, state),
+    scheduleProposals: buildScheduleProposals(catalog, pages),
+  }
 }
 
 export function formatMonitorReport(run: MonitorRun): string {
   const lines = ["# Monthly official-source review", ""]
-  if (run.changes.length === 0) return [...lines, "No source changes detected."].join("\n")
-  lines.push(`${run.changes.length} source change(s) require review.`, "")
-  for (const change of run.changes) {
-    lines.push(`## ${change.id}: ${change.kind}`, "", `Official URL: ${change.canonicalUrl}`, "")
-    if (change.previous?.kind === "available")
-      lines.push(`Previous fingerprint: ${change.previous.sha256}`)
-    if (change.next.kind === "available") {
-      lines.push(
-        `Current URL: ${change.next.finalUrl}`,
-        `Current fingerprint: ${change.next.sha256}`,
-      )
-    } else lines.push(`Check result: ${change.next.reason}`)
-    lines.push("")
+  if (run.changes.length === 0) lines.push("No source changes detected.", "")
+  else {
+    lines.push(`${run.changes.length} source change(s) require review.`, "")
+    for (const change of run.changes) {
+      lines.push(`## ${change.id}: ${change.kind}`, "", `Official URL: ${change.canonicalUrl}`, "")
+      if (change.previous?.kind === "available")
+        lines.push(`Previous fingerprint: ${change.previous.sha256}`)
+      if (change.next.kind === "available") {
+        lines.push(
+          `Current URL: ${change.next.finalUrl}`,
+          `Current fingerprint: ${change.next.sha256}`,
+        )
+      } else lines.push(`Check result: ${change.next.reason}`)
+      lines.push("")
+    }
   }
-  return lines.join("\n")
+  return [...lines, formatScheduleProposalReport(run.scheduleProposals)].join("\n")
 }
 
 export async function writeMonitorReview(
@@ -231,4 +273,14 @@ export async function writeMonitorReview(
   await mkdir(dirname(reportPath), { recursive: true })
   await Bun.write(statePath, `${JSON.stringify(run.state, null, 2)}\n`)
   await Bun.write(reportPath, `${formatMonitorReport(run)}\n`)
+}
+
+export async function writeScheduleUpdates(
+  catalogPath: string,
+  catalog: Catalog,
+  run: MonitorRun,
+): Promise<void> {
+  if (run.scheduleProposals.length === 0) return
+  const next = applyScheduleProposals(catalog, run.scheduleProposals)
+  await Bun.write(catalogPath, `${JSON.stringify(next, null, 2)}\n`)
 }

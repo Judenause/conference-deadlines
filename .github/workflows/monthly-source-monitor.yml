@@ -26,7 +26,7 @@ jobs:
       - run: bun packages/crawler/src/cli.ts monitor
       - id: change
         run: |
-          if test -z "$(git status --porcelain -- data/monitor)"; then
+          if test -z "$(git status --porcelain -- data/monitor data/seed/catalog-state.json)"; then
             echo "changed=false" >> "$GITHUB_OUTPUT"
           else
             echo "changed=true" >> "$GITHUB_OUTPUT"
@@ -40,4 +40,5 @@ jobs:
           title: "Monthly official-source review"
           body: |
             This automated review records source health, redirects, content fingerprints, and stale future-edition schedule findings.
-            It never changes public conference dates. Review the official URLs and evidence before merging.
+            It also proposes unambiguous deadline changes extracted from official pages, with source evidence in the catalog.
+            Review every proposed date and merge only when the official page confirms it. Merging triggers the GitHub Pages deployment.
