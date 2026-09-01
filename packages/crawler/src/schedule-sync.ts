@@ -50,6 +50,12 @@ function uniqueObservations(
   })
 }
 
+function displayCalendarDate(value: string): string | undefined {
+  const match = /^(\d{4})\.\s*(\d{1,2})\.\s*(\d{1,2})/.exec(value)
+  if (!match?.[1] || !match[2] || !match[3]) return undefined
+  return `${match[1]}-${match[2].padStart(2, "0")}-${match[3].padStart(2, "0")}`
+}
+
 export function buildScheduleProposals(
   catalog: Catalog,
   pages: readonly SourcePageObservations[],
@@ -71,6 +77,16 @@ export function buildScheduleProposals(
         !candidate.displayDate ||
         !candidate.sourceTimezone ||
         !current
+      )
+        continue
+      const candidateDate = displayCalendarDate(candidate.displayDate)
+      const currentDate = displayCalendarDate(current.displayDate)
+      const checkedDate = page.checkedAt.slice(0, 10)
+      if (
+        !candidateDate ||
+        candidateDate < checkedDate ||
+        (edition.conferenceStart !== null && candidateDate > edition.conferenceStart) ||
+        candidateDate === currentDate
       )
         continue
       const status = statusFor(candidate)

@@ -21,7 +21,7 @@ export interface ParsedObservation {
 }
 
 const datePattern =
-  /(?:\d{4}[-/.]\d{1,2}[-/.]\d{1,2}(?:\s+\d{1,2}:\d{2}(?::\d{2})?(?:\s*(?:AoE|UTC|GMT))?)?|(?:Jan(?:uary)?|Feb(?:ruary)?|Mar(?:ch)?|Apr(?:il)?|May|Jun(?:e)?|Jul(?:y)?|Aug(?:ust)?|Sep(?:tember)?|Oct(?:ober)?|Nov(?:ember)?|Dec(?:ember)?)\s+\d{1,2},\s+\d{4})/i
+  /(?:\d{4}[-/.]\d{1,2}[-/.]\d{1,2}(?:\s+\d{1,2}:\d{2}(?::\d{2})?(?:\s*(?:AoE|UTC[-+]\d{1,2}|UTC|GMT|EDT|EST|CDT|CST|MDT|MST|PDT|PST))?)?|(?:Jan(?:uary)?|Feb(?:ruary)?|Mar(?:ch)?|Apr(?:il)?|May|Jun(?:e)?|Jul(?:y)?|Aug(?:ust)?|Sep(?:tember)?|Oct(?:ober)?|Nov(?:ember)?|Dec(?:ember)?)\s+\d{1,2},\s+\d{4}(?:\s*(?:(?:,|at)\s*)?\d{1,2}:\d{2}(?:\s*(?:AM|PM))?(?:\s*(?:AoE|UTC[-+]\d{1,2}|UTC|GMT|EDT|EST|CDT|CST|MDT|MST|PDT|PST))?(?:\s*\([^)]*\))?)?)/i
 
 const kindPatterns = [
   { kind: "abstract_registration" as const, pattern: /abstract|초록/i },
@@ -72,7 +72,7 @@ function normalizeDateToken(
 ): { readonly source: string; readonly displayDate: string } | undefined {
   const trimmed = value.trim().replace(/[.)]+$/, "")
   const iso =
-    /^(\d{4})[-/.](\d{1,2})[-/.](\d{1,2})(?:\s+(\d{1,2}):(\d{2})(?:\s*(AoE|UTC|GMT))?)?$/i.exec(
+    /^(\d{4})[-/.](\d{1,2})[-/.](\d{1,2})(?:\s+(\d{1,2}):(\d{2})(?:\s*(AoE|UTC[-+]\d{1,2}|UTC|GMT|EDT|EST|CDT|CST|MDT|MST|PDT|PST))?)?$/i.exec(
       trimmed,
     )
   if (iso?.[1] && iso[2] && iso[3]) {
@@ -88,16 +88,34 @@ function normalizeDateToken(
     }
   }
   const monthDate =
-    /^(Jan(?:uary)?|Feb(?:ruary)?|Mar(?:ch)?|Apr(?:il)?|May|Jun(?:e)?|Jul(?:y)?|Aug(?:ust)?|Sep(?:tember)?|Oct(?:ober)?|Nov(?:ember)?|Dec(?:ember)?)\s+(\d{1,2}),\s+(\d{4})$/i.exec(
+    /^(Jan(?:uary)?|Feb(?:ruary)?|Mar(?:ch)?|Apr(?:il)?|May|Jun(?:e)?|Jul(?:y)?|Aug(?:ust)?|Sep(?:tember)?|Oct(?:ober)?|Nov(?:ember)?|Dec(?:ember)?)\s+(\d{1,2}),\s+(\d{4})(.*)$/i.exec(
       trimmed,
     )
   if (monthDate?.[1] && monthDate[2] && monthDate[3]) {
     const month = monthNumbers[monthDate[1].toLowerCase()]
     if (!month) return undefined
     const day = monthDate[2].padStart(2, "0")
+    const suffix = monthDate[4]?.trim().replace(/\s*\([^)]*\)\s*$/, "") ?? ""
+    const timeMatch = /^(?:,|at)?\s*(\d{1,2}):(\d{2})(?:\s*(AM|PM))?(?:\s+(.+))?$/i.exec(suffix)
+    if (suffix && !timeMatch) return undefined
+    const hour = timeMatch?.[1] ? Number(timeMatch[1]) : 23
+    const minute = timeMatch?.[2] ? Number(timeMatch[2]) : 59
+    const meridiem = timeMatch?.[3]?.toUpperCase()
+    const normalizedHour =
+      meridiem === "AM"
+        ? hour === 12
+          ? 0
+          : hour
+        : meridiem === "PM"
+          ? hour === 12
+            ? 12
+            : hour + 12
+          : hour
+    const time = `${String(normalizedHour).padStart(2, "0")}:${String(minute).padStart(2, "0")}`
+    const timezone = timeMatch?.[4]?.trim()
     return {
-      source: `${monthDate[3]}-${month}-${day} 23:59`,
-      displayDate: `${monthDate[3]}. ${Number(month)}. ${Number(day)}`,
+      source: `${monthDate[3]}-${month}-${day} ${time}${timezone ? ` ${timezone}` : ""}`,
+      displayDate: `${monthDate[3]}. ${Number(month)}. ${Number(day)}${timeMatch ? ` ${time}` : ""}`,
     }
   }
   return undefined

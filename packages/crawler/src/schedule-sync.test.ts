@@ -102,6 +102,78 @@ test("schedule sync does not guess when a milestone has multiple tracks", () => 
   expect(proposals).toHaveLength(0)
 })
 
+test("schedule sync ignores dates that are already past at check time", () => {
+  const proposals = buildScheduleProposals(catalog, [
+    {
+      editionId: "example-2027",
+      sourceUrl: "https://example.org/2027",
+      finalUrl: "https://example.org/2027",
+      checkedAt: "2027-02-01T00:00:00Z",
+      observations: [
+        {
+          kind: "paper_submission",
+          rawValue: "2027-01-15 23:59 AoE",
+          normalizedValue: "2027-01-16T11:59:59Z",
+          displayDate: "2027. 1. 15",
+          sourceTimezone: "AoE (-12:00)",
+          locator: "#important-dates",
+          confidence: 0.98,
+          state: "accepted",
+        },
+      ],
+    },
+  ])
+  expect(proposals).toHaveLength(0)
+})
+
+test("schedule sync ignores a candidate after the conference starts", () => {
+  const proposals = buildScheduleProposals(catalog, [
+    {
+      editionId: "example-2027",
+      sourceUrl: "https://example.org/2027",
+      finalUrl: "https://example.org/2027",
+      checkedAt: "2026-09-01T00:00:00Z",
+      observations: [
+        {
+          kind: "paper_submission",
+          rawValue: "2027-04-02 23:59 AoE",
+          normalizedValue: "2027-04-03T11:59:59Z",
+          displayDate: "2027. 4. 2",
+          sourceTimezone: "AoE (-12:00)",
+          locator: "#important-dates",
+          confidence: 0.98,
+          state: "accepted",
+        },
+      ],
+    },
+  ])
+  expect(proposals).toHaveLength(0)
+})
+
+test("schedule sync ignores timezone-only changes on the same calendar date", () => {
+  const proposals = buildScheduleProposals(catalog, [
+    {
+      editionId: "example-2027",
+      sourceUrl: "https://example.org/2027",
+      finalUrl: "https://example.org/2027",
+      checkedAt: "2026-09-01T00:00:00Z",
+      observations: [
+        {
+          kind: "paper_submission",
+          rawValue: "2027-01-01 23:59 AoE",
+          normalizedValue: "2027-01-02T11:59:59Z",
+          displayDate: "2027. 1. 1",
+          sourceTimezone: "AoE (-12:00)",
+          locator: "#important-dates",
+          confidence: 0.98,
+          state: "accepted",
+        },
+      ],
+    },
+  ])
+  expect(proposals).toHaveLength(0)
+})
+
 test("applying proposals updates the deadline and preserves source evidence", () => {
   const proposal = buildScheduleProposals(catalog, [
     {

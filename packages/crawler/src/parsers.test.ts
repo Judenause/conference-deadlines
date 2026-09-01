@@ -30,6 +30,28 @@ test("date-only deadlines use provisional AoE normalization for review", () => {
   })
 })
 
+test("month dates retain explicit clock text instead of guessing AoE", () => {
+  const result = parseOfficialHtml(
+    "<p>Full paper submission: April 7, 2026 at 11:59 PM EDT (Eastern Daylight Time)</p>",
+  )
+  expect(result[0]).toMatchObject({
+    kind: "paper_submission",
+    rawValue: "April 7, 2026 at 11:59 PM EDT (Eastern Daylight Time)",
+    state: "review-needed",
+  })
+  expect(result[0]?.normalizedValue).toBeUndefined()
+})
+
+test("month dates with an explicit GMT clock are not downgraded to an AoE guess", () => {
+  const result = parseOfficialHtml("<p>Paper registration: July 3, 2026, 23:59 GMT</p>")
+  expect(result[0]).toMatchObject({
+    kind: "paper_submission",
+    rawValue: "July 3, 2026, 23:59 GMT",
+    state: "review-needed",
+  })
+  expect(result[0]?.normalizedValue).toBeUndefined()
+})
+
 test("official parser extracts multiple labeled milestones from one date table", () => {
   const result = parseOfficialHtml(`
     <section id="important-dates">

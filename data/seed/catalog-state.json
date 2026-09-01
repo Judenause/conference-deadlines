@@ -11,9 +11,7 @@
       "conferenceEnd": null,
       "officialUrl": "https://www.esserc2027.org/",
       "tier": "T3 (Non)",
-      "categories": [
-        "Circuit"
-      ],
+      "categories": ["Circuit"],
       "status": "dates-pending",
       "description": "연구실 Notion Timeline에서 가져온 일정입니다. 공식 사이트와 시간대 교차검수가 필요합니다.",
       "registrySource": "lab-notion",
@@ -32,9 +30,7 @@
       "conferenceEnd": "2027-04-22",
       "officialUrl": "https://ieee-cas.org/event/conference/2027-ieee-custom-integrated-circuits-conference",
       "tier": "T3 (Non)",
-      "categories": [
-        "Circuit"
-      ],
+      "categories": ["Circuit"],
       "status": "review-needed",
       "description": "연구실 Notion Timeline에서 가져온 일정입니다. 공식 사이트와 시간대 교차검수가 필요합니다.",
       "registrySource": "lab-notion",
@@ -53,9 +49,7 @@
       "conferenceEnd": "2027-10-17",
       "officialUrl": "https://2027.ieee-biocas.org/",
       "tier": "-",
-      "categories": [
-        "Circuit"
-      ],
+      "categories": ["Circuit"],
       "status": "review-needed",
       "description": "연구실 Notion Timeline에서 가져온 일정입니다. 공식 사이트와 시간대 교차검수가 필요합니다.",
       "registrySource": "lab-notion",
@@ -74,9 +68,7 @@
       "conferenceEnd": "2027-03-16",
       "officialUrl": "https://www.isfpga.org/",
       "tier": "T4 (Non)",
-      "categories": [
-        "Circuit"
-      ],
+      "categories": ["Circuit"],
       "status": "review-needed",
       "description": "연구실 Notion Timeline에서 가져온 일정입니다. 공식 사이트와 시간대 교차검수가 필요합니다.",
       "registrySource": "lab-notion",
@@ -95,9 +87,7 @@
       "conferenceEnd": null,
       "officialUrl": "https://www.vlsisymposium.org/",
       "tier": "T1 (Non)",
-      "categories": [
-        "Circuit"
-      ],
+      "categories": ["Circuit"],
       "status": "dates-pending",
       "description": "연구실 Notion Timeline에서 가져온 일정입니다. 공식 사이트와 시간대 교차검수가 필요합니다.",
       "registrySource": "lab-notion",
@@ -116,9 +106,7 @@
       "conferenceEnd": "2027-11-26",
       "officialUrl": "https://ieee-cas.org/event/conference/2027-ieee-34th-international-conference-electronics-circuits-and-systems",
       "tier": "-",
-      "categories": [
-        "Circuit"
-      ],
+      "categories": ["Circuit"],
       "status": "review-needed",
       "description": "연구실 Notion Timeline에서 가져온 일정입니다. 공식 사이트와 시간대 교차검수가 필요합니다.",
       "registrySource": "lab-notion",
@@ -137,9 +125,7 @@
       "conferenceEnd": "2027-06-23",
       "officialUrl": "https://ieee-cas.org/event/conference/2027-ieee-25th-interregional-newcas-conference",
       "tier": "-",
-      "categories": [
-        "Circuit"
-      ],
+      "categories": ["Circuit"],
       "status": "timezone-review-needed",
       "description": "연구실 Notion Timeline에서 가져온 일정입니다. 공식 사이트와 시간대 교차검수가 필요합니다.",
       "registrySource": "lab-notion",
@@ -189,9 +175,7 @@
       "conferenceEnd": "2027-08-12",
       "officialUrl": "https://ieee-cas.org/event/conference/2027-ieee-international-midwest-symposium-circuits-and-systems",
       "tier": "-",
-      "categories": [
-        "Circuit"
-      ],
+      "categories": ["Circuit"],
       "status": "review-needed",
       "description": "연구실 Notion Timeline에서 가져온 일정입니다. 공식 사이트와 시간대 교차검수가 필요합니다.",
       "registrySource": "lab-notion",
@@ -210,9 +194,7 @@
       "conferenceEnd": "2027-06-09",
       "officialUrl": "https://2027.ieee-iscas.org/",
       "tier": "T4(Non)",
-      "categories": [
-        "Circuit"
-      ],
+      "categories": ["Circuit"],
       "status": "timezone-review-needed",
       "description": "연구실 Timeline에서 관리 중인 Circuit 분야 관심 학회입니다. 공식 마감은 검증 전까지 게시하지 않습니다.",
       "registrySource": "lab-notion",
@@ -272,9 +254,7 @@
       "conferenceEnd": "2027-09-18",
       "officialUrl": "https://ieee-cas.org/event/conference/2027-ieee-9th-international-conference-artificial-intelligence-circuits-and",
       "tier": "-",
-      "categories": [
-        "Circuit"
-      ],
+      "categories": ["Circuit"],
       "status": "review-needed",
       "description": "연구실 Notion Timeline에서 가져온 일정입니다. 공식 사이트와 시간대 교차검수가 필요합니다.",
       "registrySource": "lab-notion",
@@ -293,9 +273,7 @@
       "conferenceEnd": "2027-02-18",
       "officialUrl": "https://www.isscc.org/",
       "tier": "T1 (Non)",
-      "categories": [
-        "Circuit"
-      ],
+      "categories": ["Circuit"],
       "status": "timezone-review-needed",
       "description": "연구실 Timeline에서 관리 중인 Circuit 분야 관심 학회입니다. 공식 마감은 검증 전까지 게시하지 않습니다.",
       "registrySource": "lab-notion",
@@ -345,9 +323,7 @@
       "conferenceEnd": "2026-11-11",
       "officialUrl": "https://www.icecs2026.gr/",
       "tier": "-",
-      "categories": [
-        "Circuit"
-      ],
+      "categories": ["Circuit"],
       "status": "timezone-review-needed",
       "description": "공식 Important Dates의 연장 제출일·결과 발표·최종본 일정을 반영했습니다. 시각과 시간대는 공식 페이지에 없어 AoE로 임시 계산했습니다.",
       "registrySource": "lab-notion",
@@ -397,9 +373,7 @@
       "conferenceEnd": "2026-10-28",
       "officialUrl": "https://ieee-cas.org/event/conference/2026-ieee-asia-pacific-conference-circuits-and-systems",
       "tier": "-",
-      "categories": [
-        "Circuit"
-      ],
+      "categories": ["Circuit"],
       "status": "timezone-review-needed",
       "description": "IEEE Circuits and Systems Society의 공식 행사 페이지에서 2026년 개최 날짜와 장소를 확인했습니다.",
       "registrySource": "lab-notion",
@@ -479,9 +453,7 @@
       "conferenceEnd": "2026-06-18",
       "officialUrl": "https://www.vlsisymposium.org/",
       "tier": "T1 (Non)",
-      "categories": [
-        "Circuit"
-      ],
+      "categories": ["Circuit"],
       "status": "timezone-review-needed",
       "description": "연구실 Notion Timeline에서 가져온 일정입니다. 공식 사이트와 시간대 교차검수가 필요합니다.",
       "registrySource": "lab-notion",
@@ -531,9 +503,7 @@
       "conferenceEnd": "2026-09-10",
       "officialUrl": "https://www.esserc2026.org/papers",
       "tier": "T3 (Non)",
-      "categories": [
-        "Circuit"
-      ],
+      "categories": ["Circuit"],
       "status": "timezone-review-needed",
       "description": "연구실 Notion Timeline에서 가져온 일정입니다. 공식 사이트와 시간대 교차검수가 필요합니다.",
       "registrySource": "lab-notion",
@@ -593,9 +563,7 @@
       "conferenceEnd": "2026-08-12",
       "officialUrl": "https://mwscas2026.org/",
       "tier": "-",
-      "categories": [
-        "Circuit"
-      ],
+      "categories": ["Circuit"],
       "status": "timezone-review-needed",
       "description": "연구실 Notion Timeline에서 가져온 일정입니다. 공식 사이트와 시간대 교차검수가 필요합니다.",
       "registrySource": "lab-notion",
@@ -646,9 +614,9 @@
           "id": "mwscas-2026-final_notification",
           "label": "최종 결과 발표",
           "kind": "final_notification",
-          "dueAtUtc": "2026-05-27T11:59:59Z",
-          "displayDate": "2026. 5. 26",
-          "timezone": "AoE (-12:00, assumed)",
+          "dueAtUtc": "2026-05-03T11:59:59Z",
+          "displayDate": "2026. 5. 2",
+          "timezone": "AoE (UTC-12) · 시간대 가정",
           "status": "timezone-review-needed",
           "track": "Main conference"
         },
@@ -675,9 +643,7 @@
       "conferenceEnd": "2026-11-04",
       "officialUrl": "https://www.a-sscc2026.org/",
       "tier": "T4 (Non)",
-      "categories": [
-        "Circuit"
-      ],
+      "categories": ["Circuit"],
       "status": "confirmed",
       "description": "공식 Important Dates의 20:00 GMT 기준 연장 제출일·결과 발표·최종본 일정을 반영했습니다.",
       "registrySource": "lab-notion",
@@ -727,9 +693,7 @@
       "conferenceEnd": "2026-05-27",
       "officialUrl": "https://www.ieee-iscas.org/",
       "tier": "T4 (Non)",
-      "categories": [
-        "Circuit"
-      ],
+      "categories": ["Circuit"],
       "status": "timezone-review-needed",
       "description": "연구실 Notion Timeline에서 가져온 일정입니다. 공식 사이트와 시간대 교차검수가 필요합니다.",
       "registrySource": "lab-notion",
@@ -779,9 +743,7 @@
       "conferenceEnd": "2026-09-18",
       "officialUrl": "https://2026.ieee-aicas.org/",
       "tier": "-",
-      "categories": [
-        "Circuit"
-      ],
+      "categories": ["Circuit"],
       "status": "timezone-review-needed",
       "description": "공식 IEEE AICAS 페이지에서 2026년 개최 날짜와 장소를 확인했습니다. 논문과 최종본 마감은 종료되었습니다.",
       "registrySource": "lab-notion",
@@ -822,9 +784,9 @@
           "id": "aicas-2026-final_notification",
           "label": "최종 결과 발표",
           "kind": "final_notification",
-          "dueAtUtc": "2026-06-25T11:59:59Z",
-          "displayDate": "2026. 6. 24",
-          "timezone": "AoE (-12:00, assumed)",
+          "dueAtUtc": "2026-07-02T11:59:59Z",
+          "displayDate": "2026. 7. 1",
+          "timezone": "AoE (UTC-12) · 시간대 가정",
           "status": "timezone-review-needed",
           "track": "Main conference"
         }
@@ -841,9 +803,7 @@
       "conferenceEnd": "2026-04-23",
       "officialUrl": "https://www.ieee-cicc.org/",
       "tier": "T3 (Non)",
-      "categories": [
-        "Circuit"
-      ],
+      "categories": ["Circuit"],
       "status": "timezone-review-needed",
       "description": "연구실 Notion Timeline에서 가져온 일정입니다. 공식 사이트와 시간대 교차검수가 필요합니다.",
       "registrySource": "lab-notion",
@@ -903,9 +863,7 @@
       "conferenceEnd": "2026-02-19",
       "officialUrl": "https://www.isscc.org/",
       "tier": "T1 (Non)",
-      "categories": [
-        "Circuit"
-      ],
+      "categories": ["Circuit"],
       "status": "timezone-review-needed",
       "description": "연구실 Notion Timeline에서 가져온 일정입니다. 공식 사이트와 시간대 교차검수가 필요합니다.",
       "registrySource": "lab-notion",
@@ -965,9 +923,7 @@
       "conferenceEnd": "2026-10-14",
       "officialUrl": "https://isocc.org/",
       "tier": "-",
-      "categories": [
-        "Circuit"
-      ],
+      "categories": ["Circuit"],
       "status": "timezone-review-needed",
       "description": "공식 제출 안내의 연장 마감과 Incheon 개최 일정을 반영했습니다. 마감 시각은 명시되지 않아 AoE로 임시 계산했습니다.",
       "registrySource": "lab-notion",
@@ -1017,9 +973,7 @@
       "conferenceEnd": "2026-10-10",
       "officialUrl": "https://2026.ieee-biocas.org/",
       "tier": "-",
-      "categories": [
-        "Circuit"
-      ],
+      "categories": ["Circuit"],
       "status": "timezone-review-needed",
       "description": "공식 BioCAS 페이지의 논문 제출·결과 발표·행사 일정을 반영했습니다. 마감 시각은 공식 확인이 필요합니다.",
       "registrySource": "lab-notion",
@@ -1059,9 +1013,7 @@
       "conferenceEnd": "2026-12-06",
       "officialUrl": "https://2026.ieee-isicas.org/",
       "tier": "-",
-      "categories": [
-        "Circuit"
-      ],
+      "categories": ["Circuit"],
       "status": "timezone-review-needed",
       "description": "공식 페이지의 저널별 제출일과 결과 발표일을 분리 반영했습니다. 시각이 없어 AoE로 임시 계산했습니다.",
       "registrySource": "lab-notion",
@@ -1111,9 +1063,7 @@
       "conferenceEnd": "2026-02-24",
       "officialUrl": "https://www.isfpga.org/",
       "tier": "T4 (Non)",
-      "categories": [
-        "Circuit"
-      ],
+      "categories": ["Circuit"],
       "status": "timezone-review-needed",
       "description": "연구실 Notion Timeline에서 가져온 일정입니다. 공식 사이트와 시간대 교차검수가 필요합니다.",
       "registrySource": "lab-notion",
@@ -1173,9 +1123,7 @@
       "conferenceEnd": "2026-10-02",
       "officialUrl": "https://www.ieee-socc.org/",
       "tier": "-",
-      "categories": [
-        "Circuit"
-      ],
+      "categories": ["Circuit"],
       "status": "timezone-review-needed",
       "description": "연구실 Notion Timeline에서 가져온 일정입니다. 공식 사이트와 시간대 교차검수가 필요합니다.",
       "registrySource": "lab-notion",
@@ -1235,9 +1183,7 @@
       "conferenceEnd": "2026-06-24",
       "officialUrl": "https://newcas.org/",
       "tier": "-",
-      "categories": [
-        "Circuit"
-      ],
+      "categories": ["Circuit"],
       "status": "timezone-review-needed",
       "description": "연구실 Notion Timeline에서 가져온 일정입니다. 공식 사이트와 시간대 교차검수가 필요합니다.",
       "registrySource": "lab-notion",
@@ -1278,9 +1224,9 @@
           "id": "newcas-2026-final_notification",
           "label": "최종 결과 발표",
           "kind": "final_notification",
-          "dueAtUtc": "2026-02-24T11:59:59Z",
-          "displayDate": "2026. 2. 23",
-          "timezone": "AoE (-12:00, assumed)",
+          "dueAtUtc": "2026-04-11T11:59:59Z",
+          "displayDate": "2026. 4. 10",
+          "timezone": "AoE (UTC-12) · 시간대 가정",
           "status": "timezone-review-needed",
           "track": "Main conference"
         }
@@ -1297,9 +1243,7 @@
       "conferenceEnd": "2027-04-08",
       "officialUrl": "https://niceworkshop.org/nice-2027/",
       "tier": "-",
-      "categories": [
-        "AI"
-      ],
+      "categories": ["AI"],
       "status": "review-needed",
       "description": "연구실 Notion Timeline에서 가져온 일정입니다. 공식 사이트와 시간대 교차검수가 필요합니다.",
       "registrySource": "lab-notion",
@@ -1318,9 +1262,7 @@
       "conferenceEnd": "2027-05-21",
       "officialUrl": "https://2027.ieeeicassp.org/",
       "tier": "T4 (Non)",
-      "categories": [
-        "AI"
-      ],
+      "categories": ["AI"],
       "status": "timezone-review-needed",
       "description": "연구실 Notion Timeline에서 가져온 일정입니다. 공식 사이트와 시간대 교차검수가 필요합니다.",
       "registrySource": "lab-notion",
@@ -1370,9 +1312,7 @@
       "conferenceEnd": null,
       "officialUrl": "https://kdd2027.kdd.org/",
       "tier": "T1",
-      "categories": [
-        "AI"
-      ],
+      "categories": ["AI"],
       "status": "dates-pending",
       "description": "연구실 Notion Timeline에서 가져온 일정입니다. 공식 사이트와 시간대 교차검수가 필요합니다.",
       "registrySource": "lab-notion",
@@ -1391,9 +1331,7 @@
       "conferenceEnd": null,
       "officialUrl": "https://kdd2027.kdd.org/",
       "tier": "T1",
-      "categories": [
-        "AI"
-      ],
+      "categories": ["AI"],
       "status": "timezone-review-needed",
       "description": "연구실 Notion Timeline에서 가져온 일정입니다. 공식 사이트와 시간대 교차검수가 필요합니다.",
       "registrySource": "lab-notion",
@@ -1453,9 +1391,7 @@
       "conferenceEnd": "2027-09-02",
       "officialUrl": "https://interspeech2027.org/",
       "tier": "T4 (Non)",
-      "categories": [
-        "AI"
-      ],
+      "categories": ["AI"],
       "status": "review-needed",
       "description": "연구실 Notion Timeline에서 가져온 일정입니다. 공식 사이트와 시간대 교차검수가 필요합니다.",
       "registrySource": "lab-notion",
@@ -1474,9 +1410,7 @@
       "conferenceEnd": "2027-05-14",
       "officialUrl": "https://2027.coling-iccl.org/",
       "tier": "T3 (BK)",
-      "categories": [
-        "AI"
-      ],
+      "categories": ["AI"],
       "status": "timezone-review-needed",
       "description": "연구실 Notion Timeline에서 가져온 일정입니다. 공식 사이트와 시간대 교차검수가 필요합니다.",
       "registrySource": "lab-notion",
@@ -1506,9 +1440,7 @@
       "conferenceEnd": "2027-06-05",
       "officialUrl": "https://2027.naacl.org/",
       "tier": "T2 (BK)",
-      "categories": [
-        "AI"
-      ],
+      "categories": ["AI"],
       "status": "timezone-review-needed",
       "description": "연구실 Timeline에서 관리 중인 AI 분야 관심 학회입니다. 공식 마감은 검증 전까지 게시하지 않습니다.",
       "registrySource": "lab-notion",
@@ -1538,9 +1470,7 @@
       "conferenceEnd": "2026-08-21",
       "officialUrl": "https://ecai2026.org/",
       "tier": "T4 (BK)",
-      "categories": [
-        "AI"
-      ],
+      "categories": ["AI"],
       "status": "timezone-review-needed",
       "description": "연구실 Notion Timeline에서 가져온 일정입니다. 공식 사이트와 시간대 교차검수가 필요합니다.",
       "registrySource": "lab-notion",
@@ -1620,9 +1550,7 @@
       "conferenceEnd": "2026-05-08",
       "officialUrl": "https://www.2026.ieeeicassp.org/",
       "tier": "T4 (Non)",
-      "categories": [
-        "AI"
-      ],
+      "categories": ["AI"],
       "status": "timezone-review-needed",
       "description": "공식 CFP를 기준으로 논문 제출 연도를 2025년으로 바로잡고 결과 발표·최종본·행사 일정을 반영했습니다.",
       "registrySource": "lab-notion",
@@ -1672,9 +1600,7 @@
       "conferenceEnd": "2027-02-23",
       "officialUrl": "https://aaai.org/conference/aaai/aaai-27/",
       "tier": "T1 (BK)",
-      "categories": [
-        "AI"
-      ],
+      "categories": ["AI"],
       "status": "timezone-review-needed",
       "description": "연구실 Timeline에서 관리 중인 AI 분야 관심 학회입니다. 공식 마감은 검증 전까지 게시하지 않습니다.",
       "registrySource": "lab-notion",
@@ -1754,9 +1680,7 @@
       "conferenceEnd": "2026-01-27",
       "officialUrl": "https://aaai.org/conference/aaai/aaai-26/",
       "tier": "T1 (BK)",
-      "categories": [
-        "AI"
-      ],
+      "categories": ["AI"],
       "status": "timezone-review-needed",
       "description": "연구실 Notion Timeline에서 가져온 일정입니다. 공식 사이트와 시간대 교차검수가 필요합니다.",
       "registrySource": "lab-notion",
@@ -1836,9 +1760,7 @@
       "conferenceEnd": "2026-08-13",
       "officialUrl": "https://kdd2026.kdd.org/",
       "tier": "T1",
-      "categories": [
-        "AI"
-      ],
+      "categories": ["AI"],
       "status": "timezone-review-needed",
       "description": "연구실 Notion Timeline에서 가져온 일정입니다. 공식 사이트와 시간대 교차검수가 필요합니다.",
       "registrySource": "lab-notion",
@@ -1908,9 +1830,7 @@
       "conferenceEnd": "2026-08-13",
       "officialUrl": "https://kdd2026.kdd.org/",
       "tier": "T1",
-      "categories": [
-        "AI"
-      ],
+      "categories": ["AI"],
       "status": "timezone-review-needed",
       "description": "연구실 Notion Timeline에서 가져온 일정입니다. 공식 사이트와 시간대 교차검수가 필요합니다.",
       "registrySource": "lab-notion",
@@ -1980,9 +1900,7 @@
       "conferenceEnd": "2026-10-01",
       "officialUrl": "https://interspeech2026.org/",
       "tier": "T4 (Non)",
-      "categories": [
-        "AI"
-      ],
+      "categories": ["AI"],
       "status": "timezone-review-needed",
       "description": "공식 Interspeech 사이트와 ISCA 행사 목록에서 2026년 Sydney 개최 일정을 교차 확인했습니다.",
       "registrySource": "lab-notion",
@@ -1993,9 +1911,9 @@
           "id": "interspeech-2026-abstract_registration",
           "label": "초록 등록",
           "kind": "abstract_registration",
-          "dueAtUtc": "2026-07-01T11:59:59Z",
-          "displayDate": "2026. 6. 30",
-          "timezone": "AoE (-12:00, assumed)",
+          "dueAtUtc": "2026-02-26T11:59:59Z",
+          "displayDate": "2026. 2. 25",
+          "timezone": "AoE (UTC-12) · 시간대 가정",
           "status": "timezone-review-needed",
           "track": "Main conference"
         },
@@ -2052,9 +1970,7 @@
       "conferenceEnd": "2026-05-05",
       "officialUrl": "https://virtual.aistats.org/",
       "tier": "T4 (BK)",
-      "categories": [
-        "AI"
-      ],
+      "categories": ["AI"],
       "status": "timezone-review-needed",
       "description": "연구실 Notion Timeline에서 가져온 일정입니다. 공식 사이트와 시간대 교차검수가 필요합니다.",
       "registrySource": "lab-notion",
@@ -2114,9 +2030,7 @@
       "conferenceEnd": null,
       "officialUrl": "https://coling2026.org/",
       "tier": "T3 (BK)",
-      "categories": [
-        "AI"
-      ],
+      "categories": ["AI"],
       "status": "dates-pending",
       "description": "연구실 Notion Timeline에서 가져온 일정입니다. 공식 사이트와 시간대 교차검수가 필요합니다.",
       "registrySource": "lab-notion",
@@ -2135,9 +2049,7 @@
       "conferenceEnd": "2026-04-27",
       "officialUrl": "https://iclr.cc/",
       "tier": "T1 (BK)",
-      "categories": [
-        "AI"
-      ],
+      "categories": ["AI"],
       "status": "timezone-review-needed",
       "description": "연구실 Notion Timeline에서 가져온 일정입니다. 공식 사이트와 시간대 교차검수가 필요합니다.",
       "registrySource": "lab-notion",
@@ -2217,9 +2129,7 @@
       "conferenceEnd": "2026-10-29",
       "officialUrl": "https://2026.emnlp.org/",
       "tier": "T2 (BK)",
-      "categories": [
-        "AI"
-      ],
+      "categories": ["AI"],
       "status": "confirmed",
       "description": "공식 EMNLP Main Conference 일정의 AoE 기준 제출·응답·통지·최종본 일정을 반영했습니다.",
       "registrySource": "lab-notion",
@@ -2279,9 +2189,7 @@
       "conferenceEnd": "2026-12-12",
       "officialUrl": "https://neurips.cc/Conferences/2026/Dates",
       "tier": "T1 (BK)",
-      "categories": [
-        "AI"
-      ],
+      "categories": ["AI"],
       "status": "confirmed",
       "description": "공식 NeurIPS Dates 페이지의 AoE 제출·통지와 워크숍 권장 제출일을 반영했습니다.",
       "registrySource": "lab-notion",
@@ -2341,9 +2249,7 @@
       "conferenceEnd": "2026-11-07",
       "officialUrl": "https://cikm2026.diag.uniroma1.it/",
       "tier": "T2 (BK)",
-      "categories": [
-        "AI"
-      ],
+      "categories": ["AI"],
       "status": "timezone-review-needed",
       "description": "공식 CIKM 2026 페이지에서 튜토리얼·워크숍·본행사를 포함한 Rome 개최 일정을 확인했습니다.",
       "registrySource": "lab-notion",
@@ -2403,9 +2309,7 @@
       "conferenceEnd": "2026-07-07",
       "officialUrl": "https://2026.aclweb.org/",
       "tier": "T1 (BK)",
-      "categories": [
-        "AI"
-      ],
+      "categories": ["AI"],
       "status": "timezone-review-needed",
       "description": "연구실 Notion Timeline에서 가져온 일정입니다. 공식 사이트와 시간대 교차검수가 필요합니다.",
       "registrySource": "lab-notion",
@@ -2465,9 +2369,7 @@
       "conferenceEnd": "2026-06-26",
       "officialUrl": "https://attend.ieee.org/wcci-2026/important-dates-deadlines/",
       "tier": "-",
-      "categories": [
-        "AI"
-      ],
+      "categories": ["AI"],
       "status": "timezone-review-needed",
       "description": "연구실 Notion Timeline에서 가져온 일정입니다. 공식 사이트와 시간대 교차검수가 필요합니다.",
       "registrySource": "lab-notion",
@@ -2527,9 +2429,7 @@
       "conferenceEnd": "2026-08-21",
       "officialUrl": "https://2026.ijcai.org/important-dates/",
       "tier": "T1 (BK)",
-      "categories": [
-        "AI"
-      ],
+      "categories": ["AI"],
       "status": "timezone-review-needed",
       "description": "연구실 Notion Timeline에서 가져온 일정입니다. 공식 사이트와 시간대 교차검수가 필요합니다.",
       "registrySource": "lab-notion",
@@ -2609,9 +2509,7 @@
       "conferenceEnd": "2026-07-09",
       "officialUrl": "https://icml.cc/Conferences/2026/Dates",
       "tier": "T1 (BK)",
-      "categories": [
-        "AI"
-      ],
+      "categories": ["AI"],
       "status": "timezone-review-needed",
       "description": "연구실 Notion Timeline에서 가져온 일정입니다. 공식 사이트와 시간대 교차검수가 필요합니다.",
       "registrySource": "lab-notion",
@@ -2691,9 +2589,7 @@
       "conferenceEnd": "2026-08-20",
       "officialUrl": "https://www.auai.org/uai2026/",
       "tier": "T2 (BK)",
-      "categories": [
-        "AI"
-      ],
+      "categories": ["AI"],
       "status": "timezone-review-needed",
       "description": "연구실 Notion Timeline에서 가져온 일정입니다. 공식 사이트와 시간대 교차검수가 필요합니다.",
       "registrySource": "lab-notion",
@@ -2773,9 +2669,7 @@
       "conferenceEnd": "2026-06-12",
       "officialUrl": "https://www.pakdd2026.org/important-dates",
       "tier": "T4 (BK)",
-      "categories": [
-        "AI"
-      ],
+      "categories": ["AI"],
       "status": "timezone-review-needed",
       "description": "연구실 Notion Timeline에서 가져온 일정입니다. 공식 사이트와 시간대 교차검수가 필요합니다.",
       "registrySource": "lab-notion",
@@ -2835,9 +2729,7 @@
       "conferenceEnd": "2025-05-04",
       "officialUrl": "https://2025.naacl.org/calls/papers/",
       "tier": "T2 (BK)",
-      "categories": [
-        "AI"
-      ],
+      "categories": ["AI"],
       "status": "timezone-review-needed",
       "description": "연구실 Notion Timeline에서 가져온 일정입니다. 공식 사이트와 시간대 교차검수가 필요합니다.",
       "registrySource": "lab-notion",
@@ -2907,9 +2799,7 @@
       "conferenceEnd": null,
       "officialUrl": "https://sensys.acm.org/2027/",
       "tier": "T2 (BK)",
-      "categories": [
-        "System"
-      ],
+      "categories": ["System"],
       "status": "dates-pending",
       "description": "연구실 Notion Timeline에서 가져온 일정입니다. 공식 사이트와 시간대 교차검수가 필요합니다.",
       "registrySource": "lab-notion",
@@ -2928,9 +2818,7 @@
       "conferenceEnd": "2027-10-07",
       "officialUrl": "https://www.ubicomp.org/",
       "tier": "T2 (BK)",
-      "categories": [
-        "System"
-      ],
+      "categories": ["System"],
       "status": "review-needed",
       "description": "연구실 Notion Timeline에서 가져온 일정입니다. 공식 사이트와 시간대 교차검수가 필요합니다.",
       "registrySource": "lab-notion",
@@ -2949,9 +2837,7 @@
       "conferenceEnd": "2027-07-16",
       "officialUrl": "https://dac.com/2026/events/dac-2027",
       "tier": "T2 (BK)",
-      "categories": [
-        "System"
-      ],
+      "categories": ["System"],
       "status": "review-needed",
       "description": "연구실 Timeline에서 관리 중인 System 분야 관심 학회입니다. 공식 마감은 검증 전까지 게시하지 않습니다.",
       "registrySource": "lab-notion",
@@ -2970,9 +2856,7 @@
       "conferenceEnd": "2027-03-22",
       "officialUrl": "https://mlsys.org/",
       "tier": "T2 (Non)",
-      "categories": [
-        "System"
-      ],
+      "categories": ["System"],
       "status": "review-needed",
       "description": "연구실 Notion Timeline에서 가져온 일정입니다. 공식 사이트와 시간대 교차검수가 필요합니다.",
       "registrySource": "lab-notion",
@@ -2991,9 +2875,7 @@
       "conferenceEnd": "2026-04-08",
       "officialUrl": "https://2026.acmmmsys.org/",
       "tier": "T4 (Non)",
-      "categories": [
-        "System"
-      ],
+      "categories": ["System"],
       "status": "timezone-review-needed",
       "description": "연구실 Notion Timeline에서 가져온 일정입니다. 공식 사이트와 시간대 교차검수가 필요합니다.",
       "registrySource": "lab-notion",
@@ -3053,9 +2935,7 @@
       "conferenceEnd": "2027-04-02",
       "officialUrl": "https://2027.acmmmsys.org/",
       "tier": "T4 (Non)",
-      "categories": [
-        "System"
-      ],
+      "categories": ["System"],
       "status": "timezone-review-needed",
       "description": "연구실 Notion Timeline에서 가져온 일정입니다. 공식 사이트와 시간대 교차검수가 필요합니다.",
       "registrySource": "lab-notion",
@@ -3115,9 +2995,7 @@
       "conferenceEnd": "2027-03-24",
       "officialUrl": "https://www.date-conference.com/",
       "tier": "T2 (BK)",
-      "categories": [
-        "System"
-      ],
+      "categories": ["System"],
       "status": "timezone-review-needed",
       "description": "연구실 Timeline에서 관리 중인 System 분야 관심 학회입니다. 공식 마감은 검증 전까지 게시하지 않습니다.",
       "registrySource": "lab-notion",
@@ -3177,9 +3055,7 @@
       "conferenceEnd": "2027-04-23",
       "officialUrl": "https://2027.eurosys.org/index.html",
       "tier": "T2 (BK)",
-      "categories": [
-        "System"
-      ],
+      "categories": ["System"],
       "status": "timezone-review-needed",
       "description": "연구실 Notion Timeline에서 가져온 일정입니다. 공식 사이트와 시간대 교차검수가 필요합니다.",
       "registrySource": "lab-notion",
@@ -3259,9 +3135,7 @@
       "conferenceEnd": "2027-04-09",
       "officialUrl": "https://www.sigapp.org/sac/sac2027/",
       "tier": "T4 (BK)",
-      "categories": [
-        "System"
-      ],
+      "categories": ["System"],
       "status": "timezone-review-needed",
       "description": "연구실 Notion Timeline에서 가져온 일정입니다. 공식 사이트와 시간대 교차검수가 필요합니다.",
       "registrySource": "lab-notion",
@@ -3321,9 +3195,7 @@
       "conferenceEnd": "2027-04-02",
       "officialUrl": "https://2027.acmmmsys.org/",
       "tier": "T4 (Non)",
-      "categories": [
-        "System"
-      ],
+      "categories": ["System"],
       "status": "timezone-review-needed",
       "description": "연구실 Notion Timeline에서 가져온 일정입니다. 공식 사이트와 시간대 교차검수가 필요합니다.",
       "registrySource": "lab-notion",
@@ -3383,9 +3255,7 @@
       "conferenceEnd": "2027-01-28",
       "officialUrl": "https://www.aspdac.com/aspdac2027/",
       "tier": "T4 (Non)",
-      "categories": [
-        "System"
-      ],
+      "categories": ["System"],
       "status": "timezone-review-needed",
       "description": "연구실 Notion Timeline에서 가져온 일정입니다. 공식 사이트와 시간대 교차검수가 필요합니다.",
       "registrySource": "lab-notion",
@@ -3445,9 +3315,7 @@
       "conferenceEnd": null,
       "officialUrl": "https://sensys.acm.org/2027/",
       "tier": "T2 (BK)",
-      "categories": [
-        "System"
-      ],
+      "categories": ["System"],
       "status": "timezone-review-needed",
       "description": "연구실 Notion Timeline에서 가져온 일정입니다. 공식 사이트와 시간대 교차검수가 필요합니다.",
       "registrySource": "lab-notion",
@@ -3507,9 +3375,7 @@
       "conferenceEnd": "2027-04-23",
       "officialUrl": "https://2027.eurosys.org/index.html",
       "tier": "T2 (BK)",
-      "categories": [
-        "System"
-      ],
+      "categories": ["System"],
       "status": "timezone-review-needed",
       "description": "연구실 Notion Timeline에서 가져온 일정입니다. 공식 사이트와 시간대 교차검수가 필요합니다.",
       "registrySource": "lab-notion",
@@ -3589,9 +3455,7 @@
       "conferenceEnd": "2027-08-27",
       "officialUrl": "https://2027.euro-par.org/",
       "tier": "T4 (BK)",
-      "categories": [
-        "System"
-      ],
+      "categories": ["System"],
       "status": "review-needed",
       "description": "연구실 Notion Timeline에서 가져온 일정입니다. 공식 사이트와 시간대 교차검수가 필요합니다.",
       "registrySource": "lab-notion",
@@ -3610,9 +3474,7 @@
       "conferenceEnd": "2026-08-28",
       "officialUrl": "https://2026.euro-par.org/",
       "tier": "T4 (BK)",
-      "categories": [
-        "System"
-      ],
+      "categories": ["System"],
       "status": "timezone-review-needed",
       "description": "오늘 이후 열리는 2026년 행사 날짜와 장소를 공식 사이트로 확인했습니다. 논문 제출 마감은 종료되었습니다.",
       "registrySource": "lab-notion",
@@ -3672,9 +3534,7 @@
       "conferenceEnd": "2026-11-12",
       "officialUrl": "https://www.corl.org/",
       "tier": "T4 (Non)",
-      "categories": [
-        "System"
-      ],
+      "categories": ["System"],
       "status": "timezone-review-needed",
       "description": "공식 저자 안내·반박 안내의 제출·반박·통지·최종본 일정을 반영했습니다. 초기 제출 시각은 EOD만 명시되어 검수가 필요합니다.",
       "registrySource": "lab-notion",
@@ -3744,9 +3604,7 @@
       "conferenceEnd": "2026-07-29",
       "officialUrl": "https://www.dac.com/",
       "tier": "T2 (BK)",
-      "categories": [
-        "System"
-      ],
+      "categories": ["System"],
       "status": "timezone-review-needed",
       "description": "연구실 Notion Timeline에서 가져온 일정입니다. 공식 사이트와 시간대 교차검수가 필요합니다.",
       "registrySource": "lab-notion",
@@ -3806,9 +3664,7 @@
       "conferenceEnd": "2026-06-25",
       "officialUrl": "https://icdcs2026.icdcs.org/",
       "tier": "T2 (BK)",
-      "categories": [
-        "System"
-      ],
+      "categories": ["System"],
       "status": "timezone-review-needed",
       "description": "연구실 Notion Timeline에서 가져온 일정입니다. 공식 사이트와 시간대 교차검수가 필요합니다.",
       "registrySource": "lab-notion",
@@ -3868,9 +3724,7 @@
       "conferenceEnd": "2026-05-22",
       "officialUrl": "https://mlsys.org/",
       "tier": "T2 (Non)",
-      "categories": [
-        "System"
-      ],
+      "categories": ["System"],
       "status": "timezone-review-needed",
       "description": "연구실 Notion Timeline에서 가져온 일정입니다. 공식 사이트와 시간대 교차검수가 필요합니다.",
       "registrySource": "lab-notion",
@@ -3930,9 +3784,7 @@
       "conferenceEnd": "2026-03-27",
       "officialUrl": "https://www.sigapp.org/sac/sac2026/",
       "tier": "T4 (BK)",
-      "categories": [
-        "System"
-      ],
+      "categories": ["System"],
       "status": "timezone-review-needed",
       "description": "연구실 Notion Timeline에서 가져온 일정입니다. 공식 사이트와 시간대 교차검수가 필요합니다.",
       "registrySource": "lab-notion",
@@ -3992,9 +3844,7 @@
       "conferenceEnd": "2026-04-08",
       "officialUrl": "https://2026.acmmmsys.org/",
       "tier": "T4 (Non)",
-      "categories": [
-        "System"
-      ],
+      "categories": ["System"],
       "status": "timezone-review-needed",
       "description": "연구실 Notion Timeline에서 가져온 일정입니다. 공식 사이트와 시간대 교차검수가 필요합니다.",
       "registrySource": "lab-notion",
@@ -4054,9 +3904,7 @@
       "conferenceEnd": "2026-01-22",
       "officialUrl": "https://www.aspdac.com/aspdac2026/",
       "tier": "T4 (Non)",
-      "categories": [
-        "System"
-      ],
+      "categories": ["System"],
       "status": "timezone-review-needed",
       "description": "연구실 Notion Timeline에서 가져온 일정입니다. 공식 사이트와 시간대 교차검수가 필요합니다.",
       "registrySource": "lab-notion",
@@ -4116,9 +3964,7 @@
       "conferenceEnd": "2026-05-14",
       "officialUrl": "https://sensys.acm.org/2026/",
       "tier": "T2 (BK)",
-      "categories": [
-        "System"
-      ],
+      "categories": ["System"],
       "status": "timezone-review-needed",
       "description": "연구실 Notion Timeline에서 가져온 일정입니다. 공식 사이트와 시간대 교차검수가 필요합니다.",
       "registrySource": "lab-notion",
@@ -4178,9 +4024,7 @@
       "conferenceEnd": "2026-11-18",
       "officialUrl": "https://www.iccd-conf.com/2026/",
       "tier": "T4 (BK)",
-      "categories": [
-        "System"
-      ],
+      "categories": ["System"],
       "status": "timezone-review-needed",
       "description": "공식 제출 안내를 기준으로 행사 날짜와 제출·통지·최종본 일정을 수정했습니다. 통지와 최종본 시각은 공식 확인이 필요합니다.",
       "registrySource": "lab-notion",
@@ -4240,9 +4084,7 @@
       "conferenceEnd": "2026-04-30",
       "officialUrl": "https://2026.eurosys.org/index.html",
       "tier": "T2 (BK)",
-      "categories": [
-        "System"
-      ],
+      "categories": ["System"],
       "status": "timezone-review-needed",
       "description": "연구실 Notion Timeline에서 가져온 일정입니다. 공식 사이트와 시간대 교차검수가 필요합니다.",
       "registrySource": "lab-notion",
@@ -4322,9 +4164,7 @@
       "conferenceEnd": "2026-07-09",
       "officialUrl": "https://www.iccad-conf.com/",
       "tier": "T2 (BK)",
-      "categories": [
-        "System"
-      ],
+      "categories": ["System"],
       "status": "timezone-review-needed",
       "description": "연구실 Notion Timeline에서 가져온 일정입니다. 공식 사이트와 시간대 교차검수가 필요합니다.",
       "registrySource": "lab-notion",
@@ -4384,9 +4224,7 @@
       "conferenceEnd": "2026-10-09",
       "officialUrl": "https://esweek.org/cases/",
       "tier": "T3 (BK)",
-      "categories": [
-        "System"
-      ],
+      "categories": ["System"],
       "status": "timezone-review-needed",
       "description": "연구실 Notion Timeline에서 가져온 일정입니다. 공식 사이트와 시간대 교차검수가 필요합니다.",
       "registrySource": "lab-notion",
@@ -4456,9 +4294,7 @@
       "conferenceEnd": "2026-08-07",
       "officialUrl": "https://www.islped.org/2026/",
       "tier": "T4 (BK)",
-      "categories": [
-        "System"
-      ],
+      "categories": ["System"],
       "status": "timezone-review-needed",
       "description": "연구실 Notion Timeline에서 가져온 일정입니다. 공식 사이트와 시간대 교차검수가 필요합니다.",
       "registrySource": "lab-notion",
@@ -4469,9 +4305,9 @@
           "id": "islped-2026-abstract_registration",
           "label": "초록 등록",
           "kind": "abstract_registration",
-          "dueAtUtc": "2026-04-23T11:59:59Z",
-          "displayDate": "2026. 4. 22",
-          "timezone": "AoE (-12:00, assumed)",
+          "dueAtUtc": "2026-03-12T11:59:59Z",
+          "displayDate": "2026. 3. 11",
+          "timezone": "AoE (UTC-12) · 시간대 가정",
           "status": "timezone-review-needed",
           "track": "Main conference"
         },
@@ -4518,9 +4354,7 @@
       "conferenceEnd": "2026-10-15",
       "officialUrl": "https://www.ubicomp.org/ubicomp-iswc-2026/",
       "tier": "T2 (BK)",
-      "categories": [
-        "System"
-      ],
+      "categories": ["System"],
       "status": "timezone-review-needed",
       "description": "연구실 Notion Timeline에서 가져온 일정입니다. 공식 사이트와 시간대 교차검수가 필요합니다.",
       "registrySource": "lab-notion",
@@ -4580,9 +4414,7 @@
       "conferenceEnd": "2026-04-22",
       "officialUrl": "https://www.date-conference.com/",
       "tier": "T2 (BK)",
-      "categories": [
-        "System"
-      ],
+      "categories": ["System"],
       "status": "timezone-review-needed",
       "description": "연구실 Notion Timeline에서 가져온 일정입니다. 공식 사이트와 시간대 교차검수가 필요합니다.",
       "registrySource": "lab-notion",
@@ -4642,9 +4474,7 @@
       "conferenceEnd": null,
       "officialUrl": "https://iscaconf.org/",
       "tier": "T1 (BK)",
-      "categories": [
-        "Archi"
-      ],
+      "categories": ["Archi"],
       "status": "dates-pending",
       "description": "2026년의 과거 일정은 제거했습니다. 2027 공식 마감·개최·장소 발표를 확인한 뒤에만 게시합니다.",
       "registrySource": "lab-notion",
@@ -4663,9 +4493,7 @@
       "conferenceEnd": "2027-02-03",
       "officialUrl": "https://hpca-conf.org/",
       "tier": "T1 (BK)",
-      "categories": [
-        "Archi"
-      ],
+      "categories": ["Archi"],
       "status": "timezone-review-needed",
       "description": "연구실 Timeline에서 관리 중인 Archi 분야 관심 학회입니다. 공식 마감은 검증 전까지 게시하지 않습니다.",
       "registrySource": "lab-notion",
@@ -4735,9 +4563,7 @@
       "conferenceEnd": "2027-04-15",
       "officialUrl": "https://www.asplos-conference.org/",
       "tier": "T1 (BK)",
-      "categories": [
-        "Archi"
-      ],
+      "categories": ["Archi"],
       "status": "timezone-review-needed",
       "description": "연구실 Notion Timeline에서 가져온 일정입니다. 공식 사이트와 시간대 교차검수가 필요합니다.",
       "registrySource": "lab-notion",
@@ -4817,9 +4643,7 @@
       "conferenceEnd": "2027-04-15",
       "officialUrl": "https://www.asplos-conference.org/",
       "tier": "T1 (BK)",
-      "categories": [
-        "Archi"
-      ],
+      "categories": ["Archi"],
       "status": "timezone-review-needed",
       "description": "연구실 Notion Timeline에서 가져온 일정입니다. 공식 사이트와 시간대 교차검수가 필요합니다.",
       "registrySource": "lab-notion",
@@ -4899,9 +4723,7 @@
       "conferenceEnd": "2026-02-04",
       "officialUrl": "https://hpca-conf.org/2026/",
       "tier": "T1 (BK)",
-      "categories": [
-        "Archi"
-      ],
+      "categories": ["Archi"],
       "status": "timezone-review-needed",
       "description": "연구실 Notion Timeline에서 가져온 일정입니다. 공식 사이트와 시간대 교차검수가 필요합니다.",
       "registrySource": "lab-notion",
@@ -4981,9 +4803,7 @@
       "conferenceEnd": "2026-03-26",
       "officialUrl": "https://www.asplos-conference.org/asplos2026/",
       "tier": "T1 (BK)",
-      "categories": [
-        "Archi"
-      ],
+      "categories": ["Archi"],
       "status": "timezone-review-needed",
       "description": "연구실 Notion Timeline에서 가져온 일정입니다. 공식 사이트와 시간대 교차검수가 필요합니다.",
       "registrySource": "lab-notion",
@@ -5063,9 +4883,7 @@
       "conferenceEnd": "2026-07-01",
       "officialUrl": "https://iscaconf.org/isca2026/",
       "tier": "T1 (BK)",
-      "categories": [
-        "Archi"
-      ],
+      "categories": ["Archi"],
       "status": "timezone-review-needed",
       "description": "연구실 Notion Timeline에서 가져온 일정입니다. 공식 사이트와 시간대 교차검수가 필요합니다.",
       "registrySource": "lab-notion",
@@ -5086,9 +4904,9 @@
           "id": "isca-2026-paper_submission",
           "label": "논문 제출",
           "kind": "paper_submission",
-          "dueAtUtc": "2026-07-02T11:59:59Z",
-          "displayDate": "2026. 7. 1",
-          "timezone": "AoE (-12:00, assumed)",
+          "dueAtUtc": "2025-11-18T11:59:59Z",
+          "displayDate": "2025. 11. 17",
+          "timezone": "AoE (UTC-12) · 시간대 가정",
           "status": "timezone-review-needed",
           "track": "Main conference"
         },
@@ -5145,9 +4963,7 @@
       "conferenceEnd": "2026-11-04",
       "officialUrl": "https://www.microarch.org/micro59/",
       "tier": "T1 (BK)",
-      "categories": [
-        "Archi"
-      ],
+      "categories": ["Archi"],
       "status": "timezone-review-needed",
       "description": "공식 MICRO Important Dates의 EDT 제출 시각과 반박·통지·최종본 일정을 반영했습니다. 시각이 없는 후속 일정은 검수가 필요합니다.",
       "registrySource": "lab-notion",
@@ -5158,20 +4974,20 @@
           "id": "micro-abstract",
           "label": "초록 등록",
           "kind": "abstract_registration",
-          "dueAtUtc": "2026-04-01T11:59:59Z",
-          "displayDate": "2026. 3. 31",
-          "timezone": "AoE (-12:00, assumed)",
-          "status": "timezone-review-needed",
+          "dueAtUtc": "2026-04-01T03:59:00Z",
+          "displayDate": "2026. 3. 31 23:59",
+          "timezone": "EDT (UTC-4)",
+          "status": "confirmed",
           "track": "Main conference"
         },
         {
           "id": "micro-paper",
           "label": "논문 제출",
           "kind": "paper_submission",
-          "dueAtUtc": "2026-04-08T11:59:59Z",
-          "displayDate": "2026. 4. 7",
-          "timezone": "AoE (-12:00, assumed)",
-          "status": "timezone-review-needed",
+          "dueAtUtc": "2026-04-08T03:59:00Z",
+          "displayDate": "2026. 4. 7 23:59",
+          "timezone": "EDT (UTC-4)",
+          "status": "confirmed",
           "track": "Main conference"
         },
         {
@@ -5217,9 +5033,7 @@
       "conferenceEnd": "2026-03-26",
       "officialUrl": "https://www.asplos-conference.org/asplos2026/",
       "tier": "T1 (BK)",
-      "categories": [
-        "Archi"
-      ],
+      "categories": ["Archi"],
       "status": "timezone-review-needed",
       "description": "연구실 Notion Timeline에서 가져온 일정입니다. 공식 사이트와 시간대 교차검수가 필요합니다.",
       "registrySource": "lab-notion",
@@ -5299,9 +5113,7 @@
       "conferenceEnd": null,
       "officialUrl": "https://www.pcs2026.org/",
       "tier": null,
-      "categories": [
-        "CV"
-      ],
+      "categories": ["CV"],
       "status": "dates-pending",
       "description": "연구실 Notion Timeline에서 가져온 일정입니다. 공식 사이트와 시간대 교차검수가 필요합니다.",
       "registrySource": "lab-notion",
@@ -5320,9 +5132,7 @@
       "conferenceEnd": "2026-12-16",
       "officialUrl": "https://vcip-2026.org/",
       "tier": null,
-      "categories": [
-        "CV"
-      ],
+      "categories": ["CV"],
       "status": "timezone-review-needed",
       "description": "공식 VCIP 페이지의 연장 제출일·결과 발표·최종본·행사 일정을 반영했습니다. 시각이 없는 후속 일정은 검수가 필요합니다.",
       "registrySource": "lab-notion",
@@ -5372,9 +5182,7 @@
       "conferenceEnd": "2026-09-03",
       "officialUrl": "https://www.avss2026.org/",
       "tier": "T4 (BK)",
-      "categories": [
-        "CV"
-      ],
+      "categories": ["CV"],
       "status": "timezone-review-needed",
       "description": "공식 CFP를 기준으로 워크숍 날짜와 본행사 날짜를 분리하고 두 차수 제출·통지·최종본 일정을 반영했습니다.",
       "registrySource": "lab-notion",
@@ -5444,9 +5252,7 @@
       "conferenceEnd": null,
       "officialUrl": "https://wacv.thecvf.com/",
       "tier": "T4 (Non)",
-      "categories": [
-        "CV"
-      ],
+      "categories": ["CV"],
       "status": "dates-pending",
       "description": "연구실 Notion Timeline에서 가져온 일정입니다. 공식 사이트와 시간대 교차검수가 필요합니다.",
       "registrySource": "lab-notion",
@@ -5465,9 +5271,7 @@
       "conferenceEnd": null,
       "officialUrl": "https://iccv.thecvf.com/",
       "tier": "T1 (BK)",
-      "categories": [
-        "CV"
-      ],
+      "categories": ["CV"],
       "status": "dates-pending",
       "description": "연구실 Notion Timeline에서 가져온 일정입니다. 공식 사이트와 시간대 교차검수가 필요합니다.",
       "registrySource": "lab-notion",
@@ -5486,9 +5290,7 @@
       "conferenceEnd": "2026-09-17",
       "officialUrl": "https://2026.ieeeicip.org/welcome/",
       "tier": "T4 (BK)",
-      "categories": [
-        "CV"
-      ],
+      "categories": ["CV"],
       "status": "timezone-review-needed",
       "description": "공식 IEEE ICIP 2026 환영 페이지에서 Tampere 개최 날짜와 장소를 확인했습니다.",
       "registrySource": "lab-notion",
@@ -5538,9 +5340,7 @@
       "conferenceEnd": "2026-08-22",
       "officialUrl": "https://icpr2026.org/",
       "tier": "T4(BK)",
-      "categories": [
-        "CV"
-      ],
+      "categories": ["CV"],
       "status": "timezone-review-needed",
       "description": "연구실 Notion Timeline에서 가져온 일정입니다. 공식 사이트와 시간대 교차검수가 필요합니다.",
       "registrySource": "lab-notion",
@@ -5590,9 +5390,7 @@
       "conferenceEnd": "2026-12-18",
       "officialUrl": "https://accv2026.org/",
       "tier": "T4(BK)",
-      "categories": [
-        "CV"
-      ],
+      "categories": ["CV"],
       "status": "confirmed",
       "description": "공식 ACCV Important Dates의 23:59 GMT 기준 전 일정을 반영했습니다.",
       "registrySource": "lab-notion",
@@ -5603,10 +5401,10 @@
           "id": "accv-registration",
           "label": "논문 등록",
           "kind": "abstract_registration",
-          "dueAtUtc": "2026-08-07T11:59:59Z",
-          "displayDate": "2026. 8. 6",
-          "timezone": "AoE (-12:00, assumed)",
-          "status": "timezone-review-needed",
+          "dueAtUtc": "2026-07-03T23:59:00Z",
+          "displayDate": "2026. 7. 3 23:59",
+          "timezone": "GMT (UTC+0)",
+          "status": "confirmed",
           "track": "Main conference"
         },
         {
@@ -5623,10 +5421,10 @@
           "id": "accv-supplementary",
           "label": "보충자료 제출",
           "kind": "supplementary_submission",
-          "dueAtUtc": "2026-07-09T11:59:59Z",
-          "displayDate": "2026. 7. 8",
-          "timezone": "AoE (-12:00, assumed)",
-          "status": "timezone-review-needed",
+          "dueAtUtc": "2026-07-08T23:59:00Z",
+          "displayDate": "2026. 7. 8 23:59",
+          "timezone": "GMT (UTC+0)",
+          "status": "confirmed",
           "track": "Main conference"
         },
         {
@@ -5643,30 +5441,30 @@
           "id": "accv-rebuttal",
           "label": "리뷰 답변",
           "kind": "rebuttal",
-          "dueAtUtc": "2026-09-03T11:59:59Z",
-          "displayDate": "2026. 9. 2",
-          "timezone": "AoE (-12:00, assumed)",
-          "status": "timezone-review-needed",
+          "dueAtUtc": "2026-09-02T23:59:00Z",
+          "displayDate": "2026. 9. 2 23:59",
+          "timezone": "GMT (UTC+0)",
+          "status": "confirmed",
           "track": "Main conference"
         },
         {
           "id": "accv-notification",
           "label": "결과 발표",
           "kind": "final_notification",
-          "dueAtUtc": "2026-09-21T11:59:59Z",
-          "displayDate": "2026. 9. 20",
-          "timezone": "AoE (-12:00, assumed)",
-          "status": "timezone-review-needed",
+          "dueAtUtc": "2026-09-20T23:59:00Z",
+          "displayDate": "2026. 9. 20 23:59",
+          "timezone": "GMT (UTC+0)",
+          "status": "confirmed",
           "track": "Main conference"
         },
         {
           "id": "accv-camera",
           "label": "최종본 제출",
           "kind": "camera_ready",
-          "dueAtUtc": "2026-10-05T11:59:59Z",
-          "displayDate": "2026. 10. 4",
-          "timezone": "AoE (-12:00, assumed)",
-          "status": "timezone-review-needed",
+          "dueAtUtc": "2026-10-04T23:59:00Z",
+          "displayDate": "2026. 10. 4 23:59",
+          "timezone": "GMT (UTC+0)",
+          "status": "confirmed",
           "track": "Main conference"
         }
       ]
@@ -5682,9 +5480,7 @@
       "conferenceEnd": "2026-09-13",
       "officialUrl": "https://eccv.ecva.net/Conferences/2026",
       "tier": "T1(BK)",
-      "categories": [
-        "CV"
-      ],
+      "categories": ["CV"],
       "status": "timezone-review-needed",
       "description": "워크숍부터 본행사까지의 2026년 개최 일정을 공식 ECVA 페이지로 확인했습니다. 논문 제출 마감은 종료되었습니다.",
       "registrySource": "lab-notion",
@@ -5764,9 +5560,7 @@
       "conferenceEnd": "2026-11-14",
       "officialUrl": "https://2026.acmmm.org/",
       "tier": "T1(BK)",
-      "categories": [
-        "CV"
-      ],
+      "categories": ["CV"],
       "status": "timezone-review-needed",
       "description": "2026년 개최 날짜와 장소를 공식 ACM MM 페이지로 확인했습니다. 메인 논문 제출 마감은 종료되었습니다.",
       "registrySource": "lab-notion",
@@ -5836,9 +5630,7 @@
       "conferenceEnd": "2026-06-03",
       "officialUrl": "https://cvpr.thecvf.com/",
       "tier": "T1(BK)",
-      "categories": [
-        "CV"
-      ],
+      "categories": ["CV"],
       "status": "timezone-review-needed",
       "description": "연구실 Notion Timeline에서 가져온 일정입니다. 공식 사이트와 시간대 교차검수가 필요합니다.",
       "registrySource": "lab-notion",
@@ -5918,9 +5710,7 @@
       "conferenceEnd": null,
       "officialUrl": "https://www.acmmm.org/",
       "tier": null,
-      "categories": [
-        "CV"
-      ],
+      "categories": ["CV"],
       "status": "dates-pending",
       "description": "연구실 Notion Timeline에서 가져온 일정입니다. 공식 사이트와 시간대 교차검수가 필요합니다.",
       "registrySource": "lab-notion",
@@ -5939,9 +5729,7 @@
       "conferenceEnd": "2026-11-26",
       "officialUrl": "https://bmvc2026.bmva.org/",
       "tier": "T4 (BK)",
-      "categories": [
-        "CV"
-      ],
+      "categories": ["CV"],
       "status": "timezone-review-needed",
       "description": "British Machine Vision Association의 공식 2026 페이지에서 Lancaster 개최 일정을 확인했습니다.",
       "registrySource": "lab-notion",
@@ -6021,9 +5809,7 @@
       "conferenceEnd": "2026-07-23",
       "officialUrl": "https://s2026.siggraph.org/",
       "tier": "T1 (BK)",
-      "categories": [
-        "CV"
-      ],
+      "categories": ["CV"],
       "status": "review-needed",
       "description": "연구실 Notion Timeline에서 가져온 일정입니다. 공식 사이트와 시간대 교차검수가 필요합니다.",
       "registrySource": "lab-notion",
@@ -6042,9 +5828,7 @@
       "conferenceEnd": "2026-12-04",
       "officialUrl": "https://asia.siggraph.org/2026/",
       "tier": "T1 (BK)",
-      "categories": [
-        "CV"
-      ],
+      "categories": ["CV"],
       "status": "timezone-review-needed",
       "description": "연구실 Notion Timeline에서 가져온 일정입니다. 공식 사이트와 시간대 교차검수가 필요합니다.",
       "registrySource": "lab-notion",
@@ -6124,10 +5908,7 @@
       "conferenceEnd": null,
       "officialUrl": "https://cvpr.thecvf.com/",
       "tier": "T1 (BK)",
-      "categories": [
-        "CV",
-        "AI"
-      ],
+      "categories": ["CV", "AI"],
       "status": "dates-pending",
       "description": "연구실 Timeline의 관심 학회입니다. 공식 마감이 공개되면 출처를 검증한 뒤 게시합니다.",
       "registrySource": "curated",
@@ -6146,9 +5927,7 @@
       "conferenceEnd": null,
       "officialUrl": "https://kdd2027.kdd.org/",
       "tier": "T1",
-      "categories": [
-        "AI"
-      ],
+      "categories": ["AI"],
       "status": "dates-pending",
       "description": "연구실 Timeline의 1st/2nd Cycle 항목을 하나의 edition으로 묶었습니다. 트랙별 공식 마감은 검증 후 분리합니다.",
       "registrySource": "curated",
@@ -6167,9 +5946,7 @@
       "conferenceEnd": null,
       "officialUrl": "https://sensys.acm.org/2027/",
       "tier": "T2 (BK)",
-      "categories": [
-        "System"
-      ],
+      "categories": ["System"],
       "status": "dates-pending",
       "description": "연구실 Timeline에서 관리 중인 System 분야 관심 학회입니다. 공식 마감은 검증 전까지 게시하지 않습니다.",
       "registrySource": "curated",
@@ -10325,149 +10102,6 @@
       "rawValue": "Camera-ready deadline: October 4, 2026, 23:59 GMT",
       "locator": "Important Dates",
       "confidence": 0.98
-    },
-    {
-      "id": "auto-accv-2026:accv-camera:2026-09-01",
-      "editionId": "accv-2026",
-      "deadlineId": "accv-camera",
-      "sourceTitle": "ACCV 2026 official page · automated extraction",
-      "sourceUrl": "https://accv2026.org/",
-      "checkedAt": "2026-09-01T05:26:51.518Z",
-      "rawValue": "October 4, 2026",
-      "locator": "#important-dates tr",
-      "confidence": 0.72
-    },
-    {
-      "id": "auto-accv-2026:accv-notification:2026-09-01",
-      "editionId": "accv-2026",
-      "deadlineId": "accv-notification",
-      "sourceTitle": "ACCV 2026 official page · automated extraction",
-      "sourceUrl": "https://accv2026.org/",
-      "checkedAt": "2026-09-01T05:26:51.518Z",
-      "rawValue": "September 20, 2026",
-      "locator": "#important-dates tr",
-      "confidence": 0.72
-    },
-    {
-      "id": "auto-accv-2026:accv-rebuttal:2026-09-01",
-      "editionId": "accv-2026",
-      "deadlineId": "accv-rebuttal",
-      "sourceTitle": "ACCV 2026 official page · automated extraction",
-      "sourceUrl": "https://accv2026.org/",
-      "checkedAt": "2026-09-01T05:26:51.518Z",
-      "rawValue": "September 2, 2026",
-      "locator": "#important-dates tr",
-      "confidence": 0.72
-    },
-    {
-      "id": "auto-accv-2026:accv-registration:2026-09-01",
-      "editionId": "accv-2026",
-      "deadlineId": "accv-registration",
-      "sourceTitle": "ACCV 2026 official page · automated extraction",
-      "sourceUrl": "https://accv2026.org/",
-      "checkedAt": "2026-09-01T05:26:51.518Z",
-      "rawValue": "August 6, 2026",
-      "locator": "#important-dates tr",
-      "confidence": 0.72
-    },
-    {
-      "id": "auto-accv-2026:accv-supplementary:2026-09-01",
-      "editionId": "accv-2026",
-      "deadlineId": "accv-supplementary",
-      "sourceTitle": "ACCV 2026 official page · automated extraction",
-      "sourceUrl": "https://accv2026.org/",
-      "checkedAt": "2026-09-01T05:26:51.518Z",
-      "rawValue": "July 8, 2026",
-      "locator": "#important-dates tr",
-      "confidence": 0.72
-    },
-    {
-      "id": "auto-aicas-2026:aicas-2026-final_notification:2026-09-01",
-      "editionId": "aicas-2026",
-      "deadlineId": "aicas-2026-final_notification",
-      "sourceTitle": "AICAS 2026 official page · automated extraction",
-      "sourceUrl": "https://2026.ieee-aicas.org/",
-      "checkedAt": "2026-09-01T05:26:56.418Z",
-      "rawValue": "Jun 24, 2026",
-      "locator": "#important-dates",
-      "confidence": 0.72
-    },
-    {
-      "id": "auto-interspeech-2026:interspeech-2026-abstract_registration:2026-09-01",
-      "editionId": "interspeech-2026",
-      "deadlineId": "interspeech-2026-abstract_registration",
-      "sourceTitle": "Interspeech 2026 official page · automated extraction",
-      "sourceUrl": "https://interspeech2026.org/en-AU",
-      "checkedAt": "2026-09-01T05:28:24.083Z",
-      "rawValue": "June 30, 2026",
-      "locator": "body",
-      "confidence": 0.72
-    },
-    {
-      "id": "auto-isca-2026:isca-2026-paper_submission:2026-09-01",
-      "editionId": "isca-2026",
-      "deadlineId": "isca-2026-paper_submission",
-      "sourceTitle": "ISCA 2026 official page · automated extraction",
-      "sourceUrl": "https://iscaconf.org/isca2026/",
-      "checkedAt": "2026-09-01T05:28:29.656Z",
-      "rawValue": "July 1, 2026",
-      "locator": "#important-dates",
-      "confidence": 0.72
-    },
-    {
-      "id": "auto-islped-2026:islped-2026-abstract_registration:2026-09-01",
-      "editionId": "islped-2026",
-      "deadlineId": "islped-2026-abstract_registration",
-      "sourceTitle": "ISLPED 2026 official page · automated extraction",
-      "sourceUrl": "https://www.islped.org/2026/",
-      "checkedAt": "2026-09-01T05:28:38.069Z",
-      "rawValue": "April 22, 2026",
-      "locator": "#important-dates",
-      "confidence": 0.72
-    },
-    {
-      "id": "auto-micro-2026:micro-abstract:2026-09-01",
-      "editionId": "micro-2026",
-      "deadlineId": "micro-abstract",
-      "sourceTitle": "MICRO 2026 official page · automated extraction",
-      "sourceUrl": "https://www.microarch.org/micro59/",
-      "checkedAt": "2026-09-01T05:28:52.737Z",
-      "rawValue": "March 31, 2026",
-      "locator": "#important-dates",
-      "confidence": 0.72
-    },
-    {
-      "id": "auto-micro-2026:micro-paper:2026-09-01",
-      "editionId": "micro-2026",
-      "deadlineId": "micro-paper",
-      "sourceTitle": "MICRO 2026 official page · automated extraction",
-      "sourceUrl": "https://www.microarch.org/micro59/",
-      "checkedAt": "2026-09-01T05:28:52.737Z",
-      "rawValue": "April 7, 2026",
-      "locator": "#important-dates",
-      "confidence": 0.72
-    },
-    {
-      "id": "auto-mwscas-2026:mwscas-2026-final_notification:2026-09-01",
-      "editionId": "mwscas-2026",
-      "deadlineId": "mwscas-2026-final_notification",
-      "sourceTitle": "MWSCAS 2026 official page · automated extraction",
-      "sourceUrl": "https://mwscas2026.org/",
-      "checkedAt": "2026-09-01T05:29:03.835Z",
-      "rawValue": "May 26, 2026",
-      "locator": "#important-dates",
-      "confidence": 0.72
-    },
-    {
-      "id": "auto-newcas-2026:newcas-2026-final_notification:2026-09-01",
-      "editionId": "newcas-2026",
-      "deadlineId": "newcas-2026-final_notification",
-      "sourceTitle": "NEWCAS 2026 official page · automated extraction",
-      "sourceUrl": "https://newcas.org/",
-      "checkedAt": "2026-09-01T05:29:14.142Z",
-      "rawValue": "February 23, 2026",
-      "locator": "#important-dates",
-      "confidence": 0.72
     }
   ],
   "history": [
@@ -10596,123 +10230,6 @@
       "before": "연구실 Notion Timeline 기반 잠정 일정",
       "after": "2026-08-18 공식 학회 페이지 대조 일정",
       "state": "accepted"
-    },
-    {
-      "id": "auto-accv-2026:accv-camera:2026-09-01",
-      "editionId": "accv-2026",
-      "changedAt": "2026-09-01T05:26:51.518Z",
-      "summary": "공식 페이지 자동 추출 날짜 변경 제안",
-      "before": "2026-10-04T23:59:00Z",
-      "after": "2026-10-05T11:59:59Z",
-      "state": "pending"
-    },
-    {
-      "id": "auto-accv-2026:accv-notification:2026-09-01",
-      "editionId": "accv-2026",
-      "changedAt": "2026-09-01T05:26:51.518Z",
-      "summary": "공식 페이지 자동 추출 날짜 변경 제안",
-      "before": "2026-09-20T23:59:00Z",
-      "after": "2026-09-21T11:59:59Z",
-      "state": "pending"
-    },
-    {
-      "id": "auto-accv-2026:accv-rebuttal:2026-09-01",
-      "editionId": "accv-2026",
-      "changedAt": "2026-09-01T05:26:51.518Z",
-      "summary": "공식 페이지 자동 추출 날짜 변경 제안",
-      "before": "2026-09-02T23:59:00Z",
-      "after": "2026-09-03T11:59:59Z",
-      "state": "pending"
-    },
-    {
-      "id": "auto-accv-2026:accv-registration:2026-09-01",
-      "editionId": "accv-2026",
-      "changedAt": "2026-09-01T05:26:51.518Z",
-      "summary": "공식 페이지 자동 추출 날짜 변경 제안",
-      "before": "2026-07-03T23:59:00Z",
-      "after": "2026-08-07T11:59:59Z",
-      "state": "pending"
-    },
-    {
-      "id": "auto-accv-2026:accv-supplementary:2026-09-01",
-      "editionId": "accv-2026",
-      "changedAt": "2026-09-01T05:26:51.518Z",
-      "summary": "공식 페이지 자동 추출 날짜 변경 제안",
-      "before": "2026-07-08T23:59:00Z",
-      "after": "2026-07-09T11:59:59Z",
-      "state": "pending"
-    },
-    {
-      "id": "auto-aicas-2026:aicas-2026-final_notification:2026-09-01",
-      "editionId": "aicas-2026",
-      "changedAt": "2026-09-01T05:26:56.418Z",
-      "summary": "공식 페이지 자동 추출 날짜 변경 제안",
-      "before": "2026-07-02T11:59:59Z",
-      "after": "2026-06-25T11:59:59Z",
-      "state": "pending"
-    },
-    {
-      "id": "auto-interspeech-2026:interspeech-2026-abstract_registration:2026-09-01",
-      "editionId": "interspeech-2026",
-      "changedAt": "2026-09-01T05:28:24.083Z",
-      "summary": "공식 페이지 자동 추출 날짜 변경 제안",
-      "before": "2026-02-26T11:59:59Z",
-      "after": "2026-07-01T11:59:59Z",
-      "state": "pending"
-    },
-    {
-      "id": "auto-isca-2026:isca-2026-paper_submission:2026-09-01",
-      "editionId": "isca-2026",
-      "changedAt": "2026-09-01T05:28:29.656Z",
-      "summary": "공식 페이지 자동 추출 날짜 변경 제안",
-      "before": "2025-11-18T11:59:59Z",
-      "after": "2026-07-02T11:59:59Z",
-      "state": "pending"
-    },
-    {
-      "id": "auto-islped-2026:islped-2026-abstract_registration:2026-09-01",
-      "editionId": "islped-2026",
-      "changedAt": "2026-09-01T05:28:38.069Z",
-      "summary": "공식 페이지 자동 추출 날짜 변경 제안",
-      "before": "2026-03-12T11:59:59Z",
-      "after": "2026-04-23T11:59:59Z",
-      "state": "pending"
-    },
-    {
-      "id": "auto-micro-2026:micro-abstract:2026-09-01",
-      "editionId": "micro-2026",
-      "changedAt": "2026-09-01T05:28:52.737Z",
-      "summary": "공식 페이지 자동 추출 날짜 변경 제안",
-      "before": "2026-04-01T03:59:00Z",
-      "after": "2026-04-01T11:59:59Z",
-      "state": "pending"
-    },
-    {
-      "id": "auto-micro-2026:micro-paper:2026-09-01",
-      "editionId": "micro-2026",
-      "changedAt": "2026-09-01T05:28:52.737Z",
-      "summary": "공식 페이지 자동 추출 날짜 변경 제안",
-      "before": "2026-04-08T03:59:00Z",
-      "after": "2026-04-08T11:59:59Z",
-      "state": "pending"
-    },
-    {
-      "id": "auto-mwscas-2026:mwscas-2026-final_notification:2026-09-01",
-      "editionId": "mwscas-2026",
-      "changedAt": "2026-09-01T05:29:03.835Z",
-      "summary": "공식 페이지 자동 추출 날짜 변경 제안",
-      "before": "2026-05-03T11:59:59Z",
-      "after": "2026-05-27T11:59:59Z",
-      "state": "pending"
-    },
-    {
-      "id": "auto-newcas-2026:newcas-2026-final_notification:2026-09-01",
-      "editionId": "newcas-2026",
-      "changedAt": "2026-09-01T05:29:14.142Z",
-      "summary": "공식 페이지 자동 추출 날짜 변경 제안",
-      "before": "2026-04-11T11:59:59Z",
-      "after": "2026-02-24T11:59:59Z",
-      "state": "pending"
     }
   ]
 }
