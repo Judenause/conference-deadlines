@@ -161,11 +161,11 @@
   }
 
   .hero {
-    min-height: 34rem;
+    min-height: 28rem;
   }
 
   .hero__inner {
-    padding: var(--space-12) var(--space-4) var(--space-16);
+    padding: var(--space-8) var(--space-4) var(--space-10);
   }
 
   .hero__badge {
@@ -220,12 +220,8 @@
     margin-top: var(--space-5);
   }
 
-  .trust-strip span + span::before {
-    margin-right: var(--space-1);
-  }
-
   .product-shell {
-    padding: var(--space-12) var(--space-4) var(--space-16);
+    padding: var(--space-10) var(--space-4) var(--space-16);
   }
 
   .management-panel {

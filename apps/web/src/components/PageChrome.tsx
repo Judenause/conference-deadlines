@@ -1,4 +1,3 @@
-import type { Edition } from "@conf/contracts"
 import type { ReactNode } from "react"
 import { BRAND } from "../brand"
 import { Icon } from "./Icons"
@@ -17,15 +16,11 @@ interface SiteNavigationProps extends NavigationProps {
 }
 
 interface HeroProps {
-  readonly editions: readonly Edition[]
   readonly children: ReactNode
   readonly id: string
 }
 
-export function Hero({ editions, children, id }: HeroProps) {
-  const verifiedCount = editions
-    .flatMap((edition) => edition.deadlines)
-    .filter((deadline) => deadline.status === "confirmed").length
+export function Hero({ children, id }: HeroProps) {
   return (
     <section className="hero" id={id}>
       <div className="hero__inner">
@@ -36,13 +31,7 @@ export function Hero({ editions, children, id }: HeroProps) {
         {children}
         <section aria-label="데이터 신뢰도 요약" className="trust-strip">
           <span>
-            <strong>{editions.length}</strong> Conferences
-          </span>
-          <span>
-            <Icon name="check" /> <strong>{verifiedCount}</strong> Verified deadlines
-          </span>
-          <span>
-            <Icon name="clock" /> Operator curated
+            <Icon name="clock" /> Last updated <time dateTime="2026-08-18">2026.08.18</time>
           </span>
         </section>
       </div>

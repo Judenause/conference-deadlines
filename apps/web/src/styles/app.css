@@ -236,7 +236,7 @@ fieldset {
   position: relative;
   isolation: isolate;
   display: grid;
-  min-height: 31rem;
+  min-height: 25rem;
   place-items: center;
   overflow: hidden;
   border-bottom: 1px solid var(--border-soft);
@@ -257,7 +257,7 @@ fieldset {
 
 .hero__inner {
   width: min(100%, 58rem);
-  padding: var(--space-16) var(--space-8) var(--space-20);
+  padding: var(--space-12) var(--space-8);
   text-align: center;
 }
 
@@ -474,21 +474,6 @@ fieldset {
   white-space: nowrap;
 }
 
-.trust-strip span + span::before {
-  width: 0.1875rem;
-  height: 0.1875rem;
-  margin-right: var(--space-3);
-  border-radius: 50%;
-  background: var(--border-default);
-  content: "";
-}
-
-.trust-strip strong {
-  color: var(--text-secondary);
-  font-variant-numeric: tabular-nums;
-  font-weight: 650;
-}
-
 .trust-strip .icon {
   width: 1rem;
   height: 1rem;
@@ -498,7 +483,7 @@ fieldset {
 .product-shell {
   width: min(100%, calc(var(--container) + var(--space-16)));
   margin-inline: auto;
-  padding: var(--space-16) var(--space-8) var(--space-20);
+  padding: var(--space-10) var(--space-8) var(--space-20);
 }
 
 .product-header {

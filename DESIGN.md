@@ -145,7 +145,7 @@ Shell:
 
 - The fixed desktop sidebar is removed. One sticky top navbar spans the page and aligns to `--container`.
 - The navbar is 68px high, translucent only enough to retain context, with a subtle scrolled-style border.
-- Hero is 450–550px on desktop, uses a pale-blue radial atmosphere, and contains the primary search; field filters live with the product view controls below.
+- Hero is 400px on desktop and 448px on mobile, uses a pale-blue radial atmosphere, and contains the primary search; field filters live with the product view controls below.
 - Product content begins immediately after the hero. Main width is `--container`, with 32px desktop, 24px tablet, and 16px mobile gutters.
 - Evidence is a 390–420px contextual side panel on desktop and an overlay drawer below 1280px.
 - Primary document content never scrolls horizontally. Timeline is the only bounded horizontal data viewport.
@@ -174,6 +174,7 @@ Stress gates: 200% zoom, reduced motion, dark mode, empty/error/loading, 40-char
 - Visible hero title is omitted; a screen-reader-only H1 identifies `IRIS Conference Deadline 학회 일정`.
 - Korean support copy explains official sources and evidence.
 - Search is the focal floating surface, 60–64px high, max 780px, with a left icon and visible shortcut hint.
+- One quiet line beneath search displays the curated catalog's final update date. Count metrics are omitted because they do not affect deadline comparison and can imply an overall verification score.
 - States: idle, hover, focus, filled, loading, error. Focus uses primary border plus a soft blue halo without layout shift.
 
 ### FilterChip
@@ -185,7 +186,7 @@ Stress gates: 200% zoom, reduced motion, dark mode, empty/error/loading, 40-char
 
 ### TrustStrip
 
-- One quiet line beneath search: conference count, verified official sources, and operator-curated status.
+- One quiet line beneath search shows `Last updated` and the curated catalog's final update date. Count metrics are intentionally omitted.
 - Internal Notion/lab sync moves to the footer/data-source note.
 
 ### ProductHeader and ViewSwitcher

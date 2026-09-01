@@ -168,7 +168,7 @@ export function App() {
         theme={theme}
       />
       <main id={mainId}>
-        <Hero editions={editions} id={exploreId}>
+        <Hero id={exploreId}>
           <CatalogControls
             onQueryChange={(nextQuery) => {
               setQuery(nextQuery)
@@ -216,7 +216,6 @@ export function App() {
                   <p>
                     <strong>{filtered.length}</strong> curated schedules
                   </p>
-                  <span>최근 확인 2026.08.18</span>
                 </div>
                 {loading && editions.length === 0 ? (
                   <output className="skeleton-list">일정을 불러오는 중...</output>
