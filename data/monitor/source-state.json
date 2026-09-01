@@ -1,0 +1,773 @@
+{
+  "schemaVersion": 1,
+  "sources": {
+    "aaai-2026": {
+      "id": "aaai-2026",
+      "canonicalUrl": "https://aaai.org/conference/aaai/aaai-26/",
+      "finalUrl": "https://aaai.org/conference/aaai/aaai-26/",
+      "kind": "available",
+      "sha256": "fe06ce9c1ca363cd689802b5972114a29ed3abfe7114022a2d3e02ab0e0aba27"
+    },
+    "aaai-2027": {
+      "id": "aaai-2027",
+      "canonicalUrl": "https://aaai.org/conference/aaai/aaai-27/",
+      "finalUrl": "https://aaai.org/conference/aaai/aaai-27/",
+      "kind": "available",
+      "sha256": "9a696eb3550043c2d15d631608ca75c6740f595a559bdee41bec227e0ba5124f"
+    },
+    "accv-2026": {
+      "id": "accv-2026",
+      "canonicalUrl": "https://accv2026.org/",
+      "finalUrl": "https://accv2026.org/",
+      "kind": "available",
+      "sha256": "ca571fcde15e8947d7b5d88471e8d32ded754e9c2e9c238d7f1df80a11c3086b"
+    },
+    "acl-2026": {
+      "id": "acl-2026",
+      "canonicalUrl": "https://2026.aclweb.org/",
+      "finalUrl": "https://2026.aclweb.org/",
+      "kind": "available",
+      "sha256": "2b8adf81be446dfab0a6e73b1ba29d205aebb4fae9ae8ae8bf55079f6cc928a0"
+    },
+    "acm-mm-asia-2026": {
+      "id": "acm-mm-asia-2026",
+      "canonicalUrl": "https://www.acmmm.org/",
+      "finalUrl": "https://www.acmmm.org/",
+      "kind": "available",
+      "sha256": "1b3428b0a898f66dc92a5bd517f882d06dada0164d805cabae627107cda05a47"
+    },
+    "acmmm-2026": {
+      "id": "acmmm-2026",
+      "canonicalUrl": "https://2026.acmmm.org/",
+      "finalUrl": "https://2026.acmmm.org/",
+      "kind": "available",
+      "sha256": "cbcc2738a33ff13cddc0f66b1b6bf836acf41ebf21faf5e3c495bccc011e5da0"
+    },
+    "aicas-2026": {
+      "id": "aicas-2026",
+      "canonicalUrl": "https://2026.ieee-aicas.org/",
+      "finalUrl": "https://2026.ieee-aicas.org/",
+      "kind": "available",
+      "sha256": "0947d120376acb7e84f562288028803d6dcdbbb3d21661148fb65c838d277d27"
+    },
+    "aicas-2027": {
+      "id": "aicas-2027",
+      "canonicalUrl": "https://ieee-cas.org/event/conference/2027-ieee-9th-international-conference-artificial-intelligence-circuits-and",
+      "finalUrl": "https://ieee-cas.org/event/conference/2027-ieee-9th-international-conference-artificial-intelligence-circuits-and",
+      "kind": "available",
+      "sha256": "372b09834360e62d79e4730d71fe76cb30cc6d2abbe1e8da756281a32301a074"
+    },
+    "aistats-2026": {
+      "id": "aistats-2026",
+      "canonicalUrl": "https://virtual.aistats.org/",
+      "finalUrl": "https://virtual.aistats.org/",
+      "kind": "available",
+      "sha256": "b64fa0b8c317696a8c8cda596f5a14ebffa29ff4d553a392a2170673ed623fa8"
+    },
+    "apccas-2026": {
+      "id": "apccas-2026",
+      "canonicalUrl": "https://ieee-cas.org/event/conference/2026-ieee-asia-pacific-conference-circuits-and-systems",
+      "finalUrl": "https://ieee-cas.org/event/conference/2026-ieee-asia-pacific-conference-circuits-and-systems",
+      "kind": "available",
+      "sha256": "6c381bd535cc23beb0431057739bcd5054827f9c951a51a3c32a539402dff03c"
+    },
+    "asp-dac-2026": {
+      "id": "asp-dac-2026",
+      "canonicalUrl": "https://www.aspdac.com/aspdac2026/",
+      "finalUrl": "https://www.aspdac.com/aspdac2026/",
+      "kind": "available",
+      "sha256": "1595fbbd0316c18fd824c62915783761f765056736b044238a2a8934d9b3355f"
+    },
+    "asp-dac-2027": {
+      "id": "asp-dac-2027",
+      "canonicalUrl": "https://www.aspdac.com/aspdac2027/",
+      "finalUrl": "https://www.aspdac.com/aspdac2027/",
+      "kind": "available",
+      "sha256": "2a48d8fca1ebf7455c69cd80a5c062d86def08b565e323605e292c2871008356"
+    },
+    "asplos-spring-2026": {
+      "id": "asplos-spring-2026",
+      "canonicalUrl": "https://www.asplos-conference.org/asplos2026/",
+      "finalUrl": "https://www.asplos-conference.org/asplos2026/",
+      "kind": "available",
+      "sha256": "4a9d8939a4104bf40501852a0b7f10a8a327123d73c188e9f007c90852f5dbd5"
+    },
+    "asplos-spring-2027": {
+      "id": "asplos-spring-2027",
+      "canonicalUrl": "https://www.asplos-conference.org/",
+      "finalUrl": "https://www.asplos-conference.org/",
+      "kind": "available",
+      "sha256": "c5541e663d246c764eea0c6c722c22cc807f91bdfb01be671df5b53b7a9193c7"
+    },
+    "asplos-summer-2026": {
+      "id": "asplos-summer-2026",
+      "canonicalUrl": "https://www.asplos-conference.org/asplos2026/",
+      "finalUrl": "https://www.asplos-conference.org/asplos2026/",
+      "kind": "available",
+      "sha256": "4a9d8939a4104bf40501852a0b7f10a8a327123d73c188e9f007c90852f5dbd5"
+    },
+    "asplos-summer-2027": {
+      "id": "asplos-summer-2027",
+      "canonicalUrl": "https://www.asplos-conference.org/",
+      "finalUrl": "https://www.asplos-conference.org/",
+      "kind": "available",
+      "sha256": "c5541e663d246c764eea0c6c722c22cc807f91bdfb01be671df5b53b7a9193c7"
+    },
+    "asscc-2026": {
+      "id": "asscc-2026",
+      "canonicalUrl": "https://www.a-sscc2026.org/",
+      "finalUrl": "https://www.a-sscc2026.org/",
+      "kind": "available",
+      "sha256": "8db7053be5813f41f42011e80379a139f247e320cddfacea340a34a2a122f8d4"
+    },
+    "avss-2026": {
+      "id": "avss-2026",
+      "canonicalUrl": "https://www.avss2026.org/",
+      "finalUrl": "https://www.avss2026.org/",
+      "kind": "available",
+      "sha256": "a8fd02c5fcd1b5b473de69fc8da4dd7a025f915104038daefda5028ab83119aa"
+    },
+    "biocas-2026": {
+      "id": "biocas-2026",
+      "canonicalUrl": "https://2026.ieee-biocas.org/",
+      "finalUrl": "https://2026.ieee-biocas.org/",
+      "kind": "available",
+      "sha256": "8d67924a2a56a8ce12001aa11acf66549727c43d9763b275d84c85ddabf0eeb1"
+    },
+    "biocas-2027": {
+      "id": "biocas-2027",
+      "canonicalUrl": "https://2027.ieee-biocas.org/",
+      "finalUrl": "https://2027.ieee-biocas.org/",
+      "kind": "available",
+      "sha256": "9c79636f9c963d44a0aee9d0936745b1b52360ec98ddedcbcab0d935825d44e5"
+    },
+    "bmvc-2026": {
+      "id": "bmvc-2026",
+      "canonicalUrl": "https://bmvc2026.bmva.org/",
+      "finalUrl": "https://bmvc2026.bmva.org/",
+      "kind": "available",
+      "sha256": "f029a9e2f942a40023085c9df9f731bc729dba028c29c9efcfbf8ff83555d338"
+    },
+    "cases-2026": {
+      "id": "cases-2026",
+      "canonicalUrl": "https://esweek.org/cases/",
+      "finalUrl": "https://esweek.org/cases/",
+      "kind": "available",
+      "sha256": "bb9edd959fc06d2e2c36a67135bd72a4c01b1ed8481f156a8f982dcfdbd1df8b"
+    },
+    "cicc-2026": {
+      "id": "cicc-2026",
+      "canonicalUrl": "https://www.ieee-cicc.org/",
+      "finalUrl": "https://www.ieee-cicc.org/",
+      "kind": "available",
+      "sha256": "e30c798c4a15a2718c7d7e2c92cdbcee53efef43f7775ae232fda5962be2ae6a"
+    },
+    "cicc-2027": {
+      "id": "cicc-2027",
+      "canonicalUrl": "https://ieee-cas.org/event/conference/2027-ieee-custom-integrated-circuits-conference",
+      "finalUrl": "https://ieee-cas.org/event/conference/2027-ieee-custom-integrated-circuits-conference",
+      "kind": "available",
+      "sha256": "69be613c1c7ed5cc63bb848be11697bd75f1e41b7af0fb1d6324b20d653f59bf"
+    },
+    "cikm-2026": {
+      "id": "cikm-2026",
+      "canonicalUrl": "https://cikm2026.diag.uniroma1.it/",
+      "finalUrl": "https://cikm2026.diag.uniroma1.it/",
+      "kind": "available",
+      "sha256": "d2c15fc3691e6f599785f74ed92dd3b19d547228e03486f67108d372e2fdaf2e"
+    },
+    "coling-2026": {
+      "id": "coling-2026",
+      "canonicalUrl": "https://coling2026.org/",
+      "finalUrl": "https://coling2026.org/",
+      "kind": "available",
+      "sha256": "8973b934d88b8dd88c3224e64dd237cb5f2a56d9689167e638e572afd10a8902"
+    },
+    "coling-2027": {
+      "id": "coling-2027",
+      "canonicalUrl": "https://2027.coling-iccl.org/",
+      "finalUrl": "https://2027.coling-iccl.org/",
+      "kind": "available",
+      "sha256": "7a5141747f16218cbcac73ad8e3695fef7243c28d5141ed3d190c7b877a80d60"
+    },
+    "corl-2026": {
+      "id": "corl-2026",
+      "canonicalUrl": "https://www.corl.org/",
+      "finalUrl": "https://www.corl.org/",
+      "kind": "available",
+      "sha256": "db889b06cad032f4f693636a7772cd0961b07a2b564e853a3103003c1b75ce0b"
+    },
+    "cvpr-2026": {
+      "id": "cvpr-2026",
+      "canonicalUrl": "https://cvpr.thecvf.com/",
+      "finalUrl": "https://cvpr.thecvf.com/",
+      "kind": "available",
+      "sha256": "94360eed72cd6d161667a9c5cd30f795f9b1f7e8046a1f2a95e124624d7ceb9c"
+    },
+    "cvpr-2027": {
+      "id": "cvpr-2027",
+      "canonicalUrl": "https://cvpr.thecvf.com/",
+      "finalUrl": "https://cvpr.thecvf.com/",
+      "kind": "available",
+      "sha256": "9ffbd74468e91706ebe07a1f35dde3dd5536c4fb2d2f94888696ce3293cacca0"
+    },
+    "dac-2026": {
+      "id": "dac-2026",
+      "canonicalUrl": "https://www.dac.com/",
+      "kind": "unavailable",
+      "reason": "Error"
+    },
+    "dac-2027": {
+      "id": "dac-2027",
+      "canonicalUrl": "https://dac.com/2026/events/dac-2027",
+      "finalUrl": "https://dac.com/2026/events/dac-2027",
+      "kind": "available",
+      "sha256": "ac6ad20970b89fbdbae2c51e11aa67128ca1cb43b3fa420a565870a5986eea6b"
+    },
+    "date-2026": {
+      "id": "date-2026",
+      "canonicalUrl": "https://www.date-conference.com/",
+      "finalUrl": "https://www.date-conference.com/",
+      "kind": "available",
+      "sha256": "63f7e77e8b3307d43411510d9b26e85cc4a3b0cbb494a3d0270a845c709ca574"
+    },
+    "date-2027": {
+      "id": "date-2027",
+      "canonicalUrl": "https://www.date-conference.com/",
+      "finalUrl": "https://www.date-conference.com/",
+      "kind": "available",
+      "sha256": "5900ff4f20cdab3ad8769265d865abc194c0ab1ba4e9bd5eed5fc01901cd6471"
+    },
+    "ecai-2026": {
+      "id": "ecai-2026",
+      "canonicalUrl": "https://ecai2026.org/",
+      "kind": "unavailable",
+      "reason": "DNSException"
+    },
+    "eccv-2026": {
+      "id": "eccv-2026",
+      "canonicalUrl": "https://eccv.ecva.net/Conferences/2026",
+      "finalUrl": "https://eccv.ecva.net/Conferences/2026",
+      "kind": "available",
+      "sha256": "fea76f2e26f21b5e2f3b91d0d088ad4e9e31097108c72bfc951b338697f3d20d"
+    },
+    "emnlp-2026": {
+      "id": "emnlp-2026",
+      "canonicalUrl": "https://2026.emnlp.org/",
+      "finalUrl": "https://2026.emnlp.org/",
+      "kind": "available",
+      "sha256": "90c3ced21a7e8486a1d899f1727f94cf8b24df449f07621855d246c3305ebc1f"
+    },
+    "esscirc-2026": {
+      "id": "esscirc-2026",
+      "canonicalUrl": "https://www.esserc2026.org/papers",
+      "finalUrl": "https://www.esserc2026.org/papers",
+      "kind": "available",
+      "sha256": "f017e27d74320b231cfcf4e125e728b6e534cfa18d36c2e152860f6b48c487d1"
+    },
+    "esscirc-2027": {
+      "id": "esscirc-2027",
+      "canonicalUrl": "https://www.esserc2027.org/",
+      "finalUrl": "https://www.esserc2027.org/",
+      "kind": "available",
+      "sha256": "8bda3dcb6a4add760d5258ddd75f1b17aa6e1c3f076f23c4f5c7655e44f2e232"
+    },
+    "europar-2026": {
+      "id": "europar-2026",
+      "canonicalUrl": "https://2026.euro-par.org/",
+      "finalUrl": "https://2026.euro-par.org/",
+      "kind": "available",
+      "sha256": "88b1ffce426ea35f856354e89ca419936be8b641788a5fb7753fbb694846dcab"
+    },
+    "europar-2027": {
+      "id": "europar-2027",
+      "canonicalUrl": "https://2027.euro-par.org/",
+      "finalUrl": "https://2027.euro-par.org/",
+      "kind": "available",
+      "sha256": "6c146821954d440663f1c2e6a61d39cfad2e5adf6a29a86d4f7cc104cc591a8b"
+    },
+    "eurosys-2026-fall": {
+      "id": "eurosys-2026-fall",
+      "canonicalUrl": "https://2026.eurosys.org/index.html",
+      "finalUrl": "https://2026.eurosys.org/index.html",
+      "kind": "available",
+      "sha256": "7e99f9bd20710d8522cd6875db6466291d7714a2d095a3969dce5a11e9ac95ed"
+    },
+    "eurosys-2027-fall": {
+      "id": "eurosys-2027-fall",
+      "canonicalUrl": "https://2027.eurosys.org/index.html",
+      "finalUrl": "https://2027.eurosys.org/index.html",
+      "kind": "available",
+      "sha256": "181a86919e235c92fdbeb97b74dd6555cde4588267a768576cd84cb1332e88ef"
+    },
+    "eurosys-2027-spring": {
+      "id": "eurosys-2027-spring",
+      "canonicalUrl": "https://2027.eurosys.org/index.html",
+      "finalUrl": "https://2027.eurosys.org/index.html",
+      "kind": "available",
+      "sha256": "181a86919e235c92fdbeb97b74dd6555cde4588267a768576cd84cb1332e88ef"
+    },
+    "fpga-2026": {
+      "id": "fpga-2026",
+      "canonicalUrl": "https://www.isfpga.org/",
+      "finalUrl": "https://www.isfpga.org/",
+      "kind": "available",
+      "sha256": "dee3901d09941dda5f1a676de4dfb86c7b8e3feeaef83270c4267f5cb4a41079"
+    },
+    "fpga-2027": {
+      "id": "fpga-2027",
+      "canonicalUrl": "https://www.isfpga.org/",
+      "finalUrl": "https://www.isfpga.org/",
+      "kind": "available",
+      "sha256": "dee3901d09941dda5f1a676de4dfb86c7b8e3feeaef83270c4267f5cb4a41079"
+    },
+    "hpca-2026": {
+      "id": "hpca-2026",
+      "canonicalUrl": "https://hpca-conf.org/2026/",
+      "kind": "unavailable",
+      "reason": "Error"
+    },
+    "hpca-2027": {
+      "id": "hpca-2027",
+      "canonicalUrl": "https://hpca-conf.org/",
+      "finalUrl": "https://hpca-conf.org/",
+      "kind": "available",
+      "sha256": "3a23b4ed9a8a937a905af7c6ae61062855e7fb73d9ae2deef63040f6cea4f860"
+    },
+    "icassp-2026": {
+      "id": "icassp-2026",
+      "canonicalUrl": "https://www.2026.ieeeicassp.org/",
+      "kind": "unavailable",
+      "reason": "DNSException"
+    },
+    "icassp-2027": {
+      "id": "icassp-2027",
+      "canonicalUrl": "https://2027.ieeeicassp.org/",
+      "finalUrl": "https://2027.ieeeicassp.org/",
+      "kind": "available",
+      "sha256": "328aae825035147533f7ff449161b6eff15834ca1a8b06566ac3e1a755d8638c"
+    },
+    "iccad-2026": {
+      "id": "iccad-2026",
+      "canonicalUrl": "https://www.iccad-conf.com/",
+      "finalUrl": "https://www.iccad-conf.com/",
+      "kind": "available",
+      "sha256": "0b2d7dbd4ff8ddd922922532aedda20adf86cc28321d66beb452315180bcbfcf"
+    },
+    "iccd-2026": {
+      "id": "iccd-2026",
+      "canonicalUrl": "https://www.iccd-conf.com/2026/",
+      "finalUrl": "https://www.iccd-conf.com/2026/",
+      "kind": "available",
+      "sha256": "d2a6e40c2ad73bdf7451cd92635bc61c5acf90e31ec46c31a799a3257f12c20d"
+    },
+    "iccv-2026": {
+      "id": "iccv-2026",
+      "canonicalUrl": "https://iccv.thecvf.com/",
+      "finalUrl": "https://iccv.thecvf.com/",
+      "kind": "available",
+      "sha256": "18740c2e94ec4accc0b2845ffc5a5c50c900c3bbdfda87e03e7b26528de55f08"
+    },
+    "icdcs-2026": {
+      "id": "icdcs-2026",
+      "canonicalUrl": "https://icdcs2026.icdcs.org/",
+      "finalUrl": "https://icdcs2026.icdcs.org/",
+      "kind": "available",
+      "sha256": "22f0127dbb28dd133626ff953f150fea14061274150f15a674e0ab8723a42fa6"
+    },
+    "icecs-2026": {
+      "id": "icecs-2026",
+      "canonicalUrl": "https://www.icecs2026.gr/",
+      "finalUrl": "https://www.icecs2026.gr/",
+      "kind": "available",
+      "sha256": "0d618d790e13e4c9336555f7470170f2810394df32312177ef9d4616b641451b"
+    },
+    "icecs-2027": {
+      "id": "icecs-2027",
+      "canonicalUrl": "https://ieee-cas.org/event/conference/2027-ieee-34th-international-conference-electronics-circuits-and-systems",
+      "finalUrl": "https://ieee-cas.org/event/conference/2027-ieee-34th-international-conference-electronics-circuits-and-systems",
+      "kind": "available",
+      "sha256": "e4c483b7dcf55e0b4068e7d6fcaf1273d597f7b5db9846b54e76deee7aa8191c"
+    },
+    "icip-2026": {
+      "id": "icip-2026",
+      "canonicalUrl": "https://2026.ieeeicip.org/welcome/",
+      "finalUrl": "https://2026.ieeeicip.org/welcome/",
+      "kind": "available",
+      "sha256": "058fce2ddb25649cedd9337c2ed63092a0389303c04889a4391f79a00791ee74"
+    },
+    "iclr-2026": {
+      "id": "iclr-2026",
+      "canonicalUrl": "https://iclr.cc/",
+      "finalUrl": "https://iclr.cc/",
+      "kind": "available",
+      "sha256": "abbb7c5e7d0a76d8825603b5b29672e77f1fe0673482c1b15e55d304c2ac5370"
+    },
+    "icml-2026": {
+      "id": "icml-2026",
+      "canonicalUrl": "https://icml.cc/Conferences/2026/Dates",
+      "finalUrl": "https://icml.cc/Conferences/2026/Dates",
+      "kind": "available",
+      "sha256": "df515ac1c352b1ce3fac46a61d8ff3aa794e53276899df5795e8eae270323370"
+    },
+    "icpr-2026": {
+      "id": "icpr-2026",
+      "canonicalUrl": "https://icpr2026.org/",
+      "finalUrl": "https://icpr2026.org/",
+      "kind": "available",
+      "sha256": "552cce8a3ac99202434b0bb8e7cd8718e40ab51730681ef6ed47de9240d26ff7"
+    },
+    "ijcai-2026": {
+      "id": "ijcai-2026",
+      "canonicalUrl": "https://2026.ijcai.org/important-dates/",
+      "finalUrl": "https://2026.ijcai.org/important-dates/",
+      "kind": "available",
+      "sha256": "53331c71898f034dfe73725eaf9ea9024d2f1a39002faa22b47154b5f8c7dadb"
+    },
+    "interspeech-2026": {
+      "id": "interspeech-2026",
+      "canonicalUrl": "https://interspeech2026.org/",
+      "finalUrl": "https://interspeech2026.org/en-AU",
+      "kind": "available",
+      "sha256": "9a98203ad2136de5ec33bb06ded9e0c25a2e78ff865f1b63548aa40ec982cbba"
+    },
+    "interspeech-2027": {
+      "id": "interspeech-2027",
+      "canonicalUrl": "https://interspeech2027.org/",
+      "finalUrl": "https://interspeech2027.org/",
+      "kind": "available",
+      "sha256": "9c2dc6ee561804982e0a5e48d28704036539f09933ea1e2afa24b3c77d8ac686"
+    },
+    "isca-2026": {
+      "id": "isca-2026",
+      "canonicalUrl": "https://iscaconf.org/isca2026/",
+      "finalUrl": "https://iscaconf.org/isca2026/",
+      "kind": "available",
+      "sha256": "0d910d398bd1d6f5badb7e6e26b09ee1a8a994fc95d9c47e2e6267f76f7b3cdf"
+    },
+    "isca-2027": {
+      "id": "isca-2027",
+      "canonicalUrl": "https://iscaconf.org/",
+      "finalUrl": "https://iscaconf.org/",
+      "kind": "available",
+      "sha256": "b34f6a3edcd037e0a1410dfbb3ffdd6ecee04fa26acc9d7d60c8ec333a331a8a"
+    },
+    "iscas-2026": {
+      "id": "iscas-2026",
+      "canonicalUrl": "https://www.ieee-iscas.org/",
+      "kind": "unavailable",
+      "reason": "Error"
+    },
+    "iscas-2027": {
+      "id": "iscas-2027",
+      "canonicalUrl": "https://2027.ieee-iscas.org/",
+      "finalUrl": "https://2027.ieee-iscas.org/",
+      "kind": "available",
+      "sha256": "93c0d791e714995899a87de8463eb337b0f1aa2716d412607c80aec5cd12834d"
+    },
+    "isicas-2026": {
+      "id": "isicas-2026",
+      "canonicalUrl": "https://2026.ieee-isicas.org/",
+      "finalUrl": "https://2026.ieee-isicas.org/",
+      "kind": "available",
+      "sha256": "aea7f53d09ff734d89cf9dfb354128bbfd9f3136ecfbc80a183666a718594367"
+    },
+    "islped-2026": {
+      "id": "islped-2026",
+      "canonicalUrl": "https://www.islped.org/2026/",
+      "finalUrl": "https://www.islped.org/2026/",
+      "kind": "available",
+      "sha256": "cbbac86fe82e5c4a2adc87d2cb62b8373682bf51ed7ffe6fc65b80f7cdeeb627"
+    },
+    "isocc-2026": {
+      "id": "isocc-2026",
+      "canonicalUrl": "https://isocc.org/",
+      "finalUrl": "https://isocc.org/",
+      "kind": "available",
+      "sha256": "4a424a8f0e3d5391e47e397502d9b8f942f0b1dc46962b6b6700cc9727929e93"
+    },
+    "isscc-2026": {
+      "id": "isscc-2026",
+      "canonicalUrl": "https://www.isscc.org/",
+      "finalUrl": "https://www.isscc.org/",
+      "kind": "available",
+      "sha256": "0903c2ac46ad2654a7a8163b2e176a173b8b443ad1e2512bc3cc8fa157c2a85d"
+    },
+    "isscc-2027": {
+      "id": "isscc-2027",
+      "canonicalUrl": "https://www.isscc.org/",
+      "finalUrl": "https://www.isscc.org/",
+      "kind": "available",
+      "sha256": "0903c2ac46ad2654a7a8163b2e176a173b8b443ad1e2512bc3cc8fa157c2a85d"
+    },
+    "kdd-1st-cycle-2026": {
+      "id": "kdd-1st-cycle-2026",
+      "canonicalUrl": "https://kdd2026.kdd.org/",
+      "finalUrl": "https://kdd2026.kdd.org/",
+      "kind": "available",
+      "sha256": "4a19c45d6550337e307275371752be596c90a0e8574e81e299fbc2c7250764af"
+    },
+    "kdd-1st-cycle-2027": {
+      "id": "kdd-1st-cycle-2027",
+      "canonicalUrl": "https://kdd2027.kdd.org/",
+      "kind": "unavailable",
+      "reason": "Error"
+    },
+    "kdd-2027": {
+      "id": "kdd-2027",
+      "canonicalUrl": "https://kdd2027.kdd.org/",
+      "kind": "unavailable",
+      "reason": "Error"
+    },
+    "kdd-2nd-cycle-2026": {
+      "id": "kdd-2nd-cycle-2026",
+      "canonicalUrl": "https://kdd2026.kdd.org/",
+      "finalUrl": "https://kdd2026.kdd.org/",
+      "kind": "available",
+      "sha256": "4a19c45d6550337e307275371752be596c90a0e8574e81e299fbc2c7250764af"
+    },
+    "kdd-2nd-cycle-2027": {
+      "id": "kdd-2nd-cycle-2027",
+      "canonicalUrl": "https://kdd2027.kdd.org/",
+      "kind": "unavailable",
+      "reason": "Error"
+    },
+    "micro-2026": {
+      "id": "micro-2026",
+      "canonicalUrl": "https://www.microarch.org/micro59/",
+      "finalUrl": "https://www.microarch.org/micro59/",
+      "kind": "available",
+      "sha256": "754d2325faa5dc1aa8c7f6085fabd9d8b2224527b4b071e2b076041404e5c440"
+    },
+    "mlsys-2026": {
+      "id": "mlsys-2026",
+      "canonicalUrl": "https://mlsys.org/",
+      "finalUrl": "https://mlsys.org/",
+      "kind": "available",
+      "sha256": "6a4d4c379fd84d88f3dd766036c23998ebcc107bc268fd30d8213262ce98767d"
+    },
+    "mlsys-2027": {
+      "id": "mlsys-2027",
+      "canonicalUrl": "https://mlsys.org/",
+      "finalUrl": "https://mlsys.org/",
+      "kind": "available",
+      "sha256": "b0076c7c1282b86a82da95a0ba2d139eba52a66e30924b4223a1b8bd08ff52f7"
+    },
+    "mmsys-2026-1st": {
+      "id": "mmsys-2026-1st",
+      "canonicalUrl": "https://2026.acmmmsys.org/",
+      "finalUrl": "https://2026.acmmmsys.org/",
+      "kind": "available",
+      "sha256": "86195b7ce1c1862203493289d49ce90fb1e0d779581586392aef01afb555c3f2"
+    },
+    "mmsys-2026-2nd": {
+      "id": "mmsys-2026-2nd",
+      "canonicalUrl": "https://2026.acmmmsys.org/",
+      "finalUrl": "https://2026.acmmmsys.org/",
+      "kind": "available",
+      "sha256": "86195b7ce1c1862203493289d49ce90fb1e0d779581586392aef01afb555c3f2"
+    },
+    "mmsys-2027-1st": {
+      "id": "mmsys-2027-1st",
+      "canonicalUrl": "https://2027.acmmmsys.org/",
+      "finalUrl": "https://2027.acmmmsys.org/",
+      "kind": "available",
+      "sha256": "4ce3b79b2e6a17e2a1b5afba7a610391f244dc462eaa65e0d74ef45ae53b2bb2"
+    },
+    "mmsys-2027-2nd": {
+      "id": "mmsys-2027-2nd",
+      "canonicalUrl": "https://2027.acmmmsys.org/",
+      "finalUrl": "https://2027.acmmmsys.org/",
+      "kind": "available",
+      "sha256": "4ce3b79b2e6a17e2a1b5afba7a610391f244dc462eaa65e0d74ef45ae53b2bb2"
+    },
+    "mwscas-2026": {
+      "id": "mwscas-2026",
+      "canonicalUrl": "https://mwscas2026.org/",
+      "finalUrl": "https://mwscas2026.org/",
+      "kind": "available",
+      "sha256": "f54e2dfef8d045b248817796521b9ad225a94b7ad87994eed0115a97c7612eec"
+    },
+    "mwscas-2027": {
+      "id": "mwscas-2027",
+      "canonicalUrl": "https://ieee-cas.org/event/conference/2027-ieee-international-midwest-symposium-circuits-and-systems",
+      "finalUrl": "https://ieee-cas.org/event/conference/2027-ieee-international-midwest-symposium-circuits-and-systems",
+      "kind": "available",
+      "sha256": "061a5680b82adbee0ae77e60daac7c268fdefa90deba03ff24626d893211a216"
+    },
+    "naacl-2025": {
+      "id": "naacl-2025",
+      "canonicalUrl": "https://2025.naacl.org/calls/papers/",
+      "finalUrl": "https://2025.naacl.org/calls/papers/",
+      "kind": "available",
+      "sha256": "8b8db0cf37f0ef1b30b2b1578f609306f292fa87bef8c97083961c4b777aa077"
+    },
+    "naacl-2027": {
+      "id": "naacl-2027",
+      "canonicalUrl": "https://2027.naacl.org/",
+      "finalUrl": "https://2027.naacl.org/",
+      "kind": "available",
+      "sha256": "12cfaab49bb21f5dcfca6f41af496c128b3d58436e6978f0eade8de31f38166f"
+    },
+    "neurips-2026": {
+      "id": "neurips-2026",
+      "canonicalUrl": "https://neurips.cc/Conferences/2026/Dates",
+      "finalUrl": "https://neurips.cc/Conferences/2026/Dates",
+      "kind": "available",
+      "sha256": "e4ecdb763e0a1858e2e76d97ad5befcaaae5702176819b29e97fcd658209fa14"
+    },
+    "newcas-2026": {
+      "id": "newcas-2026",
+      "canonicalUrl": "https://newcas.org/",
+      "finalUrl": "https://newcas.org/",
+      "kind": "available",
+      "sha256": "7d6ed6de28de6ebb918296c424a371191442dad8aabf02644e00eeb0abbc02f3"
+    },
+    "newcas-2027": {
+      "id": "newcas-2027",
+      "canonicalUrl": "https://ieee-cas.org/event/conference/2027-ieee-25th-interregional-newcas-conference",
+      "finalUrl": "https://ieee-cas.org/event/conference/2027-ieee-25th-interregional-newcas-conference",
+      "kind": "available",
+      "sha256": "c9e15e5281936fbb9703712f02f36bb3f801ca2a7a43aed8514fa673398cc9b5"
+    },
+    "nice-2027": {
+      "id": "nice-2027",
+      "canonicalUrl": "https://niceworkshop.org/nice-2027/",
+      "finalUrl": "https://niceworkshop.org/nice-2027/",
+      "kind": "available",
+      "sha256": "6cc926ffdcb36813b6f4e1bcc806c2254a9464552c10aaec41e382cd9311c0e2"
+    },
+    "pakdd-2026": {
+      "id": "pakdd-2026",
+      "canonicalUrl": "https://www.pakdd2026.org/important-dates",
+      "finalUrl": "https://www.pakdd2026.org/important-dates",
+      "kind": "available",
+      "sha256": "8ee5f3532525cf941125150f8911dddc26fa35ab6cf289e40781358774808fae"
+    },
+    "pcs-2026": {
+      "id": "pcs-2026",
+      "canonicalUrl": "https://www.pcs2026.org/",
+      "kind": "unavailable",
+      "reason": "DNSException"
+    },
+    "sac-2026": {
+      "id": "sac-2026",
+      "canonicalUrl": "https://www.sigapp.org/sac/sac2026/",
+      "finalUrl": "https://www.sigapp.org/sac/sac2026/",
+      "kind": "available",
+      "sha256": "cb128313dedda734cb06e663843d9621a0165948ef15990c758b10a7a9a419cf"
+    },
+    "sac-2027": {
+      "id": "sac-2027",
+      "canonicalUrl": "https://www.sigapp.org/sac/sac2027/",
+      "finalUrl": "https://www.sigapp.org/sac/sac2027/",
+      "kind": "available",
+      "sha256": "282eedaf9115691510461fff2ed47e7bc04fff8bf263c7b66f1d682ec93844fe"
+    },
+    "sensys-2026-2nd": {
+      "id": "sensys-2026-2nd",
+      "canonicalUrl": "https://sensys.acm.org/2026/",
+      "finalUrl": "https://sensys.acm.org/2026/",
+      "kind": "available",
+      "sha256": "504b1d1a013ce85a046cbf5caf5081b7641257400b9ed4d15c93c9e726d4fe7e"
+    },
+    "sensys-2027": {
+      "id": "sensys-2027",
+      "canonicalUrl": "https://sensys.acm.org/2027/",
+      "finalUrl": "https://sensys.acm.org/2027/",
+      "kind": "available",
+      "sha256": "4f9270354bc4c8b0dc7111c3ae8919f8ebbe0bf70ea85e21b3e9ff511d906171"
+    },
+    "sensys-2027-1st": {
+      "id": "sensys-2027-1st",
+      "canonicalUrl": "https://sensys.acm.org/2027/",
+      "finalUrl": "https://sensys.acm.org/2027/",
+      "kind": "available",
+      "sha256": "4f9270354bc4c8b0dc7111c3ae8919f8ebbe0bf70ea85e21b3e9ff511d906171"
+    },
+    "sensys-2027-2nd": {
+      "id": "sensys-2027-2nd",
+      "canonicalUrl": "https://sensys.acm.org/2027/",
+      "finalUrl": "https://sensys.acm.org/2027/",
+      "kind": "available",
+      "sha256": "4f9270354bc4c8b0dc7111c3ae8919f8ebbe0bf70ea85e21b3e9ff511d906171"
+    },
+    "siggraph-2026": {
+      "id": "siggraph-2026",
+      "canonicalUrl": "https://s2026.siggraph.org/",
+      "finalUrl": "https://s2026.siggraph.org/",
+      "kind": "available",
+      "sha256": "bcfbe79d6bcd68196ca567997be64dd044f1a168301e82c6fcb707146e4e98d9"
+    },
+    "siggraph-asia-2026": {
+      "id": "siggraph-asia-2026",
+      "canonicalUrl": "https://asia.siggraph.org/2026/",
+      "finalUrl": "https://asia.siggraph.org/2026/",
+      "kind": "available",
+      "sha256": "6b5021c4b3f97abbc4b2d264bde1fe03c76cb18d52845793714ab3b064642687"
+    },
+    "socc-2026": {
+      "id": "socc-2026",
+      "canonicalUrl": "https://www.ieee-socc.org/",
+      "finalUrl": "https://www.ieee-socc.org/",
+      "kind": "available",
+      "sha256": "6b37ca349437337d89fa25eaf100b34f5c0c3f0fe606e05bcf8066b1a63cb032"
+    },
+    "uai-2026": {
+      "id": "uai-2026",
+      "canonicalUrl": "https://www.auai.org/uai2026/",
+      "finalUrl": "https://www.auai.org/uai2026/",
+      "kind": "available",
+      "sha256": "3cc4b89026fe83041838ffa0fc0a12902bbe0ea2ab6f00bb66665a27d95bb773"
+    },
+    "ubicomp-2026": {
+      "id": "ubicomp-2026",
+      "canonicalUrl": "https://www.ubicomp.org/ubicomp-iswc-2026/",
+      "finalUrl": "https://www.ubicomp.org/ubicomp-iswc-2026/",
+      "kind": "available",
+      "sha256": "9813263892eeb3a562dfea9e6a198565db3faee208a9493f615b747e8c0dc8fc"
+    },
+    "ubicomp-2027": {
+      "id": "ubicomp-2027",
+      "canonicalUrl": "https://www.ubicomp.org/",
+      "finalUrl": "https://www.ubicomp.org/ubicomp-iswc-2026/",
+      "kind": "available",
+      "sha256": "9813263892eeb3a562dfea9e6a198565db3faee208a9493f615b747e8c0dc8fc"
+    },
+    "vcip-2026": {
+      "id": "vcip-2026",
+      "canonicalUrl": "https://vcip-2026.org/",
+      "finalUrl": "https://vcip-2026.org/",
+      "kind": "available",
+      "sha256": "c418e22aa9ca69becd7e56fff5639886d60246bbbd506307864ff2b42a2107f7"
+    },
+    "vlsi-2026": {
+      "id": "vlsi-2026",
+      "canonicalUrl": "https://www.vlsisymposium.org/",
+      "finalUrl": "https://www.vlsisymposium.org/",
+      "kind": "available",
+      "sha256": "6e8fc3a313cf75b2dbd0586c606171ec86ed33a9799dccc5da925e01bf653c87"
+    },
+    "vlsi-2027": {
+      "id": "vlsi-2027",
+      "canonicalUrl": "https://www.vlsisymposium.org/",
+      "finalUrl": "https://www.vlsisymposium.org/",
+      "kind": "available",
+      "sha256": "6e8fc3a313cf75b2dbd0586c606171ec86ed33a9799dccc5da925e01bf653c87"
+    },
+    "wacv-2026": {
+      "id": "wacv-2026",
+      "canonicalUrl": "https://wacv.thecvf.com/",
+      "finalUrl": "https://wacv.thecvf.com/",
+      "kind": "available",
+      "sha256": "8eef2e22c566f5e583656d59c29634c9807187d09c758d084d5a08e002065124"
+    },
+    "wcci-2026": {
+      "id": "wcci-2026",
+      "canonicalUrl": "https://attend.ieee.org/wcci-2026/important-dates-deadlines/",
+      "finalUrl": "https://attend.ieee.org/wcci-2026/important-dates-deadlines/",
+      "kind": "available",
+      "sha256": "689a0880b0464e9d67aa365f3fd181b2e8d346068ee8ef6b7a57385412f39c6d"
+    }
+  }
+}
