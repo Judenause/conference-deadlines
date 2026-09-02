@@ -5975,12 +5975,43 @@
       "officialUrl": "https://icce-asia2026.org/2026/",
       "tier": null,
       "categories": ["System"],
-      "status": "dates-pending",
+      "status": "timezone-review-needed",
       "description": "관리자 요청으로 등록된 후보입니다. 공식 일정과 장소 검수가 필요합니다.",
       "registrySource": "curated",
       "registrySourceUrl": "https://icce-asia2026.org/2026/",
       "registryRecordId": "d3yOZfumOJdzVbffVh7f",
-      "deadlines": []
+      "deadlines": [
+        {
+          "id": "icce-asia-VbffVh7f-paper_submission",
+          "label": "논문 제출",
+          "kind": "paper_submission",
+          "dueAtUtc": "2026-09-05T11:59:59Z",
+          "displayDate": "2026. 9. 4",
+          "timezone": "AoE (-12:00, assumed)",
+          "status": "timezone-review-needed",
+          "track": "Main conference"
+        },
+        {
+          "id": "icce-asia-VbffVh7f-final_notification",
+          "label": "최종 결과 발표",
+          "kind": "final_notification",
+          "dueAtUtc": "2026-09-19T11:59:59Z",
+          "displayDate": "2026. 9. 18",
+          "timezone": "AoE (-12:00, assumed)",
+          "status": "timezone-review-needed",
+          "track": "Main conference"
+        },
+        {
+          "id": "icce-asia-VbffVh7f-camera_ready",
+          "label": "최종본 제출",
+          "kind": "camera_ready",
+          "dueAtUtc": "2026-10-01T11:59:59Z",
+          "displayDate": "2026. 9. 30",
+          "timezone": "AoE (-12:00, assumed)",
+          "status": "timezone-review-needed",
+          "track": "Main conference"
+        }
+      ]
     }
   ],
   "evidence": [
@@ -10185,6 +10216,39 @@
       "rawValue": "Decisions: March 27, 2026, 11:59 PM AoE",
       "locator": "Main Track · Important Dates",
       "confidence": 0.99
+    },
+    {
+      "id": "request-d3yOZfumOJdzVbffVh7f-paper_submission",
+      "editionId": "icce-asia-VbffVh7f",
+      "deadlineId": "icce-asia-VbffVh7f-paper_submission",
+      "sourceTitle": "ICCE-Asia official page · initial extraction",
+      "sourceUrl": "https://icce-asia2026.org/2026/",
+      "checkedAt": "2026-09-02T05:53:01.480Z",
+      "rawValue": "September 4th, 2026",
+      "locator": "#important-dates",
+      "confidence": 0.72
+    },
+    {
+      "id": "request-d3yOZfumOJdzVbffVh7f-final_notification",
+      "editionId": "icce-asia-VbffVh7f",
+      "deadlineId": "icce-asia-VbffVh7f-final_notification",
+      "sourceTitle": "ICCE-Asia official page · initial extraction",
+      "sourceUrl": "https://icce-asia2026.org/2026/",
+      "checkedAt": "2026-09-02T05:53:01.480Z",
+      "rawValue": "September 18th, 2026",
+      "locator": "#important-dates",
+      "confidence": 0.72
+    },
+    {
+      "id": "request-d3yOZfumOJdzVbffVh7f-camera_ready",
+      "editionId": "icce-asia-VbffVh7f",
+      "deadlineId": "icce-asia-VbffVh7f-camera_ready",
+      "sourceTitle": "ICCE-Asia official page · initial extraction",
+      "sourceUrl": "https://icce-asia2026.org/2026/",
+      "checkedAt": "2026-09-02T05:53:01.480Z",
+      "rawValue": "September 30th, 2026",
+      "locator": "#important-dates",
+      "confidence": 0.72
     }
   ],
   "history": [
