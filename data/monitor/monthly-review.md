@@ -1,895 +1,498 @@
 # Monthly official-source review
 
-111 source change(s) require review.
+63 source change(s) require review.
 
-## aaai-2026: initial
+## aaai-2026: content-changed
 
 Official URL: https://aaai.org/conference/aaai/aaai-26/
 
+Previous fingerprint: fe06ce9c1ca363cd689802b5972114a29ed3abfe7114022a2d3e02ab0e0aba27
 Current URL: https://aaai.org/conference/aaai/aaai-26/
-Current fingerprint: fe06ce9c1ca363cd689802b5972114a29ed3abfe7114022a2d3e02ab0e0aba27
+Current fingerprint: 8229cbc650efd839fd7bdc6942d67ba357a97e08ca6513c97114688a6d7d3754
 
-## aaai-2027: initial
+## aaai-2027: content-changed
 
 Official URL: https://aaai.org/conference/aaai/aaai-27/
 
+Previous fingerprint: 9a696eb3550043c2d15d631608ca75c6740f595a559bdee41bec227e0ba5124f
 Current URL: https://aaai.org/conference/aaai/aaai-27/
-Current fingerprint: 9a696eb3550043c2d15d631608ca75c6740f595a559bdee41bec227e0ba5124f
+Current fingerprint: 1a4a2869e807d3afb6c014f2d7a013d6087cdd130c49b8725b1640372ab360f2
 
-## accv-2026: initial
+## accv-2026: content-changed
 
 Official URL: https://accv2026.org/
 
+Previous fingerprint: ca571fcde15e8947d7b5d88471e8d32ded754e9c2e9c238d7f1df80a11c3086b
 Current URL: https://accv2026.org/
-Current fingerprint: ca571fcde15e8947d7b5d88471e8d32ded754e9c2e9c238d7f1df80a11c3086b
+Current fingerprint: b1da7bfbc81af846b30d6982c054bc2a3c3febb7e306d001540fb7785b8f9682
 
-## acl-2026: initial
-
-Official URL: https://2026.aclweb.org/
-
-Current URL: https://2026.aclweb.org/
-Current fingerprint: 2b8adf81be446dfab0a6e73b1ba29d205aebb4fae9ae8ae8bf55079f6cc928a0
-
-## acm-mm-asia-2026: initial
-
-Official URL: https://www.acmmm.org/
-
-Current URL: https://www.acmmm.org/
-Current fingerprint: 1b3428b0a898f66dc92a5bd517f882d06dada0164d805cabae627107cda05a47
-
-## acmmm-2026: initial
-
-Official URL: https://2026.acmmm.org/
-
-Current URL: https://2026.acmmm.org/
-Current fingerprint: cbcc2738a33ff13cddc0f66b1b6bf836acf41ebf21faf5e3c495bccc011e5da0
-
-## aicas-2026: initial
+## aicas-2026: content-changed
 
 Official URL: https://2026.ieee-aicas.org/
 
+Previous fingerprint: 0947d120376acb7e84f562288028803d6dcdbbb3d21661148fb65c838d277d27
 Current URL: https://2026.ieee-aicas.org/
-Current fingerprint: 0947d120376acb7e84f562288028803d6dcdbbb3d21661148fb65c838d277d27
+Current fingerprint: 8d33f4eee4b67349b22ece6d6bee9d299a48f3fa11e4cdf200e34f1ccbe91822
 
-## aicas-2027: initial
+## aicas-2027: content-changed
 
 Official URL: https://ieee-cas.org/event/conference/2027-ieee-9th-international-conference-artificial-intelligence-circuits-and
 
+Previous fingerprint: 372b09834360e62d79e4730d71fe76cb30cc6d2abbe1e8da756281a32301a074
 Current URL: https://ieee-cas.org/event/conference/2027-ieee-9th-international-conference-artificial-intelligence-circuits-and
-Current fingerprint: 372b09834360e62d79e4730d71fe76cb30cc6d2abbe1e8da756281a32301a074
+Current fingerprint: 188df672728ff039aefd9132dd0318dcf67153cc038539fd22ffc4a4032d2031
 
-## aistats-2026: initial
+## aistats-2026: content-changed
 
 Official URL: https://virtual.aistats.org/
 
+Previous fingerprint: b64fa0b8c317696a8c8cda596f5a14ebffa29ff4d553a392a2170673ed623fa8
 Current URL: https://virtual.aistats.org/
-Current fingerprint: b64fa0b8c317696a8c8cda596f5a14ebffa29ff4d553a392a2170673ed623fa8
+Current fingerprint: f9e5b2aaa78f01fd75575616472c7323b59a68ef56dd11a447b3164bf40333e5
 
-## apccas-2026: initial
+## apccas-2026: content-changed
 
 Official URL: https://ieee-cas.org/event/conference/2026-ieee-asia-pacific-conference-circuits-and-systems
 
+Previous fingerprint: 6c381bd535cc23beb0431057739bcd5054827f9c951a51a3c32a539402dff03c
 Current URL: https://ieee-cas.org/event/conference/2026-ieee-asia-pacific-conference-circuits-and-systems
-Current fingerprint: 6c381bd535cc23beb0431057739bcd5054827f9c951a51a3c32a539402dff03c
+Current fingerprint: 2643f7a61598affb992e6e42464b753bfd28bc9b0a7cd3d81e9d722425389be3
 
-## asp-dac-2026: initial
-
-Official URL: https://www.aspdac.com/aspdac2026/
-
-Current URL: https://www.aspdac.com/aspdac2026/
-Current fingerprint: 1595fbbd0316c18fd824c62915783761f765056736b044238a2a8934d9b3355f
-
-## asp-dac-2027: initial
+## asp-dac-2027: content-changed
 
 Official URL: https://www.aspdac.com/aspdac2027/
 
+Previous fingerprint: 2a48d8fca1ebf7455c69cd80a5c062d86def08b565e323605e292c2871008356
 Current URL: https://www.aspdac.com/aspdac2027/
-Current fingerprint: 2a48d8fca1ebf7455c69cd80a5c062d86def08b565e323605e292c2871008356
+Current fingerprint: abd382b0e1ded179f474178d0fce6c442dfe6df45f52d6458fb3883882590448
 
-## asplos-spring-2026: initial
+## asplos-spring-2026:additional-1: initial
 
-Official URL: https://www.asplos-conference.org/asplos2026/
+Official URL: https://www.asplos-conference.org/asplos2026/cfp/index.html
 
-Current URL: https://www.asplos-conference.org/asplos2026/
-Current fingerprint: 4a9d8939a4104bf40501852a0b7f10a8a327123d73c188e9f007c90852f5dbd5
+Current URL: https://www.asplos-conference.org/asplos2026/cfp/index.html
+Current fingerprint: c7818d31871b8b8318fe740d3a36852877ec5d819b96ab717b2947ac8a95e04f
 
-## asplos-spring-2027: initial
+## asplos-summer-2026:additional-1: initial
 
-Official URL: https://www.asplos-conference.org/
+Official URL: https://www.asplos-conference.org/asplos2026/cfp/index.html
 
-Current URL: https://www.asplos-conference.org/
-Current fingerprint: c5541e663d246c764eea0c6c722c22cc807f91bdfb01be671df5b53b7a9193c7
+Current URL: https://www.asplos-conference.org/asplos2026/cfp/index.html
+Current fingerprint: c7818d31871b8b8318fe740d3a36852877ec5d819b96ab717b2947ac8a95e04f
 
-## asplos-summer-2026: initial
-
-Official URL: https://www.asplos-conference.org/asplos2026/
-
-Current URL: https://www.asplos-conference.org/asplos2026/
-Current fingerprint: 4a9d8939a4104bf40501852a0b7f10a8a327123d73c188e9f007c90852f5dbd5
-
-## asplos-summer-2027: initial
-
-Official URL: https://www.asplos-conference.org/
-
-Current URL: https://www.asplos-conference.org/
-Current fingerprint: c5541e663d246c764eea0c6c722c22cc807f91bdfb01be671df5b53b7a9193c7
-
-## asscc-2026: initial
+## asscc-2026: availability-changed
 
 Official URL: https://www.a-sscc2026.org/
 
-Current URL: https://www.a-sscc2026.org/
-Current fingerprint: 8db7053be5813f41f42011e80379a139f247e320cddfacea340a34a2a122f8d4
+Previous fingerprint: 8db7053be5813f41f42011e80379a139f247e320cddfacea340a34a2a122f8d4
+Check result: Error
 
-## avss-2026: initial
+## avss-2026: content-changed
 
 Official URL: https://www.avss2026.org/
 
+Previous fingerprint: a8fd02c5fcd1b5b473de69fc8da4dd7a025f915104038daefda5028ab83119aa
 Current URL: https://www.avss2026.org/
-Current fingerprint: a8fd02c5fcd1b5b473de69fc8da4dd7a025f915104038daefda5028ab83119aa
+Current fingerprint: e4f0017ba577003a0e32fd04f8bbbb136a5d0d6500454057f0d3d87c76a1c167
 
-## biocas-2026: initial
-
-Official URL: https://2026.ieee-biocas.org/
-
-Current URL: https://2026.ieee-biocas.org/
-Current fingerprint: 8d67924a2a56a8ce12001aa11acf66549727c43d9763b275d84c85ddabf0eeb1
-
-## biocas-2027: initial
-
-Official URL: https://2027.ieee-biocas.org/
-
-Current URL: https://2027.ieee-biocas.org/
-Current fingerprint: 9c79636f9c963d44a0aee9d0936745b1b52360ec98ddedcbcab0d935825d44e5
-
-## bmvc-2026: initial
-
-Official URL: https://bmvc2026.bmva.org/
-
-Current URL: https://bmvc2026.bmva.org/
-Current fingerprint: f029a9e2f942a40023085c9df9f731bc729dba028c29c9efcfbf8ff83555d338
-
-## cases-2026: initial
-
-Official URL: https://esweek.org/cases/
-
-Current URL: https://esweek.org/cases/
-Current fingerprint: bb9edd959fc06d2e2c36a67135bd72a4c01b1ed8481f156a8f982dcfdbd1df8b
-
-## cicc-2026: initial
+## cicc-2026: content-changed
 
 Official URL: https://www.ieee-cicc.org/
 
+Previous fingerprint: e30c798c4a15a2718c7d7e2c92cdbcee53efef43f7775ae232fda5962be2ae6a
 Current URL: https://www.ieee-cicc.org/
-Current fingerprint: e30c798c4a15a2718c7d7e2c92cdbcee53efef43f7775ae232fda5962be2ae6a
+Current fingerprint: d104271cbfde1e79ea406fe536e1b526b640e20054f10e5ceb0b1305178d1a58
 
-## cicc-2027: initial
+## cicc-2027: content-changed
 
 Official URL: https://ieee-cas.org/event/conference/2027-ieee-custom-integrated-circuits-conference
 
+Previous fingerprint: 69be613c1c7ed5cc63bb848be11697bd75f1e41b7af0fb1d6324b20d653f59bf
 Current URL: https://ieee-cas.org/event/conference/2027-ieee-custom-integrated-circuits-conference
-Current fingerprint: 69be613c1c7ed5cc63bb848be11697bd75f1e41b7af0fb1d6324b20d653f59bf
+Current fingerprint: 12b31452eeadd66bda9fb6de6e82cd46a2eebce0974b99c424d8f6b3acc511a1
 
-## cikm-2026: initial
+## cikm-2026: content-changed
 
 Official URL: https://cikm2026.diag.uniroma1.it/
 
+Previous fingerprint: d2c15fc3691e6f599785f74ed92dd3b19d547228e03486f67108d372e2fdaf2e
 Current URL: https://cikm2026.diag.uniroma1.it/
-Current fingerprint: d2c15fc3691e6f599785f74ed92dd3b19d547228e03486f67108d372e2fdaf2e
+Current fingerprint: 603fa9c73544e44036d0f6480a47f0face9c14aa8061f2a766464b605cd5aa6e
 
-## coling-2026: initial
-
-Official URL: https://coling2026.org/
-
-Current URL: https://coling2026.org/
-Current fingerprint: 8973b934d88b8dd88c3224e64dd237cb5f2a56d9689167e638e572afd10a8902
-
-## coling-2027: initial
-
-Official URL: https://2027.coling-iccl.org/
-
-Current URL: https://2027.coling-iccl.org/
-Current fingerprint: 7a5141747f16218cbcac73ad8e3695fef7243c28d5141ed3d190c7b877a80d60
-
-## corl-2026: initial
+## corl-2026: content-changed
 
 Official URL: https://www.corl.org/
 
+Previous fingerprint: db889b06cad032f4f693636a7772cd0961b07a2b564e853a3103003c1b75ce0b
 Current URL: https://www.corl.org/
-Current fingerprint: db889b06cad032f4f693636a7772cd0961b07a2b564e853a3103003c1b75ce0b
+Current fingerprint: f413d3b432a4784de481b6277e53fa605466e1a23990da581e9f39f4349870f2
 
-## cvpr-2026: initial
-
-Official URL: https://cvpr.thecvf.com/
-
-Current URL: https://cvpr.thecvf.com/
-Current fingerprint: 94360eed72cd6d161667a9c5cd30f795f9b1f7e8046a1f2a95e124624d7ceb9c
-
-## cvpr-2027: initial
+## cvpr-2026: content-changed
 
 Official URL: https://cvpr.thecvf.com/
 
+Previous fingerprint: 94360eed72cd6d161667a9c5cd30f795f9b1f7e8046a1f2a95e124624d7ceb9c
 Current URL: https://cvpr.thecvf.com/
-Current fingerprint: 9ffbd74468e91706ebe07a1f35dde3dd5536c4fb2d2f94888696ce3293cacca0
+Current fingerprint: 231edc87dd42cc84e66f13529f1dadf03c335a45c2d0dbad0e78f08ad34d6e35
 
-## dac-2026: initial
+## cvpr-2026:additional-1: initial
 
-Official URL: https://www.dac.com/
+Official URL: https://cvpr.thecvf.com/Conferences/2026/CallForPapers
 
-Check result: Error
+Current URL: https://cvpr.thecvf.com/Conferences/2026/CallForPapers
+Current fingerprint: 9aaf079599abec5ebda176d341082d55b77e3c38f7dcf1c65a3167b0f554d382
 
-## dac-2027: initial
+## cvpr-2027: content-changed
 
-Official URL: https://dac.com/2026/events/dac-2027
+Official URL: https://cvpr.thecvf.com/
 
-Current URL: https://dac.com/2026/events/dac-2027
-Current fingerprint: ac6ad20970b89fbdbae2c51e11aa67128ca1cb43b3fa420a565870a5986eea6b
+Previous fingerprint: 9ffbd74468e91706ebe07a1f35dde3dd5536c4fb2d2f94888696ce3293cacca0
+Current URL: https://cvpr.thecvf.com/
+Current fingerprint: 3cf38495a78ef9e8125bd4d768724e5272cd0595566079970c5ecf3694eff3f9
 
-## date-2026: initial
-
-Official URL: https://www.date-conference.com/
-
-Current URL: https://www.date-conference.com/
-Current fingerprint: 63f7e77e8b3307d43411510d9b26e85cc4a3b0cbb494a3d0270a845c709ca574
-
-## date-2027: initial
+## date-2026: content-changed
 
 Official URL: https://www.date-conference.com/
 
+Previous fingerprint: 63f7e77e8b3307d43411510d9b26e85cc4a3b0cbb494a3d0270a845c709ca574
 Current URL: https://www.date-conference.com/
-Current fingerprint: 5900ff4f20cdab3ad8769265d865abc194c0ab1ba4e9bd5eed5fc01901cd6471
+Current fingerprint: f06bdaeacaecdd621890b35916a99f39a95190c85de4ebfbad88ab1cce5cbcdd
 
-## ecai-2026: initial
+## date-2027: content-changed
 
-Official URL: https://ecai2026.org/
+Official URL: https://www.date-conference.com/
 
-Check result: DNSException
+Previous fingerprint: 5900ff4f20cdab3ad8769265d865abc194c0ab1ba4e9bd5eed5fc01901cd6471
+Current URL: https://www.date-conference.com/
+Current fingerprint: d4dcbef155a9bf78cfb2afd75e30254dd8af11dafecd51b692a8357e83f3e151
 
-## eccv-2026: initial
+## eccv-2026: content-changed
 
 Official URL: https://eccv.ecva.net/Conferences/2026
 
+Previous fingerprint: fea76f2e26f21b5e2f3b91d0d088ad4e9e31097108c72bfc951b338697f3d20d
 Current URL: https://eccv.ecva.net/Conferences/2026
-Current fingerprint: fea76f2e26f21b5e2f3b91d0d088ad4e9e31097108c72bfc951b338697f3d20d
+Current fingerprint: b9d27bd80df42879adfeb77b6592f5436850ecc78fd46205b5c4c46c20f5f9b9
 
-## emnlp-2026: initial
+## eccv-2026:additional-1: initial
+
+Official URL: https://eccv.ecva.net/Conferences/2026/CallForPapers
+
+Current URL: https://eccv.ecva.net/Conferences/2026/CallForPapers
+Current fingerprint: 95dca5b7c2a694f959d7dbd521271c75a4d89ce927f2f520452c6b9d316b8c62
+
+## emnlp-2026: content-changed
 
 Official URL: https://2026.emnlp.org/
 
+Previous fingerprint: 90c3ced21a7e8486a1d899f1727f94cf8b24df449f07621855d246c3305ebc1f
 Current URL: https://2026.emnlp.org/
-Current fingerprint: 90c3ced21a7e8486a1d899f1727f94cf8b24df449f07621855d246c3305ebc1f
+Current fingerprint: 870d36e2ab39acac9ff95504f77013bc5c6610858ce3d2f477912f006c2d5887
 
-## esscirc-2026: initial
+## esscirc-2026: content-changed
 
 Official URL: https://www.esserc2026.org/papers
 
+Previous fingerprint: f017e27d74320b231cfcf4e125e728b6e534cfa18d36c2e152860f6b48c487d1
 Current URL: https://www.esserc2026.org/papers
-Current fingerprint: f017e27d74320b231cfcf4e125e728b6e534cfa18d36c2e152860f6b48c487d1
+Current fingerprint: 1cc86509c57efb9e63be79daffefd47f33aa014ff31ee503b047ffc7266cc582
 
-## esscirc-2027: initial
+## esscirc-2027: content-changed
 
 Official URL: https://www.esserc2027.org/
 
+Previous fingerprint: 8bda3dcb6a4add760d5258ddd75f1b17aa6e1c3f076f23c4f5c7655e44f2e232
 Current URL: https://www.esserc2027.org/
-Current fingerprint: 8bda3dcb6a4add760d5258ddd75f1b17aa6e1c3f076f23c4f5c7655e44f2e232
+Current fingerprint: fb3ddfc1c6978e420ab2e4a09f713553c51ec43fc95348416fb407a0c25a7395
 
-## europar-2026: initial
-
-Official URL: https://2026.euro-par.org/
-
-Current URL: https://2026.euro-par.org/
-Current fingerprint: 88b1ffce426ea35f856354e89ca419936be8b641788a5fb7753fbb694846dcab
-
-## europar-2027: initial
-
-Official URL: https://2027.euro-par.org/
-
-Current URL: https://2027.euro-par.org/
-Current fingerprint: 6c146821954d440663f1c2e6a61d39cfad2e5adf6a29a86d4f7cc104cc591a8b
-
-## eurosys-2026-fall: initial
-
-Official URL: https://2026.eurosys.org/index.html
-
-Current URL: https://2026.eurosys.org/index.html
-Current fingerprint: 7e99f9bd20710d8522cd6875db6466291d7714a2d095a3969dce5a11e9ac95ed
-
-## eurosys-2027-fall: initial
-
-Official URL: https://2027.eurosys.org/index.html
-
-Current URL: https://2027.eurosys.org/index.html
-Current fingerprint: 181a86919e235c92fdbeb97b74dd6555cde4588267a768576cd84cb1332e88ef
-
-## eurosys-2027-spring: initial
-
-Official URL: https://2027.eurosys.org/index.html
-
-Current URL: https://2027.eurosys.org/index.html
-Current fingerprint: 181a86919e235c92fdbeb97b74dd6555cde4588267a768576cd84cb1332e88ef
-
-## fpga-2026: initial
-
-Official URL: https://www.isfpga.org/
-
-Current URL: https://www.isfpga.org/
-Current fingerprint: dee3901d09941dda5f1a676de4dfb86c7b8e3feeaef83270c4267f5cb4a41079
-
-## fpga-2027: initial
-
-Official URL: https://www.isfpga.org/
-
-Current URL: https://www.isfpga.org/
-Current fingerprint: dee3901d09941dda5f1a676de4dfb86c7b8e3feeaef83270c4267f5cb4a41079
-
-## hpca-2026: initial
+## hpca-2026: availability-changed
 
 Official URL: https://hpca-conf.org/2026/
 
-Check result: Error
+Current URL: https://hpca-conf.org/2026/
+Current fingerprint: 7c156b6126df177f84c33b7b7dbab73a824f3aaa6963436dc5d2f9bc79ab7a36
 
-## hpca-2027: initial
+## hpca-2026:additional-1: initial
+
+Official URL: https://2026.hpca-conf.org/dates
+
+Current URL: https://2026.hpca-conf.org/dates
+Current fingerprint: a908f6aa6c27d521ef9692d032eef5f2da209a235ea67a8695050522b6d64dd7
+
+## hpca-2027: content-changed
 
 Official URL: https://hpca-conf.org/
 
+Previous fingerprint: 3a23b4ed9a8a937a905af7c6ae61062855e7fb73d9ae2deef63040f6cea4f860
 Current URL: https://hpca-conf.org/
-Current fingerprint: 3a23b4ed9a8a937a905af7c6ae61062855e7fb73d9ae2deef63040f6cea4f860
+Current fingerprint: 66287e49980535235a64214af8b886ac764595a3ad81d8b1ce13ac5ee63b635a
 
-## icassp-2026: initial
-
-Official URL: https://www.2026.ieeeicassp.org/
-
-Check result: DNSException
-
-## icassp-2027: initial
+## icassp-2027: content-changed
 
 Official URL: https://2027.ieeeicassp.org/
 
+Previous fingerprint: 328aae825035147533f7ff449161b6eff15834ca1a8b06566ac3e1a755d8638c
 Current URL: https://2027.ieeeicassp.org/
-Current fingerprint: 328aae825035147533f7ff449161b6eff15834ca1a8b06566ac3e1a755d8638c
+Current fingerprint: 8282477067583dcb1c6101bca8c012d34bcc0f1b96580ce319396beb1dc70fe3
 
-## iccad-2026: initial
+## iccad-2026: content-changed
 
 Official URL: https://www.iccad-conf.com/
 
+Previous fingerprint: 0b2d7dbd4ff8ddd922922532aedda20adf86cc28321d66beb452315180bcbfcf
 Current URL: https://www.iccad-conf.com/
-Current fingerprint: 0b2d7dbd4ff8ddd922922532aedda20adf86cc28321d66beb452315180bcbfcf
+Current fingerprint: c165892bdd9ebeffc5ef3705640732fb93cace40fe65fcc518435c217af89de5
 
-## iccd-2026: initial
+## iccd-2026: availability-changed
 
 Official URL: https://www.iccd-conf.com/2026/
 
-Current URL: https://www.iccd-conf.com/2026/
-Current fingerprint: d2a6e40c2ad73bdf7451cd92635bc61c5acf90e31ec46c31a799a3257f12c20d
+Previous fingerprint: d2a6e40c2ad73bdf7451cd92635bc61c5acf90e31ec46c31a799a3257f12c20d
+Check result: TimeoutError
 
-## iccv-2026: initial
+## icce-asia-VbffVh7f: initial
+
+Official URL: https://icce-asia2026.org/2026/
+
+Current URL: https://icce-asia2026.org/2026/
+Current fingerprint: a3cb02e53add12009521cb86ebbc69f79d7c6a189302c85249596eb8a254539e
+
+## iccv-2026: content-changed
 
 Official URL: https://iccv.thecvf.com/
 
+Previous fingerprint: 18740c2e94ec4accc0b2845ffc5a5c50c900c3bbdfda87e03e7b26528de55f08
 Current URL: https://iccv.thecvf.com/
-Current fingerprint: 18740c2e94ec4accc0b2845ffc5a5c50c900c3bbdfda87e03e7b26528de55f08
+Current fingerprint: 44b69dad39ea6c247f29682fceeed78748d77767dc92fe7c1ec1c04ee54d4a12
 
-## icdcs-2026: initial
+## icdcs-2026: content-changed
 
 Official URL: https://icdcs2026.icdcs.org/
 
+Previous fingerprint: 22f0127dbb28dd133626ff953f150fea14061274150f15a674e0ab8723a42fa6
 Current URL: https://icdcs2026.icdcs.org/
-Current fingerprint: 22f0127dbb28dd133626ff953f150fea14061274150f15a674e0ab8723a42fa6
+Current fingerprint: 9979e472291dc4177e861543476ba3bbffd0dd6fc285bd60974892ecc1febcd5
 
-## icecs-2026: initial
+## icecs-2026: content-changed
 
 Official URL: https://www.icecs2026.gr/
 
+Previous fingerprint: 0d618d790e13e4c9336555f7470170f2810394df32312177ef9d4616b641451b
 Current URL: https://www.icecs2026.gr/
-Current fingerprint: 0d618d790e13e4c9336555f7470170f2810394df32312177ef9d4616b641451b
+Current fingerprint: df6fc5bc70aafa26bda94d3ce97ba07e51ac64e3ec2970dfd91674beacd5e784
 
-## icecs-2027: initial
+## icecs-2027: content-changed
 
 Official URL: https://ieee-cas.org/event/conference/2027-ieee-34th-international-conference-electronics-circuits-and-systems
 
+Previous fingerprint: e4c483b7dcf55e0b4068e7d6fcaf1273d597f7b5db9846b54e76deee7aa8191c
 Current URL: https://ieee-cas.org/event/conference/2027-ieee-34th-international-conference-electronics-circuits-and-systems
-Current fingerprint: e4c483b7dcf55e0b4068e7d6fcaf1273d597f7b5db9846b54e76deee7aa8191c
+Current fingerprint: 522d4faf557b31125ce14c0e93ea9d9efae6be68088e34af240ab326b09e0d79
 
-## icip-2026: initial
+## icip-2026: content-changed
 
 Official URL: https://2026.ieeeicip.org/welcome/
 
+Previous fingerprint: 058fce2ddb25649cedd9337c2ed63092a0389303c04889a4391f79a00791ee74
 Current URL: https://2026.ieeeicip.org/welcome/
-Current fingerprint: 058fce2ddb25649cedd9337c2ed63092a0389303c04889a4391f79a00791ee74
+Current fingerprint: 0bbdcf5161be7308c7dea6ae234dbe318635ea159e5ae5372869c7c3c0bf7302
 
-## iclr-2026: initial
+## iclr-2026: content-changed
 
 Official URL: https://iclr.cc/
 
+Previous fingerprint: abbb7c5e7d0a76d8825603b5b29672e77f1fe0673482c1b15e55d304c2ac5370
 Current URL: https://iclr.cc/
-Current fingerprint: abbb7c5e7d0a76d8825603b5b29672e77f1fe0673482c1b15e55d304c2ac5370
+Current fingerprint: 64edf871a036ddee35c278dc876ef8f82a1a5ae3bb523551076ac1eb5476b1b2
 
-## icml-2026: initial
+## iclr-2026:additional-1: initial
+
+Official URL: https://iclr.cc/Conferences/2026/CallForPapers
+
+Current URL: https://iclr.cc/Conferences/2026/CallForPapers
+Current fingerprint: 67c5411a6de4f005bc47e733255719c2bf44791cbf24deed132bc80708b5f063
+
+## icml-2026: content-changed
 
 Official URL: https://icml.cc/Conferences/2026/Dates
 
+Previous fingerprint: df515ac1c352b1ce3fac46a61d8ff3aa794e53276899df5795e8eae270323370
 Current URL: https://icml.cc/Conferences/2026/Dates
-Current fingerprint: df515ac1c352b1ce3fac46a61d8ff3aa794e53276899df5795e8eae270323370
+Current fingerprint: 07c1295fc462d527a71c84aa5b32eb87e270542973d570f1b9f55dbdb53efbd4
 
-## icpr-2026: initial
+## icml-2026:additional-1: initial
 
-Official URL: https://icpr2026.org/
+Official URL: https://icml.cc/Conferences/2026/CallForPapers
 
-Current URL: https://icpr2026.org/
-Current fingerprint: 552cce8a3ac99202434b0bb8e7cd8718e40ab51730681ef6ed47de9240d26ff7
+Current URL: https://icml.cc/Conferences/2026/CallForPapers
+Current fingerprint: 72293f4ca807a455cb197e2ebc064d531b0d6c5f99ebd26f808b388378c0f7fe
 
-## ijcai-2026: initial
-
-Official URL: https://2026.ijcai.org/important-dates/
-
-Current URL: https://2026.ijcai.org/important-dates/
-Current fingerprint: 53331c71898f034dfe73725eaf9ea9024d2f1a39002faa22b47154b5f8c7dadb
-
-## interspeech-2026: initial
+## interspeech-2026: content-changed
 
 Official URL: https://interspeech2026.org/
 
+Previous fingerprint: 9a98203ad2136de5ec33bb06ded9e0c25a2e78ff865f1b63548aa40ec982cbba
 Current URL: https://interspeech2026.org/en-AU
-Current fingerprint: 9a98203ad2136de5ec33bb06ded9e0c25a2e78ff865f1b63548aa40ec982cbba
+Current fingerprint: 6c1dc9a5faec5c7ef5814bfc1588a1f3a2d0bf6dfeed7ba86ada79abc6e044fd
 
-## interspeech-2027: initial
+## interspeech-2027: content-changed
 
 Official URL: https://interspeech2027.org/
 
+Previous fingerprint: 9c2dc6ee561804982e0a5e48d28704036539f09933ea1e2afa24b3c77d8ac686
 Current URL: https://interspeech2027.org/
-Current fingerprint: 9c2dc6ee561804982e0a5e48d28704036539f09933ea1e2afa24b3c77d8ac686
+Current fingerprint: 35b223e553fa39470a6192415588c3e18d4b5798aec72e6de2476498c2dd75fd
 
-## isca-2026: initial
+## isca-2026:additional-1: initial
 
-Official URL: https://iscaconf.org/isca2026/
+Official URL: https://iscaconf.org/isca2026/submit/callforpapers.php
 
-Current URL: https://iscaconf.org/isca2026/
-Current fingerprint: 0d910d398bd1d6f5badb7e6e26b09ee1a8a994fc95d9c47e2e6267f76f7b3cdf
+Current URL: https://iscaconf.org/isca2026/submit/callforpapers.php
+Current fingerprint: e617145fdc71973f1c864a1fb0737dd691518c8831157ad419d492f41fae3926
 
-## isca-2027: initial
-
-Official URL: https://iscaconf.org/
-
-Current URL: https://iscaconf.org/
-Current fingerprint: b34f6a3edcd037e0a1410dfbb3ffdd6ecee04fa26acc9d7d60c8ec333a331a8a
-
-## iscas-2026: initial
-
-Official URL: https://www.ieee-iscas.org/
-
-Check result: Error
-
-## iscas-2027: initial
+## iscas-2027: content-changed
 
 Official URL: https://2027.ieee-iscas.org/
 
+Previous fingerprint: 93c0d791e714995899a87de8463eb337b0f1aa2716d412607c80aec5cd12834d
 Current URL: https://2027.ieee-iscas.org/
-Current fingerprint: 93c0d791e714995899a87de8463eb337b0f1aa2716d412607c80aec5cd12834d
+Current fingerprint: 9f808ecb7f8e6150534de8310215dcc9757f643cc594e8e43d9675249da05bec
 
-## isicas-2026: initial
-
-Official URL: https://2026.ieee-isicas.org/
-
-Current URL: https://2026.ieee-isicas.org/
-Current fingerprint: aea7f53d09ff734d89cf9dfb354128bbfd9f3136ecfbc80a183666a718594367
-
-## islped-2026: initial
-
-Official URL: https://www.islped.org/2026/
-
-Current URL: https://www.islped.org/2026/
-Current fingerprint: cbbac86fe82e5c4a2adc87d2cb62b8373682bf51ed7ffe6fc65b80f7cdeeb627
-
-## isocc-2026: initial
-
-Official URL: https://isocc.org/
-
-Current URL: https://isocc.org/
-Current fingerprint: 4a424a8f0e3d5391e47e397502d9b8f942f0b1dc46962b6b6700cc9727929e93
-
-## isscc-2026: initial
+## isscc-2026: content-changed
 
 Official URL: https://www.isscc.org/
 
+Previous fingerprint: 0903c2ac46ad2654a7a8163b2e176a173b8b443ad1e2512bc3cc8fa157c2a85d
 Current URL: https://www.isscc.org/
-Current fingerprint: 0903c2ac46ad2654a7a8163b2e176a173b8b443ad1e2512bc3cc8fa157c2a85d
+Current fingerprint: cf09984ec060243893de4f37ddcda61b6227a0a1e3d001d0dddc6854d0812820
 
-## isscc-2027: initial
+## isscc-2027: content-changed
 
 Official URL: https://www.isscc.org/
 
+Previous fingerprint: 0903c2ac46ad2654a7a8163b2e176a173b8b443ad1e2512bc3cc8fa157c2a85d
 Current URL: https://www.isscc.org/
-Current fingerprint: 0903c2ac46ad2654a7a8163b2e176a173b8b443ad1e2512bc3cc8fa157c2a85d
+Current fingerprint: cf09984ec060243893de4f37ddcda61b6227a0a1e3d001d0dddc6854d0812820
 
-## kdd-1st-cycle-2026: initial
-
-Official URL: https://kdd2026.kdd.org/
-
-Current URL: https://kdd2026.kdd.org/
-Current fingerprint: 4a19c45d6550337e307275371752be596c90a0e8574e81e299fbc2c7250764af
-
-## kdd-1st-cycle-2027: initial
-
-Official URL: https://kdd2027.kdd.org/
-
-Check result: Error
-
-## kdd-2027: initial
-
-Official URL: https://kdd2027.kdd.org/
-
-Check result: Error
-
-## kdd-2nd-cycle-2026: initial
-
-Official URL: https://kdd2026.kdd.org/
-
-Current URL: https://kdd2026.kdd.org/
-Current fingerprint: 4a19c45d6550337e307275371752be596c90a0e8574e81e299fbc2c7250764af
-
-## kdd-2nd-cycle-2027: initial
-
-Official URL: https://kdd2027.kdd.org/
-
-Check result: Error
-
-## micro-2026: initial
+## micro-2026: content-changed
 
 Official URL: https://www.microarch.org/micro59/
 
+Previous fingerprint: 754d2325faa5dc1aa8c7f6085fabd9d8b2224527b4b071e2b076041404e5c440
 Current URL: https://www.microarch.org/micro59/
-Current fingerprint: 754d2325faa5dc1aa8c7f6085fabd9d8b2224527b4b071e2b076041404e5c440
+Current fingerprint: 55d7adef7624df842708b85e4692a11ca2f971081ca2534c788025f517f4aec1
 
-## mlsys-2026: initial
-
-Official URL: https://mlsys.org/
-
-Current URL: https://mlsys.org/
-Current fingerprint: 6a4d4c379fd84d88f3dd766036c23998ebcc107bc268fd30d8213262ce98767d
-
-## mlsys-2027: initial
+## mlsys-2026: content-changed
 
 Official URL: https://mlsys.org/
 
+Previous fingerprint: 6a4d4c379fd84d88f3dd766036c23998ebcc107bc268fd30d8213262ce98767d
 Current URL: https://mlsys.org/
-Current fingerprint: b0076c7c1282b86a82da95a0ba2d139eba52a66e30924b4223a1b8bd08ff52f7
+Current fingerprint: 6f304e82a6045a9a86d40e66ce51b59cf95245d321de98f3146bef6e0ced4259
 
-## mmsys-2026-1st: initial
+## mlsys-2027: content-changed
 
-Official URL: https://2026.acmmmsys.org/
+Official URL: https://mlsys.org/
 
-Current URL: https://2026.acmmmsys.org/
-Current fingerprint: 86195b7ce1c1862203493289d49ce90fb1e0d779581586392aef01afb555c3f2
+Previous fingerprint: b0076c7c1282b86a82da95a0ba2d139eba52a66e30924b4223a1b8bd08ff52f7
+Current URL: https://mlsys.org/
+Current fingerprint: 104f8c3504f68e9898ddd302d35058950deff648cdba70647a58b479cae656f8
 
-## mmsys-2026-2nd: initial
-
-Official URL: https://2026.acmmmsys.org/
-
-Current URL: https://2026.acmmmsys.org/
-Current fingerprint: 86195b7ce1c1862203493289d49ce90fb1e0d779581586392aef01afb555c3f2
-
-## mmsys-2027-1st: initial
-
-Official URL: https://2027.acmmmsys.org/
-
-Current URL: https://2027.acmmmsys.org/
-Current fingerprint: 4ce3b79b2e6a17e2a1b5afba7a610391f244dc462eaa65e0d74ef45ae53b2bb2
-
-## mmsys-2027-2nd: initial
-
-Official URL: https://2027.acmmmsys.org/
-
-Current URL: https://2027.acmmmsys.org/
-Current fingerprint: 4ce3b79b2e6a17e2a1b5afba7a610391f244dc462eaa65e0d74ef45ae53b2bb2
-
-## mwscas-2026: initial
+## mwscas-2026: content-changed
 
 Official URL: https://mwscas2026.org/
 
+Previous fingerprint: f54e2dfef8d045b248817796521b9ad225a94b7ad87994eed0115a97c7612eec
 Current URL: https://mwscas2026.org/
-Current fingerprint: f54e2dfef8d045b248817796521b9ad225a94b7ad87994eed0115a97c7612eec
+Current fingerprint: 65509e8ef0a4d57114e4a83b37e25fa23af326e44620a9f439a630be5703b8c8
 
-## mwscas-2027: initial
+## mwscas-2027: content-changed
 
 Official URL: https://ieee-cas.org/event/conference/2027-ieee-international-midwest-symposium-circuits-and-systems
 
+Previous fingerprint: 061a5680b82adbee0ae77e60daac7c268fdefa90deba03ff24626d893211a216
 Current URL: https://ieee-cas.org/event/conference/2027-ieee-international-midwest-symposium-circuits-and-systems
-Current fingerprint: 061a5680b82adbee0ae77e60daac7c268fdefa90deba03ff24626d893211a216
+Current fingerprint: e41837fbe0e3622092d5f46ee7602de5033c0fa4b9ab65bb696d4b939a8dac65
 
-## naacl-2025: initial
-
-Official URL: https://2025.naacl.org/calls/papers/
-
-Current URL: https://2025.naacl.org/calls/papers/
-Current fingerprint: 8b8db0cf37f0ef1b30b2b1578f609306f292fa87bef8c97083961c4b777aa077
-
-## naacl-2027: initial
+## naacl-2027: content-changed
 
 Official URL: https://2027.naacl.org/
 
+Previous fingerprint: 12cfaab49bb21f5dcfca6f41af496c128b3d58436e6978f0eade8de31f38166f
 Current URL: https://2027.naacl.org/
-Current fingerprint: 12cfaab49bb21f5dcfca6f41af496c128b3d58436e6978f0eade8de31f38166f
+Current fingerprint: 4f8d3781f395853d4de0c942d9340cc3704d3be43e92d1c9bdd6e611346718aa
 
-## neurips-2026: initial
+## neurips-2026: content-changed
 
 Official URL: https://neurips.cc/Conferences/2026/Dates
 
+Previous fingerprint: e4ecdb763e0a1858e2e76d97ad5befcaaae5702176819b29e97fcd658209fa14
 Current URL: https://neurips.cc/Conferences/2026/Dates
-Current fingerprint: e4ecdb763e0a1858e2e76d97ad5befcaaae5702176819b29e97fcd658209fa14
+Current fingerprint: 0d7fb980f777570dbe337b571d820900daa5be2291e9695dbdfc149f1f6575ac
 
-## newcas-2026: initial
+## neurips-2026:additional-1: initial
 
-Official URL: https://newcas.org/
+Official URL: https://neurips.cc/Conferences/2026/CallForPapers
 
-Current URL: https://newcas.org/
-Current fingerprint: 7d6ed6de28de6ebb918296c424a371191442dad8aabf02644e00eeb0abbc02f3
+Current URL: https://neurips.cc/Conferences/2026/CallForPapers
+Current fingerprint: 9fa345e72477034f4e46cd5bb069e100c7143a497ef4fbfb7ea33ada8147c7ce
 
-## newcas-2027: initial
+## newcas-2027: content-changed
 
 Official URL: https://ieee-cas.org/event/conference/2027-ieee-25th-interregional-newcas-conference
 
+Previous fingerprint: c9e15e5281936fbb9703712f02f36bb3f801ca2a7a43aed8514fa673398cc9b5
 Current URL: https://ieee-cas.org/event/conference/2027-ieee-25th-interregional-newcas-conference
-Current fingerprint: c9e15e5281936fbb9703712f02f36bb3f801ca2a7a43aed8514fa673398cc9b5
+Current fingerprint: 1b11308ceb87b5a9027d48ff95afe045b551ff43f5896f92cd3662e02465ad1a
 
-## nice-2027: initial
-
-Official URL: https://niceworkshop.org/nice-2027/
-
-Current URL: https://niceworkshop.org/nice-2027/
-Current fingerprint: 6cc926ffdcb36813b6f4e1bcc806c2254a9464552c10aaec41e382cd9311c0e2
-
-## pakdd-2026: initial
-
-Official URL: https://www.pakdd2026.org/important-dates
-
-Current URL: https://www.pakdd2026.org/important-dates
-Current fingerprint: 8ee5f3532525cf941125150f8911dddc26fa35ab6cf289e40781358774808fae
-
-## pcs-2026: initial
-
-Official URL: https://www.pcs2026.org/
-
-Check result: DNSException
-
-## sac-2026: initial
-
-Official URL: https://www.sigapp.org/sac/sac2026/
-
-Current URL: https://www.sigapp.org/sac/sac2026/
-Current fingerprint: cb128313dedda734cb06e663843d9621a0165948ef15990c758b10a7a9a419cf
-
-## sac-2027: initial
-
-Official URL: https://www.sigapp.org/sac/sac2027/
-
-Current URL: https://www.sigapp.org/sac/sac2027/
-Current fingerprint: 282eedaf9115691510461fff2ed47e7bc04fff8bf263c7b66f1d682ec93844fe
-
-## sensys-2026-2nd: initial
-
-Official URL: https://sensys.acm.org/2026/
-
-Current URL: https://sensys.acm.org/2026/
-Current fingerprint: 504b1d1a013ce85a046cbf5caf5081b7641257400b9ed4d15c93c9e726d4fe7e
-
-## sensys-2027: initial
-
-Official URL: https://sensys.acm.org/2027/
-
-Current URL: https://sensys.acm.org/2027/
-Current fingerprint: 4f9270354bc4c8b0dc7111c3ae8919f8ebbe0bf70ea85e21b3e9ff511d906171
-
-## sensys-2027-1st: initial
-
-Official URL: https://sensys.acm.org/2027/
-
-Current URL: https://sensys.acm.org/2027/
-Current fingerprint: 4f9270354bc4c8b0dc7111c3ae8919f8ebbe0bf70ea85e21b3e9ff511d906171
-
-## sensys-2027-2nd: initial
-
-Official URL: https://sensys.acm.org/2027/
-
-Current URL: https://sensys.acm.org/2027/
-Current fingerprint: 4f9270354bc4c8b0dc7111c3ae8919f8ebbe0bf70ea85e21b3e9ff511d906171
-
-## siggraph-2026: initial
+## siggraph-2026: content-changed
 
 Official URL: https://s2026.siggraph.org/
 
+Previous fingerprint: bcfbe79d6bcd68196ca567997be64dd044f1a168301e82c6fcb707146e4e98d9
 Current URL: https://s2026.siggraph.org/
-Current fingerprint: bcfbe79d6bcd68196ca567997be64dd044f1a168301e82c6fcb707146e4e98d9
+Current fingerprint: 18ee1dccd98bc7a25a8b5b3b4bfdcd2b318c5fe5f3efbae01a8d8913e8f57b2c
 
-## siggraph-asia-2026: initial
+## siggraph-asia-2026: content-changed
 
 Official URL: https://asia.siggraph.org/2026/
 
+Previous fingerprint: 6b5021c4b3f97abbc4b2d264bde1fe03c76cb18d52845793714ab3b064642687
 Current URL: https://asia.siggraph.org/2026/
-Current fingerprint: 6b5021c4b3f97abbc4b2d264bde1fe03c76cb18d52845793714ab3b064642687
+Current fingerprint: 51f8888e9f5058da3a7a60477d5b0526bbaca9ec1891f1a3492baf83ac9199ef
 
-## socc-2026: initial
+## socc-2026: content-changed
 
 Official URL: https://www.ieee-socc.org/
 
+Previous fingerprint: 6b37ca349437337d89fa25eaf100b34f5c0c3f0fe606e05bcf8066b1a63cb032
 Current URL: https://www.ieee-socc.org/
-Current fingerprint: 6b37ca349437337d89fa25eaf100b34f5c0c3f0fe606e05bcf8066b1a63cb032
+Current fingerprint: b3fc934ab5529110f08fd6da75eca8e984fe68b9d6de7648e309c9f6cd30f15c
 
-## uai-2026: initial
-
-Official URL: https://www.auai.org/uai2026/
-
-Current URL: https://www.auai.org/uai2026/
-Current fingerprint: 3cc4b89026fe83041838ffa0fc0a12902bbe0ea2ab6f00bb66665a27d95bb773
-
-## ubicomp-2026: initial
-
-Official URL: https://www.ubicomp.org/ubicomp-iswc-2026/
-
-Current URL: https://www.ubicomp.org/ubicomp-iswc-2026/
-Current fingerprint: 9813263892eeb3a562dfea9e6a198565db3faee208a9493f615b747e8c0dc8fc
-
-## ubicomp-2027: initial
-
-Official URL: https://www.ubicomp.org/
-
-Current URL: https://www.ubicomp.org/ubicomp-iswc-2026/
-Current fingerprint: 9813263892eeb3a562dfea9e6a198565db3faee208a9493f615b747e8c0dc8fc
-
-## vcip-2026: initial
-
-Official URL: https://vcip-2026.org/
-
-Current URL: https://vcip-2026.org/
-Current fingerprint: c418e22aa9ca69becd7e56fff5639886d60246bbbd506307864ff2b42a2107f7
-
-## vlsi-2026: initial
+## vlsi-2026: content-changed
 
 Official URL: https://www.vlsisymposium.org/
 
+Previous fingerprint: 6e8fc3a313cf75b2dbd0586c606171ec86ed33a9799dccc5da925e01bf653c87
 Current URL: https://www.vlsisymposium.org/
-Current fingerprint: 6e8fc3a313cf75b2dbd0586c606171ec86ed33a9799dccc5da925e01bf653c87
+Current fingerprint: 2c5a9a0fe9724161214e0e70e2c321627f94c4c008d454f2fe084349205c07fc
 
-## vlsi-2027: initial
+## vlsi-2027: content-changed
 
 Official URL: https://www.vlsisymposium.org/
 
+Previous fingerprint: 6e8fc3a313cf75b2dbd0586c606171ec86ed33a9799dccc5da925e01bf653c87
 Current URL: https://www.vlsisymposium.org/
-Current fingerprint: 6e8fc3a313cf75b2dbd0586c606171ec86ed33a9799dccc5da925e01bf653c87
+Current fingerprint: 2c5a9a0fe9724161214e0e70e2c321627f94c4c008d454f2fe084349205c07fc
 
-## wacv-2026: initial
+## wacv-2026: content-changed
 
 Official URL: https://wacv.thecvf.com/
 
+Previous fingerprint: 8eef2e22c566f5e583656d59c29634c9807187d09c758d084d5a08e002065124
 Current URL: https://wacv.thecvf.com/
-Current fingerprint: 8eef2e22c566f5e583656d59c29634c9807187d09c758d084d5a08e002065124
-
-## wcci-2026: initial
-
-Official URL: https://attend.ieee.org/wcci-2026/important-dates-deadlines/
-
-Current URL: https://attend.ieee.org/wcci-2026/important-dates-deadlines/
-Current fingerprint: 689a0880b0464e9d67aa365f3fd181b2e8d346068ee8ef6b7a57385412f39c6d
+Current fingerprint: 7c0d7faa9f981e147d8d01b1649761015e21bde5698fdf6fe69165e678c45c64
 
 # Automated schedule update review
 
-13 date change(s) were extracted from official pages.
-
-These updates are applied to the catalog in this pull request. Review the source URL and merge only when the extracted deadline is correct.
-
-## ACCV 2026 · camera_ready
-
-Official URL: https://accv2026.org/
-Source URL: https://accv2026.org/
-Before: 2026-10-04T23:59:00Z
-After: 2026-10-05T11:59:59Z (2026. 10. 4, AoE (-12:00, assumed))
-Raw value: October 4, 2026
-Confidence: 0.72
-
-## ACCV 2026 · final_notification
-
-Official URL: https://accv2026.org/
-Source URL: https://accv2026.org/
-Before: 2026-09-20T23:59:00Z
-After: 2026-09-21T11:59:59Z (2026. 9. 20, AoE (-12:00, assumed))
-Raw value: September 20, 2026
-Confidence: 0.72
-
-## ACCV 2026 · rebuttal
-
-Official URL: https://accv2026.org/
-Source URL: https://accv2026.org/
-Before: 2026-09-02T23:59:00Z
-After: 2026-09-03T11:59:59Z (2026. 9. 2, AoE (-12:00, assumed))
-Raw value: September 2, 2026
-Confidence: 0.72
-
-## ACCV 2026 · abstract_registration
-
-Official URL: https://accv2026.org/
-Source URL: https://accv2026.org/
-Before: 2026-07-03T23:59:00Z
-After: 2026-08-07T11:59:59Z (2026. 8. 6, AoE (-12:00, assumed))
-Raw value: August 6, 2026
-Confidence: 0.72
-
-## ACCV 2026 · supplementary_submission
-
-Official URL: https://accv2026.org/
-Source URL: https://accv2026.org/
-Before: 2026-07-08T23:59:00Z
-After: 2026-07-09T11:59:59Z (2026. 7. 8, AoE (-12:00, assumed))
-Raw value: July 8, 2026
-Confidence: 0.72
-
-## AICAS 2026 · final_notification
-
-Official URL: https://2026.ieee-aicas.org/
-Source URL: https://2026.ieee-aicas.org/
-Before: 2026-07-02T11:59:59Z
-After: 2026-06-25T11:59:59Z (2026. 6. 24, AoE (-12:00, assumed))
-Raw value: Jun 24, 2026
-Confidence: 0.72
-
-## Interspeech 2026 · abstract_registration
-
-Official URL: https://interspeech2026.org/
-Source URL: https://interspeech2026.org/en-AU
-Before: 2026-02-26T11:59:59Z
-After: 2026-07-01T11:59:59Z (2026. 6. 30, AoE (-12:00, assumed))
-Raw value: June 30, 2026
-Confidence: 0.72
-
-## ISCA 2026 · paper_submission
-
-Official URL: https://iscaconf.org/isca2026/
-Source URL: https://iscaconf.org/isca2026/
-Before: 2025-11-18T11:59:59Z
-After: 2026-07-02T11:59:59Z (2026. 7. 1, AoE (-12:00, assumed))
-Raw value: July 1, 2026
-Confidence: 0.72
-
-## ISLPED 2026 · abstract_registration
-
-Official URL: https://www.islped.org/2026/
-Source URL: https://www.islped.org/2026/
-Before: 2026-03-12T11:59:59Z
-After: 2026-04-23T11:59:59Z (2026. 4. 22, AoE (-12:00, assumed))
-Raw value: April 22, 2026
-Confidence: 0.72
-
-## MICRO 2026 · abstract_registration
-
-Official URL: https://www.microarch.org/micro59/
-Source URL: https://www.microarch.org/micro59/
-Before: 2026-04-01T03:59:00Z
-After: 2026-04-01T11:59:59Z (2026. 3. 31, AoE (-12:00, assumed))
-Raw value: March 31, 2026
-Confidence: 0.72
-
-## MICRO 2026 · paper_submission
-
-Official URL: https://www.microarch.org/micro59/
-Source URL: https://www.microarch.org/micro59/
-Before: 2026-04-08T03:59:00Z
-After: 2026-04-08T11:59:59Z (2026. 4. 7, AoE (-12:00, assumed))
-Raw value: April 7, 2026
-Confidence: 0.72
-
-## MWSCAS 2026 · final_notification
-
-Official URL: https://mwscas2026.org/
-Source URL: https://mwscas2026.org/
-Before: 2026-05-03T11:59:59Z
-After: 2026-05-27T11:59:59Z (2026. 5. 26, AoE (-12:00, assumed))
-Raw value: May 26, 2026
-Confidence: 0.72
-
-## NEWCAS 2026 · final_notification
-
-Official URL: https://newcas.org/
-Source URL: https://newcas.org/
-Before: 2026-04-11T11:59:59Z
-After: 2026-02-24T11:59:59Z (2026. 2. 23, AoE (-12:00, assumed))
-Raw value: February 23, 2026
-Confidence: 0.72
-
+No unambiguous official date changes detected.
