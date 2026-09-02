@@ -69,6 +69,29 @@ test("official parser extracts multiple labeled milestones from one date table",
   expect(result[2]?.state).toBe("timezone-review-needed")
 })
 
+test("official parser accepts ordinal month dates", () => {
+  const result = parseOfficialHtml(`
+    <div class="important-dates">
+      <ul>
+        <li>Full Paper Submission / Special Session Proposals: September 4th, 2026</li>
+        <li>Notification of Acceptance: September 18th, 2026</li>
+        <li>Submission of Final ver. Paper: September 30th, 2026</li>
+      </ul>
+    </div>
+  `)
+
+  expect(result.map((item) => item.kind)).toEqual([
+    "paper_submission",
+    "final_notification",
+    "camera_ready",
+  ])
+  expect(result.map((item) => item.displayDate)).toEqual([
+    "2026. 9. 4",
+    "2026. 9. 18",
+    "2026. 9. 30",
+  ])
+})
+
 test("OpenReview uses duedate, not invitation expiration", () => {
   const result = parseOpenReviewVenue({ duedate: 1_774_699_199_000, expdate: 1_775_000_000_000 })
   expect(result).toMatchObject({ normalizedValue: "2026-03-28T11:59:59Z", state: "accepted" })

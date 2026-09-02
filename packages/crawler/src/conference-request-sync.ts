@@ -1,4 +1,5 @@
 import type { Catalog, Deadline, Edition, Evidence } from "@conf/contracts"
+import { findTrackedEditionIndex } from "./conference-request-tracking"
 import type { ConferenceRequestRecord } from "./firestore-requests"
 import { type ParsedObservation, parseOfficialHtml } from "./parsers"
 import { fetchRegisteredHtml } from "./safe-fetch"
@@ -165,23 +166,6 @@ export function buildConferenceRequestEdition(
   return { edition, evidence }
 }
 
-function normalizedUrl(value: string): string {
-  const url = new URL(value)
-  url.hash = ""
-  url.pathname = url.pathname.replace(/\/+$/, "") || "/"
-  url.protocol = url.protocol.toLocaleLowerCase("en-US")
-  url.hostname = url.hostname.toLocaleLowerCase("en-US")
-  return url.href
-}
-
-function isTracked(editions: readonly Edition[], request: ConferenceRequestRecord): boolean {
-  const url = normalizedUrl(request.officialUrl)
-  return editions.some(
-    (edition) =>
-      edition.registryRecordId === request.id || normalizedUrl(edition.officialUrl) === url,
-  )
-}
-
 export async function fetchConferenceRequestSource(
   request: ConferenceRequestRecord,
 ): Promise<ConferenceRequestSource> {
@@ -217,14 +201,24 @@ export async function syncConferenceRequests(
       skipped.push(`${request.id}:status-${request.status}`)
       continue
     }
-    if (isTracked(nextEditions, request)) {
+    const trackedIndex = findTrackedEditionIndex(nextEditions, request)
+    const trackedEdition = nextEditions[trackedIndex]
+    if (
+      trackedEdition &&
+      (trackedEdition.registryRecordId !== request.id || trackedEdition.deadlines.length > 0)
+    ) {
       skipped.push(`${request.id}:already-tracked`)
       continue
     }
     try {
       const source = await options.fetchSource(request)
       const result = buildConferenceRequestEdition(request, source, options.now)
-      nextEditions.push(result.edition)
+      if (trackedIndex >= 0 && result.edition.deadlines.length === 0) {
+        skipped.push(`${request.id}:dates-pending`)
+        continue
+      }
+      if (trackedIndex >= 0) nextEditions.splice(trackedIndex, 1, result.edition)
+      else nextEditions.push(result.edition)
       nextEvidence.push(...result.evidence)
       imported.push(request.id)
       reportLines.push(
@@ -232,7 +226,7 @@ export async function syncConferenceRequests(
         "",
         `Request ID: ${request.id}`,
         `Official URL: ${request.officialUrl}`,
-        `Result: imported into the catalog as a reviewable candidate (${result.edition.id}).`,
+        `Result: ${trackedIndex >= 0 ? "refreshed" : "imported"} into the catalog as a reviewable candidate (${result.edition.id}).`,
         `Extracted deadlines: ${result.edition.deadlines.length}`,
         "",
       )

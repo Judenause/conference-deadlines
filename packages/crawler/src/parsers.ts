@@ -21,12 +21,15 @@ export interface ParsedObservation {
 }
 
 const datePattern =
-  /(?:\d{4}[-/.]\d{1,2}[-/.]\d{1,2}(?:\s+\d{1,2}:\d{2}(?::\d{2})?(?:\s*(?:AoE|UTC[-+]\d{1,2}|UTC|GMT|EDT|EST|CDT|CST|MDT|MST|PDT|PST))?)?|(?:Jan(?:uary)?|Feb(?:ruary)?|Mar(?:ch)?|Apr(?:il)?|May|Jun(?:e)?|Jul(?:y)?|Aug(?:ust)?|Sep(?:tember)?|Oct(?:ober)?|Nov(?:ember)?|Dec(?:ember)?)\s+\d{1,2},\s+\d{4}(?:\s*(?:(?:,|at)\s*)?\d{1,2}:\d{2}(?:\s*(?:AM|PM))?(?:\s*(?:AoE|UTC[-+]\d{1,2}|UTC|GMT|EDT|EST|CDT|CST|MDT|MST|PDT|PST))?(?:\s*\([^)]*\))?)?)/i
+  /(?:\d{4}[-/.]\d{1,2}[-/.]\d{1,2}(?:\s+\d{1,2}:\d{2}(?::\d{2})?(?:\s*(?:AoE|UTC[-+]\d{1,2}|UTC|GMT|EDT|EST|CDT|CST|MDT|MST|PDT|PST))?)?|(?:Jan(?:uary)?|Feb(?:ruary)?|Mar(?:ch)?|Apr(?:il)?|May|Jun(?:e)?|Jul(?:y)?|Aug(?:ust)?|Sep(?:tember)?|Oct(?:ober)?|Nov(?:ember)?|Dec(?:ember)?)\s+\d{1,2}(?:st|nd|rd|th)?,\s+\d{4}(?:\s*(?:(?:,|at)\s*)?\d{1,2}:\d{2}(?:\s*(?:AM|PM))?(?:\s*(?:AoE|UTC[-+]\d{1,2}|UTC|GMT|EDT|EST|CDT|CST|MDT|MST|PDT|PST))?(?:\s*\([^)]*\))?)?)/i
 
 const kindPatterns = [
   { kind: "abstract_registration" as const, pattern: /abstract|초록/i },
   { kind: "supplementary_submission" as const, pattern: /supplementary|supp\.?\s*material|보충/i },
-  { kind: "camera_ready" as const, pattern: /camera[-\s]?ready|final\s+(?:paper|version)|최종본/i },
+  {
+    kind: "camera_ready" as const,
+    pattern: /camera[-\s]?ready|final\s+(?:(?:ver(?:sion)?\.?\s+)?paper|version)|최종본/i,
+  },
   { kind: "rebuttal" as const, pattern: /rebuttal|반박/i },
   { kind: "workshop_submission" as const, pattern: /workshop|워크숍/i },
   {
@@ -88,7 +91,7 @@ function normalizeDateToken(
     }
   }
   const monthDate =
-    /^(Jan(?:uary)?|Feb(?:ruary)?|Mar(?:ch)?|Apr(?:il)?|May|Jun(?:e)?|Jul(?:y)?|Aug(?:ust)?|Sep(?:tember)?|Oct(?:ober)?|Nov(?:ember)?|Dec(?:ember)?)\s+(\d{1,2}),\s+(\d{4})(.*)$/i.exec(
+    /^(Jan(?:uary)?|Feb(?:ruary)?|Mar(?:ch)?|Apr(?:il)?|May|Jun(?:e)?|Jul(?:y)?|Aug(?:ust)?|Sep(?:tember)?|Oct(?:ober)?|Nov(?:ember)?|Dec(?:ember)?)\s+(\d{1,2})(?:st|nd|rd|th)?,\s+(\d{4})(.*)$/i.exec(
       trimmed,
     )
   if (monthDate?.[1] && monthDate[2] && monthDate[3]) {

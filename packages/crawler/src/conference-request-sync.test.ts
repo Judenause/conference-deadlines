@@ -86,6 +86,25 @@ describe("conference request synchronization", () => {
     expect(result.imported).toEqual([])
   })
 
+  test("refreshes a tracked dates-pending request when official dates become available", async () => {
+    const pendingEdition = buildConferenceRequestEdition(
+      request,
+      { ...source, observations: [] },
+      new Date("2026-09-02T00:00:00Z"),
+    ).edition
+    const tracked: Catalog = { ...catalog, editions: [pendingEdition] }
+
+    const result = await syncConferenceRequests(tracked, [request], {
+      now: new Date("2026-09-02T00:00:00Z"),
+      fetchSource: async () => source,
+    })
+
+    expect(result.catalog.editions[0]?.deadlines).toHaveLength(1)
+    expect(result.catalog.evidence).toHaveLength(1)
+    expect(result.imported).toEqual(["request-123"])
+    expect(result.skipped).toEqual([])
+  })
+
   test("does not publish deadlines that elapsed before the sync", () => {
     const result = buildConferenceRequestEdition(
       request,
