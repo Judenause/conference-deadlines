@@ -41,7 +41,11 @@ test("edition exposes its evidence and history collection", async () => {
 
 test("catalog metadata exposes the latest evidence check time", async () => {
   const response = await createApp().request("/api/v1/catalog/meta")
+  const expectedLastCheckedAt = getCatalog().evidence.reduce<string | null>(
+    (latest, item) => (!latest || item.checkedAt > latest ? item.checkedAt : latest),
+    null,
+  )
 
   expect(response.status).toBe(200)
-  expect(await response.json()).toEqual({ lastCheckedAt: "2026-09-01T00:00:00Z" })
+  expect(await response.json()).toEqual({ lastCheckedAt: expectedLastCheckedAt })
 })
