@@ -1,10 +1,41 @@
 import { catalogSchema } from "@conf/contracts"
+import { fetchConferenceRequestSource, syncConferenceRequests } from "./conference-request-sync"
 import { crawlFixture, crawlLive } from "./crawl"
+import { readConferenceRequests } from "./firestore-requests"
 import { auditFutureEditionSchedules, formatScheduleAuditReport } from "./schedule-audit"
 import { runSourceMonitor, writeMonitorReview, writeScheduleUpdates } from "./source-monitor"
 
 async function main(): Promise<void> {
   const args = process.argv.slice(2)
+  if (args[0] === "sync-requests") {
+    const projectId = process.env.FIREBASE_PROJECT_ID?.trim()
+    const accessToken = process.env.FIREBASE_ACCESS_TOKEN?.trim()
+    if (!projectId || !accessToken)
+      throw new Error("FIREBASE_PROJECT_ID와 FIREBASE_ACCESS_TOKEN이 필요합니다.")
+    const catalogPath = "data/seed/catalog-state.json"
+    const catalog = catalogSchema.parse(await Bun.file(catalogPath).json())
+    const requests = await readConferenceRequests({ projectId, accessToken })
+    const run = await syncConferenceRequests(catalog, requests.requests, {
+      now: new Date(),
+      fetchSource: fetchConferenceRequestSource,
+    })
+    if (run.imported.length > 0)
+      await Bun.write(catalogPath, `${JSON.stringify(run.catalog, null, 2)}\n`)
+    await Bun.write("data/monitor/conference-request-review.md", `${run.report}\n`)
+    console.log(
+      JSON.stringify(
+        {
+          requestCount: requests.requests.length,
+          invalidRequestCount: requests.invalidIds.length,
+          importedCount: run.imported.length,
+          skippedCount: run.skipped.length,
+          failedCount: run.failed.length,
+        },
+        null,
+      ),
+    )
+    return
+  }
   if (args[0] === "monitor") {
     const catalog = catalogSchema.parse(await Bun.file("data/seed/catalog-state.json").json())
     const run = await runSourceMonitor(
@@ -38,7 +69,7 @@ async function main(): Promise<void> {
     return
   }
   if (args[0] !== "crawl")
-    throw new Error("사용법: crawl --source <registered-id> [--live] | monitor")
+    throw new Error("사용법: crawl --source <registered-id> [--live] | monitor | sync-requests")
   const sourceIndex = args.indexOf("--source")
   const sourceId = sourceIndex >= 0 ? args[sourceIndex + 1] : undefined
   if (!sourceId) throw new Error("--source에는 등록된 소스 ID가 필요합니다.")

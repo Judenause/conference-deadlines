@@ -23,6 +23,33 @@ jobs:
         with:
           bun-version: 1.3.14
       - run: bun install --frozen-lockfile
+      - name: Detect Firebase request sync configuration
+        id: firebase-config
+        env:
+          FIREBASE_SERVICE_ACCOUNT_JSON: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_JSON }}
+        run: |
+          if test -n "$FIREBASE_SERVICE_ACCOUNT_JSON"; then
+            echo "configured=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "configured=false" >> "$GITHUB_OUTPUT"
+          fi
+      - name: Authenticate Firebase request sync
+        if: steps.firebase-config.outputs.configured == 'true'
+        id: firebase-auth
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_JSON }}
+          token_format: access_token
+          access_token_scopes: https://www.googleapis.com/auth/datastore
+      - name: Sync submitted conference requests
+        if: steps.firebase-config.outputs.configured == 'true'
+        run: bun packages/crawler/src/cli.ts sync-requests
+        env:
+          FIREBASE_PROJECT_ID: ${{ vars.VITE_FIREBASE_PROJECT_ID }}
+          FIREBASE_ACCESS_TOKEN: ${{ steps.firebase-auth.outputs.access_token }}
+      - name: Warn when Firebase request sync is not configured
+        if: steps.firebase-config.outputs.configured != 'true'
+        run: echo "::warning::FIREBASE_SERVICE_ACCOUNT_JSON is not configured; skipping conference request sync."
       - run: bun packages/crawler/src/cli.ts monitor
       - run: bunx biome format --write data/seed/catalog-state.json
       - id: change
