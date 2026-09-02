@@ -1,4 +1,5 @@
 import { expect, test } from "bun:test"
+import { getCatalog } from "@conf/storage"
 import { createApp } from "./app"
 
 test("empty search is a successful empty collection", async () => {
@@ -12,7 +13,7 @@ test("catalog request can return every imported Notion record", async () => {
   const body = await response.json()
 
   expect(response.status).toBe(200)
-  expect(body.items.length).toBe(111)
+  expect(body.items.length).toBe(getCatalog().editions.length)
 })
 
 test("malformed limit is a typed problem response", async () => {
