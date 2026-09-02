@@ -9,4 +9,5 @@ react-doctor-report.json
 .env
 .env.*
 !.env.example
+apps/mattermost-bot/.dev.vars
 gha-creds-*.json

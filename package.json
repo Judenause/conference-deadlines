@@ -9,8 +9,8 @@
   "scripts": {
     "dev": "bun run --parallel --filter '*' dev",
     "typecheck": "tsc --noEmit -p tsconfig.json",
-    "lint": "biome check apps/api/src apps/web/src apps/web/e2e apps/web/index.html apps/web/playwright.config.ts apps/web/vite.config.ts packages scripts fixtures data package.json tsconfig.json tsconfig.base.json biome.json",
-    "test": "bun test scripts packages apps/api && bun --filter @conf/web test",
+    "lint": "biome check apps/api/src apps/mattermost-bot/src apps/mattermost-bot/wrangler.jsonc apps/web/src apps/web/e2e apps/web/index.html apps/web/playwright.config.ts apps/web/vite.config.ts packages scripts fixtures data package.json tsconfig.json tsconfig.base.json biome.json",
+    "test": "bun test scripts packages apps/api apps/mattermost-bot && bun --filter @conf/web test",
     "build": "bun scripts/verify-design-contract.ts && bun --filter @conf/web build",
     "build:pages": "bun scripts/verify-design-contract.ts && bun --filter @conf/web build:pages",
     "doctor": "bun run typecheck && bun run lint && bun run test && bun run build",

@@ -1,0 +1,10 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "iris-conference-deadline-bot",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-09-02",
+  "workers_dev": true,
+  "vars": {
+    "CATALOG_URL": "https://judenause.github.io/conference-deadlines/catalog-state.json"
+  }
+}
