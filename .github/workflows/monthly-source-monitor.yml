@@ -35,18 +35,24 @@ jobs:
           fi
       - name: Authenticate Firebase request sync
         if: steps.firebase-config.outputs.configured == 'true'
-        id: firebase-auth
         uses: google-github-actions/auth@v2
         with:
           credentials_json: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_JSON }}
-          token_format: access_token
-          access_token_scopes: https://www.googleapis.com/auth/datastore
+      - name: Set up Google Cloud SDK
+        if: steps.firebase-config.outputs.configured == 'true'
+        uses: google-github-actions/setup-gcloud@v3
+        with:
+          project_id: ${{ vars.VITE_FIREBASE_PROJECT_ID }}
+      - name: Mint Firebase access token
+        if: steps.firebase-config.outputs.configured == 'true'
+        id: firebase-token
+        run: echo "access_token=$(gcloud auth print-access-token)" >> "$GITHUB_OUTPUT"
       - name: Sync submitted conference requests
         if: steps.firebase-config.outputs.configured == 'true'
         run: bun packages/crawler/src/cli.ts sync-requests
         env:
           FIREBASE_PROJECT_ID: ${{ vars.VITE_FIREBASE_PROJECT_ID }}
-          FIREBASE_ACCESS_TOKEN: ${{ steps.firebase-auth.outputs.access_token }}
+          FIREBASE_ACCESS_TOKEN: ${{ steps.firebase-token.outputs.access_token }}
       - name: Warn when Firebase request sync is not configured
         if: steps.firebase-config.outputs.configured != 'true'
         run: echo "::warning::FIREBASE_SERVICE_ACCOUNT_JSON is not configured; skipping conference request sync."

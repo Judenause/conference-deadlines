@@ -9,3 +9,4 @@ react-doctor-report.json
 .env
 .env.*
 !.env.example
+gha-creds-*.json

@@ -31,6 +31,8 @@ GitHub Pages는 읽기 전용 정적 사이트이므로, 관리자 입력은 Fir
 5. JSON 파일은 GitHub에 파일로 커밋하지 말고, Secret 등록 후 로컬에서도 삭제한다.
 6. 다음 월간 실행부터 `conferenceRequests`의 `submitted` 요청을 공식 URL로 확인하고, 추출된 일정이 포함된 검수 후보를 카탈로그에 추가한 뒤 자동 PR을 만든다. PR을 병합해야 Pages에 공개된다.
 
+워크플로는 `google-github-actions/auth`로 서비스 계정 키를 인증하고 Google Cloud SDK에서 단기 Datastore 토큰을 발급한다. 따라서 이 방식에서는 IAM Credentials API를 별도로 활성화하거나 서비스 계정에 Token Creator 역할을 추가할 필요가 없다. 장기적으로는 키 JSON 대신 Workload Identity Federation으로 전환하는 것이 더 안전하다.
+
 서비스 계정 Secret이 없으면 월간 workflow는 기존 공식 URL 모니터링만 수행하고 신규 요청 동기화는 건너뛴다.
 
 ## 저장되는 데이터와 검수 규칙
