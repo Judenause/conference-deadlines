@@ -5962,6 +5962,25 @@
       "registrySourceUrl": "https://sensys.acm.org/2027/",
       "registryRecordId": null,
       "deadlines": []
+    },
+    {
+      "id": "icce-asia-VbffVh7f",
+      "acronym": "ICCE-Asia 2026",
+      "name": "ICCE-Asia",
+      "year": 2026,
+      "location": "공식 발표 대기",
+      "dateRange": "공식 일정 검수 중",
+      "conferenceStart": null,
+      "conferenceEnd": null,
+      "officialUrl": "https://icce-asia2026.org/2026/",
+      "tier": null,
+      "categories": ["System"],
+      "status": "dates-pending",
+      "description": "관리자 요청으로 등록된 후보입니다. 공식 일정과 장소 검수가 필요합니다.",
+      "registrySource": "curated",
+      "registrySourceUrl": "https://icce-asia2026.org/2026/",
+      "registryRecordId": "d3yOZfumOJdzVbffVh7f",
+      "deadlines": []
     }
   ],
   "evidence": [
