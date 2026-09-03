@@ -6,25 +6,30 @@ import { useId } from "react"
 import { afterEach, expect, test, vi } from "vitest"
 import { AdminPanel } from "./AdminPanel"
 
-const firebaseMocks = vi.hoisted(() => ({
-  signIn: vi.fn(async () => ({ idToken: "token", email: "operator@example.org" })),
+const managementMocks = vi.hoisted(() => ({
+  signIn: vi.fn(),
+  getSession: vi.fn(async () => ({
+    email: "operator@example.org",
+    expiresAt: "2027-01-01T00:00:00.000Z",
+  })),
+  getRequests: vi.fn(async () => []),
+  reviewRequest: vi.fn(async () => undefined),
   submitAddition: vi.fn(async () => undefined),
   submitOverride: vi.fn(async () => undefined),
 }))
 
-vi.mock("../admin/firebase-rest", async () => {
+vi.mock("../admin/management-api", async () => {
   const actual =
-    await vi.importActual<typeof import("../admin/firebase-rest")>("../admin/firebase-rest")
+    await vi.importActual<typeof import("../admin/management-api")>("../admin/management-api")
   return {
     ...actual,
-    getFirebaseAdminConfig: () => ({
-      apiKey: "public-key",
-      projectId: "project-id",
-      googleClientId: "client-id",
-    }),
-    signInFirebaseAdmin: firebaseMocks.signIn,
-    submitConferenceRequest: firebaseMocks.submitAddition,
-    submitScheduleOverride: firebaseMocks.submitOverride,
+    getManagementApiConfig: () => ({ apiUrl: "https://manage.example.org" }),
+    getManagementAdminSession: managementMocks.getSession,
+    getManagementRequests: managementMocks.getRequests,
+    reviewManagementRequest: managementMocks.reviewRequest,
+    signInManagementAdmin: managementMocks.signIn,
+    submitConferenceRequest: managementMocks.submitAddition,
+    submitScheduleOverride: managementMocks.submitOverride,
   }
 })
 
@@ -82,8 +87,7 @@ test("a late-loaded catalog selects its first edition for schedule override", ()
 test("a successful authenticated addition resets its original form after the async save", async () => {
   render(<Fixture editions={[edition]} />)
 
-  fireEvent.click(screen.getByRole("button", { name: "Google로 관리자 인증" }))
-  await screen.findByText("operator@example.org 계정으로 인증했습니다.")
+  await waitFor(() => expect(managementMocks.getSession).toHaveBeenCalledTimes(1))
   const name = screen.getByRole("textbox", { name: "학회명" })
   const url = screen.getByRole("textbox", { name: "공식 홈페이지" })
   fireEvent.change(name, { target: { value: "NewConf" } })
@@ -91,9 +95,9 @@ test("a successful authenticated addition resets its original form after the asy
   fireEvent.click(screen.getByRole("button", { name: "추가 요청 저장" }))
 
   await screen.findByText(
-    "학회 추가 요청을 저장했습니다. 공식 URL 확인 후 월간 수집 대상에 등록됩니다.",
+    "학회 추가 요청을 저장했습니다. 서버 검수 후 공식 수집 대상에 등록됩니다.",
   )
-  await waitFor(() => expect(firebaseMocks.submitAddition).toHaveBeenCalledTimes(1))
+  await waitFor(() => expect(managementMocks.submitAddition).toHaveBeenCalledTimes(1))
   expect(name).toHaveProperty("value", "")
   expect(url).toHaveProperty("value", "")
 })

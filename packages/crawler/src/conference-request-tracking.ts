@@ -1,5 +1,5 @@
 import type { Edition } from "@conf/contracts"
-import type { ConferenceRequestRecord } from "./firestore-requests"
+import type { ConferenceRequestRecord } from "./management-requests"
 
 function normalizedUrl(value: string): string {
   const url = new URL(value)

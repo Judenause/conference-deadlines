@@ -1,6 +1,6 @@
 # IRIS Conference Deadline Mattermost Bot
 
-Mattermost의 `/conf` 명령을 받아 공개된 IRIS Conference Deadline 카탈로그만 조회하는 Cloudflare Worker입니다. 이 Worker는 Firebase·GitHub 저장소·카탈로그 데이터를 수정하지 않습니다.
+Mattermost의 `/conf` 명령을 받아 공개된 IRIS Conference Deadline 카탈로그만 조회하는 Cloudflare Worker입니다. 이 Worker는 관리 서버·GitHub 저장소·카탈로그 데이터를 수정하지 않습니다.
 
 ## Local check
 

@@ -27,7 +27,7 @@ bun --filter @conf/web build && bun --filter @conf/web preview
 - 운영자 명령: 등록된 소스 수집과 검수 처리
 - 임의 URL, 브라우저 스크래핑, 로그인 우회는 지원하지 않음
 
-Firebase를 연결하면 웹의 **Manage** 화면에서 Google 관리자 인증 후 학회 추가와 수기 일정 수정 요청을 저장할 수 있습니다. 이 요청은 검수 전까지 공개 카탈로그를 바꾸지 않습니다. [Firebase 운영 연결](docs/firebase-operations.md)을 따라 설정합니다.
+웹의 **Manage** 화면은 자체 관리 서버에서 Google 관리자 인증 후 학회 추가와 수기 일정 수정 요청을 저장합니다. 이 요청은 검수 전까지 공개 카탈로그를 바꾸지 않으며, 공개 데이터의 최종 원본은 계속 Git PR입니다. [자체 관리 서버 운영](docs/management-server-operations.md)을 따라 설정합니다.
 
 ## 수집 명령
 

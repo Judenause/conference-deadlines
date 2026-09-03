@@ -3,14 +3,17 @@ import {
   type Edition,
   scheduleOverrideInputSchema,
 } from "@conf/contracts"
-import { type FormEvent, useEffect, useId, useMemo, useState } from "react"
+import { type FormEvent, useCallback, useEffect, useId, useMemo, useState } from "react"
 import {
-  type FirebaseAdminSession,
-  getFirebaseAdminConfig,
-  signInFirebaseAdmin,
+  getManagementAdminSession,
+  getManagementApiConfig,
+  getManagementRequests,
+  type ManagementRequestSummary,
+  reviewManagementRequest,
+  signInManagementAdmin,
   submitConferenceRequest,
   submitScheduleOverride,
-} from "../admin/firebase-rest"
+} from "../admin/management-api"
 
 type ManagementMode = "add" | "override"
 
@@ -31,9 +34,10 @@ export function AdminPanel({
   readonly id: string
 }) {
   const titleId = useId()
-  const config = getFirebaseAdminConfig()
+  const config = useMemo(() => getManagementApiConfig(), [])
   const [mode, setMode] = useState<ManagementMode>("add")
-  const [session, setSession] = useState<FirebaseAdminSession>()
+  const [session, setSession] = useState<{ readonly email: string }>()
+  const [requests, setRequests] = useState<readonly ManagementRequestSummary[]>([])
   const [message, setMessage] = useState("")
   const [submitting, setSubmitting] = useState(false)
   const [editionId, setEditionId] = useState(editions[0]?.id ?? "")
@@ -41,24 +45,33 @@ export function AdminPanel({
     if (editions.some((edition) => edition.id === editionId)) return
     setEditionId(editions[0]?.id ?? "")
   }, [editionId, editions])
+  useEffect(() => {
+    if (!config) return
+    void getManagementAdminSession(config)
+      .then((nextSession) => setSession(nextSession))
+      .catch(() => setMessage("관리 서버에 연결하지 못했습니다."))
+  }, [config])
+
+  const refreshRequests = useCallback(async () => {
+    if (!config || !session) return
+    try {
+      setRequests(await getManagementRequests(config))
+    } catch (reason) {
+      setMessage(reason instanceof Error ? reason.message : "검수 요청을 불러오지 못했습니다.")
+    }
+  }, [config, session])
+
+  useEffect(() => {
+    void refreshRequests()
+  }, [refreshRequests])
   const selectedEdition = useMemo(
     () => editions.find((edition) => edition.id === editionId),
     [editionId, editions],
   )
 
-  async function signIn() {
+  function signIn() {
     if (!config) return
-    setSubmitting(true)
-    setMessage("")
-    try {
-      const nextSession = await signInFirebaseAdmin(config)
-      setSession(nextSession)
-      setMessage(`${nextSession.email} 계정으로 인증했습니다.`)
-    } catch (reason) {
-      setMessage(reason instanceof Error ? reason.message : "관리자 인증에 실패했습니다.")
-    } finally {
-      setSubmitting(false)
-    }
+    signInManagementAdmin(config)
   }
 
   async function submitAddition(event: FormEvent<HTMLFormElement>) {
@@ -79,9 +92,10 @@ export function AdminPanel({
     setSubmitting(true)
     setMessage("")
     try {
-      await submitConferenceRequest(config, session, parsed.data)
+      await submitConferenceRequest(config, parsed.data)
       formElement.reset()
-      setMessage("학회 추가 요청을 저장했습니다. 공식 URL 확인 후 월간 수집 대상에 등록됩니다.")
+      await refreshRequests()
+      setMessage("학회 추가 요청을 저장했습니다. 서버 검수 후 공식 수집 대상에 등록됩니다.")
     } catch (reason) {
       setMessage(reason instanceof Error ? reason.message : "학회 추가 요청을 저장하지 못했습니다.")
     } finally {
@@ -109,11 +123,27 @@ export function AdminPanel({
     setSubmitting(true)
     setMessage("")
     try {
-      await submitScheduleOverride(config, session, parsed.data)
+      await submitScheduleOverride(config, parsed.data)
       formElement.reset()
+      await refreshRequests()
       setMessage("수정 요청을 저장했습니다. 승인 전에는 자동 수집값과 공개 일정이 바뀌지 않습니다.")
     } catch (reason) {
       setMessage(reason instanceof Error ? reason.message : "수정 요청을 저장하지 못했습니다.")
+    } finally {
+      setSubmitting(false)
+    }
+  }
+
+  async function reviewRequest(request: ManagementRequestSummary, status: "approved" | "rejected") {
+    if (!config) return
+    setSubmitting(true)
+    setMessage("")
+    try {
+      await reviewManagementRequest(config, request, status)
+      await refreshRequests()
+      setMessage(status === "approved" ? "요청을 승인했습니다." : "요청을 반려했습니다.")
+    } catch (reason) {
+      setMessage(reason instanceof Error ? reason.message : "요청을 검수하지 못했습니다.")
     } finally {
       setSubmitting(false)
     }
@@ -144,13 +174,13 @@ export function AdminPanel({
           <button
             className="management-sign-in"
             disabled={submitting || Boolean(session)}
-            onClick={() => void signIn()}
+            onClick={signIn}
             type="button"
           >
             {session ? "관리자 인증됨" : "Google로 관리자 인증"}
           </button>
         ) : (
-          <p className="management-setup">Firebase 연결 후 활성화됩니다.</p>
+          <p className="management-setup">관리 서버 연결 후 활성화됩니다.</p>
         )}
       </div>
       {mode === "add" ? (
@@ -257,6 +287,40 @@ export function AdminPanel({
           </button>
         </form>
       )}
+      {session ? (
+        <section className="management-review" aria-label="검수 요청">
+          <h3>검수 요청</h3>
+          {requests.length === 0 ? <p>저장된 요청이 없습니다.</p> : null}
+          <ul>
+            {requests.map((request) => (
+              <li key={`${request.kind}-${request.id}`}>
+                <span>
+                  {request.kind === "conference" ? "학회 추가" : "일정 수정"} · {request.title} ·{" "}
+                  {request.status}
+                </span>
+                {request.status === "submitted" ? (
+                  <span>
+                    <button
+                      disabled={submitting}
+                      onClick={() => void reviewRequest(request, "approved")}
+                      type="button"
+                    >
+                      승인
+                    </button>
+                    <button
+                      disabled={submitting}
+                      onClick={() => void reviewRequest(request, "rejected")}
+                      type="button"
+                    >
+                      반려
+                    </button>
+                  </span>
+                ) : null}
+              </li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
       {message ? <output className="management-message">{message}</output> : null}
     </section>
   )

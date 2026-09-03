@@ -20,3 +20,21 @@ export const scheduleOverrideInputSchema = z.object({
 export type ConferenceRequestInput = z.infer<typeof conferenceRequestInputSchema>
 export type FieldCategory = z.infer<typeof fieldCategorySchema>
 export type ScheduleOverrideInput = z.infer<typeof scheduleOverrideInputSchema>
+
+export const managementRequestStatusSchema = z.enum([
+  "submitted",
+  "approved",
+  "rejected",
+  "imported",
+])
+
+export const managementReviewInputSchema = z.object({
+  status: z.enum(["approved", "rejected"]),
+  note: z.string().trim().max(600),
+})
+
+export const managementRequestKindSchema = z.enum(["conference", "schedule-override"])
+
+export type ManagementRequestStatus = z.infer<typeof managementRequestStatusSchema>
+export type ManagementReviewInput = z.infer<typeof managementReviewInputSchema>
+export type ManagementRequestKind = z.infer<typeof managementRequestKindSchema>

@@ -1,7 +1,7 @@
 import { catalogSchema } from "@conf/contracts"
 import { fetchConferenceRequestSource, syncConferenceRequests } from "./conference-request-sync"
 import { crawlFixture, crawlLive } from "./crawl"
-import { readConferenceRequests } from "./firestore-requests"
+import { readManagementConferenceRequests } from "./management-requests"
 import { auditFutureEditionSchedules, formatScheduleAuditReport } from "./schedule-audit"
 import {
   isAutoMergeEligible,
@@ -13,14 +13,14 @@ import {
 async function main(): Promise<void> {
   const args = process.argv.slice(2)
   if (args[0] === "sync-requests") {
-    const projectId = process.env.FIREBASE_PROJECT_ID?.trim()
-    const accessToken = process.env.FIREBASE_ACCESS_TOKEN?.trim()
-    if (!projectId || !accessToken)
-      throw new Error("FIREBASE_PROJECT_ID와 FIREBASE_ACCESS_TOKEN이 필요합니다.")
+    const apiUrl = process.env.MANAGEMENT_API_URL?.trim()
+    const syncToken = process.env.MANAGEMENT_SYNC_TOKEN?.trim()
+    if (!apiUrl || !syncToken)
+      throw new Error("MANAGEMENT_API_URL과 MANAGEMENT_SYNC_TOKEN이 필요합니다.")
     const catalogPath = "data/seed/catalog-state.json"
     const catalog = catalogSchema.parse(await Bun.file(catalogPath).json())
-    const requests = await readConferenceRequests({ projectId, accessToken })
-    const run = await syncConferenceRequests(catalog, requests.requests, {
+    const requests = await readManagementConferenceRequests(apiUrl, syncToken)
+    const run = await syncConferenceRequests(catalog, requests, {
       now: new Date(),
       fetchSource: fetchConferenceRequestSource,
     })
@@ -30,8 +30,7 @@ async function main(): Promise<void> {
     console.log(
       JSON.stringify(
         {
-          requestCount: requests.requests.length,
-          invalidRequestCount: requests.invalidIds.length,
+          requestCount: requests.length,
           importedCount: run.imported.length,
           skippedCount: run.skipped.length,
           failedCount: run.failed.length,

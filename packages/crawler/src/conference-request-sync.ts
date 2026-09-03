@@ -1,6 +1,6 @@
 import type { Catalog, Deadline, Edition, Evidence } from "@conf/contracts"
 import { findTrackedEditionIndex } from "./conference-request-tracking"
-import type { ConferenceRequestRecord } from "./firestore-requests"
+import type { ConferenceRequestRecord } from "./management-requests"
 import { type ParsedObservation, parseOfficialHtml } from "./parsers"
 import { fetchRegisteredHtml } from "./safe-fetch"
 import type { RegisteredSource } from "./source-registry"
@@ -197,7 +197,7 @@ export async function syncConferenceRequests(
   const failed: string[] = []
   const reportLines = ["# Conference request review", ""]
   for (const request of [...requests].sort((left, right) => left.id.localeCompare(right.id))) {
-    if (request.status !== "submitted") {
+    if (request.status !== "approved") {
       skipped.push(`${request.id}:status-${request.status}`)
       continue
     }
@@ -244,7 +244,7 @@ export async function syncConferenceRequests(
     }
   }
   if (imported.length === 0 && failed.length === 0)
-    reportLines.push("No new submitted requests.", "")
+    reportLines.push("No new approved requests.", "")
   if (failed.length > 0) {
     reportLines.push("## Failed requests", "", ...failed.map((value) => `- ${value}`), "")
   }

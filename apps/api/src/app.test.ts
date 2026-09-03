@@ -1,6 +1,36 @@
 import { expect, test } from "bun:test"
 import { getCatalog } from "@conf/storage"
 import { createApp } from "./app"
+import { ManagementStore } from "./management-store"
+
+const managementAuth = {
+  googleClientId: "client-id.apps.googleusercontent.com",
+  googleClientSecret: "test-secret",
+  publicUrl: "https://manage.example.org",
+  publicWebOrigin: "https://site.example.org",
+  adminEmails: new Set(["operator@example.org"]),
+  secureCookies: true,
+}
+
+async function testManagementApp() {
+  const store = new ManagementStore(":memory:")
+  const sessionToken = "test-admin-session"
+  const digest = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(sessionToken))
+  const tokenHash = Buffer.from(digest).toString("base64url")
+  store.saveSession(tokenHash, {
+    email: "operator@example.org",
+    expiresAt: "2027-01-01T00:00:00.000Z",
+  })
+  return {
+    app: createApp({
+      managementStore: store,
+      managementAuth,
+      managementSyncToken: "sync-token",
+    }),
+    store,
+    headers: { cookie: `conference_admin_session=${sessionToken}` },
+  }
+}
 
 test("empty search is a successful empty collection", async () => {
   const response = await createApp().request("/api/v1/editions?q=does-not-exist")
@@ -48,4 +78,59 @@ test("catalog metadata exposes the latest evidence check time", async () => {
 
   expect(response.status).toBe(200)
   expect(await response.json()).toEqual({ lastCheckedAt: expectedLastCheckedAt })
+})
+
+test("management API stores, reviews, and exposes only approved conference requests to sync", async () => {
+  const { app, store, headers } = await testManagementApp()
+  const created = await app.request("/api/v1/admin/conference-requests", {
+    method: "POST",
+    headers: { ...headers, "content-type": "application/json" },
+    body: JSON.stringify({
+      name: "ExampleConf",
+      officialUrl: "https://example.org/cfp",
+      category: "AI",
+      note: "annual conference",
+    }),
+  })
+  expect(created.status).toBe(201)
+  const request = (await created.json()) as { id: string; status: string; submittedBy: string }
+  expect(request).toMatchObject({ status: "submitted", submittedBy: "operator@example.org" })
+
+  const hidden = await app.request("/api/v1/internal/conference-requests", {
+    headers: { authorization: "Bearer sync-token" },
+  })
+  expect(await hidden.json()).toEqual({ items: [] })
+
+  const reviewed = await app.request(`/api/v1/admin/requests/conference/${request.id}/review`, {
+    method: "PATCH",
+    headers: { ...headers, "content-type": "application/json" },
+    body: JSON.stringify({ status: "approved", note: "official page confirmed" }),
+  })
+  expect(reviewed.status).toBe(204)
+
+  const sync = await app.request("/api/v1/internal/conference-requests", {
+    headers: { authorization: "Bearer sync-token" },
+  })
+  expect(await sync.json()).toMatchObject({
+    items: [
+      {
+        id: request.id,
+        name: "ExampleConf",
+        status: "approved",
+      },
+    ],
+  })
+  store.close()
+})
+
+test("management API rejects an unauthenticated write", async () => {
+  const store = new ManagementStore(":memory:")
+  const app = createApp({ managementStore: store, managementAuth })
+  const response = await app.request("/api/v1/admin/conference-requests", {
+    method: "POST",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify({}),
+  })
+  expect(response.status).toBe(401)
+  store.close()
 })

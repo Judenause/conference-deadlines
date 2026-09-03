@@ -5,7 +5,7 @@ import {
   type ConferenceRequestSource,
   syncConferenceRequests,
 } from "./conference-request-sync"
-import type { ConferenceRequestRecord } from "./firestore-requests"
+import type { ConferenceRequestRecord } from "./management-requests"
 
 const catalog: Catalog = {
   editions: [],
@@ -19,7 +19,7 @@ const request: ConferenceRequestRecord = {
   officialUrl: "https://example.org/cfp",
   category: "AI",
   note: "Important Dates 확인",
-  status: "submitted",
+  status: "approved",
   submittedAt: "2026-09-02T00:00:00Z",
 }
 

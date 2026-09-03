@@ -259,6 +259,11 @@
     grid-column: auto;
   }
 
+  .management-review li {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
   .results-head {
     margin-bottom: var(--space-3);
   }
