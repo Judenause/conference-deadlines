@@ -4,11 +4,10 @@ import { createApp } from "./app"
 import { ManagementStore } from "./management-store"
 
 const managementAuth = {
-  googleClientId: "client-id.apps.googleusercontent.com",
-  googleClientSecret: "test-secret",
   publicUrl: "https://manage.example.org",
   publicWebOrigin: "https://site.example.org",
-  adminEmails: new Set(["operator@example.org"]),
+  initialAdminUsername: "operator",
+  initialAdminPasswordHash: "$argon2id$v=19$m=65536,t=2,p=1$c2FsdA$aGFzaA",
   secureCookies: true,
 }
 
@@ -18,7 +17,7 @@ async function testManagementApp() {
   const digest = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(sessionToken))
   const tokenHash = Buffer.from(digest).toString("base64url")
   store.saveSession(tokenHash, {
-    email: "operator@example.org",
+    username: "operator",
     expiresAt: "2027-01-01T00:00:00.000Z",
   })
   return {
@@ -94,7 +93,7 @@ test("management API stores, reviews, and exposes only approved conference reque
   })
   expect(created.status).toBe(201)
   const request = (await created.json()) as { id: string; status: string; submittedBy: string }
-  expect(request).toMatchObject({ status: "submitted", submittedBy: "operator@example.org" })
+  expect(request).toMatchObject({ status: "submitted", submittedBy: "operator" })
 
   const hidden = await app.request("/api/v1/internal/conference-requests", {
     headers: { authorization: "Bearer sync-token" },
@@ -132,5 +131,32 @@ test("management API rejects an unauthenticated write", async () => {
     body: JSON.stringify({}),
   })
   expect(response.status).toBe(401)
+  store.close()
+})
+
+test("management API creates a cookie session only after an Argon2id password check", async () => {
+  const store = new ManagementStore(":memory:")
+  const app = createApp({
+    managementStore: store,
+    managementAuth: {
+      ...managementAuth,
+      initialAdminPasswordHash: await Bun.password.hash("correct-password", {
+        algorithm: "argon2id",
+      }),
+    },
+  })
+  const rejected = await app.request("/api/v1/admin/auth/login", {
+    method: "POST",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify({ username: "operator", password: "wrong-password" }),
+  })
+  expect(rejected.status).toBe(401)
+  const accepted = await app.request("/api/v1/admin/auth/login", {
+    method: "POST",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify({ username: "operator", password: "correct-password" }),
+  })
+  expect(accepted.status).toBe(200)
+  expect(accepted.headers.get("set-cookie")).toContain("HttpOnly")
   store.close()
 })

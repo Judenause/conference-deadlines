@@ -10,9 +10,8 @@ import { findEdition, getCatalog } from "@conf/storage"
 import { Hono } from "hono"
 import { cors } from "hono/cors"
 import {
-  createGoogleAuthorizationUrl,
+  authenticateLocalAdmin,
   deleteSession,
-  exchangeGoogleAuthorizationCode,
   getSession,
   type ManagementAuthConfig,
   readCookie,
@@ -42,10 +41,15 @@ function defaultManagementStore(): ManagementStore {
 
 export function createApp(options: AppOptions = {}): Hono {
   const app = new Hono()
+  const failedLogins = new Map<string, { attempts: number; retryAfter: number }>()
   const managementStore = options.managementStore ?? defaultManagementStore()
   const managementAuth = options.managementAuth ?? readManagementAuthConfig()
   const managementSyncToken = options.managementSyncToken ?? Bun.env.MANAGEMENT_SYNC_TOKEN
   if (managementAuth) {
+    managementStore.bootstrapAdmin(
+      managementAuth.initialAdminUsername,
+      managementAuth.initialAdminPasswordHash,
+    )
     app.use(
       "/api/v1/admin/*",
       cors({
@@ -139,13 +143,13 @@ export function createApp(options: AppOptions = {}): Hono {
     )
     if (!session)
       return context.json(
-        problem(401, "not-authenticated", "로그인 필요", "Google 로그인이 필요합니다."),
+        problem(401, "not-authenticated", "로그인 필요", "관리자 로그인이 필요합니다."),
         401,
       )
-    return context.json({ email: session.email, expiresAt: session.expiresAt })
+    return context.json({ username: session.username, expiresAt: session.expiresAt })
   })
 
-  app.get("/api/v1/admin/auth/google/start", async (context) => {
+  app.post("/api/v1/admin/auth/login", async (context) => {
     if (!managementAuth)
       return context.json(
         problem(
@@ -156,44 +160,39 @@ export function createApp(options: AppOptions = {}): Hono {
         ),
         503,
       )
-    try {
-      return context.redirect(
-        await createGoogleAuthorizationUrl(
-          managementStore,
-          managementAuth,
-          context.req.query("returnTo"),
-        ),
-      )
-    } catch (error) {
-      const detail = error instanceof Error ? error.message : "Google 로그인을 시작하지 못했습니다."
-      return context.json(problem(400, "invalid-login", "로그인 요청 오류", detail), 400)
-    }
-  })
-
-  app.get("/api/v1/admin/auth/google/callback", async (context) => {
-    if (!managementAuth)
+    const body = await context.req.json().catch(() => undefined)
+    const username = typeof body?.username === "string" ? body.username.trim() : ""
+    const password = typeof body?.password === "string" ? body.password : ""
+    const address = context.req.header("x-forwarded-for")?.split(",", 1)[0]?.trim() ?? "unknown"
+    const attemptKey = `${address}:${username.toLocaleLowerCase("en-US")}`
+    const savedFailure = failedLogins.get(attemptKey)
+    if (savedFailure && savedFailure.retryAfter > Date.now())
       return context.json(
-        problem(
-          503,
-          "management-unconfigured",
-          "관리 서버 미설정",
-          "관리자 로그인이 아직 설정되지 않았습니다.",
-        ),
-        503,
+        problem(429, "login-rate-limited", "로그인 잠시 제한", "잠시 후 다시 시도해 주세요."),
+        429,
       )
-    try {
-      const result = await exchangeGoogleAuthorizationCode(
-        managementStore,
-        managementAuth,
-        context.req.query("state"),
-        context.req.query("code"),
+    if (savedFailure?.retryAfter) failedLogins.delete(attemptKey)
+    const previousFailure = savedFailure?.retryAfter ? undefined : savedFailure
+    if (!username || !password)
+      return context.json(
+        problem(400, "invalid-login", "로그인 입력 오류", "아이디와 비밀번호를 입력해 주세요."),
+        400,
       )
-      context.header("set-cookie", sessionCookie(result.sessionToken, managementAuth))
-      return context.redirect(result.returnTo)
-    } catch (error) {
-      const detail = error instanceof Error ? error.message : "Google 로그인을 완료하지 못했습니다."
-      return context.json(problem(401, "google-login-failed", "관리자 로그인 실패", detail), 401)
+    const result = await authenticateLocalAdmin(managementStore, username, password)
+    if (!result) {
+      const attempts = (previousFailure?.attempts ?? 0) + 1
+      failedLogins.set(attemptKey, {
+        attempts,
+        retryAfter: attempts >= 5 ? Date.now() + 15 * 60_000 : 0,
+      })
+      return context.json(
+        problem(401, "login-failed", "로그인 실패", "아이디 또는 비밀번호가 올바르지 않습니다."),
+        401,
+      )
     }
+    failedLogins.delete(attemptKey)
+    context.header("set-cookie", sessionCookie(result.sessionToken, managementAuth))
+    return context.json({ username: result.session.username, expiresAt: result.session.expiresAt })
   })
 
   app.post("/api/v1/admin/auth/logout", async (context) => {
@@ -221,7 +220,7 @@ export function createApp(options: AppOptions = {}): Hono {
     const session = await authenticatedEmail(context)
     if (!session)
       return context.json(
-        problem(401, "not-authenticated", "로그인 필요", "Google 로그인이 필요합니다."),
+        problem(401, "not-authenticated", "로그인 필요", "관리자 로그인이 필요합니다."),
         401,
       )
     const status = context.req.query("status")
@@ -239,7 +238,7 @@ export function createApp(options: AppOptions = {}): Hono {
     const session = await authenticatedEmail(context)
     if (!session)
       return context.json(
-        problem(401, "not-authenticated", "로그인 필요", "Google 로그인이 필요합니다."),
+        problem(401, "not-authenticated", "로그인 필요", "관리자 로그인이 필요합니다."),
         401,
       )
     const parsed = conferenceRequestInputSchema.safeParse(
@@ -250,14 +249,14 @@ export function createApp(options: AppOptions = {}): Hono {
         problem(400, "invalid-request", "입력 오류", "학회 추가 요청을 확인해 주세요."),
         400,
       )
-    return context.json(managementStore.createConferenceRequest(parsed.data, session.email), 201)
+    return context.json(managementStore.createConferenceRequest(parsed.data, session.username), 201)
   })
 
   app.get("/api/v1/admin/schedule-overrides", async (context) => {
     const session = await authenticatedEmail(context)
     if (!session)
       return context.json(
-        problem(401, "not-authenticated", "로그인 필요", "Google 로그인이 필요합니다."),
+        problem(401, "not-authenticated", "로그인 필요", "관리자 로그인이 필요합니다."),
         401,
       )
     const status = context.req.query("status")
@@ -275,7 +274,7 @@ export function createApp(options: AppOptions = {}): Hono {
     const session = await authenticatedEmail(context)
     if (!session)
       return context.json(
-        problem(401, "not-authenticated", "로그인 필요", "Google 로그인이 필요합니다."),
+        problem(401, "not-authenticated", "로그인 필요", "관리자 로그인이 필요합니다."),
         401,
       )
     const parsed = scheduleOverrideInputSchema.safeParse(
@@ -286,14 +285,14 @@ export function createApp(options: AppOptions = {}): Hono {
         problem(400, "invalid-request", "입력 오류", "일정 수정 요청을 확인해 주세요."),
         400,
       )
-    return context.json(managementStore.createScheduleOverride(parsed.data, session.email), 201)
+    return context.json(managementStore.createScheduleOverride(parsed.data, session.username), 201)
   })
 
   app.patch("/api/v1/admin/requests/:kind/:id/review", async (context) => {
     const session = await authenticatedEmail(context)
     if (!session)
       return context.json(
-        problem(401, "not-authenticated", "로그인 필요", "Google 로그인이 필요합니다."),
+        problem(401, "not-authenticated", "로그인 필요", "관리자 로그인이 필요합니다."),
         401,
       )
     const kind = managementRequestKindSchema.safeParse(context.req.param("kind"))
@@ -309,7 +308,7 @@ export function createApp(options: AppOptions = {}): Hono {
       kind.data,
       context.req.param("id"),
       review.data,
-      session.email,
+      session.username,
     )
     if (!updated)
       return context.json(

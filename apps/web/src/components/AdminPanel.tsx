@@ -36,7 +36,9 @@ export function AdminPanel({
   const titleId = useId()
   const config = useMemo(() => getManagementApiConfig(), [])
   const [mode, setMode] = useState<ManagementMode>("add")
-  const [session, setSession] = useState<{ readonly email: string }>()
+  const [session, setSession] = useState<{ readonly username: string }>()
+  const [username, setUsername] = useState("")
+  const [password, setPassword] = useState("")
   const [requests, setRequests] = useState<readonly ManagementRequestSummary[]>([])
   const [message, setMessage] = useState("")
   const [submitting, setSubmitting] = useState(false)
@@ -69,9 +71,19 @@ export function AdminPanel({
     [editionId, editions],
   )
 
-  function signIn() {
+  async function signIn(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault()
     if (!config) return
-    signInManagementAdmin(config)
+    setSubmitting(true)
+    setMessage("")
+    try {
+      setSession(await signInManagementAdmin(config, username, password))
+      setPassword("")
+    } catch (reason) {
+      setMessage(reason instanceof Error ? reason.message : "관리자 로그인에 실패했습니다.")
+    } finally {
+      setSubmitting(false)
+    }
   }
 
   async function submitAddition(event: FormEvent<HTMLFormElement>) {
@@ -171,14 +183,34 @@ export function AdminPanel({
           </button>
         </fieldset>
         {config ? (
-          <button
-            className="management-sign-in"
-            disabled={submitting || Boolean(session)}
-            onClick={signIn}
-            type="button"
-          >
-            {session ? "관리자 인증됨" : "Google로 관리자 인증"}
-          </button>
+          session ? (
+            <p className="management-setup">{session.username} 관리자 인증됨</p>
+          ) : (
+            <form className="management-login" onSubmit={(event) => void signIn(event)}>
+              <input
+                aria-label="관리자 아이디"
+                autoComplete="username"
+                disabled={submitting}
+                onChange={(event) => setUsername(event.target.value)}
+                placeholder="관리자 아이디"
+                required
+                value={username}
+              />
+              <input
+                aria-label="관리자 비밀번호"
+                autoComplete="current-password"
+                disabled={submitting}
+                onChange={(event) => setPassword(event.target.value)}
+                placeholder="비밀번호"
+                required
+                type="password"
+                value={password}
+              />
+              <button className="management-sign-in" disabled={submitting} type="submit">
+                로그인
+              </button>
+            </form>
+          )
         ) : (
           <p className="management-setup">관리 서버 연결 후 활성화됩니다.</p>
         )}

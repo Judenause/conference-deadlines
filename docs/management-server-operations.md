@@ -1,20 +1,18 @@
 # 자체 관리 서버 운영
 
-공개 카탈로그는 계속 GitHub의 `data/seed/catalog-state.json`과 GitHub Pages가 담당한다. 이 서버는 Google 관리자 로그인, 추가·수정 요청, 검수 기록만 SQLite에 저장한다. 승인된 신규 학회만 주간 GitHub Actions가 읽어 검수 PR 후보로 만든다. 서버 DB가 공개 일정의 원본이 되지 않는다.
+공개 카탈로그는 계속 GitHub의 `data/seed/catalog-state.json`과 GitHub Pages가 담당한다. 이 서버는 자체 관리자 ID/PW 로그인, 추가·수정 요청, 검수 기록만 SQLite에 저장한다. 승인된 신규 학회만 주간 GitHub Actions가 읽어 검수 PR 후보로 만든다. 서버 DB가 공개 일정의 원본이 되지 않는다.
 
 ## 구성
 
 | 경계 | 담당 |
 | --- | --- |
 | `https://skku-iris-lab.github.io/conference-deadlines/` | 읽기 전용 공개 페이지와 Manage 화면 |
-| `https://manage.iris-lab.skku.edu` | Google OAuth, 관리자 세션, SQLite 관리 요청 API |
+| `https://manage.iris-lab.skku.edu` | 관리자 ID/PW 세션, SQLite 관리 요청 API |
 | GitHub Actions | 승인된 신규 요청 수집, 검수 PR, 테스트, Pages 배포 |
 
 ## 한 번만 할 설정
 
-1. Google Cloud Console에서 OAuth **Web application** 클라이언트를 만든다.
-2. Authorized redirect URI에 `https://manage.iris-lab.skku.edu/api/v1/admin/auth/google/callback`을 추가한다. 이 구현은 서버 OAuth code flow이므로 Google JavaScript origin 등록은 필요하지 않다.
-3. 서버에서 다음 파일을 만들고 권한을 제한한다.
+1. 서버에서 다음 파일을 만들고 권한을 제한한다.
 
 ```bash
 sudo install -d -m 700 /etc/conference-deadlines
@@ -24,19 +22,21 @@ sudo chmod 600 /etc/conference-deadlines/conference-deadlines.env
 sudoedit /etc/conference-deadlines/conference-deadlines.env
 ```
 
-`GOOGLE_CLIENT_SECRET`과 `MANAGEMENT_SYNC_TOKEN`은 이 파일 밖에 복사하거나 Git에 넣지 않는다. `MANAGEMENT_SYNC_TOKEN`은 32바이트 이상의 무작위 값으로 만든다.
+`MANAGEMENT_ADMIN_PASSWORD_HASH`와 `MANAGEMENT_SYNC_TOKEN`은 이 파일 밖에 복사하거나 Git에 넣지 않는다. 비밀번호 해시는 아래처럼 Argon2id로 만든다.
 
 ```bash
-openssl rand -base64 48
+read -rsp "관리자 비밀번호: " MANAGEMENT_PASSWORD; echo
+MANAGEMENT_PASSWORD="$MANAGEMENT_PASSWORD" /home/jhso/.bun/bin/bun -e 'console.log(await Bun.password.hash(process.env.MANAGEMENT_PASSWORD!, { algorithm: "argon2id" }))'
+unset MANAGEMENT_PASSWORD
 ```
 
-4. GitHub 저장소 Settings → Secrets and variables → Actions에 다음을 설정한다.
+2. GitHub 저장소 Settings → Secrets and variables → Actions에 다음을 설정한다.
 
    - Variable `VITE_MANAGEMENT_API_URL`: `https://manage.iris-lab.skku.edu`
    - Variable `MANAGEMENT_API_URL`: `https://manage.iris-lab.skku.edu`
    - Secret `MANAGEMENT_SYNC_TOKEN`: 서버 환경 파일의 동일한 값
 
-5. systemd와 Caddy 설정을 반영한다.
+3. systemd와 Caddy 설정을 반영한다.
 
 ```bash
 sudo cp /srv/lab-infra/deploy/conference-deadlines@.service /etc/systemd/system/
@@ -45,7 +45,7 @@ sudo systemctl enable --now conference-deadlines@conference-deadlines
 cd /srv/lab-infra && ./proxy/px.sh reload
 ```
 
-6. GitHub Pages를 한 번 다시 배포해 `VITE_MANAGEMENT_API_URL`을 번들에 넣는다. 이후 Manage 화면에서 Google 로그인을 완료하면 `MANAGEMENT_ADMIN_EMAILS`에 든 계정만 요청을 만들거나 검수할 수 있다.
+4. GitHub Pages를 한 번 다시 배포해 `VITE_MANAGEMENT_API_URL`을 번들에 넣는다. 이후 Manage 화면에서 `MANAGEMENT_ADMIN_USERNAME`과 비밀번호로 로그인한다.
 
 ## 요청 상태와 검수
 

@@ -12,7 +12,7 @@ import {
 } from "@conf/contracts"
 
 export interface AdminSession {
-  readonly email: string
+  readonly username: string
   readonly expiresAt: string
 }
 
@@ -152,8 +152,14 @@ export class ManagementStore {
       );
       CREATE TABLE IF NOT EXISTS sessions (
         token_hash TEXT PRIMARY KEY,
-        email TEXT NOT NULL,
+        username TEXT NOT NULL,
         expires_at TEXT NOT NULL
+      );
+      CREATE TABLE IF NOT EXISTS admin_users (
+        username TEXT PRIMARY KEY,
+        password_hash TEXT NOT NULL,
+        enabled INTEGER NOT NULL DEFAULT 1,
+        created_at TEXT NOT NULL
       );
       CREATE TABLE IF NOT EXISTS audit_log (
         id TEXT PRIMARY KEY,
@@ -321,18 +327,34 @@ export class ManagementStore {
 
   saveSession(tokenHash: string, session: AdminSession): void {
     this.#database
-      .query("INSERT INTO sessions (token_hash, email, expires_at) VALUES (?, ?, ?)")
-      .run(tokenHash, session.email, session.expiresAt)
+      .query("INSERT INTO sessions (token_hash, username, expires_at) VALUES (?, ?, ?)")
+      .run(tokenHash, session.username, session.expiresAt)
   }
 
   getSession(tokenHash: string): AdminSession | undefined {
     const row = this.#database
-      .query("SELECT email, expires_at FROM sessions WHERE token_hash = ? AND expires_at > ?")
-      .get(tokenHash, now()) as { email: string; expires_at: string } | null
-    return row ? { email: row.email, expiresAt: row.expires_at } : undefined
+      .query("SELECT username, expires_at FROM sessions WHERE token_hash = ? AND expires_at > ?")
+      .get(tokenHash, now()) as { username: string; expires_at: string } | null
+    return row ? { username: row.username, expiresAt: row.expires_at } : undefined
   }
 
   deleteSession(tokenHash: string): void {
     this.#database.query("DELETE FROM sessions WHERE token_hash = ?").run(tokenHash)
+  }
+
+  bootstrapAdmin(username: string, passwordHash: string): void {
+    const existing = this.#database.query("SELECT 1 FROM admin_users LIMIT 1").get()
+    if (existing) return
+    this.#database
+      .query("INSERT INTO admin_users (username, password_hash, created_at) VALUES (?, ?, ?)")
+      .run(username, passwordHash, now())
+    this.recordAudit(username, "bootstrap-admin", "admin-user", username)
+  }
+
+  getAdminPasswordHash(username: string): string | undefined {
+    const row = this.#database
+      .query("SELECT password_hash FROM admin_users WHERE username = ? AND enabled = 1")
+      .get(username) as { password_hash: string } | null
+    return row?.password_hash
   }
 }

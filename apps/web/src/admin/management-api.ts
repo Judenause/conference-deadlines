@@ -12,7 +12,7 @@ export interface ManagementApiConfig {
 }
 
 export interface ManagementAdminSession {
-  readonly email: string
+  readonly username: string
   readonly expiresAt: string
 }
 
@@ -25,11 +25,14 @@ export interface ManagementRequestSummary {
   readonly submittedAt: string
 }
 
-const sessionSchema = z.object({ email: z.string().email(), expiresAt: z.string().datetime() })
+const sessionSchema = z.object({
+  username: z.string().min(3).max(64),
+  expiresAt: z.string().datetime(),
+})
 const requestMetadataSchema = z.object({
   id: z.string().uuid(),
   status: managementRequestStatusSchema,
-  submittedBy: z.string().email(),
+  submittedBy: z.string().min(1),
   submittedAt: z.string().datetime(),
 })
 const conferenceRequestListSchema = z.object({
@@ -80,10 +83,17 @@ export async function getManagementAdminSession(
   return sessionSchema.parse(await response.json())
 }
 
-export function signInManagementAdmin(config: ManagementApiConfig): void {
-  const destination = new URL("/api/v1/admin/auth/google/start", config.apiUrl)
-  destination.searchParams.set("returnTo", window.location.href)
-  window.location.assign(destination.href)
+export async function signInManagementAdmin(
+  config: ManagementApiConfig,
+  username: string,
+  password: string,
+): Promise<ManagementAdminSession> {
+  const response = await request(config, "/api/v1/admin/auth/login", {
+    method: "POST",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify({ username, password }),
+  })
+  return sessionSchema.parse(await response.json())
 }
 
 export async function submitConferenceRequest(

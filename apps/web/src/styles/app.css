@@ -1954,6 +1954,23 @@ footer {
   grid-column: 2;
 }
 
+.management-login {
+  display: inline-flex;
+  gap: var(--space-2);
+}
+
+.management-login input {
+  width: 8.5rem;
+  min-height: var(--management-control-height);
+  padding-inline: var(--space-3);
+  border: 1px solid var(--border-default);
+  border-radius: var(--management-control-radius);
+  background: var(--bg-surface);
+  color: var(--text-primary);
+  font: inherit;
+  font-size: var(--text-caption);
+}
+
 .management-tabs {
   display: inline-flex;
   gap: var(--space-1);

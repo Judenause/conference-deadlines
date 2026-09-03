@@ -9,7 +9,7 @@ import { AdminPanel } from "./AdminPanel"
 const managementMocks = vi.hoisted(() => ({
   signIn: vi.fn(),
   getSession: vi.fn(async () => ({
-    email: "operator@example.org",
+    username: "operator",
     expiresAt: "2027-01-01T00:00:00.000Z",
   })),
   getRequests: vi.fn(async () => []),
