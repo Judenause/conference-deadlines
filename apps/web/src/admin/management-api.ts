@@ -67,6 +67,8 @@ async function request(
   const response = await fetch(endpoint(config, path), { ...init, credentials: "include" })
   if (!response.ok) {
     if (response.status === 401) throw new Error("관리자 로그인이 필요합니다.")
+    const body = (await response.json().catch(() => undefined)) as { detail?: unknown } | undefined
+    if (typeof body?.detail === "string") throw new Error(body.detail)
     throw new Error("관리 서버 요청을 처리하지 못했습니다. 잠시 후 다시 시도해 주세요.")
   }
   return response
@@ -162,4 +164,12 @@ export async function reviewManagementRequest(
     headers: { "content-type": "application/json" },
     body: JSON.stringify({ status, note: "" }),
   })
+}
+
+export async function logoutManagementAdmin(config: ManagementApiConfig): Promise<void> {
+  await request(config, "/api/v1/admin/auth/logout", { method: "POST" })
+}
+
+export async function dispatchManagementReview(config: ManagementApiConfig): Promise<void> {
+  await request(config, "/api/v1/admin/actions/weekly-source-monitor", { method: "POST" })
 }

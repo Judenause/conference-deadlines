@@ -5,9 +5,11 @@ import {
 } from "@conf/contracts"
 import { type FormEvent, useCallback, useEffect, useId, useMemo, useState } from "react"
 import {
+  dispatchManagementReview,
   getManagementAdminSession,
   getManagementApiConfig,
   getManagementRequests,
+  logoutManagementAdmin,
   type ManagementRequestSummary,
   reviewManagementRequest,
   signInManagementAdmin,
@@ -161,6 +163,30 @@ export function AdminPanel({
     }
   }
 
+  async function logout() {
+    if (!config) return
+    await logoutManagementAdmin(config)
+    setSession(undefined)
+    setRequests([])
+  }
+
+  async function createReview() {
+    if (!config) return
+    setSubmitting(true)
+    try {
+      await dispatchManagementReview(config)
+      setMessage(
+        "GitHub 검수 workflow를 시작했습니다. 완료 후 생성된 PR을 GitHub에서 병합해 주세요.",
+      )
+    } catch (reason) {
+      setMessage(
+        reason instanceof Error ? reason.message : "GitHub 검수 workflow를 시작하지 못했습니다.",
+      )
+    } finally {
+      setSubmitting(false)
+    }
+  }
+
   return (
     <section aria-labelledby={titleId} className="management-panel" id={id}>
       <div>
@@ -184,7 +210,14 @@ export function AdminPanel({
         </fieldset>
         {config ? (
           session ? (
-            <p className="management-setup">{session.username} 관리자 인증됨</p>
+            <span className="management-admin-actions">
+              <button disabled={submitting} onClick={() => void createReview()} type="button">
+                검수 PR 만들기
+              </button>
+              <button disabled={submitting} onClick={() => void logout()} type="button">
+                로그아웃
+              </button>
+            </span>
           ) : (
             <form className="management-login" onSubmit={(event) => void signIn(event)}>
               <input

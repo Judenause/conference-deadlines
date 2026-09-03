@@ -1959,6 +1959,11 @@ footer {
   gap: var(--space-2);
 }
 
+.management-admin-actions {
+  display: inline-flex;
+  gap: var(--space-2);
+}
+
 .management-login input {
   width: 8.5rem;
   min-height: var(--management-control-height);
@@ -1982,6 +1987,7 @@ footer {
 
 .management-tabs button,
 .management-sign-in,
+.management-admin-actions button,
 .management-form > button {
   min-height: var(--management-control-height);
   padding-inline: var(--space-4);
@@ -2004,18 +2010,21 @@ footer {
 }
 
 .management-sign-in,
+.management-admin-actions button:first-child,
 .management-form > button {
   background: var(--primary);
   color: var(--bg-surface);
 }
 
 .management-sign-in:disabled,
+.management-admin-actions button:disabled,
 .management-form :disabled {
   cursor: not-allowed;
   opacity: 1;
 }
 
 .management-sign-in:disabled,
+.management-admin-actions button:first-child:disabled,
 .management-form > button:disabled {
   border: 1px solid var(--border-default);
   background: var(--bg-soft);
@@ -2038,6 +2047,7 @@ footer {
 
 .management-tabs button:active,
 .management-sign-in:active,
+.management-admin-actions button:active,
 .management-form > button:active {
   transform: scale(0.98);
 }

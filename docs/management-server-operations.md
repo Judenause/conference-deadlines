@@ -7,7 +7,7 @@
 | 경계 | 담당 |
 | --- | --- |
 | `https://skku-iris-lab.github.io/conference-deadlines/` | 읽기 전용 공개 페이지와 Manage 화면 |
-| `https://manage.iris-lab.skku.edu` | 관리자 ID/PW 세션, SQLite 관리 요청 API |
+| Tailscale Funnel의 HTTPS URL | 관리자 ID/PW 세션, SQLite 관리 요청 API |
 | GitHub Actions | 승인된 신규 요청 수집, 검수 PR, 테스트, Pages 배포 |
 
 ## 한 번만 할 설정
@@ -32,20 +32,34 @@ unset MANAGEMENT_PASSWORD
 
 2. GitHub 저장소 Settings → Secrets and variables → Actions에 다음을 설정한다.
 
-   - Variable `VITE_MANAGEMENT_API_URL`: `https://manage.iris-lab.skku.edu`
-   - Variable `MANAGEMENT_API_URL`: `https://manage.iris-lab.skku.edu`
+   - Variable `VITE_MANAGEMENT_API_URL`: 현재 Funnel URL. 예: `https://iris-dashboard.jaglion-major.ts.net:10000`
+   - Variable `MANAGEMENT_API_URL`: 같은 Funnel URL
    - Secret `MANAGEMENT_SYNC_TOKEN`: 서버 환경 파일의 동일한 값
 
-3. systemd와 Caddy 설정을 반영한다.
+3. systemd 설정을 반영한다. Funnel을 사용하면 Caddy 설정은 필요 없다.
 
 ```bash
 sudo cp /srv/lab-infra/deploy/conference-deadlines@.service /etc/systemd/system/
 sudo systemctl daemon-reload
 sudo systemctl enable --now conference-deadlines@conference-deadlines
-cd /srv/lab-infra && ./proxy/px.sh reload
 ```
 
-4. GitHub Pages를 한 번 다시 배포해 `VITE_MANAGEMENT_API_URL`을 번들에 넣는다. 이후 Manage 화면에서 `MANAGEMENT_ADMIN_USERNAME`과 비밀번호로 로그인한다.
+4. GitHub Pages를 한 번 다시 배포해 `VITE_MANAGEMENT_API_URL`을 번들에 넣는다. 이후 `#/manage`에서 `MANAGEMENT_ADMIN_USERNAME`과 비밀번호로 로그인한다.
+
+## 관리 화면에서 검수 PR 만들기
+
+관리 화면의 **검수 PR 만들기**는 `weekly-source-monitor` GitHub Actions를 시작한다. Action이 변경점을 검수 PR로 만들고, **병합은 GitHub에서 사람이 직접** 한다. 서버가 `main`을 직접 병합하지 않는다.
+
+이를 쓰려면 GitHub 조직에서 GitHub App을 한 번 만들고 `conference-deadlines` 저장소에만 설치한다. App의 Repository permissions에서 **Actions: Read and write**를 부여하고 webhook은 끈다. App ID, 해당 저장소 installation ID, 생성한 private key를 서버 환경 파일에만 넣는다.
+
+```ini
+GITHUB_APP_ID=123456
+GITHUB_APP_INSTALLATION_ID=12345678
+GITHUB_APP_PRIVATE_KEY="-----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY-----"
+GITHUB_REPOSITORY=SKKU-IRIS-Lab/conference-deadlines
+```
+
+private key는 GitHub에서 다시 표시되지 않으므로 내려받은 직후 서버에만 보관하고, Git이나 GitHub Actions Secret에 넣지 않는다. 환경 파일을 바꾼 뒤 `sudo systemctl restart conference-deadlines@conference-deadlines`를 실행한다.
 
 ## 요청 상태와 검수
 
@@ -56,6 +70,6 @@ cd /srv/lab-infra && ./proxy/px.sh reload
 - SQLite 파일: `/var/lib/conference-deadlines/management.sqlite`
 - 백업: 서비스 중지 없이 `sqlite3 ... '.backup /안전한/백업경로/management.sqlite'`로 매일 복사한다.
 - 상태 확인: `systemctl status conference-deadlines@conference-deadlines`
-- API 확인: `curl https://manage.iris-lab.skku.edu/api/v1/health`
+- API 확인: `curl https://iris-dashboard.jaglion-major.ts.net:10000/api/v1/health`
 
-HTTPS가 아닌 주소에서는 교차 사이트 관리자 쿠키를 안전하게 쓸 수 없으므로 운영 환경에는 Caddy의 TLS 종료가 필수다.
+HTTPS가 아닌 주소에서는 교차 사이트 관리자 쿠키를 안전하게 쓸 수 없으므로 운영 환경에는 Funnel 또는 Caddy 같은 TLS 종료가 필요하다.

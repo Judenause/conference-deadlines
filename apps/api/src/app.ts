@@ -18,6 +18,7 @@ import {
   readManagementAuthConfig,
   sessionCookie,
 } from "./admin-auth"
+import { dispatchWeeklySourceMonitor, readGitHubAppConfig } from "./github-app"
 import { ManagementStore } from "./management-store"
 
 function problem(status: number, slug: string, title: string, detail: string) {
@@ -45,6 +46,7 @@ export function createApp(options: AppOptions = {}): Hono {
   const managementStore = options.managementStore ?? defaultManagementStore()
   const managementAuth = options.managementAuth ?? readManagementAuthConfig()
   const managementSyncToken = options.managementSyncToken ?? Bun.env.MANAGEMENT_SYNC_TOKEN
+  const githubApp = readGitHubAppConfig()
   if (managementAuth) {
     managementStore.bootstrapAdmin(
       managementAuth.initialAdminUsername,
@@ -209,6 +211,33 @@ export function createApp(options: AppOptions = {}): Hono {
     await deleteSession(managementStore, readCookie(context.req.raw, "conference_admin_session"))
     context.header("set-cookie", sessionCookie("", managementAuth, 0))
     return context.body(null, 204)
+  })
+
+  app.post("/api/v1/admin/actions/weekly-source-monitor", async (context) => {
+    const session = await authenticatedEmail(context)
+    if (!session)
+      return context.json(
+        problem(401, "not-authenticated", "로그인 필요", "관리자 로그인이 필요합니다."),
+        401,
+      )
+    if (!githubApp)
+      return context.json(
+        problem(
+          503,
+          "github-app-unconfigured",
+          "GitHub App 미설정",
+          "검수 PR 생성 권한이 설정되지 않았습니다.",
+        ),
+        503,
+      )
+    try {
+      await dispatchWeeklySourceMonitor(githubApp)
+      return context.json({ status: "started" }, 202)
+    } catch (error) {
+      const detail =
+        error instanceof Error ? error.message : "GitHub 검수 workflow를 시작하지 못했습니다."
+      return context.json(problem(502, "workflow-dispatch-failed", "검수 시작 실패", detail), 502)
+    }
   })
 
   async function authenticatedEmail(context: { readonly req: { readonly raw: Request } }) {

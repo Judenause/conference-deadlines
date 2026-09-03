@@ -12,6 +12,7 @@ afterEach(() => {
   vi.restoreAllMocks()
   vi.useRealTimers()
   window.localStorage.clear()
+  window.location.hash = ""
   delete document.documentElement.dataset.theme
 })
 

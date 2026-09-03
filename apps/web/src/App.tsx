@@ -44,6 +44,13 @@ export function App() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState("")
   const [compact, setCompact] = useState(false)
+  const [managementPage, setManagementPage] = useState(() => window.location.hash === "#/manage")
+
+  useEffect(() => {
+    const update = () => setManagementPage(window.location.hash === "#/manage")
+    window.addEventListener("hashchange", update)
+    return () => window.removeEventListener("hashchange", update)
+  }, [])
 
   useEffect(() => {
     document.documentElement.dataset.theme = theme
@@ -165,95 +172,104 @@ export function App() {
       </a>
       <SiteNavigation
         exploreHref={`#${exploreId}`}
-        manageHref={`#${managementId}`}
+        manageHref="#/manage"
         onNavigateView={setView}
         onToggleTheme={() => setTheme((current) => (current === "light" ? "dark" : "light"))}
         productHref={`#${productId}`}
         theme={theme}
       />
       <main id={mainId}>
-        <Hero id={exploreId} lastUpdated={lastUpdated}>
-          <CatalogControls
-            onQueryChange={(nextQuery) => {
-              setQuery(nextQuery)
-              setSelected(undefined)
-            }}
-            query={query}
-            searchRef={searchRef}
-          />
-        </Hero>
-        <section aria-labelledby={productTitleId} className="product-shell" id={productId}>
-          <ProductHeader
-            calendarPanelId={calendarPanelId}
-            categories={categories}
-            category={category}
-            count={filtered.length}
-            headingId={productTitleId}
-            listPanelId={listPanelId}
-            onCategoryChange={(nextCategory) => {
-              setCategory(nextCategory)
-              setSelected(undefined)
-            }}
-            onViewChange={setView}
-            timelinePanelId={timelinePanelId}
-            view={view}
-          />
-          {error ? (
-            <ErrorState message={error} />
-          ) : (
-            <div className="catalog-layout" data-has-selection={Boolean(selected)} data-view={view}>
-              <section
-                aria-busy={loading}
-                aria-label="학회 일정 검색 결과"
-                aria-labelledby={`${view === "list" ? listPanelId : view === "timeline" ? timelinePanelId : calendarPanelId}-tab`}
-                className="results-column"
-                id={
-                  view === "list"
-                    ? listPanelId
-                    : view === "timeline"
-                      ? timelinePanelId
-                      : calendarPanelId
-                }
-                role="tabpanel"
-              >
-                <div className="results-head">
-                  <p>
-                    <strong>{filtered.length}</strong> curated schedules
-                  </p>
-                </div>
-                {loading && editions.length === 0 ? (
-                  <output className="skeleton-list">일정을 불러오는 중...</output>
-                ) : (
-                  <EditionResults
-                    editions={filtered}
-                    groupByCategory={category === "전체"}
-                    onSelect={selectEdition}
-                    selectedId={selected?.id}
-                    view={view}
-                  />
-                )}
-              </section>
-              {compact && selected ? (
-                <button
-                  aria-label="상세 닫기"
-                  className="evidence-scrim"
-                  onClick={() => setSelected(undefined)}
-                  tabIndex={-1}
-                  type="button"
-                />
-              ) : null}
-              <EvidencePanel
-                compact={compact}
-                edition={selected}
-                evidence={evidence}
-                history={history}
-                loading={loading && Boolean(selected)}
-                onClose={() => setSelected(undefined)}
+        {managementPage ? (
+          <AdminPanel editions={editions} id={managementId} />
+        ) : (
+          <>
+            <Hero id={exploreId} lastUpdated={lastUpdated}>
+              <CatalogControls
+                onQueryChange={(nextQuery) => {
+                  setQuery(nextQuery)
+                  setSelected(undefined)
+                }}
+                query={query}
+                searchRef={searchRef}
               />
-            </div>
-          )}
-        </section>
-        <AdminPanel editions={editions} id={managementId} />
+            </Hero>
+            <section aria-labelledby={productTitleId} className="product-shell" id={productId}>
+              <ProductHeader
+                calendarPanelId={calendarPanelId}
+                categories={categories}
+                category={category}
+                count={filtered.length}
+                headingId={productTitleId}
+                listPanelId={listPanelId}
+                onCategoryChange={(nextCategory) => {
+                  setCategory(nextCategory)
+                  setSelected(undefined)
+                }}
+                onViewChange={setView}
+                timelinePanelId={timelinePanelId}
+                view={view}
+              />
+              {error ? (
+                <ErrorState message={error} />
+              ) : (
+                <div
+                  className="catalog-layout"
+                  data-has-selection={Boolean(selected)}
+                  data-view={view}
+                >
+                  <section
+                    aria-busy={loading}
+                    aria-label="학회 일정 검색 결과"
+                    aria-labelledby={`${view === "list" ? listPanelId : view === "timeline" ? timelinePanelId : calendarPanelId}-tab`}
+                    className="results-column"
+                    id={
+                      view === "list"
+                        ? listPanelId
+                        : view === "timeline"
+                          ? timelinePanelId
+                          : calendarPanelId
+                    }
+                    role="tabpanel"
+                  >
+                    <div className="results-head">
+                      <p>
+                        <strong>{filtered.length}</strong> curated schedules
+                      </p>
+                    </div>
+                    {loading && editions.length === 0 ? (
+                      <output className="skeleton-list">일정을 불러오는 중...</output>
+                    ) : (
+                      <EditionResults
+                        editions={filtered}
+                        groupByCategory={category === "전체"}
+                        onSelect={selectEdition}
+                        selectedId={selected?.id}
+                        view={view}
+                      />
+                    )}
+                  </section>
+                  {compact && selected ? (
+                    <button
+                      aria-label="상세 닫기"
+                      className="evidence-scrim"
+                      onClick={() => setSelected(undefined)}
+                      tabIndex={-1}
+                      type="button"
+                    />
+                  ) : null}
+                  <EvidencePanel
+                    compact={compact}
+                    edition={selected}
+                    evidence={evidence}
+                    history={history}
+                    loading={loading && Boolean(selected)}
+                    onClose={() => setSelected(undefined)}
+                  />
+                </div>
+              )}
+            </section>
+          </>
+        )}
       </main>
       <SiteFooter />
     </div>
