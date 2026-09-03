@@ -3,7 +3,12 @@ import { fetchConferenceRequestSource, syncConferenceRequests } from "./conferen
 import { crawlFixture, crawlLive } from "./crawl"
 import { readConferenceRequests } from "./firestore-requests"
 import { auditFutureEditionSchedules, formatScheduleAuditReport } from "./schedule-audit"
-import { runSourceMonitor, writeMonitorReview, writeScheduleUpdates } from "./source-monitor"
+import {
+  isAutoMergeEligible,
+  runSourceMonitor,
+  writeMonitorReview,
+  writeScheduleUpdates,
+} from "./source-monitor"
 
 async function main(): Promise<void> {
   const args = process.argv.slice(2)
@@ -37,12 +42,25 @@ async function main(): Promise<void> {
     return
   }
   if (args[0] === "monitor") {
+    const withinDaysIndex = args.indexOf("--deadline-within-days")
+    const withinDaysValue = withinDaysIndex >= 0 ? Number(args[withinDaysIndex + 1]) : undefined
+    if (
+      withinDaysIndex >= 0 &&
+      (withinDaysValue === undefined ||
+        !Number.isInteger(withinDaysValue) ||
+        withinDaysValue < 1 ||
+        withinDaysValue > 90)
+    )
+      throw new Error("--deadline-within-days는 1부터 90 사이의 정수여야 합니다.")
     const catalog = catalogSchema.parse(await Bun.file("data/seed/catalog-state.json").json())
     const run = await runSourceMonitor(
       "data/seed/catalog-state.json",
       "data/monitor/source-state.json",
+      withinDaysValue === undefined ? {} : { deadlineWithinDays: withinDaysValue },
     )
-    const findings = auditFutureEditionSchedules(catalog)
+    // Future-edition audits are meaningful for the weekly full scan. Running
+    // them during every narrow daily scan would reopen the same review PR.
+    const findings = withinDaysValue === undefined ? auditFutureEditionSchedules(catalog) : []
     if (run.changes.length > 0 || findings.length > 0 || run.scheduleProposals.length > 0) {
       await writeMonitorReview(
         "data/monitor/source-state.json",
@@ -61,6 +79,7 @@ async function main(): Promise<void> {
           sourceCount: run.sources.length,
           changeCount: run.changes.length,
           scheduleProposalCount: run.scheduleProposals.length,
+          autoMergeEligible: isAutoMergeEligible(run),
           staleFutureScheduleCount: findings.length,
         },
         null,
@@ -69,7 +88,9 @@ async function main(): Promise<void> {
     return
   }
   if (args[0] !== "crawl")
-    throw new Error("사용법: crawl --source <registered-id> [--live] | monitor | sync-requests")
+    throw new Error(
+      "사용법: crawl --source <registered-id> [--live] | monitor [--deadline-within-days 1..90] | sync-requests",
+    )
   const sourceIndex = args.indexOf("--source")
   const sourceId = sourceIndex >= 0 ? args[sourceIndex + 1] : undefined
   if (!sourceId) throw new Error("--source에는 등록된 소스 ID가 필요합니다.")

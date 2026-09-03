@@ -19,7 +19,7 @@ bun apps/api/src/server.ts
 bun --filter @conf/web build && bun --filter @conf/web preview
 ```
 
-결정적 초기 데이터는 `data/seed`에, 실행 중 생성되는 데이터는 Git에서 제외된 `.local/runtime`에 둡니다. 단일 소스의 실시간 크롤링은 등록된 소스 ID를 명시한 운영자 명령에서 opt-in으로 실행하고, 전체 카탈로그의 월간 점검은 GitHub Actions가 자동 실행합니다. 테스트와 빌드는 네트워크에 접근하지 않습니다.
+결정적 초기 데이터는 `data/seed`에, 실행 중 생성되는 데이터는 Git에서 제외된 `.local/runtime`에 둡니다. 단일 소스의 실시간 크롤링은 등록된 소스 ID를 명시한 운영자 명령에서 opt-in으로 실행합니다. GitHub Actions는 30일 이내 마감을 매일 점검하고 전체 카탈로그는 매주 점검합니다. 테스트와 빌드는 네트워크에 접근하지 않습니다.
 
 ## 안전 경계
 
@@ -39,7 +39,7 @@ bun packages/crawler/src/cli.ts crawl --source cui-2026-official
 
 등록된 공식 소스를 실시간으로 확인할 때만 `--live`를 추가합니다. HTTPS, 정확한 허용 호스트, 공개 IP, `robots.txt`, 응답 형식, 2 MiB 크기, 10초 제한을 통과해야 수집됩니다. 현재 화면의 CUI 레코드는 재현 가능한 fixture/seed이며 실시간 최신값이라고 주장하지 않습니다.
 
-월간 모니터는 공식 HTML에서 명확한 일정 라벨과 날짜를 찾으면 기존 트랙과 일치하는 변경안을 `data/seed/catalog-state.json`에 제안하고, 근거와 함께 검수 PR을 만듭니다. 시간대가 없으면 AoE 임시 계산과 `시간대 검수 필요` 상태로 제안하며, 같은 종류의 트랙이 여러 개이거나 날짜 형식이 모호하면 자동 변경하지 않습니다.
+모니터는 공식 HTML에서 명확한 일정 라벨과 날짜를 찾으면 기존 트랙과 일치하는 변경안을 `data/seed/catalog-state.json`에 제안하고, 근거와 함께 검수 PR을 만듭니다. 30일 이내 마감은 매일, 전체 카탈로그는 매주 점검합니다. 시간대가 없으면 AoE 임시 계산과 `시간대 검수 필요` 상태로 제안하며, 같은 종류의 트랙이 여러 개이거나 날짜 형식이 모호하면 자동 변경하지 않습니다.
 
 ## 배포 경계
 
@@ -55,8 +55,8 @@ bun run build:pages
 
 GitHub 저장소의 `Settings → Pages → Source`를 `GitHub Actions`로 선택하면 `main` 브랜치 갱신 시 `.github/workflows/pages.yml`이 사이트를 자동 배포합니다. 운영자가 검수한 `data/seed/catalog-state.json`이 공개 데이터가 되며, 라이브 크롤링 결과는 검수 없이 자동 게시하지 않습니다.
 
-## 월간 공식 URL 점검
+## 일일·주간 공식 URL 점검
 
-`.github/workflows/monthly-source-monitor.yml`은 매월 1일 09:00 KST에 현재 카탈로그의 모든 학회 `officialUrl`을 한 번씩 확인합니다. 같은 도메인 안의 URL 이동, 콘텐츠 변경, 접근 불가 상태와 미래 에디션에 과거 일정만 남은 상태를 `data/monitor` 검수 PR에 기록합니다. 공식 HTML에서 추출한 일정 변경은 근거와 함께 같은 PR에 제안되며, 운영자가 공식 URL을 확인해 병합해야 Pages에 게시됩니다.
+`.github/workflows/daily-deadline-monitor.yml`은 매일 09:00 KST에 30일 이내 제출 마감이 있는 학회의 공식 URL만 확인합니다. `.github/workflows/monthly-source-monitor.yml`은 매주 월요일 03:00 KST에 전체 카탈로그를 확인합니다. URL 이동, 콘텐츠 변경, 접근 불가 상태와 미래 에디션에 과거 일정만 남은 상태는 `data/monitor` 검수 PR에 기록합니다. 공식 HTML에서 추출한 일정 변경은 근거와 함께 같은 PR에 제안됩니다. `confirmed` 시간대, 0.98 이상 신뢰도, 동일 공식 호스트, 관련 콘텐츠 변경만 모두 만족한 일일 변경은 테스트·빌드 후 자동 병합하며, 그 외에는 운영자가 검토해 병합해야 Pages에 게시됩니다.
 
-첫 수동 실행은 GitHub의 `Actions → monthly-source-monitor → Run workflow`에서 시작합니다. 초기 실행은 모든 공식 URL의 기준 fingerprint를 기록하는 검수 PR을 하나 만듭니다.
+첫 수동 실행은 GitHub의 `Actions → weekly-source-monitor → Run workflow`에서 시작합니다. 초기 실행은 모든 공식 URL의 기준 fingerprint를 기록하는 검수 PR을 하나 만듭니다.

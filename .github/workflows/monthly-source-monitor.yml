@@ -1,8 +1,9 @@
-name: monthly-source-monitor
+name: weekly-source-monitor
 
 on:
   schedule:
-    - cron: "0 0 1 * *"
+    # Monday 03:00 KST. The daily imminent-deadline monitor runs at 09:00 KST.
+    - cron: "0 18 * * 0"
   workflow_dispatch:
 
 permissions:
@@ -10,7 +11,7 @@ permissions:
   pull-requests: write
 
 concurrency:
-  group: monthly-source-monitor
+  group: weekly-source-monitor
   cancel-in-progress: false
 
 jobs:
@@ -68,11 +69,11 @@ jobs:
       - if: steps.change.outputs.changed == 'true'
         uses: peter-evans/create-pull-request@v8
         with:
-          branch: automation/monthly-source-monitor
+          branch: automation/weekly-source-monitor
           delete-branch: true
-          commit-message: "chore(crawler): record monthly source review"
-          title: "Monthly official-source review"
+          commit-message: "chore(crawler): record weekly source review"
+          title: "Weekly official-source review"
           body: |
-            This automated review records source health, redirects, content fingerprints, and stale future-edition schedule findings.
+            This automated review records source health, redirects, content fingerprints, and stale future-edition schedule findings for the full catalogue.
             It also proposes unambiguous deadline changes extracted from official pages, with source evidence in the catalog.
             Review every proposed date and merge only when the official page confirms it. Merging triggers the GitHub Pages deployment.

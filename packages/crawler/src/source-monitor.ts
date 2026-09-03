@@ -74,6 +74,12 @@ export interface MonitorRun {
   readonly scheduleProposals: readonly ScheduleProposal[]
 }
 
+export interface SourceMonitorOptions {
+  /** Only inspect editions with a submission deadline in this many upcoming days. */
+  readonly deadlineWithinDays?: number
+  readonly now?: Date
+}
+
 function registeredSource(source: MonitorSource): RegisteredSource | undefined {
   const url = new URL(source.canonicalUrl)
   if (url.protocol !== "https:") return undefined
@@ -90,8 +96,27 @@ async function sha256(value: string): Promise<string> {
   return Array.from(new Uint8Array(digest), (byte) => byte.toString(16).padStart(2, "0")).join("")
 }
 
-export function monitorSources(catalog: Catalog): readonly MonitorSource[] {
-  return catalog.editions
+function hasDeadlineWithinDays(edition: Catalog["editions"][number], now: Date, days: number) {
+  const start = now.getTime()
+  const end = start + days * 86_400_000
+  return edition.deadlines.some((deadline) => {
+    const dueAt = new Date(deadline.dueAtUtc).getTime()
+    return Number.isFinite(dueAt) && dueAt >= start && dueAt <= end
+  })
+}
+
+export function monitorSources(
+  catalog: Catalog,
+  options: SourceMonitorOptions = {},
+): readonly MonitorSource[] {
+  const now = options.now ?? new Date()
+  const editions =
+    options.deadlineWithinDays === undefined
+      ? catalog.editions
+      : catalog.editions.filter((edition) =>
+          hasDeadlineWithinDays(edition, now, options.deadlineWithinDays ?? 0),
+        )
+  return editions
     .flatMap((edition) => [
       {
         id: edition.id,
@@ -233,9 +258,10 @@ export async function readSourceState(path: string): Promise<SourceState> {
 export async function runSourceMonitor(
   catalogPath: string,
   statePath: string,
+  options: SourceMonitorOptions = {},
 ): Promise<MonitorRun> {
   const catalog = catalogSchema.parse(await Bun.file(catalogPath).json())
-  const sources = monitorSources(catalog)
+  const sources = monitorSources(catalog, options)
   const previous = await readSourceState(statePath)
   const checks: SourceCheck[] = []
   const pages: SourcePageObservations[] = []
@@ -244,17 +270,53 @@ export async function runSourceMonitor(
     checks.push(result.check)
     if (result.page) pages.push(result.page)
   }
-  const state = createSourceState(checks)
+  const checkedState = createSourceState(checks)
+  // A partial daily scan must not erase fingerprints for sources reserved for
+  // the weekly full scan. The full scan remains the canonical reconciliation.
+  const state =
+    options.deadlineWithinDays === undefined
+      ? checkedState
+      : {
+          schemaVersion: 1 as const,
+          sources: { ...previous.sources, ...checkedState.sources },
+        }
   return {
     sources,
     state,
-    changes: compareSourceStates(previous, state),
+    changes: compareSourceStates(previous, checkedState),
     scheduleProposals: buildScheduleProposals(catalog, pages),
   }
 }
 
+/**
+ * This is intentionally narrower than a valid proposal. Auto-merge is only
+ * allowed for a high-confidence, confirmed deadline from its own unchanged
+ * official host; URL moves, outages, ambiguous timezones, and unrelated page
+ * changes always remain in a human review PR.
+ */
+export function isAutoMergeEligible(run: MonitorRun): boolean {
+  if (run.scheduleProposals.length === 0) return false
+  const proposedEditionIds = new Set(run.scheduleProposals.map((proposal) => proposal.editionId))
+  const proposalsAreStrict = run.scheduleProposals.every((proposal) => {
+    const officialHost = new URL(proposal.officialUrl).hostname
+    const sourceHost = new URL(proposal.sourceUrl).hostname
+    return (
+      proposal.status === "confirmed" && proposal.confidence >= 0.98 && officialHost === sourceHost
+    )
+  })
+  const changesAreScoped = run.changes.every((change) => {
+    const editionId = change.id.split(":", 1)[0]
+    return (
+      editionId !== undefined &&
+      change.kind === "content-changed" &&
+      proposedEditionIds.has(editionId)
+    )
+  })
+  return proposalsAreStrict && changesAreScoped
+}
+
 export function formatMonitorReport(run: MonitorRun): string {
-  const lines = ["# Monthly official-source review", ""]
+  const lines = ["# Official-source review", ""]
   if (run.changes.length === 0) lines.push("No source changes detected.", "")
   else {
     lines.push(`${run.changes.length} source change(s) require review.`, "")

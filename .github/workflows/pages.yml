@@ -3,6 +3,21 @@ name: publish-pages
 on:
   push:
     branches: [main]
+    # Monitoring reports and source fingerprints do not alter the static
+    # catalogue, so they should not spend a Pages build.
+    paths:
+      - apps/web/**
+      - packages/contracts/**
+      - packages/domain/**
+      - packages/storage/**
+      - data/seed/catalog-state.json
+      - package.json
+      - bun.lock
+      - tsconfig.json
+      - tsconfig.base.json
+      - biome.json
+      - scripts/verify-design-contract.ts
+      - .github/workflows/pages.yml
   workflow_dispatch:
 
 permissions:
